@@ -1,6 +1,7 @@
 
 import React from 'react';
 import styles from './styles.scss';
+import RoomLabel from '../01-atoms/RoomLabel';
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
         Check out the Tools section for an outline of the libraries that
         are used in this Starter-kyt.
       </p>
+      <RoomLabel name="blurg" />
     </section>
   );
 }
