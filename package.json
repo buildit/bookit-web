@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "enzyme": "^2.4.1",
-    "react-addons-test-utils": "^15.3.0"
+    "react-addons-test-utils": "^15.3.0",
+    "@kadira/storybook": "^2.21.0"
   },
   "scripts": {
     "dev": "kyt dev",
@@ -30,6 +31,8 @@
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
     "lint-style": "kyt lint-style",
-    "kyt:help": "kyt --help"
+    "kyt:help": "kyt --help",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   }
 }
