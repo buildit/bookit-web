@@ -1,10 +1,10 @@
 {
-  "name": "",
+  "name": "bookit-react",
   "version": "1.0.0",
-  "description": "",
+  "description": "Meeting room booking application - user-facing",
   "main": "",
   "author": "",
-  "license": "",
+  "license": "Apache-2.0",
   "dependencies": {
     "babel-preset-kyt-react": "0.1.1",
     "html-webpack-plugin": "^2.22.0",
@@ -19,6 +19,10 @@
     "enzyme": "^2.4.1",
     "react-addons-test-utils": "^15.3.0",
     "@kadira/storybook": "^2.21.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/buildit/bookit-react.git"
   },
   "scripts": {
     "dev": "kyt dev",
