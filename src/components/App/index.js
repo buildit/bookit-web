@@ -5,7 +5,7 @@ import Link from 'react-router/lib/Link';
 import styles from './styles.scss';
 import updateMessage from '../../actions';
 
-function App({ children, message, onMessageClick }) {
+function App({ children, message, onMessageClick, onUserFetchRequest }) {
   return (
     <div>
       <i className={styles.logo} />
@@ -23,6 +23,14 @@ function App({ children, message, onMessageClick }) {
         }}
       >
         Click me!
+      </button>
+      <button
+        onClick={() => {
+          console.log('clicked user fetch button');
+          onUserFetchRequest();
+        }}
+      >
+        Fetch pandas
       </button>
       <div> {message} </div>
       <div className={styles.content}>
@@ -44,6 +52,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onMessageClick: () => {
     dispatch(updateMessage());
+  },
+  onUserFetchRequest: () => {
+    console.log('dispatching USER_FETCH_REQUESTED');
+    dispatch({ type: 'USER_FETCH_REQUESTED', payload: { userId: 'aww' } });
   },
 });
 
