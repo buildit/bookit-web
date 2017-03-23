@@ -10,6 +10,7 @@ const RoomLabel = ({ name = '' }: { name: string }) => (
 );
 
 RoomLabel.propTypes = {
+  name: PropTypes.string,
 };
 
 export default RoomLabel;
