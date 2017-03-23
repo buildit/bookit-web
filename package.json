@@ -20,12 +20,14 @@
     "@types/enzyme": "^2.7.6",
     "@types/jest": "^19.2.2",
     "enzyme": "^2.4.1",
+    "pre-commit": "^1.2.2",
     "react-addons-test-utils": "^15.3.0"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/buildit/bookit-react.git"
   },
+  "pre-commit": ["test", "lint"],
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",

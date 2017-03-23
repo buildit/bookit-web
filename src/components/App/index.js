@@ -34,6 +34,8 @@ function App({ children, message, onMessageClick }) {
 
 App.propTypes = {
   children: PropTypes.node,
+  message: PropTypes.string,
+  onMessageClick: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -52,5 +54,4 @@ const ConnectedApp = connect(
   mapDispatchToProps,
 )(App);
 
-export {App, ConnectedApp};
-
+export { App, ConnectedApp };

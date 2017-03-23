@@ -1,6 +1,6 @@
 const initialState = {
-  message: 'Nothing'
-}
+  message: 'Nothing',
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
