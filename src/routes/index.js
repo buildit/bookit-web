@@ -2,7 +2,7 @@
 import React from 'react';
 import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';
-import App from '../components/App';
+import {ConnectedApp} from '../components/App';
 
 // Webpack 2 supports ES2015 `System.import` by auto-
 // chunking assets. Check out the following for more:
@@ -23,7 +23,7 @@ const importTools = (nextState, cb) => {
 // We use `getComponent` to dynamically load routes.
 // https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
 const routes = (
-  <Route path="/" component={App}>
+  <Route path="/" component={ConnectedApp}>
     <IndexRoute getComponent={importHome} />
     <Route path="tools" getComponent={importTools} />
   </Route>
