@@ -1,8 +1,9 @@
+// @flow
 
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 
-const RoomLabel = ({ name = '' }) => (
+const RoomLabel = ({ name = '' }: { name: string }) => (
   <div className={styles.roomLabel}>
     <span className={styles.foo}>{ name }</span>
   </div>
