@@ -64,5 +64,5 @@ const ConnectedApp = connect(
   mapDispatchToProps,
 )(App);
 
+export {App, ConnectedApp};
 
-export default ConnectedApp;

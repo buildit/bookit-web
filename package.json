@@ -18,9 +18,11 @@
     "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
+    "@types/enzyme": "^2.7.6",
+    "@types/jest": "^19.2.2",
     "enzyme": "^2.4.1",
-    "react-addons-test-utils": "^15.3.0",
-    "@kadira/storybook": "^2.21.0"
+    "react-addons-test-utils": "^15.3.0"
   },
   "repository": {
     "type": "git",
