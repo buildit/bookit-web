@@ -2,7 +2,7 @@
 import React from 'react';
 import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';
-import {ConnectedApp} from '../components/App';
+import { ConnectedApp } from '../components/App';
 
 // Webpack 2 supports ES2015 `System.import` by auto-
 // chunking assets. Check out the following for more:
