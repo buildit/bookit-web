@@ -3,10 +3,13 @@
     "eslint-config-kyt"
   ],
 
+  "parser": "babel-eslint",
+
   "env": {
   },
 
   "plugins": [
+    "flowtype"
   ],
 
   "rules": {
