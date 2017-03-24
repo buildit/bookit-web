@@ -2,6 +2,8 @@
   height: 10px;
   background: gray;
   border-radius: 5px;
+  position: absolute;
+  margin-top: 10px;
 
   &.isOwnedByUser {
     background: rgb(33, 148, 239);

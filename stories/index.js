@@ -3,6 +3,8 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Button from './Button';
 import RoomLabel from '../src/components/01-atoms/RoomLabel';
 import Meeting from '../src/components/01-atoms/Meeting';
+import Timeline from '../src/components/02-molecules/Timeline';
+import Room from '../src/components/02-molecules/Room';
 import Welcome from './Welcome';
 
 storiesOf('Welcome', module)
@@ -32,4 +34,17 @@ storiesOf('Meeting', module)
   ))
   .add('an hour and a half', () => (
     <Meeting duration={1.5} isOwnedByUser={true} />
+  ))
+
+storiesOf('Timeline', module)
+  .add('contains a meeting', () => (
+    <Timeline/>
+  ))
+  .add('displays meetings according to when they begin', () => (
+    <Timeline/>
+  ))
+
+storiesOf('Room', module)
+  .add('displays the name and timeline', () => (
+    <Room/>
   ))

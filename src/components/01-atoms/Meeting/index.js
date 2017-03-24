@@ -6,11 +6,18 @@ const calculateWidth = (duration) => {
   return width;
 };
 
-const Meeting = ({ isOwnedByUser, duration = 0 }) => {
+const calculateLeft = (hoursFromBeginningOfDay) => {
+  const left = 100 * hoursFromBeginningOfDay;
+  return left;
+}
+
+const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
   const width = calculateWidth(duration);
+  const left = calculateLeft(hoursFromBeginningOfDay);
 
   const calculatedStyles = {
     width,
+    left
   };
 
   if (isOwnedByUser) {
