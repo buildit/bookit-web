@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import styles from './styles.scss';
-import Meeting from '../../01-atoms/Meeting/index.js';
+import Meeting from '../../01-atoms/Meeting';
 
-const startTime = 8;
+// const startTime = 8;
 
 // const meetings = [
 //   {
@@ -33,6 +33,6 @@ const Timeline = () => (
   <div className={styles.timeline}>
     <Meeting duration={1} hoursFromBeginningOfDay={3} />
   </div>
-)
+);
 
 export default Timeline;

@@ -9,7 +9,7 @@ const calculateWidth = (duration) => {
 const calculateLeft = (hoursFromBeginningOfDay) => {
   const left = 100 * hoursFromBeginningOfDay;
   return left;
-}
+};
 
 const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
   const width = calculateWidth(duration);
@@ -17,7 +17,7 @@ const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
 
   const calculatedStyles = {
     width,
-    left
+    left,
   };
 
   if (isOwnedByUser) {
@@ -35,6 +35,7 @@ const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
 Meeting.propTypes = {
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
+  hoursFromBeginningOfDay: PropTypes.number,
 };
 
 export default Meeting;

@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import styles from './styles.scss';
-import Timeline from '../../02-molecules/Timeline/index.js';
+import Timeline from '../../02-molecules/Timeline';
 
-const Room = () => {
-  return <div className={styles.room}>
+const Room = () => (
+  <div className={styles.room}>
     <div>Blue</div>
-    <Timeline/>
+    <Timeline />
   </div>
-}
+);
 
 export default Room;

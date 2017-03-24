@@ -33,7 +33,10 @@
     "type": "git",
     "url": "git+ssh://git@github.com/buildit/bookit-react.git"
   },
-  "pre-commit": ["test", "lint"],
+  "pre-commit": [
+    "test",
+    "lint"
+  ],
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",
