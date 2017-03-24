@@ -1,0 +1,9 @@
+.meeting {
+  height: 10px;
+  background: gray;
+  border-radius: 5px;
+
+  &.isOwnedByUser {
+    background: rgb(33, 148, 239);
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Button from './Button';
 import RoomLabel from '../src/components/01-atoms/RoomLabel';
+import Meeting from '../src/components/01-atoms/Meeting';
 import Welcome from './Welcome';
 
 storiesOf('Welcome', module)
@@ -20,4 +21,15 @@ storiesOf('Button', module)
 storiesOf('RoomLabel', module)
   .add('plain', () => (
     <RoomLabel name='Blue'/>
+  ))
+
+storiesOf('Meeting', module)
+  .add('is not owned by user', () => (
+    <Meeting duration={1} />
+  ))
+  .add('is owned by user', () => (
+    <Meeting duration={1} isOwnedByUser={true} />
+  ))
+  .add('an hour and a half', () => (
+    <Meeting duration={1.5} isOwnedByUser={true} />
   ))
