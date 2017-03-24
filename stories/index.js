@@ -37,14 +37,28 @@ storiesOf('Meeting', module)
   ))
 
 storiesOf('Timeline', module)
-  .add('contains a meeting', () => (
-    <Timeline/>
-  ))
-  .add('displays meetings according to when they begin', () => (
-    <Timeline/>
-  ))
+  .add('with one meeting', () => {
+    const exampleMeetings = [
+      {
+        startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: '1.5', // hours
+        isOwnedByUser: true,
+      },
+    ]
+    return <Timeline meetings={exampleMeetings} />;
+  })
 
 storiesOf('Room', module)
-  .add('displays the name and timeline', () => (
-    <Room/>
-  ))
+  .add('displays the name and timeline', () => {
+    const exampleRoom = {
+      name: 'Blue',
+      meetings: [
+        {
+          startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: '1.5', // hours
+          isOwnedByUser: true,
+        }
+      ],
+    };
+    return <Room room={exampleRoom} />;
+  });
