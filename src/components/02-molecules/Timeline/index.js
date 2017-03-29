@@ -1,8 +1,19 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
+
+import Timeblock from '../../01-atoms/Timeblock';
 import Meeting from '../../01-atoms/Meeting';
 
-// const startTime = 8;
+const timeblocks = () => {
+  const blocks = [];
+  let n = 0;
+
+  while (n < 24) {
+    n += 1;
+    blocks.push(<Timeblock />);
+  }
+  return blocks;
+};
 
 // const meetings = [
 //   {
@@ -34,12 +45,17 @@ const Timeline = ({ meetings = [] }) => {
     <Meeting
       isOwnedByUser={meeting.isOwnedByUser}
       duration={meeting.duration}
-      hoursFromBeginningOfDay={meeting.startTime}
+      startTime={meeting.startTime}
     />
   );
 
   return (<div className={styles.timeline}>
-    {timelineMeetings}
+    <div className={styles.timelineTimeblocks}>
+      {timeblocks()}
+    </div>
+    <div className={styles.timelineMeetings}>
+      {timelineMeetings}
+    </div>
   </div>);
 };
 

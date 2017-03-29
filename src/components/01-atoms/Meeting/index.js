@@ -1,19 +1,21 @@
 import React, { PropTypes } from 'react';
+
+import moment from 'moment';
+
 import styles from './styles.scss';
 
-const calculateWidth = (duration) => {
-  const width = (100 * duration) - 3;
-  return width;
+const WIDTH = 82;
+
+const calculateWidth = duration => (WIDTH - 2) * duration;
+
+const calculateOffset = (startTime) => {
+  const startTimeObj = moment(startTime);
+  return (WIDTH * (startTimeObj.hour() + (startTimeObj.minutes() / 60)));
 };
 
-const calculateLeft = (hoursFromBeginningOfDay) => {
-  const left = 100 * hoursFromBeginningOfDay;
-  return left;
-};
-
-const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
+const Meeting = ({ isOwnedByUser, duration = 0, startTime }) => {
   const width = calculateWidth(duration);
-  const left = calculateLeft(hoursFromBeginningOfDay);
+  const left = calculateOffset(startTime);
 
   const calculatedStyles = {
     width,
@@ -38,7 +40,7 @@ const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
 Meeting.propTypes = {
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
-  hoursFromBeginningOfDay: PropTypes.number,
+  startTime: PropTypes.string,
 };
 
 export default Meeting;

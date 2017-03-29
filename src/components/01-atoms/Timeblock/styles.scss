@@ -1,0 +1,13 @@
+@import '../../../shared-styles/variables';
+
+.timeblock {
+  background-color: $blackish;
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  margin-right: 2px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

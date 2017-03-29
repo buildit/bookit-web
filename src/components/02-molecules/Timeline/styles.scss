@@ -1,13 +1,15 @@
-.timeline {
-  width: 500px;
+@import '../../../shared-styles/variables';
+
+.timelineTimeblocks {
   height: 30px;
-  background:
-    repeating-linear-gradient(
-      to right,
-      #141516,
-      #141516 97px,
-      #2b3947 97px,
-      #2b3947 100px
-    );
+  width: 1966px;
+}
+
+.timeline {
+  display: inline-block;
+  float: left;
+  // width: 500px;
+  height: 30px;
+  background-color: $darkblue;
   position: relative;
 }

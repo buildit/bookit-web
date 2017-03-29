@@ -1,3 +1,26 @@
+@import '../../../shared-styles/variables';
+
 .room {
-  background: white;
+  background-color: $darkblue;
+  height: 30px;
+  padding-left: 122px;
+  position: relative;
+  width: 3000px;
+}
+
+.roomName {
+  background-color: $darkblue;
+  color: white;
+  display: block;
+
+  font-family: HelveticaNeue;
+  font-weight: normal;
+  font-size: 18px;
+  font-style: normal;
+  left: 0;
+  line-height: 30px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 120px;
 }

@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
+
 import Timeline from '../../02-molecules/Timeline';
 
 const Room = ({ room }) => (
   <div className={styles.room}>
-    <div>{ room.name }</div>
     <Timeline meetings={room.meetings} />
+    <div className={styles.roomName}>{ room.name }</div>
   </div>
 );
 
