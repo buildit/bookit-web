@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 
 const calculateWidth = (duration) => {
-  const width = 100 * duration;
+  const width = (100 * duration) - 3;
   return width;
 };
 

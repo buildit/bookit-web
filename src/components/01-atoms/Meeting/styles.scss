@@ -1,9 +1,14 @@
 .meeting {
-  height: 10px;
-  background: gray;
-  border-radius: 5px;
+  height: 30px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #141516,
+      #141516 5px,
+      #2c3a47 5px,
+      #2c3a47 10px
+    );
   position: absolute;
-  margin-top: 10px;
 
   &.isOwnedByUser {
     background: rgb(33, 148, 239);
