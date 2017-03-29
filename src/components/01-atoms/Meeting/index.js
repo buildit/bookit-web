@@ -24,7 +24,10 @@ const Meeting = ({ isOwnedByUser, duration = 0, hoursFromBeginningOfDay }) => {
     return (<div
       className={`${styles.meeting} ${styles.isOwnedByUser}`}
       style={calculatedStyles}
-    />);
+    >
+      <i />
+    </div>
+    );
   }
   return (<div
     className={styles.meeting}

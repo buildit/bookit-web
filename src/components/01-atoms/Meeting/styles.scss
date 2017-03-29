@@ -4,13 +4,33 @@
     repeating-linear-gradient(
       45deg,
       #141516,
-      #141516 5px,
-      #2c3a47 5px,
-      #2c3a47 10px
+      #141516 4px,
+      #2c3a47 4px,
+      #2c3a47 8px
     );
   position: absolute;
 
   &.isOwnedByUser {
-    background: rgb(33, 148, 239);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        #141516,
+        #141516 6px,
+        #2c3a47 2px,
+        #2c3a47 8px
+      );
+    i {
+      display: inline-block;
+      position: absolute;
+      left: 50%;
+      margin-left: -10px;
+      top: 50%;
+      margin-top: -10px;
+      text-align: center;
+      background: #fbfe34;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
   }
 }
