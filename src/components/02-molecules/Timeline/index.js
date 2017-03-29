@@ -29,7 +29,7 @@ import Meeting from '../../01-atoms/Meeting';
 //   </div>
 // }
 
-const Timeline = ({ viewingDate, meetings = [] }) => {
+const Timeline = ({ meetings = [] }) => {
   const timelineMeetings = meetings.map(meeting =>
     <Meeting
       isOwnedByUser={meeting.isOwnedByUser}
@@ -44,7 +44,6 @@ const Timeline = ({ viewingDate, meetings = [] }) => {
 };
 
 Timeline.propTypes = {
-  viewingDate: PropTypes.string,
   meetings: PropTypes.arrayOf(PropTypes.object),
 };
 
