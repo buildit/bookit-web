@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 import Meeting from '../../01-atoms/Meeting';
 
@@ -29,10 +29,23 @@ import Meeting from '../../01-atoms/Meeting';
 //   </div>
 // }
 
-const Timeline = () => (
-  <div className={styles.timeline}>
-    <Meeting duration={1} hoursFromBeginningOfDay={3} />
-  </div>
-);
+const Timeline = ({ viewingDate, meetings = [] }) => {
+  const timelineMeetings = meetings.map(meeting =>
+    <Meeting
+      isOwnedByUser={meeting.isOwnedByUser}
+      duration={meeting.duration}
+      hoursFromBeginningOfDay={meeting.startTime}
+    />
+  );
+
+  return (<div className={styles.timeline}>
+    {timelineMeetings}
+  </div>);
+};
+
+Timeline.propTypes = {
+  viewingDate: PropTypes.string,
+  meetings: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default Timeline;

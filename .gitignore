@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 
 .floo*
+.tern-port
 
 # Runtime data
 pids
