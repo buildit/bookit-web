@@ -6,6 +6,39 @@ import Meeting from '../src/components/01-atoms/Meeting';
 import Timeblock from '../src/components/01-atoms/Timeblock';
 import Timeline from '../src/components/02-molecules/Timeline';
 import Room from '../src/components/02-molecules/Room';
+import Agenda from '../src/components/02-molecules/Agenda';
+
+storiesOf('Agenda', module)
+  .add('displays multiple rooms', () => {
+    const exampleRooms = [
+      {
+        name: 'Blue',
+        meetings: [
+          {
+            startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+            duration: '1.5', // hours
+            isOwnedByUser: true,
+          },
+        ],
+      },
+      {
+        name: 'Red',
+        meetings: [
+          {
+            startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+            duration: '1.0', // hours
+            isOwnedByUser: true,
+          },
+          {
+            startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+            duration: '5.0', // hours
+            isOwnedByUser: false,
+          },
+        ],
+      },
+    ];
+    return <Agenda rooms={exampleRooms} />;
+  });
 
 storiesOf('Room', module)
   .add('displays the name and timeline', () => {
