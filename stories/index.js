@@ -34,6 +34,23 @@ storiesOf('Timeline', module)
     return <Timeline meetings={exampleMeetings} />;
   });
 
+storiesOf('Timeline', module)
+  .add('with multiple meetings', () => {
+    const exampleMeetings = [
+      {
+        startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: '2.0', // hours
+        isOwnedByUser: true,
+      },
+      {
+        startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: '4.0', // hours
+        isOwnedByUser: false,
+      },
+    ];
+    return <Timeline meetings={exampleMeetings} />;
+  });
+
 storiesOf('Timeblock', module)
   .add('displays a representation of an hour of time', () => (
     <Timeblock />
@@ -52,4 +69,3 @@ storiesOf('Meeting', module)
   .add('an hour and a half', () => (
     <Meeting duration={1.5} isOwnedByUser />
   ));
-
