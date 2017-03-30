@@ -4,6 +4,7 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 
 import Meeting from '../src/components/01-atoms/Meeting';
 import Timeblock from '../src/components/01-atoms/Timeblock';
+import Timelabel from '../src/components/01-atoms/Timelabel';
 import Timeline from '../src/components/02-molecules/Timeline';
 import Room from '../src/components/02-molecules/Room';
 import Agenda from '../src/components/02-molecules/Agenda';
@@ -101,4 +102,12 @@ storiesOf('Meeting', module)
   ))
   .add('an hour and a half', () => (
     <Meeting duration={1.5} isOwnedByUser />
+  ));
+
+storiesOf('Timelabel', module)
+  .add('displays 8:00am', () => (
+    <Timelabel hour="8" />
+  ))
+  .add('displays 7:00pm', () => (
+    <Timelabel hour="7" postMeridian="true" />
   ));

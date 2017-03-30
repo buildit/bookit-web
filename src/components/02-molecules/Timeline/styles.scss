@@ -1,15 +1,22 @@
-@import '../../../shared-styles/variables';
+@import '../../../shared-styles/bookit';
+
+.timeline {
+  display: inline-block;
+  float: left;
+  height: 30px;
+  background-color: $darkblue;
+  position: relative;
+}
 
 .timelineTimeblocks {
   height: 30px;
   width: 1966px;
 }
 
-.timeline {
-  display: inline-block;
-  float: left;
-  // width: 500px;
+.timelineMeetings {
+  position: absolute;
   height: 30px;
-  background-color: $darkblue;
-  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
 }

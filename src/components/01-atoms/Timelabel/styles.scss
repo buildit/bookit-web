@@ -1,0 +1,19 @@
+@import '../../../shared-styles/bookit';
+
+.timelabel {
+  background-color: $darkblue;
+  color: white;
+  display: inline-block;
+  font-family: $base-font-family;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 30px;
+  padding-left: 2px;
+  width: 78px;
+  height: 30px;
+  margin-right: 2px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

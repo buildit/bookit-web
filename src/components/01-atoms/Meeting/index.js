@@ -9,6 +9,7 @@ const WIDTH = 82;
 const calculateWidth = duration => (WIDTH * duration) - 2;
 
 const calculateOffset = (startTime) => {
+  if (startTime === undefined) return 0;
   const startTimeObj = moment(startTime);
   return (WIDTH * (startTimeObj.hour() + (startTimeObj.minutes() / 60)));
 };

@@ -1,3 +1,5 @@
+@import '../../../shared-styles/bookit';
+
 .meeting {
   height: 30px;
   background:
@@ -24,11 +26,10 @@
 
     i {
       display: inline-block;
-      position: absolute;
+      position: relative;
       left: 50%;
       margin-left: -10px;
-      top: 50%;
-      margin-top: -10px;
+      top: 5px;
       text-align: center;
       background: #fbfe34;
       border-radius: 50%;

@@ -1,8 +1,9 @@
-@import '../../../shared-styles/variables';
+@import '../../../shared-styles/bookit';
 
 .room {
   background-color: $darkblue;
   height: 30px;
+  margin-bottom: 50px;
   padding-left: 122px;
   position: relative;
   width: 3000px;
@@ -12,14 +13,15 @@
   background-color: $darkblue;
   color: white;
   display: block;
-  font-family: HelveticaNeue;
-  font-weight: normal;
-  font-size: 18px;
+  font-family: $base-font-family;
+  font-weight: 300;
+  font-size: $base-font-size;
   font-style: normal;
   left: 0;
   line-height: 30px;
   position: absolute;
   text-align: center;
   top: 0;
+  user-select: none;
   width: 120px;
 }
