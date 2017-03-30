@@ -6,7 +6,7 @@ import styles from './styles.scss';
 
 const WIDTH = 82;
 
-const calculateWidth = duration => (WIDTH - 2) * duration;
+const calculateWidth = duration => (WIDTH * duration) - 2;
 
 const calculateOffset = (startTime) => {
   const startTimeObj = moment(startTime);
