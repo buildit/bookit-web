@@ -4,7 +4,7 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 
 import Meeting from '../src/components/01-atoms/Meeting';
 import Timeblock from '../src/components/01-atoms/Timeblock';
-import Timelabel from '../src/components/01-atoms/Timelabel';
+import TimelineLabelList from '../src/components/01-atoms/TimelineLabelList';
 import Timeline from '../src/components/02-molecules/Timeline';
 import Room from '../src/components/02-molecules/Room';
 import Agenda from '../src/components/02-molecules/Agenda';
@@ -12,16 +12,6 @@ import Agenda from '../src/components/02-molecules/Agenda';
 storiesOf('Agenda', module)
   .add('displays multiple rooms', () => {
     const exampleRooms = [
-      {
-        name: 'Blue',
-        meetings: [
-          {
-            startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
-            duration: '1.5', // hours
-            isOwnedByUser: true,
-          },
-        ],
-      },
       {
         name: 'Red',
         meetings: [
@@ -37,6 +27,23 @@ storiesOf('Agenda', module)
           },
         ],
       },
+      { name: 'Green', meetings: [] },
+      {
+        name: 'Blue',
+        meetings: [
+          {
+            startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+            duration: '1.5', // hours
+            isOwnedByUser: true,
+          },
+        ],
+      },
+      { name: 'Black', meetings: [] },
+      { name: 'Orange', meetings: [] },
+      { name: 'Pink', meetings: [] },
+      { name: 'White', meetings: [] },
+      { name: 'Violet', meetings: [] },
+      { name: 'Yellow', meetings: [] },
     ];
     return <Agenda rooms={exampleRooms} />;
   });
@@ -104,10 +111,7 @@ storiesOf('Meeting', module)
     <Meeting duration={1.5} isOwnedByUser />
   ));
 
-storiesOf('Timelabel', module)
-  .add('displays 8:00am', () => (
-    <Timelabel hour="8" />
-  ))
-  .add('displays 7:00pm', () => (
-    <Timelabel hour="7" postMeridian="true" />
+storiesOf('TimelineLabelList', module)
+  .add('displays hour-blocked list of times', () => (
+    <TimelineLabelList />
   ));
