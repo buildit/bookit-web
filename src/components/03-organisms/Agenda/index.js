@@ -6,6 +6,7 @@ import styles from './styles.scss';
 
 import Room from '../../02-molecules/Room';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
+import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ viewDate, rooms = [] }) => {
   viewDate = moment(viewDate);
@@ -15,6 +16,7 @@ const Agenda = ({ viewDate, rooms = [] }) => {
       <div className={styles.agenda}>
         <TimelineLabelList />
         { rooms.map(room => <Room room={room} />) }
+        <CurrentTimeIndicator />
       </div>
     </div>
   );
