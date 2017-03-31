@@ -5,7 +5,7 @@ import Timeline from '../../02-molecules/Timeline';
 
 const Room = ({ room }) => (
   <div className={styles.room}>
-    <Timeline meetings={room.meetings} />
+    <Timeline roomName={room.name} meetings={room.meetings} />
     <div className={styles.roomName}>{ room.name }</div>
   </div>
 );

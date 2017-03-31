@@ -9,13 +9,13 @@ import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ viewDate, rooms = [] }) => {
-  viewDate = moment(viewDate);
+  const currentViewDate = moment(viewDate);
 
   return (
     <div>
       <div className={styles.agenda}>
         <TimelineLabelList />
-        { rooms.map(room => <Room room={room} />) }
+        { rooms.map(room => <Room key={room.name} room={room} />) }
         <CurrentTimeIndicator />
       </div>
     </div>

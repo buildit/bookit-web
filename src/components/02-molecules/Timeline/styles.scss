@@ -3,19 +3,22 @@
 .timeline {
   display: inline-block;
   float: left;
-  height: 30px;
-  background-color: $darkblue;
+  height: $agenda-row-height;
+  background:
+    repeating-linear-gradient(
+      to right,
+      $blackish,
+      $blackish 79px,
+      $darkblue 79px,
+      $darkblue 82px
+    );
   position: relative;
+  width: $agenda-room-total-width;
 }
 
-.timelineTimeblocks {
-  height: 30px;
-  width: 1966px;
-}
-
-.timelineMeetings {
+.meetings {
   position: absolute;
-  height: 30px;
+  height: $agenda-row-height;
   left: 0;
   right: 0;
   top: 0;

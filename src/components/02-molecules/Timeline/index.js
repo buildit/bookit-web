@@ -1,23 +1,12 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 
-import Timeblock from '../../01-atoms/Timeblock';
 import Meeting from '../../01-atoms/Meeting';
 
-const timeblocks = () => {
-  const blocks = [];
-  let n = 0;
-
-  while (n < 24) {
-    n += 1;
-    blocks.push(<Timeblock />);
-  }
-  return blocks;
-};
-
-const Timeline = ({ meetings = [] }) => {
-  const timelineMeetings = meetings.map(meeting =>
+const Timeline = ({ roomName, meetings = [] }) => {
+  const timelineMeetings = meetings.map((meeting, index) =>
     <Meeting
+      key={`${roomName}-${index}`}
       isOwnedByUser={meeting.isOwnedByUser}
       duration={meeting.duration}
       startTime={meeting.startTime}
@@ -25,16 +14,14 @@ const Timeline = ({ meetings = [] }) => {
   );
 
   return (<div className={styles.timeline}>
-    <div className={styles.timelineTimeblocks}>
-      {timeblocks()}
-    </div>
-    <div className={styles.timelineMeetings}>
+    <div className={styles.meetings}>
       {timelineMeetings}
     </div>
   </div>);
 };
 
 Timeline.propTypes = {
+  roomName: PropTypes.string.isRequired,
   meetings: PropTypes.arrayOf(PropTypes.object),
 };
 

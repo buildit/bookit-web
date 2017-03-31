@@ -2,11 +2,11 @@
 
 .room {
   background-color: $darkblue;
-  height: 30px;
+  height: $agenda-row-height;
   margin-bottom: 50px;
   padding-left: 122px;
   position: relative;
-  width: 3000px;
+  width: 1968px;
 }
 
 .roomName {
@@ -18,7 +18,7 @@
   font-size: $base-font-size;
   font-style: normal;
   left: 0;
-  line-height: 30px;
+  line-height: $agenda-row-height;
   position: absolute;
   text-align: center;
   top: 0;

@@ -19,7 +19,9 @@ const timeLabels = () => {
 
 const TimelineLabelList = () => (
   <div className={styles.timelabels}>
-    { timeLabels().map(timeLabel => <div className={styles.timelabel}>{timeLabel}</div>) }
+    { timeLabels().map((timeLabel, index) =>
+      <div key={index} className={styles.timelabel}>{timeLabel}</div>
+    )}
   </div>
 );
 

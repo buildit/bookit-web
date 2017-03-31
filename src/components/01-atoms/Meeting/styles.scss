@@ -1,15 +1,16 @@
 @import '../../../shared-styles/bookit';
 
 .meeting {
-  height: 30px;
+  height: $agenda-row-height;
   background:
     repeating-linear-gradient(
       45deg,
-      #141516,
-      #141516 4px,
-      #2c3a47 4px,
-      #2c3a47 8px
+      $blackish,
+      $blackish 4px,
+      $darkblue 4px,
+      $darkblue 8px
     );
+  border-right: solid 3px $darkblue;
   position: absolute;
   top: 0;
   width: 80px;
@@ -18,10 +19,10 @@
     background:
       repeating-linear-gradient(
         45deg,
-        #141516,
-        #141516 6px,
-        #2c3a47 2px,
-        #2c3a47 8px
+        $blackish,
+        $blackish 6px,
+        $darkblue 6px,
+        $darkblue 8px
       );
 
     i {
@@ -31,7 +32,7 @@
       margin-left: -10px;
       top: 5px;
       text-align: center;
-      background: #fbfe34;
+      background: $veryyellow;
       border-radius: 50%;
       width: 20px;
       height: 20px;
