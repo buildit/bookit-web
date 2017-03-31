@@ -25,3 +25,27 @@
   user-select: none;
   width: 120px;
 }
+
+.timeline {
+  display: inline-block;
+  float: left;
+  height: $agenda-row-height;
+  background:
+    repeating-linear-gradient(
+      to right,
+      $blackish,
+      $blackish 79px,
+      $darkblue 79px,
+      $darkblue 82px
+    );
+  position: relative;
+  width: $agenda-room-total-width;
+}
+
+.meetings {
+  position: absolute;
+  height: $agenda-row-height;
+  left: 0;
+  right: 0;
+  top: 0;
+}

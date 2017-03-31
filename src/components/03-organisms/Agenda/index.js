@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import styles from './styles.scss';
 
-import Room from '../../02-molecules/Room';
+import RoomTimeline from '../../02-molecules/RoomTimeline';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
@@ -15,7 +15,7 @@ const Agenda = ({ viewDate, rooms = [] }) => {
     <div>
       <div className={styles.agenda}>
         <TimelineLabelList />
-        { rooms.map(room => <Room key={room.name} room={room} />) }
+        { rooms.map(room => <RoomTimeline key={room.name} room={room} />) }
         <CurrentTimeIndicator />
       </div>
     </div>

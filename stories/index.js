@@ -4,8 +4,8 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 
 import Meeting from '../src/components/01-atoms/Meeting';
 import TimelineLabelList from '../src/components/01-atoms/TimelineLabelList';
-import Timeline from '../src/components/02-molecules/Timeline';
-import Room from '../src/components/02-molecules/Room';
+import RoomTimeline from '../src/components/02-molecules/RoomTimeline';
+// import Room from '../src/components/02-molecules/Room';
 import Agenda from '../src/components/03-organisms/Agenda';
 
 storiesOf('Agenda', module)
@@ -47,7 +47,7 @@ storiesOf('Agenda', module)
     return <Agenda rooms={exampleRooms} />;
   });
 
-storiesOf('Room', module)
+storiesOf('RoomTimeline', module)
   .add('displays the name and timeline', () => {
     const exampleRoom = {
       name: 'Blue',
@@ -59,36 +59,38 @@ storiesOf('Room', module)
         },
       ],
     };
-    return <Room room={exampleRoom} />;
-  });
-
-storiesOf('Timeline', module)
+    return <RoomTimeline room={exampleRoom} />;
+  })
   .add('with one meeting', () => {
-    const exampleMeetings = [
-      {
-        startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
-        duration: 1.0, // hours
-        isOwnedByUser: true,
-      },
-    ];
-    return <Timeline meetings={exampleMeetings} />;
-  });
-
-storiesOf('Timeline', module)
+    const exampleRoom = {
+      name: 'Cyan',
+      meetings: [
+        {
+          startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 1.0, // hours
+          isOwnedByUser: true,
+        },
+      ],
+    };
+    return <RoomTimeline room={exampleRoom} />;
+  })
   .add('with multiple meetings', () => {
-    const exampleMeetings = [
-      {
-        startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
-        duration: 2.0, // hours
-        isOwnedByUser: true,
-      },
-      {
-        startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
-        duration: 4.0, // hours
-        isOwnedByUser: false,
-      },
-    ];
-    return <Timeline meetings={exampleMeetings} />;
+    const exampleRoom = {
+      name: 'Rainbow',
+      meetings: [
+        {
+          startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 2.0, // hours
+          isOwnedByUser: true,
+        },
+        {
+          startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 4.0, // hours
+          isOwnedByUser: false,
+        },
+      ],
+    };
+    return <RoomTimeline room={exampleRoom} />;
   });
 
 storiesOf('Meeting', module)
@@ -96,10 +98,10 @@ storiesOf('Meeting', module)
     <Meeting duration={1} />
   ))
   .add('is owned by user', () => (
-    <Meeting duration={1} isOwnedByUser />
+    <Meeting isOwnedByUser duration={1} />
   ))
   .add('an hour and a half', () => (
-    <Meeting duration={1.5} isOwnedByUser />
+    <Meeting isOwnedByUser duration={1.5} />
   ));
 
 storiesOf('TimelineLabelList', module)
