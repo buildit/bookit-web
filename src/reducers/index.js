@@ -1,5 +1,6 @@
 const initialState = {
   message: 'Nothing',
+  meetings: [],
   rooms: [],
 };
 
@@ -24,6 +25,10 @@ const reducer = (state = initialState, action) => {
     case 'ROOMS_RECEIVED': {
       console.log('RECEIVED ROOMS');
       return { rooms: action.rooms };
+    }
+    case 'MEETINGS_RECEIVED': {
+      console.log('RECEIVED MEETINGS');
+      return { meetings: action.meetings };
     }
     default: {
       return state;
