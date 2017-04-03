@@ -1,9 +1,12 @@
 
 import React from 'react';
 import Router from 'react-router/lib/Router';
+
 import { Provider } from 'react-redux';
+
 import browserHistory from 'react-router/lib/browserHistory';
 import configureStore from '../configureStore';
+
 import routes from '../routes';
 import rootSaga from '../sagas';
 

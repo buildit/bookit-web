@@ -11,7 +11,47 @@ function* fetchUser(action) {
   }
 }
 
+function* fetchRooms() {
+  const rooms = [
+    {
+      name: 'Red',
+      meetings: [
+        {
+          startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 1.0, // hours
+          isOwnedByUser: true,
+        },
+        {
+          startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 5.0, // hours
+          isOwnedByUser: false,
+        },
+      ],
+    },
+    { name: 'Green', meetings: [] },
+    {
+      name: 'Blue',
+      meetings: [
+        {
+          startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          duration: 1.5, // hours
+          isOwnedByUser: true,
+        },
+      ],
+    },
+    { name: 'Black', meetings: [] },
+    { name: 'Orange', meetings: [] },
+    { name: 'Pink', meetings: [] },
+    { name: 'White', meetings: [] },
+    { name: 'Violet', meetings: [] },
+    { name: 'Yellow', meetings: [] },
+  ];
+  console.log('I AM YIELDING SOME SHIT');
+  yield put({ type: 'ROOMS_RECEIVED', rooms });
+}
+
 function* rootSaga() {
+  yield takeEvery('ROOMS_REQUESTED', fetchRooms);
   yield takeEvery('USER_FETCH_REQUESTED', fetchUser);
 }
 

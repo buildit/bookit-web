@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import moment from 'moment';
 
@@ -8,23 +9,51 @@ import RoomTimeline from '../../02-molecules/RoomTimeline';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
-const Agenda = ({ viewDate, rooms = [] }) => {
-  const currentViewDate = moment(viewDate);
+class Agenda extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      viewDate: null,
+      rooms: [],
+    };
 
-  return (
-    <div>
-      <div className={styles.agenda}>
-        <TimelineLabelList />
-        { rooms.map(room => <RoomTimeline key={room.name} room={room} />) }
-        <CurrentTimeIndicator />
+    this.props.requestRooms();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ rooms: nextProps.rooms });
+  }
+
+  render() {
+    const rooms = this.state.rooms;
+
+    return (
+      <div>
+        <div className={styles.agenda}>
+          <TimelineLabelList />
+          { rooms.map(room => <RoomTimeline key={room.name} room={room} />) }
+          <CurrentTimeIndicator />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Agenda.propTypes = {
-  viewDate: PropTypes.string,
-  rooms: PropTypes.arrayOf(PropTypes.object),
+  requestRooms: PropTypes.func,
 };
 
-export default Agenda;
+const mapStateToProps = state => ({
+  rooms: state.rooms,
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestRooms: () => {
+    dispatch({ type: 'ROOMS_REQUESTED' });
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Agenda);
