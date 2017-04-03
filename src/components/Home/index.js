@@ -1,58 +1,57 @@
-
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styles from './styles.scss';
-import { updateMessage, userFetchRequested } from '../../actions';
+import Agenda from '../03-organisms/Agenda';
+import Calendar from '../03-organisms/Calendar';
 
-export const Home = ({ onMessageClick, onUserFetchRequest, message }) => (
-  <section>
-    <p className={styles.paragraph}>
-      Welcome to the <strong>Static React Starter-kyt</strong>.
-      This starter kyt should serve as the base for a client rendered React app.
-    </p>
-    <p className={styles.paragraph}>
-      Check out the Tools section for an outline of the libraries that
-      are used in this Starter-kyt.
-    </p>
-    <button
-      onClick={() => {
-        onMessageClick();
-      }}
-    >
-      Click me!
-    </button>
-    <button
-      onClick={() => {
-        onUserFetchRequest('aww');
-      }}
-    >
-      Fetch pandas
-    </button>
-    <div> {message} </div>
-  </section>
+const exampleRooms = [
+  {
+    name: 'Red',
+    meetings: [
+      {
+        startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: 1.0, // hours
+        isOwnedByUser: true,
+      },
+      {
+        startTime: '2017-03-24T10:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: 5.0, // hours
+        isOwnedByUser: false,
+      },
+    ],
+  },
+  { name: 'Green', meetings: [] },
+  {
+    name: 'Blue',
+    meetings: [
+      {
+        startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+        duration: 1.5, // hours
+        isOwnedByUser: true,
+      },
+    ],
+  },
+  { name: 'Black', meetings: [] },
+  { name: 'Orange', meetings: [] },
+  { name: 'Pink', meetings: [] },
+  { name: 'White', meetings: [] },
+  { name: 'Violet', meetings: [] },
+  { name: 'Yellow', meetings: [] },
+];
+
+export const Home = () => (
+  <div className={styles.home}>
+    <Calendar />
+    <Agenda
+      rooms={exampleRooms}
+    />
+  </div>
+
 );
 
-Home.propTypes = {
-  message: PropTypes.string,
-  onMessageClick: PropTypes.func,
-  onUserFetchRequest: PropTypes.func,
-};
-
-const mapStateToProps = state => ({
-  message: state.message,
-});
-
-
-const mapDispatchToProps = dispatch => ({
-  onMessageClick: () => {
-    dispatch(updateMessage());
-  },
-  onUserFetchRequest: (userId) => {
-    dispatch(userFetchRequested(userId));
-  },
-});
+const mapStateToProps = state => state;
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  undefined,
 )(Home);
