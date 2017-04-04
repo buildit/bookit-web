@@ -11,6 +11,16 @@ function* fetchUser(action) {
   }
 }
 
+function* fetchMeetings() {
+  try {
+    const meetings = yield call(api.fetchMeetings);
+    console.log(meetings);
+    yield put({ type: 'MEETINGS_RECEIVED', meetings });
+  } catch (e) {
+    yield put({ type: 'MEETINGS_FETCH_FAILED', message: e.message });
+  }
+}
+
 function* fetchRooms() {
   const rooms = [
     {
@@ -53,6 +63,7 @@ function* fetchRooms() {
 function* rootSaga() {
   yield takeEvery('ROOMS_REQUESTED', fetchRooms);
   yield takeEvery('USER_FETCH_REQUESTED', fetchUser);
+  yield takeEvery('START_MEETINGS_REQUEST', fetchMeetings);
 }
 
 export default rootSaga;
