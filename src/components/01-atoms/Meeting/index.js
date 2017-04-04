@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import moment from 'moment';
 
+import Tooltip from '../Tooltip';
+
 import styles from './styles.scss';
 
 const WIDTH = 82;
@@ -18,20 +20,49 @@ const calculateOffset = (startTime) => {
   }
 };
 
-const Meeting = ({ isOwnedByUser, startTime, duration = 0 }) => {
-  const classNames = [styles.meeting];
+class Meeting extends React.Component {
+  constructor(props) {
+    super(props);
 
-  if (isOwnedByUser) {
-    classNames.push(styles.isOwnedByUser);
+    this.state = { tooltipVisible: false };
+
+    this.onOver = this.onOver.bind(this);
+    this.onOut = this.onOut.bind(this);
   }
 
-  const style = {
-    width: calculateWidth(duration),
-    left: calculateOffset(startTime),
-  };
+  onOver() {
+    this.setState({ tooltipVisible: true });
+  }
 
-  return (<div className={classNames.join(' ')} style={style}><i /></div>);
-};
+  onOut() {
+    this.setState({ tooltipVisible: false });
+  }
+
+  render() {
+    const classNames = [styles.meeting];
+
+    if (this.props.isOwnedByUser) {
+      classNames.push(styles.isOwnedByUser);
+    }
+
+    const style = {
+      width: calculateWidth(this.props.duration),
+      left: calculateOffset(this.props.startTime),
+    };
+
+    return (
+      <div
+        className={classNames.join(' ')}
+        style={style}
+        onMouseEnter={this.onOver}
+        onMouseOut={this.onOut}
+      >
+        <i />
+        <Tooltip visible={this.state.tooltipVisible} duration={this.props.duration} />
+      </div>
+    );
+  }
+}
 
 Meeting.propTypes = {
   isOwnedByUser: PropTypes.bool,

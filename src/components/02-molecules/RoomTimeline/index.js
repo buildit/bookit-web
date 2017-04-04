@@ -21,7 +21,7 @@ const RoomTimeline = ({ room, onRoomTimelineClick }) => {
     <div className={styles.room}>
       <div className={styles.timeline} onClick={() => { onRoomTimelineClick(); }}>
         <div className={styles.meetings}>
-          {timelineMeetings}
+          { timelineMeetings }
         </div>
       </div>
       <div className={styles.roomName}>{ room.name }</div>
