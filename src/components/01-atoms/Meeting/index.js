@@ -58,13 +58,23 @@ class Meeting extends React.Component {
         onMouseOut={this.onOut}
       >
         <i />
-        <Tooltip visible={this.state.tooltipVisible} duration={this.props.duration} />
+        <Tooltip
+          title="A Meeting with Batman"
+          startTime={this.props.startTime}
+          roomTitle={this.props.roomTitle}
+          isOwnedByUser={this.props.isOwnedByUser}
+          owner={this.props.owner}
+          duration={this.props.duration}
+          visible={this.state.tooltipVisible}
+        />
       </div>
     );
   }
 }
 
 Meeting.propTypes = {
+  roomTitle: PropTypes.string,
+  owner: PropTypes.shape,
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
   startTime: PropTypes.string,

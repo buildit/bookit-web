@@ -11,6 +11,8 @@ const RoomTimeline = ({ room, onRoomTimelineClick }) => {
   const timelineMeetings = room.meetings.map((meeting, index) =>
     <Meeting
       key={`${room.name}-${index}`}
+      roomTitle={room.name}
+      owner={meeting.owner}
       isOwnedByUser={meeting.isOwnedByUser}
       startTime={meeting.startTime}
       duration={meeting.duration}
