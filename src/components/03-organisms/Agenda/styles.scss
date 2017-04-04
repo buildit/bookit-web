@@ -1,4 +1,27 @@
+.user {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.name {
+  color: white;
+  font-weight: 100;
+}
+
+.hello {
+  color: #faff29;
+  font-weight: 600;
+  margin-right: 5pt;
+}
+
 .agenda {
   font-weight: inherit;
   position: relative;
+}
+
+.container {
+  display: flex;
+  margin: 3rem;
 }

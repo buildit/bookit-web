@@ -1,3 +1,3 @@
 {
-  "presets": ["kyt-react"]
+  "presets": ["kyt-react", "stage-2"]
 }

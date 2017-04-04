@@ -1,0 +1,41 @@
+@import '../../../shared-styles/bookit';
+
+.tooltip {
+  width: 270px;
+  margin-top: $agenda-row-height;
+  position: absolute;
+  z-index: 10001;
+}
+
+.anchor {
+  background-color: transparent;
+  border-color: transparent transparent $slategrey transparent;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  font-size: 0;
+  line-height: 0;
+  margin: 6px auto 0;
+  width: 0;
+}
+
+.content {
+  background-color: $slategrey;
+  color: white;
+  padding: 15px;
+
+  p {
+    font-weight: 300;
+    font-size: 14px;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    > strong {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+  }
+}
