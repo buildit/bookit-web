@@ -9,6 +9,7 @@
     "babel-preset-kyt-react": "0.1.1",
     "html-webpack-plugin": "^2.22.0",
     "kyt": "0.4.0",
+    "moment": "^2.18.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^5.0.3",
@@ -27,13 +28,18 @@
     "eslint-plugin-flowtype": "^2.30.4",
     "flow-bin": "^0.42.0",
     "pre-commit": "^1.2.2",
-    "react-addons-test-utils": "^15.3.0"
+    "react-addons-test-utils": "^15.3.0",
+    "react-storybook-decorator-background": "^1.0.5",
+    "resolve-url-loader": "^2.0.2"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/buildit/bookit-react.git"
   },
-  "pre-commit": ["test", "lint"],
+  "pre-commit": [
+    "test",
+    "lint"
+  ],
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",

@@ -1,3 +1,14 @@
+$base-font-family: Roboto, Helvetica, sans-serif;
+$base-font-size: 18px;
 
 $content-width: 500px;
 $padding: 15px;
+
+$blackish: #141516;
+$darkblue: #2b3947;
+$veryyellow: #fbfe34;
+$slategrey: #959ca3;
+
+$agenda-row-height: 30px;
+$agenda-hour-width: 82px;
+$agenda-room-total-width: $agenda-hour-width * 24;

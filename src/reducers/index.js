@@ -1,5 +1,7 @@
 const initialState = {
   message: 'Nothing',
+  meetings: [],
+  rooms: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +17,18 @@ const reducer = (state = initialState, action) => {
     }
     case 'USER_FETCH_FAILED': {
       return { message: 'The request has failed.' };
+    }
+    case 'ROOMS_REQUESTED': {
+      console.log('REQUESTED ROOMS');
+      return { message: 'Getting rooms...' };
+    }
+    case 'ROOMS_RECEIVED': {
+      console.log('RECEIVED ROOMS');
+      return { rooms: action.rooms };
+    }
+    case 'MEETINGS_RECEIVED': {
+      console.log('RECEIVED MEETINGS');
+      return { meetings: action.meetings };
     }
     default: {
       return state;

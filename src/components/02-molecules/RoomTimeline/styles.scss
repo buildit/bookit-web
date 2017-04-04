@@ -1,0 +1,51 @@
+@import '../../../shared-styles/bookit';
+
+.room {
+  background-color: $darkblue;
+  height: $agenda-row-height;
+  margin-bottom: 50px;
+  padding-left: 122px;
+  position: relative;
+  width: 1968px;
+}
+
+.roomName {
+  background-color: $darkblue;
+  color: white;
+  display: block;
+  font-family: $base-font-family;
+  font-weight: 300;
+  font-size: $base-font-size;
+  font-style: normal;
+  left: 0;
+  line-height: $agenda-row-height;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  user-select: none;
+  width: 120px;
+}
+
+.timeline {
+  display: inline-block;
+  float: left;
+  height: $agenda-row-height;
+  background:
+    repeating-linear-gradient(
+      to right,
+      $blackish,
+      $blackish 79px,
+      $darkblue 79px,
+      $darkblue 82px
+    );
+  position: relative;
+  width: $agenda-room-total-width;
+}
+
+.meetings {
+  position: absolute;
+  height: $agenda-row-height;
+  left: 0;
+  right: 0;
+  top: 0;
+}
