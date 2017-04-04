@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './styles.scss';
 
-import Meeting from '../../01-atoms/Meeting';
+import Meeting from '../Meeting';
 
 import { timelineMeetingRequested } from '../../../actions';
 
@@ -11,6 +11,8 @@ const RoomTimeline = ({ room, onRoomTimelineClick }) => {
   const timelineMeetings = room.meetings.map((meeting, index) =>
     <Meeting
       key={`${room.name}-${index}`}
+      roomTitle={room.name}
+      owner={meeting.owner}
       isOwnedByUser={meeting.isOwnedByUser}
       startTime={meeting.startTime}
       duration={meeting.duration}
@@ -21,7 +23,7 @@ const RoomTimeline = ({ room, onRoomTimelineClick }) => {
     <div className={styles.room}>
       <div className={styles.timeline} onClick={() => { onRoomTimelineClick(); }}>
         <div className={styles.meetings}>
-          {timelineMeetings}
+          { timelineMeetings }
         </div>
       </div>
       <div className={styles.roomName}>{ room.name }</div>
