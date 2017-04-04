@@ -8,7 +8,7 @@ import styles from './styles.scss';
 import RoomTimeline from '../../02-molecules/RoomTimeline';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
-import Calendar from '../03-organisms/Calendar';
+import Calendar from '../Calendar';
 
 class Agenda extends React.Component {
   componentDidMount() {
@@ -27,7 +27,7 @@ class Agenda extends React.Component {
             { this.props.user }
           </span>
         </div>
-        <div>
+        <div className={styles.container}>
           <Calendar />
           <div className={styles.agenda}>
             <TimelineLabelList />
