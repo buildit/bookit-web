@@ -7,6 +7,15 @@
   z-index: 10001;
 }
 
+.anchorContainer {
+  display: block;
+  height: 10px;
+  margin: 6px auto 0;
+  position: relative;
+  width: 102px;
+  background-color: transparent;
+}
+
 .anchor {
   background-color: transparent;
   border-color: transparent transparent $slategrey transparent;
@@ -14,7 +23,8 @@
   border-width: 0 10px 10px 10px;
   font-size: 0;
   line-height: 0;
-  margin: 6px auto 0;
+  margin: 0;
+  position: absolute;
   width: 0;
 }
 
