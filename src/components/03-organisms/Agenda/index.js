@@ -8,7 +8,7 @@ import styles from './styles.scss';
 import RoomTimeline from '../../02-molecules/RoomTimeline';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
-
+import Calendar from '../03-organisms/Calendar';
 
 class Agenda extends React.Component {
   componentDidMount() {
@@ -27,10 +27,13 @@ class Agenda extends React.Component {
             { this.props.user }
           </span>
         </div>
-        <div className={styles.agenda}>
-          <TimelineLabelList />
-          { rooms.map(room => <RoomTimeline key={room.name} room={room} />) }
-          <CurrentTimeIndicator />
+        <div>
+          <Calendar />
+          <div className={styles.agenda}>
+            <TimelineLabelList />
+            { rooms.map(room => <RoomTimeline key={room.name} room={room} />) }
+            <CurrentTimeIndicator />
+          </div>
         </div>
       </div>
     );
