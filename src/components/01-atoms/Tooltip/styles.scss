@@ -3,8 +3,10 @@
 .tooltip {
   width: 270px;
   margin-top: $agenda-row-height;
+  opacity: 0;
   position: absolute;
   z-index: 10001;
+  transition: opacity .6s;
 }
 
 .anchorContainer {
@@ -44,8 +46,10 @@
 
     > strong {
       display: block;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 500;
       margin-bottom: 4px;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.5);
     }
   }
 }

@@ -55,6 +55,10 @@ class Meeting extends React.Component {
       classNames.push(styles.isOwnedByUser);
     }
 
+    if (this.state.tooltipVisible) {
+      classNames.push(styles.hover);
+    }
+
     const style = {
       width: calculateWidth(this.props.duration),
       left: calculateOffset(this.props.startTime),
