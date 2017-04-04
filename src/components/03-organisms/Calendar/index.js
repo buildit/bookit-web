@@ -8,9 +8,11 @@ injectTapEventPlugin();
 const Calendar = () => (
   <div className={styles.calendar}>
     <DatePicker
+      defaultDate={new Date()}
       hintText="Quick Book"
       container="inline"
       hideCalendarDate={false}
+      autoOk={true}
     />
   </div>
 );
