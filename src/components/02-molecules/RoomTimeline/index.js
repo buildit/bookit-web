@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './styles.scss';
 
-import Meeting from '../../01-atoms/Meeting';
+import Meeting from '../Meeting';
 
 import { timelineMeetingRequested } from '../../../actions';
 

@@ -23,10 +23,14 @@
   color: white;
   padding: 15px;
 
-  > p {
+  p {
     font-weight: 300;
     font-size: 14px;
     margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     > strong {
       display: block;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 
-import Meeting from '../src/components/01-atoms/Meeting';
+import Meeting from '../src/components/02-molecules/Meeting';
 import RoomTimeline from '../src/components/02-molecules/RoomTimeline';
 import Agenda from '../src/components/03-organisms/Agenda';
 import TimelineLabelList from '../src/components/01-atoms/TimelineLabelList';

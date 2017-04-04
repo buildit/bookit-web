@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import moment from 'moment';
 
-import Tooltip from '../Tooltip';
+import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
 
@@ -57,7 +57,6 @@ class Meeting extends React.Component {
         onMouseEnter={this.onOver}
         onMouseOut={this.onOut}
       >
-        <i />
         <Tooltip
           title="A Meeting with Batman"
           startTime={this.props.startTime}

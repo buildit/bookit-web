@@ -29,17 +29,17 @@
         $darkblue 8px
       );
 
-    i {
-      display: inline-block;
-      position: relative;
-      left: 50%;
-      margin-left: -10px;
-      top: 5px;
-      text-align: center;
-      background: $veryyellow;
+    &:after {
+      background-color: $veryyellow;
       border-radius: 50%;
-      width: 20px;
+      content: "";
+      display: block;
       height: 20px;
+      left: 50%;
+      margin: -10px 0 0 -10px;
+      position: absolute;
+      top: 50%;
+      width: 20px;
     }
   }
 }
