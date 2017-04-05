@@ -5,7 +5,7 @@ import Tooltip from '../../01-atoms/Tooltip';
 import styles from './styles.scss';
 
 import calculateWidth from '../../../utils/calculateWidth';
-import calculateMeetingOffset from '../../../utils/calculateMeetingOffset'
+import calculateMeetingOffset from '../../../utils/calculateMeetingOffset';
 
 class Meeting extends React.Component {
   constructor(props) {
