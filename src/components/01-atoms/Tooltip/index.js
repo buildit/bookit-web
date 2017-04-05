@@ -4,17 +4,12 @@ import moment from 'moment';
 
 import styles from './styles.scss';
 
-const WIDTH = 82;
-const TOOLTIP_WIDTH = 270;
-
-const calculateWidth = (duration) => (WIDTH * duration) - 2;
-
-const calculateOffset = (duration) => ((calculateWidth(duration) / 2) - (TOOLTIP_WIDTH / 2));
+import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
 
 const Tooltip = ({ title, startTime, duration, roomTitle, isOwnedByUser, owner, visible }) => {
   const style = {
     display: visible ? 'block' : 'none',
-    left: calculateOffset(duration),
+    left: calculateTooltipOffset(duration),
   };
 
   const meetingStartTime = moment(startTime);
