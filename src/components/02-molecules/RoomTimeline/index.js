@@ -39,9 +39,8 @@ RoomTimeline.propTypes = {
   onRoomTimelineClick: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-  message: state.message,
-});
+// Placeholder
+const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
   onRoomTimelineClick: () => {

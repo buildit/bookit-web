@@ -20,7 +20,6 @@ class Agenda extends React.Component {
 
     return (
       <div>
-
         <div className={styles.user}>
           <span className={styles.hello}>Hello</span>
           <span className={styles.name}>

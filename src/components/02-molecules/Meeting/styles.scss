@@ -15,6 +15,7 @@
   top: 0;
   width: 80px;
 
+  // TODO: Is this being used?
   i: {
     display: none;
   }
@@ -29,10 +30,10 @@
         $darkblue 8px
       );
 
-    &:after {
+    &::after {
       background-color: $veryyellow;
       border-radius: 50%;
-      content: "";
+      content: '';
       display: block;
       height: 20px;
       left: 50%;

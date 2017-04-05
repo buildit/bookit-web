@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AppInner } from './';
+import App from './';
 
 it('Test example', () => {
-  const wrapper = shallow(<AppInner />);
+  const wrapper = shallow(<App />);
   expect(wrapper.find('div')).toBeTruthy();
 });

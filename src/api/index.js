@@ -1,8 +1,6 @@
 import agent from 'superagent';
 import moment from 'moment';
 
-const fetchUser = id => agent.get(`https://www.reddit.com/r/${id}.json`);
-
 // FIXME: today by default?
 const startMoment = moment().startOf('day');
 const start = startMoment.format('YYYY-MM-DD');
@@ -18,7 +16,6 @@ const fetchMeetings = () => agent.get(`http://localhost:8888/rooms/nyc/meetings?
   });
 
 const Api = {
-  fetchUser,
   fetchMeetings,
 };
 
