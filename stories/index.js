@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import { storiesOf, action, linkTo } from '@kadira/storybook';
 
@@ -47,27 +48,46 @@ storiesOf('Agenda', module)
   });
 
 storiesOf('RoomTimeline', module)
-  .add('displays the name and timeline', () => {
+  .add('with a one hour meeting at 2am', () => {
+    const startTime = moment('1998-12-25 02:00:00').format('YYYY-MM-DDTHH:mm:ssZ');
+    console.log(startTime)
     const exampleRoom = {
-      name: 'Blue',
+      name: 'Cyan',
       meetings: [
         {
-          startTime: '2017-03-24T15:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
-          duration: 1.5, // hours
-          isOwnedByUser: true,
+          startTime,
+          duration: 1.0, // hours
+          isOwnedByUser: false,
         },
       ],
     };
     return <RoomTimeline room={exampleRoom} />;
   })
-  .add('with one meeting', () => {
+  .add('with a one hour meeting at 2:30am', () => {
+    const startTime = moment('1998-12-25 02:30:00').format('YYYY-MM-DDTHH:mm:ssZ');
+    console.log(startTime)
     const exampleRoom = {
       name: 'Cyan',
       meetings: [
         {
-          startTime: '2017-03-24T07:00:00-04:00', // ISO8601 format YYYY-MM-DDTHH:mm:ssZ
+          startTime,
           duration: 1.0, // hours
-          isOwnedByUser: true,
+          isOwnedByUser: false,
+        },
+      ],
+    };
+    return <RoomTimeline room={exampleRoom} />;
+  })
+  .add('with a fifteen meeting at 2:00am', () => {
+    const startTime = moment('1998-12-25 02:30:00').format('YYYY-MM-DDTHH:mm:ssZ');
+    console.log(startTime)
+    const exampleRoom = {
+      name: 'Cyan',
+      meetings: [
+        {
+          startTime,
+          duration: .25, // hours
+          isOwnedByUser: false,
         },
       ],
     };
