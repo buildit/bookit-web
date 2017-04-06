@@ -6,7 +6,7 @@ import styles from './styles.scss';
 
 import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
 
-const Tooltip = ({ title, startTime, duration, roomTitle, isOwnedByUser, owner, visible }) => {
+const Tooltip = ({ title, startTime, duration, roomTitle, isOwnedByUser, owner = {}, visible }) => {
   const style = {
     display: visible ? 'block' : 'none',
     left: calculateTooltipOffset(duration),
