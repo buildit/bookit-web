@@ -1,4 +1,4 @@
-import calculateMeetingOffset from './calculateMeetingOffset';
+import { calculateMeetingOffset } from './calculateMeetingOffset';
 
 describe('Meeting offset calculator', () => {
   it('should handle undefined input', () => {

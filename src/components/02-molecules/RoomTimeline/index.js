@@ -1,9 +1,16 @@
 import React, { PropTypes } from 'react';
+
 import styles from './styles.scss';
 import Meeting from '../Meeting';
+import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
 
-const RoomTimeline = ({ room }) => {
-  const timelineMeetings = room.meetings.map((meeting, index) =>
+const RoomTimeline = ({ room, meetings, createMeetingRequest }) => {
+  const onTimelineClick = (e) => {
+    const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
+    createMeetingRequest(room, requestedStartTime);
+  };
+
+  const timelineMeetings = meetings.map((meeting, index) =>
     <Meeting
       key={`${room.name}-${index}`}
       roomTitle={room.name}
@@ -17,7 +24,7 @@ const RoomTimeline = ({ room }) => {
   return (
     <div className={styles.room}>
       <div className={styles.timeline}>
-        <div className={styles.meetings}>
+        <div className={styles.meetings} onClick={onTimelineClick}>
           { timelineMeetings }
         </div>
       </div>
@@ -29,8 +36,10 @@ const RoomTimeline = ({ room }) => {
 RoomTimeline.propTypes = {
   room: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
+    email: PropTypes.string.isRequired,
   }).isRequired,
+  meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  createMeetingRequest: PropTypes.func.isRequired,
 };
 
 export default RoomTimeline;
