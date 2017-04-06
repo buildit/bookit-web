@@ -11,6 +11,7 @@ const Calendar = () => (
       defaultDate={new Date()}
       hintText="Quick Book"
       container="inline"
+      hideCalendarDate={false}
       autoOk
     />
   </div>
