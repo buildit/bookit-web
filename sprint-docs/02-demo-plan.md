@@ -1,8 +1,12 @@
-# Bookit Sprint #2: Demo (proposed)
+# Bookit Sprint #2: Demo (tentative)
 April 11, 2017
 
-## Booking a room
+_This is a tentative demo plan. We will send a finalized demo plan towards the end of the sprint._
+
+
 We intend to demonstrate two user stories this week: Booking a room and Logging in.
+
+## Booking a room
 
 ### Base case
 1) Open the Bookit web app. See the agenda view, set to today's date, showing meetings for all rooms.
