@@ -1,24 +1,11 @@
 import React, { PropTypes } from 'react';
 
-import moment from 'moment';
-
 import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
 
-const WIDTH = 82;
-
-const calculateWidth = (duration) => (WIDTH * duration) - 2;
-
-const calculateOffset = (startTime) => {
-  if (startTime === undefined) return 0;
-  try {
-    const startTimeObj = moment(startTime);
-    return (WIDTH * (startTimeObj.hour() + (startTimeObj.minutes() / 60)));
-  } catch (e) {
-    return false;
-  }
-};
+import calculateWidth from '../../../utils/calculateWidth';
+import calculateMeetingOffset from '../../../utils/calculateMeetingOffset';
 
 class Meeting extends React.Component {
   constructor(props) {
@@ -59,7 +46,7 @@ class Meeting extends React.Component {
 
     const style = {
       width: calculateWidth(this.props.duration),
-      left: calculateOffset(this.props.startTime),
+      left: calculateMeetingOffset(this.props.startTime),
     };
 
     return (

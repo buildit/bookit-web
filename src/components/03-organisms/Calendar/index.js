@@ -18,16 +18,3 @@ const Calendar = () => (
 );
 
 export default Calendar;
-
-/*
-POTENTIALLY USEFUL PROPS
-see: http://www.material-ui.com/#/components/date-picker
-
-dialogContainerStyle -- Maybe use to keep open?
-hideCalendarDate
-onChange
-shouldDisableDate
-style
-textFieldStyle
-value
-*/

@@ -1,13 +1,8 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-
 import styles from './styles.scss';
-
 import Meeting from '../Meeting';
 
-import { timelineMeetingRequested } from '../../../actions';
-
-const RoomTimeline = ({ room, onRoomTimelineClick }) => {
+const RoomTimeline = ({ room }) => {
   const timelineMeetings = room.meetings.map((meeting, index) =>
     <Meeting
       key={`${room.name}-${index}`}
@@ -21,7 +16,7 @@ const RoomTimeline = ({ room, onRoomTimelineClick }) => {
 
   return (
     <div className={styles.room}>
-      <div className={styles.timeline} onClick={() => { onRoomTimelineClick(); }}>
+      <div className={styles.timeline}>
         <div className={styles.meetings}>
           { timelineMeetings }
         </div>
@@ -36,20 +31,6 @@ RoomTimeline.propTypes = {
     name: PropTypes.string.isRequired,
     meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
-  onRoomTimelineClick: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-  message: state.message,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onRoomTimelineClick: () => {
-    dispatch(timelineMeetingRequested());
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RoomTimeline);
+export default RoomTimeline;
