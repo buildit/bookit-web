@@ -10,6 +10,6 @@ describe('Tooltip offset calculator', () => {
   });
 
   it('should calculate offset for a 15 minute meeting', () => {
-    expect(calculateTooltipOffset(.25)).toBe(-125.75);
+    expect(calculateTooltipOffset(0.25)).toBe(-125.75);
   });
 });

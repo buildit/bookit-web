@@ -6,8 +6,6 @@ import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
 import { startMeetingsRequest } from '../../actions';
 
-console.log(startMeetingsRequest);
-
 export class AppInner extends React.Component {
   componentDidMount() {
     this.props.requestRooms();
