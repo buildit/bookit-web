@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
+import { startMeetingsRequest } from '../../actions';
+
+console.log(startMeetingsRequest);
 
 export class AppInner extends React.Component {
   componentDidMount() {
@@ -63,7 +66,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
-    dispatch({ type: 'START_MEETINGS_REQUEST' });
+    dispatch(startMeetingsRequest());
   },
 });
 
