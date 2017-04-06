@@ -32,15 +32,13 @@ class Meeting extends React.Component {
   }
 
   onMove(event) {
-    if (!this.state.tooltipVisible) {
-      return false;
+    if (this.state.tooltipVisible) {
+      const x = event.clientX - event.target.getBoundingClientRect().left;
+      this.setState({ tooltipVisible: true, tooltipOffset: x });
     }
-    const x = event.clientX - event.target.getBoundingClientRect().left;
-    // console.log('MOUSE MOVE!', x);
-    this.setState({ tooltipVisible: true, tooltipOffset: x });
   }
 
-  onOver(event) {
+  onOver() {
     this.setState({ tooltipVisible: true });
   }
 
