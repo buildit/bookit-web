@@ -11,17 +11,26 @@ const calculateWidth = (duration) => (WIDTH * duration) - 2;
 
 const calculateOffset = (duration) => ((calculateWidth(duration) / 2) - (TOOLTIP_WIDTH / 2));
 
-const Tooltip = ({ title, startTime, duration, roomTitle, isOwnedByUser, owner, visible }) => {
+const Tooltip = ({
+  tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible,
+}) => {
   const style = {
-    display: visible ? 'block' : 'none',
-    left: calculateOffset(duration),
+    display: 'block',
+    opacity: visible ? 1 : 0,
+    left: visible ? calculateOffset(duration) : -99999,
+  };
+
+  const tooltipStyle = {
+    left: tooltipOffset,
   };
 
   const meetingStartTime = moment(startTime);
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
   return (<div className={styles.tooltip} style={style}>
-    <div className={styles.anchor} />
+    <div className={styles.anchorContainer}>
+      <div style={tooltipStyle} className={styles.anchor} />
+    </div>
     <div className={styles.content}>
       <p>
         <strong>{ title }</strong>
@@ -36,11 +45,15 @@ const Tooltip = ({ title, startTime, duration, roomTitle, isOwnedByUser, owner, 
 };
 
 Tooltip.propTypes = {
+  tooltipOffset: PropTypes.number,
   title: PropTypes.string,
   startTime: PropTypes.string,
   roomTitle: PropTypes.string,
   isOwnedByUser: PropTypes.bool,
-  owner: PropTypes.shape,
+  owner: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
   visible: PropTypes.bool,
   duration: PropTypes.number.isRequired,
 };

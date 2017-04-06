@@ -24,10 +24,18 @@ class Meeting extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { tooltipVisible: false };
+    this.state = { tooltipVisible: false, tooltipOffset: 0 };
 
+    this.onMove = this.onMove.bind(this);
     this.onOver = this.onOver.bind(this);
     this.onOut = this.onOut.bind(this);
+  }
+
+  onMove(event) {
+    if (this.state.tooltipVisible) {
+      const x = event.clientX - event.target.getBoundingClientRect().left;
+      this.setState({ tooltipVisible: true, tooltipOffset: x });
+    }
   }
 
   onOver() {
@@ -45,6 +53,10 @@ class Meeting extends React.Component {
       classNames.push(styles.isOwnedByUser);
     }
 
+    if (this.state.tooltipVisible) {
+      classNames.push(styles.hover);
+    }
+
     const style = {
       width: calculateWidth(this.props.duration),
       left: calculateOffset(this.props.startTime),
@@ -54,6 +66,7 @@ class Meeting extends React.Component {
       <div
         className={classNames.join(' ')}
         style={style}
+        onMouseMove={this.onMove}
         onMouseEnter={this.onOver}
         onMouseOut={this.onOut}
       >
@@ -64,6 +77,7 @@ class Meeting extends React.Component {
           isOwnedByUser={this.props.isOwnedByUser}
           owner={this.props.owner}
           duration={this.props.duration}
+          tooltipOffset={this.state.tooltipOffset}
           visible={this.state.tooltipVisible}
         />
       </div>
@@ -73,7 +87,10 @@ class Meeting extends React.Component {
 
 Meeting.propTypes = {
   roomTitle: PropTypes.string,
-  owner: PropTypes.shape,
+  owner: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
   startTime: PropTypes.string,

@@ -11,12 +11,14 @@
       $darkblue 8px
     );
   border-right: solid 3px $darkblue;
+  box-shadow: inset 0 0 0 1px transparent;
   position: absolute;
   top: 0;
+  transition: box-shadow 0.2s;
   width: 80px;
 
-  i: {
-    display: none;
+  &.hover {
+    box-shadow: inset 0 0 0 1px $slategrey;
   }
 
   &.isOwnedByUser {
