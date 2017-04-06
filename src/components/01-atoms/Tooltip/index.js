@@ -11,7 +11,9 @@ const calculateWidth = (duration) => (WIDTH * duration) - 2;
 
 const calculateOffset = (duration) => ((calculateWidth(duration) / 2) - (TOOLTIP_WIDTH / 2));
 
-const Tooltip = ({ tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible }) => {
+const Tooltip = ({
+  tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible,
+}) => {
   const style = {
     display: visible ? 'block' : 'none',
     left: calculateOffset(duration),
