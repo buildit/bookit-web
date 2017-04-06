@@ -30,7 +30,6 @@
     "enzyme": "^2.4.1",
     "eslint-plugin-flowtype": "^2.30.4",
     "flow-bin": "^0.42.0",
-    "pre-commit": "^1.2.2",
     "react-addons-test-utils": "^15.3.0",
     "react-storybook-decorator-background": "^1.0.5",
     "resolve-url-loader": "^2.0.2"
