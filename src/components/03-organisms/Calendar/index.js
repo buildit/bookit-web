@@ -12,7 +12,7 @@ const Calendar = () => (
       hintText="Quick Book"
       container="inline"
       hideCalendarDate={false}
-      autoOk={true}
+      autoOk
     />
   </div>
 );
