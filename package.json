@@ -39,17 +39,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/buildit/bookit-react.git"
   },
-  "pre-commit": [
-    "test",
-    "lint"
-  ],
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "start": "node build/server/main.js",
     "proto": "kyt proto",
-    "test": "kyt test",
+    "test": "npm run lint && kyt test",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
     "lint": "npm run lint-script && npm run lint-style",

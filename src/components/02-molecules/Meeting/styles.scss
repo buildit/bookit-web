@@ -29,10 +29,10 @@
         $darkblue 8px
       );
 
-    &:after {
+    &::after {
       background-color: $veryyellow;
       border-radius: 50%;
-      content: "";
+      content: '';
       display: block;
       height: 20px;
       left: 50%;
