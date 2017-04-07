@@ -3,7 +3,7 @@
 .app {
   background-color: $darkblue;
   margin: 0;
-  padding: 0;
+  padding: 0 30px;
   height: 100vh;
 }
 
@@ -27,4 +27,9 @@
 
 .container {
   display: flex;
+}
+
+.leftPane {
+  display: flex;
+  width: 375px;
 }

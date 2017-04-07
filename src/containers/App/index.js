@@ -5,6 +5,7 @@ import styles from './styles.scss';
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
 import { startMeetingsRequest, populateMeetingEditForm } from '../../actions';
+import MeetingForm from '../MeetingForm';
 
 export class AppInner extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ export class AppInner extends React.Component {
   leftPaneContent() {
     if (this.props.isEditingMeeting) {
       return (
-        <div>{JSON.stringify(this.props.meetingEditForm)}</div>
+        <MeetingForm onSubmit={console.log} />
       );
     }
     return (<Calendar />);
@@ -30,7 +31,9 @@ export class AppInner extends React.Component {
           </span>
         </div>
         <div className={styles.container}>
-          { this.leftPaneContent() }
+          <div className={styles.leftPane}>
+            { this.leftPaneContent() }
+          </div>
           <Agenda
             roomMeetings={this.props.rooms}
             createMeetingRequest={this.props.createMeetingRequest}
@@ -47,12 +50,6 @@ AppInner.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object),
   createMeetingRequest: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
-  meetingEditForm: PropTypes.shape({
-    title: PropTypes.string,
-    startTime: PropTypes.object,
-    endTime: PropTypes.object,
-    room: PropTypes.object,
-  }),
 };
 
 const mapMeeting = (rm, user) => {
@@ -79,12 +76,15 @@ const mapMeeting = (rm, user) => {
   };
 };
 
-const mapStateToProps = state => ({
-  userName: state.user.name,
-  rooms: state.meetings.map(rm => mapMeeting(rm, state.user)),
-  isEditingMeeting: state.isEditingMeeting,
-  meetingEditForm: state.meetingEditForm,
-});
+const mapStateToProps = globalState => {
+  const state = globalState.app;
+  return {
+    userName: state.user.name,
+    rooms: state.meetings.map(rm => mapMeeting(rm, state.user)),
+    isEditingMeeting: state.isEditingMeeting,
+    meetingEditForm: state.meetingEditForm,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
