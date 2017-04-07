@@ -5,6 +5,7 @@ import moment from 'moment';
 import styles from './styles.scss';
 
 import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
+import calculateWidth from '../../../utils/calculateWidth';
 
 const Tooltip = ({
   tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible,
@@ -15,6 +16,10 @@ const Tooltip = ({
     left: visible ? calculateTooltipOffset(duration) : -99999,
   };
 
+  const anchorStyle = {
+    width: calculateWidth(duration) + 20.0,
+  };
+
   const tooltipStyle = {
     left: tooltipOffset,
   };
@@ -23,7 +28,7 @@ const Tooltip = ({
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
   return (<div className={styles.tooltip} style={style}>
-    <div className={styles.anchorContainer}>
+    <div style={anchorStyle} className={styles.anchorContainer}>
       <div style={tooltipStyle} className={styles.anchor} />
     </div>
     <div className={styles.content}>
