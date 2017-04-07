@@ -78,7 +78,7 @@ storiesOf('RoomTimeline', module)
     };
     return <RoomTimeline room={exampleRoom} />;
   })
-  .add('with a fifteen meeting at 2:00am', () => {
+  .add('with a fifteen meeting at 2:30am', () => {
     const startTime = moment('1998-12-25 02:30:00').format('YYYY-MM-DDTHH:mm:ssZ');
     console.log(startTime)
     const exampleRoom = {
@@ -87,6 +87,21 @@ storiesOf('RoomTimeline', module)
         {
           startTime,
           duration: .25, // hours
+          isOwnedByUser: false,
+        },
+      ],
+    };
+    return <RoomTimeline room={exampleRoom} />;
+  })
+  .add('with a thirty meeting at 2:00am', () => {
+    const startTime = moment('1998-12-25 02:00:00').format('YYYY-MM-DDTHH:mm:ssZ');
+    console.log(startTime)
+    const exampleRoom = {
+      name: 'Cyan',
+      meetings: [
+        {
+          startTime,
+          duration: .5, // hours
           isOwnedByUser: false,
         },
       ],
