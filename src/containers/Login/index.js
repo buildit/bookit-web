@@ -29,7 +29,7 @@ class Login extends React.Component {
         errors,
       },
     } = this.props;
-    console.log("WHY");
+
     return (
       <div className="login">
         <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
@@ -58,7 +58,13 @@ class Login extends React.Component {
         </form>
         <div className="auth-messages">
           {/* As in the signup, we're just using the message and error helpers */}
+          {!requesting && !!errors.length && (
+            <div>{errors} </div>
+          )}
           {requesting && <div>Logging in...</div>}
+          {!requesting && !successful && (
+            <div>Need to Signup? Click Here »</div>
+          )}
         </div>
       </div>
     );

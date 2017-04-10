@@ -1,15 +1,14 @@
 import { cancel, cancelled, call, fork, put, take, takeEvery } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import api from './api';
-import { CLIENT_SET, CLIENT_UNSET, LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, MEETINGS_RECEIVED, MEETINGS_FETCH_FAILED, START_MEETINGS_REQUEST } from './actions/actionTypes';
+import { CLIENT_UNSET, LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, MEETINGS_RECEIVED, MEETINGS_FETCH_FAILED, START_MEETINGS_REQUEST } from './actions/actionTypes';
 import { setClient, unsetClient } from './actions';
 
 function loginApi(email, password) {
   if (password === 'password') {
-    console.log('login api')
-    return { email: "foo@foo.com", token: "12345" };
+    return { email: 'foo@foo.com', token: '12345' };
   }
-  throw new Error("You fail");
+  throw new Error('You fail');
 }
 
 function* logout() {
@@ -55,9 +54,12 @@ function* fetchMeetings() {
   }
 }
 
-function* rootSaga() {
-  yield loginWatcher();
+function* meetingsWatcher() {
   yield takeEvery(START_MEETINGS_REQUEST, fetchMeetings);
+}
+
+function* rootSaga() {
+  yield [meetingsWatcher(), loginWatcher()];
 }
 
 export default rootSaga;

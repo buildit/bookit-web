@@ -15,7 +15,11 @@ const reducer = (state = initialState, action) => {
       return { requesting: false, successful: true, errors: [] };
     }
     case LOGIN_ERROR: {
-      return { requesting: false, successful: false, errors: state.errors.concat([{ body: action.error.toString() }]) };
+      return {
+        requesting: false,
+        successful: false,
+        errors: state.errors.concat([{ body: action.error.toString() }]),
+      };
     }
     default: {
       return state;
