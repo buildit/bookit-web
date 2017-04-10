@@ -29,7 +29,7 @@ class Login extends React.Component {
         errors,
       },
     } = this.props;
-    console.log("WHY")
+    console.log("WHY");
     return (
       <div className="login">
         <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
