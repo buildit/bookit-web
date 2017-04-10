@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import moment from 'moment';
 import MeetingEditor from '../../components/02-molecules/MeetingEditor';
-import { cancelMeetingRequest } from '../../actions/index';
+import { cancelMeetingRequest, createMeetingStart } from '../../actions/index';
 
 const validate = (values) => {
   const startMom = moment(values.start);
@@ -33,9 +33,19 @@ const mapFormValues = (values) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancel: () => dispatch(cancelMeetingRequest()),
+  handleSubmit: (meeting) => dispatch(createMeetingStart(meeting)),
 });
 
+const getSubmittableMeeting = (form, room) => {
+  // FIXME: This is crazy-sauce. What is the right way?
+  if (!form) return { values: {} };
+  if (!form['meeting-editor']) return { values: {} };
+  if (!form['meeting-editor'].values) return { values: {} };
+  return { ...form['meeting-editor'].values, room };
+};
+
 export default connect((state) => ({
+  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-editor'] && state.form['meeting-editor'].syncErrors,
 }), mapDispatchToProps)(MeetingForm);

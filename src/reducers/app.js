@@ -1,5 +1,9 @@
 import moment from 'moment';
-import { CREATE_MEETING_REQUEST, CREATE_MEETING_CANCEL, MEETINGS_RECEIVED } from '../actions/actionTypes';
+import { CREATE_MEETING_REQUEST,
+  CREATE_MEETING_CANCEL,
+  MEETINGS_RECEIVED,
+  CLOSE_MEETING_DIALOG,
+ } from '../actions/actionTypes';
 
 // TODO: flatten!
 
@@ -35,6 +39,9 @@ const reducer = (state = initialState, action) => {
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
     }
     case CREATE_MEETING_CANCEL: {
+      return { ...state, isEditingMeeting: false };
+    }
+    case CLOSE_MEETING_DIALOG: {
       return { ...state, isEditingMeeting: false };
     }
     default: {

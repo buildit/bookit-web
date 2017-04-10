@@ -7,16 +7,21 @@ const start = startMoment.format('YYYY-MM-DD');
 
 const end = startMoment.clone().add(1, 'day').format('YYYY-MM-DD');
 
-const fetchMeetings = () => agent.get(`http://localhost:8888/rooms/nyc/meetings?start=${start}&end=${end}`).then(response => {
-  const meetings = JSON.parse(response.text);
-  return meetings;
-})
-  .catch(err => {
-    console.log(err);
-  });
+const fetchMeetings = () => agent
+  .get(`http://localhost:8888/rooms/nyc/meetings?start=${start}&end=${end}`).then(response => {
+    const meetings = JSON.parse(response.text);
+    return meetings;
+  })
+  .catch(err => err);
+
+const createMeeting = (meeting) => agent.post('http://localhost:8888/')
+  .send(meeting)
+  .then((message) => message)
+  .catch(err => err);
 
 const Api = {
   fetchMeetings,
+  createMeeting,
 };
 
 export default Api;
