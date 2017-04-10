@@ -6,7 +6,12 @@ import { setClient, unsetClient } from './actions';
 
 function loginApi(email, password) {
   if (password === 'password') {
-    return { email: 'foo@foo.com', token: '12345' };
+    return {
+      email: 'bruce@myews.onmicrosoft.com',
+      name: 'Bruce',
+      id: 12345,
+      token: '12345abcde',
+    };
   }
   throw new Error('You fail');
 }
@@ -18,12 +23,12 @@ function* logout() {
 }
 
 function* loginFlow(email, password) {
-  let token;
+  let user;
   try {
-    token = yield call(loginApi, email, password);
-    yield put(setClient(token));
+    user = yield call(loginApi, email, password);
+    yield put(setClient(user));
     yield put({ type: LOGIN_SUCCESS });
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('user', JSON.stringify(user));
     browserHistory.push('/dashboard');
   } catch (error) {
     yield put({ type: LOGIN_ERROR, error });
@@ -32,7 +37,7 @@ function* loginFlow(email, password) {
       browserHistory.push('/login');
     }
   }
-  return token;
+  return user;
 }
 
 function* loginWatcher() {

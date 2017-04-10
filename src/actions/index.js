@@ -2,10 +2,10 @@ import { CLIENT_SET, CLIENT_UNSET, LOGIN_REQUESTING } from './actionTypes';
 
 export const startMeetingsRequest = () => ({ type: 'START_MEETINGS_REQUEST' }); // eslint-disable-line import/prefer-default-export
 
-export function setClient(token) {
+export function setClient(user) {
   return {
     type: CLIENT_SET,
-    token,
+    ...user,
   };
 }
 

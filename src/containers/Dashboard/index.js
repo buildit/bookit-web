@@ -36,13 +36,13 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  userName: state.user.name,
-  rooms: state.meetings.map(rm => {
+  userName: state.client.user.name,
+  rooms: state.client.meetings.map(rm => {
     const meetings = rm.meetings.map(m => {
       const startMoment = moment(m.start);
       const endMoment = moment(m.end);
       const duration = endMoment.diff(startMoment, 'minutes') / 60;
-      const isOwnedByUser = m.owner && (state.user.email === m.owner.email);
+      const isOwnedByUser = m.owner && (state.client.user.email === m.owner.email);
       return {
         startTime: moment(m.start).format('YYYY-MM-DDTHH:mm:ssZ'),
         duration,

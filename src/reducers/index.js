@@ -6,8 +6,8 @@ import login from './login';
 const initialState = {
   meetings: [],
   user: {
-    email: 'bruce@myews.onmicrosoft.com',
-    name: 'Bruce',
+    email: null,
+    name: null,
     id: null,
     token: null,
   },
@@ -19,10 +19,26 @@ const client = (state = initialState, action) => {
       return { ...state, meetings: action.meetings };
     }
     case CLIENT_SET: {
-      return { ...state, user: { id: action.token.userId, token: action.token } };
+      return {
+        meetings: [],
+        user: {
+          email: action.email,
+          name: action.name,
+          id: action.id,
+          token: action.token,
+        },
+      };
     }
     case CLIENT_UNSET: {
-      return { ...state, user: { id: null, token: null } };
+      return {
+        meetings: [],
+        user: {
+          email: null,
+          name: null,
+          id: null,
+          token: null,
+        },
+      };
     }
     default: {
       return state;
