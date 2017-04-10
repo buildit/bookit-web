@@ -22,11 +22,18 @@ const importLogin = (nextState, cb) => {
   .catch((e) => { throw e; });
 };
 
+const importDashboard = (nextState, cb) => {
+  System.import('../containers/Dashboard')
+  .then(module => cb(null, module.default))
+  .catch((e) => { throw e; });
+};
+
 // We use `getComponent` to dynamically load routes.
 // https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
 const routes = (
   <Route path="/" component={App}>
     <Route path="login" getComponent={importLogin} />
+    <Route path="dashboard" getComponent={importDashboard} />
     <Route getComponent={importAgenda} />
   </Route>
 );
@@ -37,6 +44,7 @@ const routes = (
 if (module.hot) {
   require('../components/03-organisms/Agenda');    // eslint-disable-line global-require
   require('../containers/Login');    // eslint-disable-line global-require
+  require('../containers/Dashboard');    // eslint-disable-line global-require
 }
 
 export default routes;
