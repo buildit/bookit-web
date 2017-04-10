@@ -6,7 +6,7 @@ import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
 import { startMeetingsRequest } from '../../actions';
 
-export class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   componentDidMount() {
     this.props.requestRooms();
   }

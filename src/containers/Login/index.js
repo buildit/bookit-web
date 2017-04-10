@@ -22,7 +22,7 @@ class Login extends React.Component {
 
   render() {
     const {
-      handleSubmit, // remember, Redux Form injects this into our props
+      handleSubmit,
       login: {
         requesting,
         successful,
@@ -77,9 +77,6 @@ const mapStateToProps = state => ({
 });
 
 const connected = connect(mapStateToProps, { loginRequest })(Login);
-
-const formed = reduxForm({
-  form: 'login',
-})(connected);
+const formed = reduxForm({ form: 'login' })(connected);
 
 export default formed;

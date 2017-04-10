@@ -1,4 +1,8 @@
-import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from '../actions/actionTypes';
+import {
+  LOGIN_REQUESTING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+} from '../actions/actionTypes';
 
 const initialState = {
   requesting: false,
@@ -18,7 +22,9 @@ const reducer = (state = initialState, action) => {
       return {
         requesting: false,
         successful: false,
-        errors: state.errors.concat([{ body: action.error.toString() }]),
+        errors: state.errors.concat([{
+          body: action.error.toString(),
+        }]),
       };
     }
     default: {

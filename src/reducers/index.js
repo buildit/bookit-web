@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { CLIENT_SET, CLIENT_UNSET, MEETINGS_RECEIVED } from '../actions/actionTypes';
+
+import {
+  CLIENT_SET,
+  CLIENT_UNSET,
+  MEETINGS_RECEIVED,
+} from '../actions/actionTypes';
+
 import login from './login';
 
 const initialState = {
@@ -46,6 +52,8 @@ const client = (state = initialState, action) => {
   }
 };
 
-const Reducer = combineReducers({ login, client, form });
-
-export default Reducer;
+export default combineReducers({
+  login,
+  client,
+  form,
+});
