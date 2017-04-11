@@ -69,7 +69,7 @@ const mapMeeting = (rm, user) => {
       isOwnedByUser,
       participants: m.participants,
       owner: m.owner,
-      title: m.subject,
+      title: m.title,
     };
   });
 
