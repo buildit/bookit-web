@@ -5,29 +5,31 @@ import { DatePicker, TextField, TimePicker } from 'redux-form-material-ui';
 // TODO: replace Cancel button with svg asset.
 
 const MeetingEditor = ({
-  handleSubmit,
-  handleCancel,
-  invalid,
-  errors = {},
-  meeting }) => (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        handleSubmit(meeting);
-      }}
-    >
-      <Field name="title" component={TextField} errorText={errors.title} />
-      <div>
-        <Field name="start" component={DatePicker} autoOk errorText={errors.start} />
-        <Field name="start" component={TimePicker} style={{ width: '100px' }} />
-      </div>
-      <div>
-        <Field name="end" component={DatePicker} autoOk errorText={errors.end} />
-        <Field name="end" component={TimePicker} />
-      </div>
-      <button disabled={invalid} type="submit">Create</button>
-      <button onClick={handleCancel}>Cancel</button>
-    </form>
+                         handleSubmit,
+                         handleCancel,
+                         invalid,
+                         errors = {},
+                         meeting,
+                         room,
+                       }) => (
+                         <form
+                           onSubmit={(event) => {
+                             event.preventDefault();
+                             handleSubmit(meeting, room);
+                           }}
+                         >
+                           <Field name="title" component={TextField} errorText={errors.title} />
+                           <div>
+                             <Field name="start" component={DatePicker} autoOk errorText={errors.start} />
+                             <Field name="start" component={TimePicker} style={{ width: '100px' }} />
+                           </div>
+                           <div>
+                             <Field name="end" component={DatePicker} autoOk errorText={errors.end} />
+                             <Field name="end" component={TimePicker} />
+                           </div>
+                           <button disabled={invalid} type="submit">Create</button>
+                           <button onClick={handleCancel}>Cancel</button>
+                         </form>
 );
 
 MeetingEditor.propTypes = {
@@ -39,10 +41,10 @@ MeetingEditor.propTypes = {
     title: PropTypes.string,
     start: PropTypes.date,
     end: PropTypes.date,
-    room: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string,
-    }),
+  }),
+  room: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
   }),
 };
 

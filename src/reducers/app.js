@@ -1,13 +1,17 @@
 import moment from 'moment';
-import { CREATE_MEETING_REQUEST,
+import {
+  CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
   MEETINGS_RECEIVED,
   CLOSE_MEETING_DIALOG,
- } from '../actions/actionTypes';
+  CREATE_MEETING_FAILURE,
+  MEETINGS_FETCH_FAILED,
+} from '../actions/actionTypes';
 
 // TODO: flatten!
 
 const initialState = {
+  messages: [],
   requestedMeeting: {},
   selectedDate: moment().startOf('day'),
   meetings: [],
@@ -38,12 +42,14 @@ const reducer = (state = initialState, action) => {
       };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
     }
-    case CREATE_MEETING_CANCEL: {
-      return { ...state, isEditingMeeting: false };
-    }
-    case CLOSE_MEETING_DIALOG: {
-      return { ...state, isEditingMeeting: false };
-    }
+    case CREATE_MEETING_CANCEL:
+    case CLOSE_MEETING_DIALOG:
+      return { ...state, isEditingMeeting: false, messages: [] };
+
+    case CREATE_MEETING_FAILURE:
+    case MEETINGS_FETCH_FAILED:
+      return { ...state, messages: [action.payload.message] };
+
     default: {
       return state;
     }

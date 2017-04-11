@@ -14,10 +14,13 @@ const fetchMeetings = () => agent
   })
   .catch(err => err);
 
-const createMeeting = (meeting) => agent.post('http://localhost:8888/')
-  .send(meeting)
-  .then((message) => message)
-  .catch(err => err);
+const createMeeting = (meeting, room) => agent.post(`http://localhost:8888/room/${room.email}/meeting`)
+  .send({
+    title: meeting.title,
+    start: meeting.start,
+    end: meeting.end,
+  })
+  .then((message) => message);
 
 const Api = {
   fetchMeetings,

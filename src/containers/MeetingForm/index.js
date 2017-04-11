@@ -33,19 +33,20 @@ const mapFormValues = (values) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancel: () => dispatch(cancelMeetingRequest()),
-  handleSubmit: (meeting) => dispatch(createMeetingStart(meeting)),
+  handleSubmit: (meeting, room) => dispatch(createMeetingStart(meeting, room)),
 });
 
-const getSubmittableMeeting = (form, room) => {
+const getSubmittableMeeting = form => {
   // FIXME: This is crazy-sauce. What is the right way?
   if (!form) return { values: {} };
   if (!form['meeting-editor']) return { values: {} };
   if (!form['meeting-editor'].values) return { values: {} };
-  return { ...form['meeting-editor'].values, room };
+  return form['meeting-editor'].values;
 };
 
 export default connect((state) => ({
   meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
+  room: state.app.requestedMeeting.room,
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-editor'] && state.form['meeting-editor'].syncErrors,
 }), mapDispatchToProps)(MeetingForm);

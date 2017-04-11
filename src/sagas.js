@@ -2,14 +2,13 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { destroy } from 'redux-form';
 import api from './api';
 import {
-  MEETINGS_RECEIVED,
-  MEETINGS_FETCH_FAILED,
-  START_MEETINGS_REQUEST,
   CREATE_MEETING_START,
   CREATE_MEETING_SUCCESS,
-  CREATE_MEETING_FAILURE,
- } from './actions/actionTypes';
-import { closeMeetingDialog } from './actions';
+  MEETINGS_FETCH_FAILED,
+  MEETINGS_RECEIVED,
+  START_MEETINGS_REQUEST,
+} from './actions/actionTypes';
+import { createMeetingFailure, closeMeetingDialog } from './actions';
 
 function* fetchMeetings() {
   try {
@@ -23,12 +22,14 @@ function* fetchMeetings() {
 function* createMeeting(action) {
   try {
     const meeting = action.payload.meeting;
-    yield call(api.createMeeting, meeting);
+    const room = action.payload.room;
+    yield call(api.createMeeting, meeting, room);
     yield put(closeMeetingDialog());
     yield put(destroy('meeting-editor'));
     yield put({ type: CREATE_MEETING_SUCCESS });
-  } catch (e) {
-    yield put({ type: CREATE_MEETING_FAILURE });
+    yield call(fetchMeetings);
+  } catch (err) {
+    yield put(createMeetingFailure(err.response && err.response.body && err.response.body.message));
   }
 }
 

@@ -31,5 +31,6 @@
 
 .leftPane {
   display: flex;
+  flex-direction: column;
   width: 375px;
 }

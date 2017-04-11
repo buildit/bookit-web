@@ -6,6 +6,7 @@ import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
 import { startMeetingsRequest, populateMeetingEditForm } from '../../actions';
 import MeetingForm from '../MeetingForm';
+import Messages from '../../components/02-molecules/Messages/index';
 
 export class AppInner extends React.Component {
   componentDidMount() {
@@ -15,11 +16,12 @@ export class AppInner extends React.Component {
   leftPaneContent() {
     if (this.props.isEditingMeeting) {
       return (
-        <MeetingForm onSubmit={console.log} />
+        <MeetingForm />
       );
     }
     return (<Calendar />);
   }
+
 
   render() {
     return (
@@ -33,6 +35,7 @@ export class AppInner extends React.Component {
         <div className={styles.container}>
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
+            <Messages messages={this.props.messages} />
           </div>
           <Agenda
             roomMeetings={this.props.rooms}
@@ -50,6 +53,7 @@ AppInner.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object),
   createMeetingRequest: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
+  messages: PropTypes.arrayOf(PropTypes.string),
 };
 
 const mapMeeting = (rm, user) => {
@@ -83,6 +87,7 @@ const mapStateToProps = globalState => {
     rooms: state.meetings.map(rm => mapMeeting(rm, state.user)),
     isEditingMeeting: state.isEditingMeeting,
     meetingEditForm: state.meetingEditForm,
+    messages: state.messages,
   };
 };
 
