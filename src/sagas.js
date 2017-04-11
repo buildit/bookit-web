@@ -1,5 +1,6 @@
 import { cancel, cancelled, call, fork, put, take, takeEvery } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
+import { destroy } from 'redux-form';
 
 import api from './api';
 
@@ -11,9 +12,16 @@ import {
   MEETINGS_RECEIVED,
   MEETINGS_FETCH_FAILED,
   START_MEETINGS_REQUEST,
+  CREATE_MEETING_START,
+  CREATE_MEETING_SUCCESS,
 } from './actions/actionTypes';
 
-import { setClient, unsetClient } from './actions';
+import {
+  setClient,
+  unsetClient,
+  createMeetingFailure,
+  closeMeetingDialog,
+} from './actions';
 
 function loginApi(email, password) {
   if (password === 'password') {
@@ -70,8 +78,23 @@ function* fetchMeetings() {
   }
 }
 
+function* createMeeting(action) {
+  try {
+    const meeting = action.payload.meeting;
+    const room = action.payload.room;
+    yield call(api.createMeeting, meeting, room);
+    yield put(closeMeetingDialog());
+    yield put(destroy('meeting-editor'));
+    yield put({ type: CREATE_MEETING_SUCCESS });
+    yield call(fetchMeetings);
+  } catch (err) {
+    yield put(createMeetingFailure(err.response && err.response.body && err.response.body.message));
+  }
+}
+
 function* meetingsWatcher() {
   yield takeEvery(START_MEETINGS_REQUEST, fetchMeetings);
+  yield takeEvery(CREATE_MEETING_START, createMeeting);
 }
 
 function* rootSaga() {

@@ -8,6 +8,7 @@ import {
 } from '../actions/actionTypes';
 
 import login from './login';
+import appReducer from './app';
 
 const initialState = {
   meetings: [],
@@ -55,5 +56,6 @@ const client = (state = initialState, action) => {
 export default combineReducers({
   login,
   client,
+  app: appReducer,
   form,
 });

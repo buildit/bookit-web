@@ -1,0 +1,13 @@
+@import '../../../shared-styles/variables';
+
+.button {
+  border-color: $veryyellow;
+  border-radius: 2px;
+  border-style: solid;
+  margin: 1rem 0;
+  background-color: $blackish;
+  color: $veryyellow;
+  display: block;
+  width: 100%;
+  padding: 12px;
+}
