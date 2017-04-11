@@ -1,20 +1,8 @@
-const initialState = {
-  meetings: [],
-  user: {
-    email: 'bruce@myews.onmicrosoft.com',
-    name: 'Bruce',
-  },
-};
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import appReducer from './app';
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'MEETINGS_RECEIVED': {
-      return { ...state, meetings: action.meetings };
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-export default reducer;
+export default combineReducers({
+  app: appReducer,
+  form: formReducer,
+});

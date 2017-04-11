@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-const WIDTH = 82;
+export const HOUR_WIDTH = 82;
 
-const calculateMeetingOffset = (startTime) => {
+export const calculateMeetingOffset = (startTime) => {
   if (startTime === undefined) return 0;
   try {
     const startTimeObj = moment(startTime);
@@ -15,4 +15,3 @@ const calculateMeetingOffset = (startTime) => {
   }
 };
 
-export default calculateMeetingOffset;
