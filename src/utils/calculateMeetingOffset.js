@@ -1,18 +1,11 @@
-import moment from 'moment';
 export const HOUR_WIDTH = 82;
 
 export const calculateMeetingOffset = (startTime) => {
-  if (!startTime.isValid || !startTime.isValid()) {
-    console.log('oh noooooo!!!!!!!!!!!!', startTime);
+  if (!startTime || !startTime.isValid || !startTime.isValid()) {
     return 0;
   }
-  try {
-    const hour = startTime.hour();
-    const minute = startTime.minutes() / 60;
-    return (HOUR_WIDTH * (hour + minute));
-  } catch (e) {
-    console.log(e)
-    return 100;
-  }
+  const hour = startTime.hour();
+  const minute = startTime.minutes() / 60;
+  return (HOUR_WIDTH * (hour + minute));
 };
 

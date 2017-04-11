@@ -1,5 +1,5 @@
+import moment from 'moment';
 import { calculateMeetingOffset } from './calculateMeetingOffset';
-import moment from "moment";
 
 describe('Meeting offset calculator', () => {
   it('should handle undefined input', () => {
