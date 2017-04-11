@@ -4,12 +4,24 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
-import { startMeetingsRequest } from '../../actions';
+import { startMeetingsRequest, populateMeetingEditForm } from '../../actions';
+import MeetingForm from '../MeetingForm';
+import Messages from '../../components/02-molecules/Messages/index';
 
 export class AppInner extends React.Component {
   componentDidMount() {
     this.props.requestRooms();
   }
+
+  leftPaneContent() {
+    if (this.props.isEditingMeeting) {
+      return (
+        <MeetingForm />
+      );
+    }
+    return (<Calendar />);
+  }
+
 
   render() {
     return (
@@ -21,8 +33,14 @@ export class AppInner extends React.Component {
           </span>
         </div>
         <div className={styles.container}>
-          <Calendar />
-          <Agenda rooms={this.props.rooms} />
+          <div className={styles.leftPane}>
+            { this.leftPaneContent() }
+            <Messages messages={this.props.messages} />
+          </div>
+          <Agenda
+            roomMeetings={this.props.rooms}
+            createMeetingRequest={this.props.createMeetingRequest}
+          />
         </div>
       </div>
     );
@@ -33,38 +51,52 @@ AppInner.propTypes = {
   requestRooms: PropTypes.func,
   userName: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
+  createMeetingRequest: PropTypes.func.isRequired,
+  isEditingMeeting: PropTypes.bool,
+  messages: PropTypes.arrayOf(PropTypes.string),
 };
 
-const mapStateToProps = state => ({
-  userName: state.user.name,
-  rooms: state.meetings.map(rm => {
-    const meetings = rm.meetings.map(m => {
-      const startMoment = moment(m.start);
-      const endMoment = moment(m.end);
-      const duration = endMoment.diff(startMoment, 'minutes') / 60;
-      const isOwnedByUser = m.owner && (state.user.email === m.owner.email);
-      return {
-        startTime: moment(m.start).format('YYYY-MM-DDTHH:mm:ssZ'),
-        duration,
-        start: moment(m.start),
-        end: moment(m.end),
-        isOwnedByUser,
-        participants: m.participants,
-        owner: m.owner,
-        title: m.subject,
-      };
-    });
-
+const mapMeeting = (rm, user) => {
+  const meetings = rm.meetings.map(m => {
+    const startMoment = moment(m.start);
+    const endMoment = moment(m.end);
+    const duration = endMoment.diff(startMoment, 'minutes') / 60;
+    const isOwnedByUser = m.owner && (user.email === m.owner.email);
     return {
-      name: rm.room.name,
-      meetings,
+      startTime: moment(m.start).format('YYYY-MM-DDTHH:mm:ssZ'),
+      duration,
+      start: moment(m.start),
+      end: moment(m.end),
+      isOwnedByUser,
+      participants: m.participants,
+      owner: m.owner,
+      title: m.subject,
     };
-  }),
-});
+  });
+
+  return {
+    room: rm.room,
+    meetings,
+  };
+};
+
+const mapStateToProps = globalState => {
+  const state = globalState.app;
+  return {
+    userName: state.user.name,
+    rooms: state.meetings.map(rm => mapMeeting(rm, state.user)),
+    isEditingMeeting: state.isEditingMeeting,
+    meetingEditForm: state.meetingEditForm,
+    messages: state.messages,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
     dispatch(startMeetingsRequest());
+  },
+  createMeetingRequest: (room, meeting) => {
+    dispatch(populateMeetingEditForm(room, meeting));
   },
 });
 

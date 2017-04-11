@@ -28,3 +28,11 @@
 .container {
   display: flex;
 }
+
+.leftPane {
+  display: flex;
+  flex-direction: column;
+  width: 375px;
+  background: #141516;
+  padding: 20px;
+}
