@@ -37,7 +37,7 @@ function loginApi(email, password) {
 
 function* logout() {
   yield put(unsetClient());
-  localStorage.removeItem('token');
+  localStorage.removeItem('user');
   browserHistory.push('/login');
 }
 

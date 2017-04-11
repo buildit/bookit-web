@@ -4,14 +4,12 @@ import { reducer as form } from 'redux-form';
 import {
   CLIENT_SET,
   CLIENT_UNSET,
-  MEETINGS_RECEIVED,
 } from '../actions/actionTypes';
 
 import login from './login';
-import appReducer from './app';
+import app from './app';
 
 const initialState = {
-  meetings: [],
   user: {
     email: null,
     name: null,
@@ -22,12 +20,8 @@ const initialState = {
 
 const client = (state = initialState, action) => {
   switch (action.type) {
-    case MEETINGS_RECEIVED: {
-      return { ...state, meetings: action.meetings };
-    }
     case CLIENT_SET: {
       return {
-        meetings: [],
         user: {
           email: action.email,
           name: action.name,
@@ -38,7 +32,6 @@ const client = (state = initialState, action) => {
     }
     case CLIENT_UNSET: {
       return {
-        meetings: [],
         user: {
           email: null,
           name: null,
@@ -54,8 +47,8 @@ const client = (state = initialState, action) => {
 };
 
 export default combineReducers({
-  login,
   client,
-  app: appReducer,
+  login,
+  app,
   form,
 });

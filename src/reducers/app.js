@@ -1,5 +1,7 @@
 import moment from 'moment';
 import {
+  CLIENT_SET,
+  CLIENT_UNSET,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
   MEETINGS_RECEIVED,
@@ -15,10 +17,6 @@ const initialState = {
   requestedMeeting: {},
   selectedDate: moment().startOf('day'),
   meetings: [],
-  user: {
-    email: 'bruce@myews.onmicrosoft.com',
-    name: 'Bruce',
-  },
   isEditingMeeting: false,
   meetingEditForm: {
     title: '',
@@ -29,6 +27,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLIENT_SET: {
+      return { ...state, meetings: [] };
+    }
+    case CLIENT_UNSET: {
+      return { ...state, meetings: [] };
+    }
     case MEETINGS_RECEIVED: {
       return { ...state, meetings: action.meetings };
     }
