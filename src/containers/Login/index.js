@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react';
+
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import { RaisedButton } from 'material-ui';
+import { CircularProgress, RaisedButton } from 'material-ui';
+
 import { connect } from 'react-redux';
+
 import styles from './styles.scss';
 
 import { loginRequest } from '../../actions';
@@ -34,8 +37,16 @@ class Login extends React.Component {
 
     return (
       <div className={styles.login}>
-        <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
+        <form onSubmit={handleSubmit(this.submit)}>
           <h1>Bookit</h1>
+          <div className="auth-messages">
+            {!requesting && !!errors.length && (
+              <div>{errors.toString()}</div>
+            )}
+            {requesting && (
+              <CircularProgress size={60} thickness={7} />
+            )}
+          </div>
           <div>
             <Field
               name="email"
@@ -43,7 +54,7 @@ class Login extends React.Component {
               id="email"
               className="email"
               floatingLabelText="email"
-              hintText="me@assholes.com"
+              hintText="me@email.com"
               component={TextField}
             />
           </div>
@@ -57,16 +68,10 @@ class Login extends React.Component {
               component={TextField}
             />
           </div>
-          <div>
-            <RaisedButton label="Bookit" type="submit" fullWidth />
+          <div style={{ marginTop: 30 }}>
+            <RaisedButton label="Bookit" type="submit" style={{ marginTop: 12, marginBottom: 12 }} fullWidth />
           </div>
         </form>
-        <div className="auth-messages">
-          {!requesting && !!errors.length && (
-            <div>{errors} </div>
-          )}
-          {requesting && <div>Logging in...</div>}
-        </div>
       </div>
     );
   }
