@@ -4,12 +4,8 @@ import moment from 'moment';
 
 import styles from './styles.scss';
 
-const WIDTH = 82;
-const TOOLTIP_WIDTH = 270;
-
-const calculateWidth = (duration) => (WIDTH * duration) - 2;
-
-const calculateOffset = (duration) => ((calculateWidth(duration) / 2) - (TOOLTIP_WIDTH / 2));
+import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
+import calculateWidth from '../../../utils/calculateWidth';
 
 const Tooltip = ({
   tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible,
@@ -17,7 +13,11 @@ const Tooltip = ({
   const style = {
     display: 'block',
     opacity: visible ? 1 : 0,
-    left: visible ? calculateOffset(duration) : -99999,
+    left: visible ? calculateTooltipOffset(duration) : -99999,
+  };
+
+  const anchorStyle = {
+    width: calculateWidth(duration) + 20.0,
   };
 
   const tooltipStyle = {
@@ -28,13 +28,13 @@ const Tooltip = ({
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
   return (<div className={styles.tooltip} style={style}>
-    <div className={styles.anchorContainer}>
+    <div style={anchorStyle} className={styles.anchorContainer}>
       <div style={tooltipStyle} className={styles.anchor} />
     </div>
     <div className={styles.content}>
       <p>
         <strong>{ title }</strong>
-        { meetingStartTime.format('h:00a') } - { meetingEndTime.format('h:00a') }
+        { meetingStartTime.format('h:mma') } - { meetingEndTime.format('h:mma') }
       </p>
       <p>
         <strong>{ roomTitle } Room</strong>
