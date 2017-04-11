@@ -9,7 +9,7 @@ export const calculateMeetingOffset = (startTime) => {
     const hourPortion = startTimeObj.hour();
     const minutePortion = startTimeObj.minutes() / 60;
     const hoursFromBeginningOfTimeline = hourPortion + minutePortion;
-    return (WIDTH * hoursFromBeginningOfTimeline);
+    return (HOUR_WIDTH * hoursFromBeginningOfTimeline);
   } catch (e) {
     return false;
   }
