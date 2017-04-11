@@ -6,7 +6,7 @@ import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/03-organisms/Calendar';
 import { startMeetingsRequest } from '../../actions';
 
-class Dashboard extends React.Component {
+export class DashboardContainer extends React.Component {
   componentDidMount() {
     this.props.requestRooms();
   }
@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
+DashboardContainer.propTypes = {
   requestRooms: PropTypes.func,
   userName: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
@@ -68,7 +68,10 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
+const connected = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Dashboard);
+)(DashboardContainer);
+
+export default connected;
+
