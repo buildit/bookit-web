@@ -5,12 +5,11 @@
   background:
     repeating-linear-gradient(
       45deg,
-      $blackish,
-      $blackish 4px,
+      $darkergrey,
+      $darkergrey 4px,
       $darkblue 4px,
       $darkblue 8px
     );
-  border-right: solid 3px $darkblue;
   box-shadow: inset 0 0 0 1px transparent;
   position: absolute;
   top: 0;
@@ -18,15 +17,15 @@
   width: 80px;
 
   &.hover {
-    box-shadow: inset 0 0 0 1px $slategrey;
+    box-shadow: inset 0 0 0 1px $darkergrey;
   }
 
   &.isOwnedByUser {
     background:
       repeating-linear-gradient(
         45deg,
-        $blackish,
-        $blackish 6px,
+        $darkergrey,
+        $darkergrey 6px,
         $darkblue 6px,
         $darkblue 8px
       );
