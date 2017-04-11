@@ -3,7 +3,7 @@
 .app {
   background-color: $darkblue;
   margin: 0;
-  padding: 0 30px;
+  padding: 0;
   height: 100vh;
 }
 
@@ -33,4 +33,6 @@
   display: flex;
   flex-direction: column;
   width: 375px;
+  background: #141516;
+  padding: 20px;
 }

@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { DatePicker, TextField, TimePicker } from 'redux-form-material-ui';
-
+import { TextField } from 'redux-form-material-ui';
+import DateTimePicker from '../DateTimePicker/index';
+import Button from '../../01-atoms/Button/index';
 // TODO: replace Cancel button with svg asset.
+
 
 const MeetingEditor = ({
                          handleSubmit,
@@ -18,17 +20,11 @@ const MeetingEditor = ({
                              handleSubmit(meeting, room);
                            }}
                          >
-                           <Field name="title" component={TextField} errorText={errors.title} />
-                           <div>
-                             <Field name="start" component={DatePicker} autoOk errorText={errors.start} />
-                             <Field name="start" component={TimePicker} style={{ width: '100px' }} />
-                           </div>
-                           <div>
-                             <Field name="end" component={DatePicker} autoOk errorText={errors.end} />
-                             <Field name="end" component={TimePicker} />
-                           </div>
-                           <button disabled={invalid} type="submit">Create</button>
-                           <button onClick={handleCancel}>Cancel</button>
+                           <Field floatingLabelText="Title" name="title" component={TextField} errorText={errors.title} />
+                           <DateTimePicker name="start" label="Start" error={errors.start} />
+                           <DateTimePicker name="end" label="End" error={errors.end} />
+                           <Button disabled={invalid} type="submit" content="Bookit" />
+                           <Button onClick={handleCancel} content="Cancel" />
                          </form>
 );
 

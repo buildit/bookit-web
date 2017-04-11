@@ -2,6 +2,7 @@ import * as colors from 'material-ui/styles/colors';
 import * as colorManipulator from 'material-ui/utils/colorManipulator';
 import * as spacing from 'material-ui/styles/spacing';
 
+// Bookit brand colors
 const yellow = '#faff29';
 
 const theme = {
@@ -19,7 +20,7 @@ const theme = {
     secondaryTextColor: (0, colorManipulator.fade)(colors.fullWhite, 0.7),
     alternateTextColor: '#303030',
     canvasColor: '#2b3947',
-    borderColor: (0, colorManipulator.fade)(colors.fullWhite, 0.3),
+    borderColor: yellow,
     disabledColor: (0, colorManipulator.fade)(colors.fullWhite, 0.3),
     pickerHeaderColor: (0, colorManipulator.fade)(colors.fullWhite, 0.12),
     clockCircleColor: (0, colorManipulator.fade)(colors.fullWhite, 0.12),
