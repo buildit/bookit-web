@@ -80,7 +80,7 @@ Meeting.propTypes = {
   }),
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
-  startTime: PropTypes.string,
+  startTime: PropTypes.shape({}),
 };
 
 export default Meeting;

@@ -63,10 +63,9 @@ const mapMeeting = (rm, user) => {
     const duration = endMoment.diff(startMoment, 'minutes') / 60;
     const isOwnedByUser = m.owner && (user.email === m.owner.email);
     return {
-      startTime: moment(m.start).format('YYYY-MM-DDTHH:mm:ssZ'),
       duration,
-      start: moment(m.start),
-      end: moment(m.end),
+      start: m.start,
+      end: m.end,
       isOwnedByUser,
       participants: m.participants,
       owner: m.owner,

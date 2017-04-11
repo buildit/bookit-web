@@ -1,4 +1,5 @@
 import { calculateMeetingOffset } from './calculateMeetingOffset';
+import moment from "moment";
 
 describe('Meeting offset calculator', () => {
   it('should handle undefined input', () => {
@@ -6,14 +7,14 @@ describe('Meeting offset calculator', () => {
   });
 
   it('should calculate offset for 1 am', () => {
-    expect(calculateMeetingOffset('2017-04-05T01:00:00')).toBe(82);
+    expect(calculateMeetingOffset(moment('2017-04-05T01:00:00'))).toBe(82);
   });
 
   it('should calculate offset for 1:30 am', () => {
-    expect(calculateMeetingOffset('2017-04-05T01:30:00')).toBe(123);
+    expect(calculateMeetingOffset(moment('2017-04-05T01:30:00'))).toBe(123);
   });
 
   it('should calculate offset for times after noon', () => {
-    expect(calculateMeetingOffset('2017-04-05T14:30:00')).toBe(1189);
+    expect(calculateMeetingOffset(moment('2017-04-05T14:30:00'))).toBe(1189);
   });
 });
