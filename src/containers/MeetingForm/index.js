@@ -17,6 +17,8 @@ const validate = (values) => {
   if (!values.title) {
     errors.title = 'Please set the title';
   }
+
+  // TODO: Add validation here.
   return errors;
 };
 
