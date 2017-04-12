@@ -6,15 +6,15 @@ describe('Meeting offset calculator', () => {
     expect(calculateMeetingOffset()).toBe(0);
   });
 
-  it('should calculate offset for 1 am', () => {
+  it('should return the meeting width (82) multiplied by the start time (in hours)', () => {
     expect(calculateMeetingOffset(moment('2017-04-05T01:00:00'))).toBe(82);
   });
 
-  it('should calculate offset for 1:30 am', () => {
+  it('should return the proper meeting offset when the start time has fractional hours', () => {
     expect(calculateMeetingOffset(moment('2017-04-05T01:30:00'))).toBe(123);
   });
 
-  it('should calculate offset for times after noon', () => {
+  it('should calculate offset for times after noon (82 * start time)', () => {
     expect(calculateMeetingOffset(moment('2017-04-05T14:30:00'))).toBe(1189);
   });
 });
