@@ -1,9 +1,5 @@
 @import '../../shared-styles/bookit';
 
-body {
-  background-color: $darkblue;
-}
-
 .app {
   background-color: $darkblue;
   margin: 0;
@@ -31,12 +27,4 @@ body {
 
 .container {
   display: flex;
-}
-
-.leftPane {
-  display: flex;
-  flex-direction: column;
-  width: 375px;
-  background: #141516;
-  padding: 20px;
 }

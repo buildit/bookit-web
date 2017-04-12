@@ -1,8 +1,54 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
-import appReducer from './app';
+import { reducer as form } from 'redux-form';
+
+import {
+  CLIENT_SET,
+  CLIENT_UNSET,
+} from '../actions/actionTypes';
+
+import login from './login';
+import app from './app';
+
+const initialState = {
+  user: {
+    email: null,
+    name: null,
+    id: null,
+    token: null,
+  },
+};
+
+const client = (state = initialState, action) => {
+  switch (action.type) {
+    case CLIENT_SET: {
+      return {
+        user: {
+          email: action.email,
+          name: action.name,
+          id: action.id,
+          token: action.token,
+        },
+      };
+    }
+    case CLIENT_UNSET: {
+      return {
+        user: {
+          email: null,
+          name: null,
+          id: null,
+          token: null,
+        },
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
 
 export default combineReducers({
-  app: appReducer,
-  form: formReducer,
+  client,
+  login,
+  app,
+  form,
 });

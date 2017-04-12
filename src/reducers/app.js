@@ -1,11 +1,13 @@
 import moment from 'moment';
 import {
-CREATE_MEETING_REQUEST,
-CREATE_MEETING_CANCEL,
-MEETINGS_RECEIVED,
-CLOSE_MEETING_DIALOG,
-CREATE_MEETING_FAILURE,
-MEETINGS_FETCH_FAILED,
+  CLIENT_SET,
+  CLIENT_UNSET,
+  CREATE_MEETING_REQUEST,
+  CREATE_MEETING_CANCEL,
+  MEETINGS_RECEIVED,
+  CLOSE_MEETING_DIALOG,
+  CREATE_MEETING_FAILURE,
+  MEETINGS_FETCH_FAILED,
 } from '../actions/actionTypes';
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
@@ -17,10 +19,6 @@ const initialState = {
   requestedMeeting: {},
   selectedDate: moment().startOf('day'),
   meetings: [],
-  user: {
-    email: 'bruce@myews.onmicrosoft.com',
-    name: 'Bruce',
-  },
   isEditingMeeting: false,
   meetingEditForm: {
     title: '',
@@ -41,6 +39,12 @@ function mapMeetingData(meetings) {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLIENT_SET: {
+      return { ...state, meetings: [] };
+    }
+    case CLIENT_UNSET: {
+      return { ...state, meetings: [] };
+    }
     case MEETINGS_RECEIVED: {
       return { ...state, meetings: mapMeetingData(action.meetings) };
     }

@@ -1,4 +1,7 @@
 import {
+  CLIENT_SET,
+  CLIENT_UNSET,
+  LOGIN_REQUESTING,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
   CREATE_MEETING_START,
@@ -8,6 +11,27 @@ import {
 } from './actionTypes';
 
 export const startMeetingsRequest = () => ({ type: 'START_MEETINGS_REQUEST' });
+
+export function setClient(user) {
+  return {
+    type: CLIENT_SET,
+    ...user,
+  };
+}
+
+export function unsetClient() {
+  return {
+    type: CLIENT_UNSET,
+  };
+}
+
+export function loginRequest({ email, password }) {
+  return {
+    type: LOGIN_REQUESTING,
+    email,
+    password,
+  };
+}
 
 export const populateMeetingEditForm = (room, meeting) => ({
   type: CREATE_MEETING_REQUEST,
