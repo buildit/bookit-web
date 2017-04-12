@@ -16,7 +16,7 @@ const RoomTimeline = ({ room, meetings, createMeetingRequest }) => {
       roomTitle={room.name}
       owner={meeting.owner}
       isOwnedByUser={meeting.isOwnedByUser}
-      startTime={meeting.startTime}
+      startTime={meeting.start}
       duration={meeting.duration}
     />
   );

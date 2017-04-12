@@ -10,6 +10,8 @@ import {
   MEETINGS_FETCH_FAILED,
 } from '../actions/actionTypes';
 
+import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
+
 // TODO: flatten!
 
 const initialState = {
@@ -25,6 +27,16 @@ const initialState = {
   },
 };
 
+function mapMeetingData(meetings) {
+  const mapMeeting = m => {
+    const start = moment(m.start);
+    const end = moment(m.end);
+    return ({ ...m, start, end });
+  };
+  return meetings.map(rm => ({ room: rm.room, meetings: rm.meetings.map(mapMeeting) }));
+}
+
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CLIENT_SET: {
@@ -34,14 +46,19 @@ const reducer = (state = initialState, action) => {
       return { ...state, meetings: [] };
     }
     case MEETINGS_RECEIVED: {
-      return { ...state, meetings: action.meetings };
+      return { ...state, meetings: mapMeetingData(action.meetings) };
     }
     case CREATE_MEETING_REQUEST: {
-      const start = state.selectedDate.clone().add(action.payload.meeting, 'hours');
+      const meetings = state.meetings
+        .find(rm => rm.room.email === action.payload.room.email).meetings;
+      const moment2 = state.selectedDate.clone().add(action.payload.meeting, 'hours');
+      const roundedDate = moment2.minutes(Math.floor(state.selectedDate.minutes() / 30) * 30);
+      const validatedSlot = getAvailableTimeSlot(roundedDate, meetings);
+
       const meeting = {
         title: '',
-        start,
-        end: start.clone().add(1, 'hour'),
+        start: validatedSlot.start,
+        end: validatedSlot.end,
         room: action.payload.room,
       };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };

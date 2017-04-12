@@ -16,6 +16,7 @@ class Meeting extends React.Component {
     this.onMove = this.onMove.bind(this);
     this.onOver = this.onOver.bind(this);
     this.onOut = this.onOut.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   onMove(event) {
@@ -56,6 +57,7 @@ class Meeting extends React.Component {
         onMouseMove={this.onMove}
         onMouseEnter={this.onOver}
         onMouseOut={this.onOut}
+        onClick={event => event.stopPropagation()}
       >
         <Tooltip
           title="A Meeting with Batman"
@@ -80,7 +82,7 @@ Meeting.propTypes = {
   }),
   isOwnedByUser: PropTypes.bool,
   duration: PropTypes.number.isRequired,
-  startTime: PropTypes.string,
+  startTime: PropTypes.shape({}),
 };
 
 export default Meeting;
