@@ -11,7 +11,15 @@ const validate = (values) => {
   const errors = {};
 
   if (startMom.isAfter(endMom)) {
-    errors.start = 'Must be before end';
+    errors.end = 'The start time must be before the end time';
+  }
+
+  if (startMom.isBefore(moment())) {
+    errors.noTimeTravel = 'You can\'t book in the past';
+  }
+
+  if (startMom.isAfter(moment().add(1, 'year'))) {
+    errors.upperBound = 'You can only book up to one year in advance';
   }
 
   if (!values.title) {
@@ -49,4 +57,5 @@ export default connect((state) => ({
   room: state.app.requestedMeeting.room,
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-editor'] && state.form['meeting-editor'].syncErrors,
+  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound'],
 }), mapDispatchToProps)(MeetingForm);
