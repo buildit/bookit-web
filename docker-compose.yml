@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:80"
     environment:
-    - API_BASE_URL=http://localhost:8888/
+    - API_BASE_URL=http://localhost:8888
   server:
     image: bookit-server:local
     ports:
@@ -14,4 +14,3 @@ services:
     #env_file: .env
     environment:
     - MICROSOFT_CLIENT_SECRET=setme_for_real_exchange
-
