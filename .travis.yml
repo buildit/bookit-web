@@ -18,7 +18,7 @@ deploy:
   skip_cleanup: true
   script: chmod 600 ./deploy/ec2/travis && ./deploy/deploy.sh
   on:
-    branch: travis_ssh_deploy
+    branch: master
 
 env:
   global:
