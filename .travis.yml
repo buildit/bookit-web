@@ -11,6 +11,8 @@ script:
     docker build -t builditdigital/bookit-web:$IMG_VERSION .;
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push builditdigital/bookit-web:$IMG_VERSION;
+    docker tag builditdigital/bookit-web:$IMG_VERSION builditdigital/bookit-web:latest;
+    docker push builditdigital/bookit-web:latest;
   fi
 
 deploy:
