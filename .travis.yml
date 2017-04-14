@@ -18,6 +18,7 @@ services:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       export IMG_VERSION=`node -p -e "require('./package.json').version"`;
+      echo "Building $IMG_VERSION";
       docker build -t builditdigital/bookit-web:$IMG_VERSION .;
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push builditdigital/bookit-web:$IMG_VERSION;
