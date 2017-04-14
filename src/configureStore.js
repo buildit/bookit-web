@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers';
 
 const configureStore = (initialState) => {
-  const sagaMiddleware = createSagaMiddleware.default();
+  const sagaMiddleware = createSagaMiddleware();
 
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
