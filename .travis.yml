@@ -2,6 +2,11 @@ language: node_js
 node_js:
 - '7'
 
+
+script:
+    - npm test
+    - npm run build
+
 env:
   global:
   - secure: G7IzlXf11wy/DxBvgNR+ChCKTsUABbiYl8q/nLLY++d5AK86ZfX+fqVMHhUArRad4in4LYuMPyMaoOJOsh38iy52/g8erbHSQmwX6r+JzHpueUlCBee7MP8mMGRbQPKC6Z+ZM4/JiMVleID3/uIfqxDGhNDNsB8abQ76DQN1s4x/dxVNM7WOv9EuNe66wyOATxeQ6VJop2jB8bdhYU8vlxBh0UsDMgU1ItjjdsQaxbB2t1YBBXFEQwjCErYCYzA9phFkk7vcnioDoJpe/ZRB8QCYuQDa9xBi64C9Oy0hS60cseLdZa9xgz5CUIVfuds5Rogs6tMusqhJmuKdvs2erMZybF978BHVqHEoLaLZSYlF0IyNeyo4gaMxRZG6sqLlIPgREYR8OjsFv9ZLvkT/K7Fw23EMYBmRvBOVYQSS+cafBieAiW54HdNcaFH8+SW2/GjHz2wDhvRBckVcWVTKZRMPPttqXwq9ZQwfo5fqxJCChkIiwkMIz2Y2OMUsDtzqay0mQ9Q5PKTn0SPj0evoCyHc4Qoef5x/rOZWJ4SDq8wE/meIOYK7ivoR1H7yVraak6kP+MZ/J09UbEpGIxz442NuFCFCkuSMO7Q0tiLdpbGFnY28som4axNGpEX3Ij08bLmKsLkQ/xL1ct2sdh0xseLS6M849r4oazULAlLFL+8=
