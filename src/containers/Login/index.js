@@ -45,7 +45,7 @@ class Login extends React.Component {
           )}
           <h1>Bookit</h1>
           <div className={styles.message}>
-              <span>{message}</span>
+            <span>{message}</span>
           </div>
           <div>
             <Field
@@ -86,4 +86,3 @@ const connected = connect(mapStateToProps, { loginRequest })(Login);
 const formed = reduxForm({ form: 'login' })(connected);
 
 export default formed;
-

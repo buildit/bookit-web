@@ -33,9 +33,9 @@ export function checkIndexAuthorization({ dispatch }) {
 
 export function checkDashboardAuthorization({ dispatch, getState }) {
   return (nextState, replace, next) => {
-    const client = getState().client;
+    const user = getState().user;
 
-    if (client && client.user) return next();
+    if (user) return next();
 
     if (checkAuthorization(dispatch)) return next();
 

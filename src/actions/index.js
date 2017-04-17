@@ -1,8 +1,9 @@
 import {
-  CLIENT_SET,
+  SET_USER,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT,
   RESET_MEETINGS,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
@@ -10,13 +11,14 @@ import {
   CLOSE_MEETING_DIALOG,
   MEETINGS_FETCH_FAILED,
   CREATE_MEETING_FAILURE,
+  RESET_USER,
 } from './actionTypes';
 
 export const startMeetingsRequest = () => ({ type: 'START_MEETINGS_REQUEST' });
 
 export function setClient(user) {
   return {
-    type: CLIENT_SET,
+    type: SET_USER,
     ...user,
   };
 }
@@ -36,7 +38,7 @@ export const loginFailure = error => ({
   error,
 });
 
-// export const loginFailure = error => (console.log(error));
+export const logout = () => ({ type: LOGOUT });
 
 export const resetMeetings = () => ({ type: RESET_MEETINGS });
 
@@ -74,3 +76,10 @@ const handleFailure = (code, message) => ({
 export const fetchMeetingsFailure = (message) => handleFailure(MEETINGS_FETCH_FAILED, message);
 
 export const createMeetingFailure = (message) => handleFailure(CREATE_MEETING_FAILURE, `Failed to create the meeting. ${message}`);
+
+export const resetUser = () => ({ type: RESET_USER });
+
+// export const resetUser = () => {
+//   console.log('resetUser');
+//   return { type: RESET_USER };
+// };

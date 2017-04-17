@@ -10,7 +10,7 @@ const initialState = {
   message: '',
 };
 
-const reducer = (state = initialState, action) => {
+const login = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return { ...state, requesting: true, successful: false };
@@ -35,4 +35,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default login;

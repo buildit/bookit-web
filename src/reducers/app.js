@@ -36,7 +36,7 @@ function mapMeetingData(meetings) {
 }
 
 
-const reducer = (state = initialState, action) => {
+const app = (state = initialState, action) => {
   switch (action.type) {
     case RESET_MEETINGS: {
       return { ...state, meetings: [] };
@@ -73,4 +73,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default app;
