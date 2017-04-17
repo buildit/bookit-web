@@ -1,7 +1,9 @@
 import {
   CLIENT_SET,
-  CLIENT_UNSET,
-  LOGIN_REQUESTING,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  RESET_MEETINGS,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
   CREATE_MEETING_START,
@@ -19,19 +21,24 @@ export function setClient(user) {
   };
 }
 
-export function unsetClient() {
-  return {
-    type: CLIENT_UNSET,
-  };
-}
-
 export function loginRequest({ email, password }) {
   return {
-    type: LOGIN_REQUESTING,
+    type: LOGIN_REQUEST,
     email,
     password,
   };
 }
+
+export const loginSuccess = () => ({ type: LOGIN_SUCCESS });
+
+export const loginFailure = error => ({
+  type: LOGIN_FAILURE,
+  error,
+});
+
+// export const loginFailure = error => (console.log(error));
+
+export const resetMeetings = () => ({ type: RESET_MEETINGS });
 
 export const populateMeetingEditForm = (room, meeting) => ({
   type: CREATE_MEETING_REQUEST,

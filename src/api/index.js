@@ -10,6 +10,25 @@ const end = startMoment.clone().add(1, 'day').format('YYYY-MM-DD');
 
 const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888');
 
+const login = () => ({
+  email: 'bruce@myews.onmicrosoft.com',
+  name: 'Bruce',
+  id: 12345,
+  // token: '12345abcde',
+});
+
+// const login = () => {
+//   throw new Error();
+// };
+
+// const login = (email, password) => agent.post(`${apiBaseUrl}/auth`)
+//   .send({
+//     email,
+//     password,
+//   })
+//   .then((message) => message)
+//   .catch(error => error);
+
 const fetchMeetings = () => agent
   .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`).then(response => {
     const meetings = JSON.parse(response.text);
@@ -26,6 +45,7 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   .then((message) => message);
 
 const Api = {
+  login,
   fetchMeetings,
   createMeeting,
 };

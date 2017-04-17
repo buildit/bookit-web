@@ -1,30 +1,32 @@
 import {
-  LOGIN_REQUESTING,
+  LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
+  LOGIN_FAILURE,
 } from '../actions/actionTypes';
 
 const initialState = {
   requesting: false,
   successful: false,
-  errors: [],
+  message: '',
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUESTING: {
-      return { requesting: true, successful: false, errors: [] };
+    case LOGIN_REQUEST: {
+      return { ...state, requesting: true, successful: false };
     }
     case LOGIN_SUCCESS: {
-      return { requesting: false, successful: true, errors: [] };
+      return { ...state, requesting: false, successful: true };
     }
-    case LOGIN_ERROR: {
+    case LOGIN_FAILURE: {
+      // TODO: Get message from action.error
+      const message = 'Oops! Login failed. Please try again.';
+
       return {
+        ...state,
         requesting: false,
         successful: false,
-        errors: state.errors.concat([{
-          body: action.error.toString(),
-        }]),
+        message,
       };
     }
     default: {

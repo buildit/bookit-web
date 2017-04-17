@@ -5,10 +5,7 @@ import { destroy } from 'redux-form';
 import api from './api';
 
 import {
-  CLIENT_UNSET,
-  LOGIN_REQUESTING,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
+  LOGIN_REQUEST,
   MEETINGS_RECEIVED,
   MEETINGS_FETCH_FAILED,
   START_MEETINGS_REQUEST,
@@ -17,26 +14,16 @@ import {
 } from './actions/actionTypes';
 
 import {
+  loginSuccess,
+  loginFailure,
   setClient,
-  unsetClient,
+  resetMeetings,
   createMeetingFailure,
   closeMeetingDialog,
 } from './actions';
 
-function loginApi(email, password) {
-  if (password === 'password') {
-    return {
-      email: 'bruce@myews.onmicrosoft.com',
-      name: 'Bruce',
-      id: 12345,
-      token: '12345abcde',
-    };
-  }
-  throw new Error('You fail');
-}
-
 function* logout() {
-  yield put(unsetClient());
+  // yield put(unsetClient());
   localStorage.removeItem('user');
   browserHistory.push('/login');
 }
@@ -44,13 +31,16 @@ function* logout() {
 function* loginFlow(email, password) {
   let user;
   try {
-    user = yield call(loginApi, email, password);
+    user = yield call(api.login, email, password);
+    // user = api.login();
     yield put(setClient(user));
-    yield put({ type: LOGIN_SUCCESS });
+    yield put(resetMeetings());
+    yield put(loginSuccess());
     localStorage.setItem('user', JSON.stringify(user));
     browserHistory.push('/dashboard');
   } catch (error) {
-    yield put({ type: LOGIN_ERROR, error });
+    console.log(error)
+    yield put(loginFailure(error));
   } finally {
     if (yield cancelled()) {
       browserHistory.push('/login');
@@ -61,10 +51,10 @@ function* loginFlow(email, password) {
 
 function* loginWatcher() {
   while (true) {
-    const { email, password } = yield take(LOGIN_REQUESTING);
+    const { email, password } = yield take(LOGIN_REQUEST);
     const task = yield fork(loginFlow, email, password);
-    const action = yield take([CLIENT_UNSET, LOGIN_ERROR]);
-    if (action.type === CLIENT_UNSET) yield cancel(task);
+    // const action = yield take([CLIENT_UNSET, LOGIN_ERROR]);
+    // if (action.type === CLIENT_UNSET) yield cancel(task);
     yield call(logout);
   }
 }
