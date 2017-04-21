@@ -1,5 +1,9 @@
 
-## Overview -N
+## Overview
+Bookit is a web app designed to allow different types of users to book conference room space - this app
+integrates with Exchange (meetings created in Bookit will display on users' Exchange calendars, and vice versa).
+Bookit also allows users outside of Exchange to be granted access. These users can then view the meeting schedule
+and create their own bookings.
 
 ## Existing functionality
 
@@ -32,8 +36,16 @@ The login functionality is faked out at the moment. The function `fakeLogin` in 
 `api.login` is a somewhat more realistic call to the server. It can be "turned on" whenever the server is actually listening for login requests.
 
 
-## Design assets -N
-// Zeplin, wireframes, etc
+## Design assets
+[Designs on Zeplin (must be granted access)](https://app.zeplin.io/project/58d4072283526a2ba8174a28)
+
+[Mobile prototype with annotations](https://invis.io/R4B44OSUC)
+
+[Desktop prototype with annotations](https://invis.io/G7B44PKKY)
+
+[UI assets](https://www.dropbox.com/sh/xqfl0pses67us7s/AABqy11BWMXyKA9EYmwhQei3a?dl=0)
+
+[Calendar module PDF](/docs/CalendarModule.pdf)
 
 ## Storybook -Z
 
