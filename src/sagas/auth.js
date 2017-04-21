@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import { call, put } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 
@@ -17,8 +18,8 @@ export function* login(action) {
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
-    localStorage.setItem('user', JSON.stringify(user));
-    browserHistory.push('/dashboard');
+    yield call(localStorage.setItem, 'user', JSON.stringify(user));
+    yield call(browserHistory.push, '/dashboard');
   } catch (error) {
     yield put(loginFailure(error));
   }
@@ -26,6 +27,6 @@ export function* login(action) {
 
 export function* logout() {
   yield put(resetUser());
-  localStorage.removeItem('user');
-  browserHistory.push('/login');
+  yield call(localStorage.removeItem, 'user');
+  yield call(browserHistory.push, '/login');
 }
