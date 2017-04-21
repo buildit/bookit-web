@@ -31,7 +31,11 @@ Some common booking errors are handled. For example:
 There are two layers of validation at work. Basic form validation (e.g. is startDate before endDate) happens in the `validate` function within `containers/MeetingForm`. Validation related to business rules (e.g. overlapping meetings are disallowed) happens in `utils/getAvailableTimeSlot`.
 
 ### Login/Logout
-The login functionality is faked out at the moment. The function `fakeLogin` in `api` simply returns ![The Boss](http://media-cache-ec0.pinimg.com/736x/1e/db/7c/1edb7c81dfd03ac2be75844afd8d17dc.jpg) with every login attempt. This means that users can login to the app using any username and password. (Or just click "Login"! We're not picky!)
+The login functionality is faked out at the moment. The function `fakeLogin` in `api` simply returns a The Boss with every login attempt.
+
+![The Boss](https://24.media.tumblr.com/tumblr_m3jp5eT0bs1r0ckzpo3_250.gif)
+
+This means that users can login to the app using any username and password. (Or just click "Login"! We're not picky!)
 
 `api.login` is a somewhat more realistic call to the server. It can be "turned on" whenever the server is actually listening for login requests.
 
