@@ -70,17 +70,17 @@ Designit IT). These questions are currently outstanding:
 Roughly speaking, this would allow our app to read and modify calendars for Designit users. It also allows the app to read the list of Designit users. It does not give the app any other information, such as email. You can read more these permissions here: https://developer.microsoft.com/en-us/graph/docs/authorization/permission_scopes
 3) We'd like to create a key for the application. Of course, this is needed so that our app can authenticate against Designit's Exchange server.
 
-## Feature backlog -N
+## Feature backlog
 As of the week of 4/17, this project has been put on hold. You can find an itemized list of the work remaining
 (as we've identified it) below:
-// Link to summary of tickets
+[Bookit feature backlog](/docs/backlog.md)
 
 ## Technical debt
 As of the week of 4/17, this project has been put on hold. You can find an itemized list of technical debt and cleanup
 the team would like to do below:
-// Link to TD
+[Bookit tech debt](/docs/techdebt.md)
 
-## Team members -N
+## Team members
 Lawrence Lee - Designit
 
 Mert Sondac - Designit
