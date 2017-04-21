@@ -66,9 +66,7 @@ Note! Storybook runs on Webpack 1. Our app uses Webpack 2. We have tried to make
 In order for this app to work as expected, we need the answers to some specific questions (in this case, these questions were directed to
 Designit IT). These questions are currently outstanding:
 1) Can we register Bookit with your Azure Active Directory?
-2) We'd like Bookit to be granted these two specific permissions:
-     Calendars.ReadWrite
-     Directory.Read.All
+2) We'd like Bookit to be granted these two specific permissions: `Calendars.ReadWrite` and `Directory.Read.All`
 Roughly speaking, this would allow our app to read and modify calendars for Designit users. It also allows the app to read the list of Designit users. It does not give the app any other information, such as email. You can read more these permissions here: https://developer.microsoft.com/en-us/graph/docs/authorization/permission_scopes
 3) We'd like to create a key for the application. Of course, this is needed so that our app can authenticate against Designit's Exchange server.
 
@@ -84,10 +82,15 @@ the team would like to do below:
 
 ## Team members -N
 Lawrence Lee - Designit
+
 Mert Sondac - Designit
+
 Chris Ashurst - Buildit (@frostiebot)
+
 Zac Smith - Buildit (@billyzac)
+
 Nicole Tibaldi - Buildit (@ntibaldi92)
+
 Roman Safronov - Buildit (@electroma)
 
 ## Configuration -Z
