@@ -5,6 +5,8 @@ integrates with Exchange (meetings created in Bookit will display on users' Exch
 Bookit also allows users outside of Exchange to be granted access. These users can then view the meeting schedule
 and create their own bookings.
 
+Dev deployment lives at http://bookit.riglet.io/
+
 ## Existing functionality
 
 ### Integration with Outlook
