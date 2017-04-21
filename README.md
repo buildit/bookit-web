@@ -167,5 +167,7 @@ Travis might fly too close to the Sun and fall out of the sky. No worries. You c
 npm run build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
 ```
 
+The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll see anything there! Or that you'll like what you see! As a dev deployment, it has not necessarily been checked by human eyes, and may change at any time.
+
 ## Bookit server
 Check it out [here](https://github.com/buildit/bookit-server).
