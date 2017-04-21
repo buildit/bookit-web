@@ -73,7 +73,7 @@ Roughly speaking, this would allow our app to read and modify calendars for Desi
 ## Feature backlog
 As of the week of 4/17, this project has been put on hold.
 
-This is an itemized list of the work remaining:[Bookit feature backlog](/docs/backlog.md)
+This is an itemized list of the work remaining: [Bookit feature backlog](/docs/backlog.md)
 
 ## Technical debt
 Here is an itemized list of technical debt and cleanup the team would like to do:

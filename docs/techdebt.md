@@ -9,7 +9,7 @@
 - Best practice for Mocha "Setup" & "Cleanup"
 - Use Express routing
 
-### "Medium tasks"
+### "Medium" tasks
 - Style cleanup: do nested styles right, brand colors defined in two places (MUI theme & "variables")
 
 ### Misc/un-sized tasks
