@@ -51,14 +51,23 @@ This means that users can login to the app using any username and password. (Or 
 
 [Calendar module PDF](/docs/CalendarModule.pdf)
 
-## Storybook -Z
+## React Storybook
+We used [Storybook](https://storybooks.js.org/) at the beginning of this project to quickly build out UI components before we had wired up the application state. Some of the stories need to be updated to match the new component apis. (See [Technical debt](##technical-debt).)
+
+To run Storybook:
+
+```
+npm run Storybook
+```
+
+Note! Storybook runs on Webpack 1. Our app uses Webpack 2. We have tried to make the two webpack configs as similar as possible, but you might encounter friction between the two. Storybook's webpack modifications can be found in `.storybook/webpack.config.js`.
 
 ## Outstanding questions -N
 
 ## Feature backlog -N
 // Link to summary of tickets
 
-## Technical debt -N
+## Technical debt
 // Link to TD
 
 ## Team members -N
