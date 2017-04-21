@@ -71,13 +71,11 @@ Roughly speaking, this would allow our app to read and modify calendars for Desi
 3) We'd like to create a key for the application. Of course, this is needed so that our app can authenticate against Designit's Exchange server.
 
 ## Feature backlog
-As of the week of 4/17, this project has been put on hold. You can find an itemized list of the work remaining
-(as we've identified it) below:
+As of the week of 4/17, this project has been put on hold. This is an itemized list of the work remaining:
 [Bookit feature backlog](/docs/backlog.md)
 
 ## Technical debt
-As of the week of 4/17, this project has been put on hold. You can find an itemized list of technical debt and cleanup
-the team would like to do below:
+Here is an itemized list of technical debt and cleanupthe team would like to do:
 [Bookit tech debt](/docs/techdebt.md)
 
 ## Team members
