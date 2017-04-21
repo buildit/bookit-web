@@ -25,6 +25,8 @@ npm run test-coverage
 
 ```
 
+Dev deployment lives at http://bookit.riglet.io/
+
 ## Existing functionality
 
 ### Integration with Outlook
