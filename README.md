@@ -159,6 +159,10 @@ npm run build && docker build . -t bookit-web:local && docker run --rm -ti -p 80
 ```
 Bookit will be running on http://localhost:8080/.
 
+To run both the client and server locally.
+```
+docker-compose up
+```
 
 Travis might fly too close to the Sun and fall out of the sky. No worries. You can still perform a build and push:
 ```
