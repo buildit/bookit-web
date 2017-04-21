@@ -1,7 +1,6 @@
 import moment from 'moment';
 import {
-  CLIENT_SET,
-  CLIENT_UNSET,
+  RESET_MEETINGS,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
   MEETINGS_RECEIVED,
@@ -37,12 +36,9 @@ function mapMeetingData(meetings) {
 }
 
 
-const reducer = (state = initialState, action) => {
+const app = (state = initialState, action) => {
   switch (action.type) {
-    case CLIENT_SET: {
-      return { ...state, meetings: [] };
-    }
-    case CLIENT_UNSET: {
+    case RESET_MEETINGS: {
       return { ...state, meetings: [] };
     }
     case MEETINGS_RECEIVED: {
@@ -77,4 +73,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default app;

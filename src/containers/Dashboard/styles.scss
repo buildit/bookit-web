@@ -12,17 +12,27 @@
   justify-content: flex-end;
   padding: 2rem;
   margin-bottom: 3rem;
-}
-
-.name {
   color: white;
   font-weight: 100;
 }
 
 .hello {
-  color: #faff29;
+  color: #faff29; // TODO: Replace with variable
   font-weight: 600;
   margin-right: 5pt;
+}
+
+.divider {
+  margin: 0 0.5rem;
+}
+
+.logout {
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: #faff29; // TODO: Replace with variable
+  }
 }
 
 .container {

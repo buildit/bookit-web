@@ -11,7 +11,11 @@ import Calendar from '../../components/03-organisms/Calendar';
 import Messages from '../../components/02-molecules/Messages/index';
 import MeetingForm from '../MeetingForm';
 
-import { startMeetingsRequest, populateMeetingEditForm } from '../../actions';
+import {
+  startMeetingsRequest,
+  populateMeetingEditForm,
+  logout,
+ } from '../../actions';
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
@@ -35,6 +39,8 @@ export class DashboardContainer extends React.Component {
           <span className={styles.name}>
             { this.props.userName }
           </span>
+          <span className={styles.divider}>|</span>
+          <span className={styles.logout} onClick={this.props.logout}>Logout</span>
         </div>
         <div className={styles.container}>
           <div className={styles.leftPane}>
@@ -58,6 +64,7 @@ DashboardContainer.propTypes = {
   createMeetingRequest: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
+  logout: PropTypes.func.isRequired,
 };
 
 const mapMeeting = (rm, user) => {
@@ -84,16 +91,13 @@ const mapMeeting = (rm, user) => {
   };
 };
 
-const mapStateToProps = globalState => {
-  const { client, app } = globalState;
-  return {
-    userName: client.user.name,
-    rooms: app.meetings.map(rm => mapMeeting(rm, client.user)),
-    isEditingMeeting: app.isEditingMeeting,
-    meetingEditForm: app.meetingEditForm,
-    messages: app.messages,
-  };
-};
+const mapStateToProps = state => ({
+  userName: state.user.name,
+  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
+  isEditingMeeting: state.app.isEditingMeeting,
+  meetingEditForm: state.app.meetingEditForm,
+  messages: state.app.messages,
+});
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
@@ -101,6 +105,9 @@ const mapDispatchToProps = dispatch => ({
   },
   createMeetingRequest: (room, meeting) => {
     dispatch(populateMeetingEditForm(room, meeting));
+  },
+  logout: () => {
+    dispatch(logout());
   },
 });
 

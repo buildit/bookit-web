@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import moment from 'moment';
-
 import styles from './styles.scss';
 
 import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
@@ -24,7 +22,7 @@ const Tooltip = ({
     left: tooltipOffset,
   };
 
-  const meetingStartTime = moment(startTime);
+  const meetingStartTime = startTime;
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
   return (<div className={styles.tooltip} style={style}>
@@ -47,7 +45,7 @@ const Tooltip = ({
 Tooltip.propTypes = {
   tooltipOffset: PropTypes.number,
   title: PropTypes.string,
-  startTime: PropTypes.string,
+  startTime: PropTypes.shape({}),
   roomTitle: PropTypes.string,
   isOwnedByUser: PropTypes.bool,
   owner: PropTypes.shape({

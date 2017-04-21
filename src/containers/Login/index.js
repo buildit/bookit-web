@@ -18,12 +18,12 @@ class Login extends React.Component {
     login: PropTypes.shape({
       requesting: PropTypes.bool,
       successful: PropTypes.bool,
-      errors: PropTypes.array,
+      message: PropTypes.string,
     }),
   }
 
-  submit = (values) => {
-    this.props.loginRequest(values);
+  submit = ({ email, password }) => {
+    this.props.loginRequest({ email, password });
   }
 
   render() {
@@ -31,21 +31,21 @@ class Login extends React.Component {
       handleSubmit,
       login: {
         requesting,
-        errors,
+        message,
       },
     } = this.props;
 
     return (
       <div className={styles.login}>
         <form onSubmit={handleSubmit(this.submit)}>
-          <h1>Bookit</h1>
-          <div className="auth-messages">
-            {!requesting && !!errors.length && (
-              <div>{errors.toString()}</div>
-            )}
-            {requesting && (
+          {requesting && (
+            <div className={styles.spinner}>
               <CircularProgress size={60} thickness={7} />
-            )}
+            </div>
+          )}
+          <h1>Bookit</h1>
+          <div className={styles.message}>
+            <span>{message}</span>
           </div>
           <div>
             <Field
@@ -86,4 +86,3 @@ const connected = connect(mapStateToProps, { loginRequest })(Login);
 const formed = reduxForm({ form: 'login' })(connected);
 
 export default formed;
-
