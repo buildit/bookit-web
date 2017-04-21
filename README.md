@@ -72,8 +72,31 @@ Note! Storybook runs on Webpack 1. Our app uses Webpack 2. We have tried to make
 
 ## Team members -N
 
-## Configuration -Z
-// kyt
+## Configuration
+We are using [Kyt](https://open.blogs.nytimes.com/2016/09/13/introducing-kyt-our-web-app-configuration-toolkit/?_r=0) to manage the configuration of our React app. This means that rather than explicitly defining our config here, we allow Kyt abstract away things like the configuration for Webpack, linters, and test runners.
+
+The app was bootstrapped with Kyt's `kyt-static-starter`. To reproduce, do this:
+
+```
+npm install -g kyt-cli
+kyt-cli setup
+```
+
+The Kyt CLI will ask you some questions. We went with the static app:
+
+```
+? Choose a starter-kyt: static
+```
+
+This gave us a starting point, but we needed to make some modifications to Kyt's base configuration. See the following for our changes:
+```
+kyt.config.js
+.eslintrc.json
+.stylelintrc.json
+.bablerc
+```
+
+It can be really useful to see Kyt's original webpack config. One easy way to do that is to look at the source code for [kyt-core](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core), particularly the [config folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/config). You can see the webpacks for dev and prod here. The [actions folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/cli/actions), which contains the scripts that run tests, lints your code, and [performs other interesting tricks](https://github.com/NYTimes/kyt/blob/master/docs/commands.md), is also helpful.
 
 ## CI & Deployment -Z
  TODO: Fix this (below)
