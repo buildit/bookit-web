@@ -118,15 +118,31 @@ kyt.config.js
 
 It can be really useful to see Kyt's original webpack config. One easy way to do that is to look at the source code for [kyt-core](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core), particularly the [config folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/config). You can see the webpacks for dev and prod here. The [actions folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/cli/actions), which contains the scripts that run tests, lints your code, and [performs other interesting tricks](https://github.com/NYTimes/kyt/blob/master/docs/commands.md), is also helpful.
 
-## CI & Deployment -Z
- TODO: Fix this (below)
- Travis build performs Docker image push only for `master` branch.
- We do not perform separate `npm i` and reuse build `node_modules` with `npm prune --production`.
+## CI & Deployment
+We are using Travis to manage continuous integration.
 
- Local build and run example
- `npm run build && docker build . -t bookit-web:local && docker run --rm -ti -p 8080:80 -e API_BASE_URL=http://localhost:1234/ bookit-web:local`
+- Travis runs validations and then creates a production build. Nothing too crazy there.
 
- Build and push (just in case you do not trust Travis build)
- `npm run build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest`
+- On commits to `master`, Travis creates a new Docker image and pushes it to our repo on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=builditdigital&starCount=0).
+
+- The Dockerfile makes use of the Single-Page-App-friendly nginx config in the `nginx` folder.
+
+- To tell the front-end app where the server is running, set an environment variable called `API_BASE_URL`. For our dev deployment, this is being set in `deploy/dev/docker-compose.yml`. For more sophisticated deployments, this variable can, of course, be set in a more dynamic way.
+
+- The Dockerfile "injects" the `API_BASE_URL` into the client side code. It is then available as `window.__CONFIG`. You can see this being used in `api/configParam`.
+
+- See `.travis.yml`, `Dockerfile`, and `deploy` for details.
+
+To build and run the Docker container locally.
+```
+npm run build && docker build . -t bookit-web:local && docker run --rm -ti -p 8080:80 -e API_BASE_URL=http://localhost:8888 bookit-web:local
+```
+Bookit will be running on http://localhost:8080/.
+
+
+Travis might fly too close to the Sun and fall out of the sky. No worries. You can still perform a build and push:
+```
+npm run build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
+```
 
 ## Server-side architecture -Z
