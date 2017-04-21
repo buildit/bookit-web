@@ -1,9 +1,29 @@
+# Bookit
 
-## Overview
-Bookit is a web app designed to allow different types of users to book conference room space - this app
-integrates with Exchange (meetings created in Bookit will display on users' Exchange calendars, and vice versa).
-Bookit also allows users outside of Exchange to be granted access. These users can then view the meeting schedule
-and create their own bookings.
+Bookit is a web app aimed at providing a neat way to book meeting rooms in the Designit/Buildit office in Brooklyn.
+
+## Quick start
+```
+npm install
+npm run dev
+```
+
+## Useful scripts
+Run all validations: unit tests and linting
+```
+npm test
+```
+
+Run tests and watch for changes
+```
+npm run test-watch
+```
+
+See a terrifying chart that reveals all the untested code 😱
+```
+npm run test-coverage
+
+```
 
 ## Existing functionality
 
@@ -145,4 +165,5 @@ Travis might fly too close to the Sun and fall out of the sky. No worries. You c
 npm run build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
 ```
 
-## Server-side architecture -Z
+## Bookit server
+Check it out [here](https://github.com/buildit/bookit-server).
