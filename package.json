@@ -2,8 +2,24 @@
   "name": "bookit-react",
   "version": "0.1.0",
   "description": "Meeting room booking application - user-facing",
-  "main": "",
-  "author": "",
+  "author": "BuildIt",
+  "contributors": [
+    {
+      "name": "frostiebot"
+    },
+    {
+      "name": "electroma"
+    },
+    {
+      "name": "BillyZac"
+    },
+    {
+      "name": "ntibaldi92"
+    },
+    {
+      "name": "Peter Monks"
+    }
+  ],
   "license": "Apache-2.0",
   "dependencies": {
     "babel-plugin-transform-regenerator": "^6.24.1",
@@ -45,7 +61,6 @@
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",
-    "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "start": "node build/server/main.js",
     "proto": "kyt proto",
     "test": "npm run lint && kyt test",
