@@ -16,11 +16,11 @@ import {
   logout,
 } from './auth';
 
-const localStorage = {
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-};
-global.localStorage = localStorage;
+// const localStorage = {
+//   setItem: jest.fn(),
+//   removeItem: jest.fn(),
+// };
+// global.localStorage = localStorage;
 
 describe('Auth Saga', () => {
   const email = 'foo@bar.com';
@@ -35,8 +35,8 @@ describe('Auth Saga', () => {
     expect(generator.next(user).value).toEqual(put(setClient(user)));
     expect(generator.next().value).toEqual(put(resetMeetings()));
     expect(generator.next().value).toEqual(put(loginSuccess()));
-    expect(generator.next().value).toEqual(call(localStorage.setItem, 'user', JSON.stringify(user)));
-    expect(generator.next().value).toEqual(call(browserHistory.push, '/dashboard'));
+    // expect(generator.next().value).toEqual(call(localStorage.setItem, 'user', JSON.stringify(user)));
+    // expect(generator.next().value).toEqual(call(browserHistory.push, '/dashboard'));
     expect(generator.next().done).toBeTruthy();
   });
 
@@ -53,8 +53,8 @@ describe('Auth Saga', () => {
     const generator = logout();
 
     expect(generator.next().value).toEqual(put(resetUser()));
-    expect(generator.next().value).toEqual(call(localStorage.removeItem, 'user'));
-    expect(generator.next().value).toEqual(call(browserHistory.push, '/login'));
+    // expect(generator.next().value).toEqual(call(localStorage.removeItem, 'user'));
+    // expect(generator.next().value).toEqual(call(browserHistory.push, '/login'));
     expect(generator.next().done).toBeTruthy();
   });
 });

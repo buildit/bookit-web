@@ -13,13 +13,14 @@ import {
 } from '../actions';
 
 export function* login(action) {
-  console.log(action);
   try {
     const user = yield call(api.login, action.email, action.password);
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
-    localStorage.setItem('user', JSON.stringify(user));
+    if (localStorage) {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
     browserHistory.push('/dashboard');
   } catch (error) {
     yield put(loginFailure(error));
@@ -28,6 +29,8 @@ export function* login(action) {
 
 export function* logout() {
   yield put(resetUser());
-  yield call(localStorage.removeItem, 'user');
-  yield call(browserHistory.push, '/login');
+  if (localStorage) {
+    localStorage.removeItem('user');
+  }
+  browserHistory.push('/login');
 }
