@@ -13,13 +13,14 @@ import {
 } from '../actions';
 
 export function* login(action) {
+  console.log(action);
   try {
     const user = yield call(api.login, action.email, action.password);
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
-    yield call(localStorage.setItem, 'user', JSON.stringify(user));
-    yield call(browserHistory.push, '/dashboard');
+    localStorage.setItem('user', JSON.stringify(user));
+    browserHistory.push('/dashboard');
   } catch (error) {
     yield put(loginFailure(error));
   }
