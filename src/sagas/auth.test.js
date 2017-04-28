@@ -57,13 +57,15 @@ describe('Auth Saga', () => {
   it('yields the proper sequence for logout', () => {
     const generator = logout();
 
-    localStorage.setItem('user', 'fish fish fish');
-    expect(localStorage.getItem('user')).toEqual('fish fish fish');
+    // Set up for test
+    localStorage.setItem('user', 'some arbitrary user data');
+    expect(localStorage.getItem('user')).toEqual('some arbitrary user data');
 
+    // Test the saga itself
     expect(generator.next().value).toEqual(put(resetUser()));
-
     expect(generator.next().done).toBeTruthy();
 
+    // Test that localStorage is empty after logging out
     expect(localStorage.getItem('user')).toBeUndefined();
     expect(browserHistory.push).toHaveBeenCalledWith('/login');
   });
