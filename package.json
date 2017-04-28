@@ -61,7 +61,7 @@
   "scripts": {
     "dev": "kyt dev",
     "build": "kyt build",
-    "start": "node build/server/main.js",
+    "start": "npm run dev",
     "proto": "kyt proto",
     "test": "npm run lint && kyt test",
     "test-watch": "kyt test -- --watch",
