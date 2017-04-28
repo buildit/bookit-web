@@ -13,6 +13,7 @@ const initialState = {
 const login = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
+      console.log('hey');
       return { ...state, requesting: true, successful: false };
     }
     case LOGIN_SUCCESS: {

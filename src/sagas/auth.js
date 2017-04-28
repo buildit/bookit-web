@@ -18,8 +18,8 @@ export function* login(action) {
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
-    yield call(localStorage.setItem, 'user', JSON.stringify(user));
-    yield call(browserHistory.push, '/dashboard');
+    localStorage.setItem('user', JSON.stringify(user));
+    browserHistory.push('/dashboard');
   } catch (error) {
     yield put(loginFailure(error));
   }
@@ -27,6 +27,6 @@ export function* login(action) {
 
 export function* logout() {
   yield put(resetUser());
-  yield call(localStorage.removeItem, 'user');
-  yield call(browserHistory.push, '/login');
+  localStorage.removeItem('user');
+  browserHistory.push('/login');
 }

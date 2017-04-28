@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions';
+
 import {
   SET_USER,
   LOGIN_REQUEST,
@@ -50,9 +52,11 @@ export const populateMeetingEditForm = (room, meeting) => ({
   },
 });
 
-export const cancelMeetingRequest = () => ({
-  type: CREATE_MEETING_CANCEL,
-});
+// export const cancelMeetingRequest = () => ({
+//   type: CREATE_MEETING_CANCEL,
+// });
+
+export const cancelMeetingRequest = createAction(CREATE_MEETING_CANCEL);
 
 export const closeMeetingDialog = () => ({
   type: CLOSE_MEETING_DIALOG,

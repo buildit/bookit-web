@@ -1,4 +1,4 @@
-
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -13,5 +13,16 @@ module.exports = {
     }
 
     return config;
+  },
+  modifyJestConfig: (baseConfig) => {
+    const jestConfig = Object.assign({}, baseConfig);
+    const setupFiles = jestConfig.setupFiles || [];
+
+    setupFiles.push(path.join(__dirname, 'jest.mocks.js'));
+
+    jestConfig.globals = { window: {} };
+    jestConfig.setupFiles = setupFiles;
+
+    return jestConfig;
   },
 };
