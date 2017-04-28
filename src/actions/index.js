@@ -14,31 +14,26 @@ import {
   MEETINGS_FETCH_FAILED,
   CREATE_MEETING_FAILURE,
   RESET_USER,
+  START_MEETINGS_REQUEST,
 } from './actionTypes';
 
-export const startMeetingsRequest = () => ({ type: 'START_MEETINGS_REQUEST' });
+export const startMeetingsRequest = createAction(START_MEETINGS_REQUEST);
 
-export function setClient(user) {
-  return {
-    type: SET_USER,
-    ...user,
-  };
-}
+export const setClient = createAction(SET_USER);
 
-export function loginRequest({ email, password }) {
-  return {
-    type: LOGIN_REQUEST,
-    email,
-    password,
-  };
-}
+export const loginRequest = createAction(LOGIN_REQUEST, user => ({
+  email: user.email,
+  password: user.password,
+}));
 
-export const loginSuccess = () => ({ type: LOGIN_SUCCESS });
+export const loginSuccess = createAction(LOGIN_SUCCESS);
 
-export const loginFailure = error => ({
-  type: LOGIN_FAILURE,
-  error,
-});
+export const loginFailure = createAction(LOGIN_FAILURE);
+
+// export const loginFailure = error => ({
+//   type: LOGIN_FAILURE,
+//   error,
+// });
 
 export const logout = () => ({ type: LOGOUT });
 
@@ -52,15 +47,9 @@ export const populateMeetingEditForm = (room, meeting) => ({
   },
 });
 
-// export const cancelMeetingRequest = () => ({
-//   type: CREATE_MEETING_CANCEL,
-// });
-
 export const cancelMeetingRequest = createAction(CREATE_MEETING_CANCEL);
 
-export const closeMeetingDialog = () => ({
-  type: CLOSE_MEETING_DIALOG,
-});
+export const closeMeetingDialog = createAction(CLOSE_MEETING_DIALOG);
 
 export const createMeetingStart = (meeting, room) => ({
   type: CREATE_MEETING_START,

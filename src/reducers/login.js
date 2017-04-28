@@ -13,15 +13,13 @@ const initialState = {
 const login = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
-      console.log('hey');
       return { ...state, requesting: true, successful: false };
     }
     case LOGIN_SUCCESS: {
       return { ...state, requesting: false, successful: true };
     }
     case LOGIN_FAILURE: {
-      // TODO: Get message from action.error
-      const message = 'Oops! Login failed. Please try again.';
+      const message = action.payload.message;
 
       return {
         ...state,
