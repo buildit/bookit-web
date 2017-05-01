@@ -68,8 +68,8 @@ class Login extends React.Component {
               component={TextField}
             />
           </div>
-          <div style={{ marginTop: 30 }}>
-            <RaisedButton label="Bookit" type="submit" style={{ marginTop: 12, marginBottom: 12 }} fullWidth />
+          <div id="login-button" style={{ marginTop: 30 }}>
+            <RaisedButton label="Login" type="submit" style={{ marginTop: 12, marginBottom: 12 }} fullWidth />
           </div>
         </form>
       </div>
