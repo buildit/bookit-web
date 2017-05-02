@@ -38,8 +38,3 @@ build
 # OS-specific temporary files
 Thumbs.db
 .DS_Store
-
-# Selenium server
-geckodriver
-selenium-server-standalone-3.0.1.jar
-errorShots

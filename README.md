@@ -25,19 +25,6 @@ npm run test-coverage
 
 ```
 
-### Running functional tests
-Set up and run a Selenium server:
-```
-source seleniumSetup.sh
-```
-
-Then run the tests:
-```
-npm run test-functional
-```
-
-(Of course, you've got to have the Bookit app itself running, or these tests won't have anything to look at.)
-
 ## Existing functionality
 
 ### Integration with Outlook
