@@ -28,7 +28,7 @@ npm run test-coverage
 ### Running functional tests
 Set up and run a Selenium server:
 ```
-source seleniumSetup
+source seleniumSetup.sh
 ```
 
 Then run the tests:
