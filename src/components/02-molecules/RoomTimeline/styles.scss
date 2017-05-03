@@ -17,13 +17,12 @@
   font-weight: 300;
   font-size: $base-font-size;
   font-style: normal;
-  left: 100px;
   line-height: $agenda-row-height;
   position: fixed;
   top: 100;
   user-select: none;
   width: 120px;
-  left: 275px;
+  left: 280px;
 }
 
 .timeline {
@@ -40,7 +39,6 @@
     );
   position: relative;
   width: $agenda-room-total-width;
-  left: -660px;
 }
 
 .meetings {
