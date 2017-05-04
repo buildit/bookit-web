@@ -14,8 +14,8 @@ _This is a tentative demo plan. We will send a finalized demo plan towards the e
 2) Hover over a booking that was created by the current user.
 3) See the tooltip showing the meeting details, and the "edit" button.
 4) Click "edit."
-5) See the edit form appear in the left panel.
-6) Click "cancel" on the edit form.
+5) See the edit/cancel form appear in the left panel.
+6) Click "cancel" on the edit/cancel form.
 6) The booking will be removed from Bookit and in the Outlook calendar.
 
 ## UI polish
