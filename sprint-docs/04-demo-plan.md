@@ -32,7 +32,7 @@ This includes color, font, and changes to the form display as the user interacts
 _This will not include styling of the calendar or time picker widgets. This will be addressed in a future sprint._
 
 ### Edit/cancel form
-We will style the edit/cancel form so that it is consistent with the look of the booking form.
+We will add the edit/cancel form, and style it so that it is consistent with the look of the booking form.
 
 ## Technical debt
 We have identified three pieces of technical debt which will be resolved during this sprint.
