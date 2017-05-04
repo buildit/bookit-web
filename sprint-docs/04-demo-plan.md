@@ -22,11 +22,17 @@ _This is a tentative demo plan. We will send a finalized demo plan towards the e
 
 ### Agenda view
 We will clean up the agenda view and its' behavior such that it matches Zeplin.
-This includes having the agenda view start by default at 8am, allowing the user to scroll backward or forward to show other timeslots.
+- The agenda view will start by default at 8am, allowing the user to scroll backward or forward to show other timeslots.
+- Timeslots that do not fall within business hours will be "greyed out" as shown in the designs.
+- When you hover over a meeting, it will be outlined in white, and the tooltip will display.
 
 ### Booking form
+We will style the booking form such that it matches the designs seen on Zeplin.
+This includes color, font, and changes to the form display as the user interacts with it.
+_This will not include styling of the calendar or time picker widgets. This will be addressed in a future sprint._
 
 ### Edit/cancel form
+We will style the edit/cancel form so that it is consistent with the look of the booking form.
 
 ## Technical debt
 We have identified three pieces of technical debt which will be resolved during this sprint.
