@@ -18,11 +18,11 @@
   font-size: $base-font-size;
   font-style: normal;
   line-height: $agenda-row-height;
-  position: fixed;
+  position: absolute;
   top: 100;
   user-select: none;
   width: 120px;
-  left: 280px;
+  left: 0;
 }
 
 .timeline {
