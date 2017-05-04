@@ -30,49 +30,30 @@ export const loginSuccess = createAction(LOGIN_SUCCESS);
 
 export const loginFailure = createAction(LOGIN_FAILURE);
 
-// export const loginFailure = error => ({
-//   type: LOGIN_FAILURE,
-//   error,
-// });
+export const logout = createAction(LOGOUT);
 
-export const logout = () => ({ type: LOGOUT });
+export const resetMeetings = createAction(RESET_MEETINGS);
 
-export const resetMeetings = () => ({ type: RESET_MEETINGS });
-
-export const populateMeetingEditForm = (room, meeting) => ({
-  type: CREATE_MEETING_REQUEST,
-  payload: {
-    room,
-    meeting,
-  },
-});
+export const populateMeetingEditForm = createAction(CREATE_MEETING_REQUEST, (room, meeting) => ({
+  room,
+  meeting,
+}));
 
 export const cancelMeetingRequest = createAction(CREATE_MEETING_CANCEL);
 
 export const closeMeetingDialog = createAction(CLOSE_MEETING_DIALOG);
 
-export const createMeetingStart = (meeting, room) => ({
-  type: CREATE_MEETING_START,
-  payload: {
-    meeting,
-    room,
-  },
-});
+export const createMeetingStart = createAction(CREATE_MEETING_START, (meeting, room) => ({
+  meeting,
+  room,
+}))
 
-const handleFailure = (code, message) => ({
-  type: code,
-  payload: {
-    message,
-  },
-});
+export const resetUser = createAction(RESET_USER);
 
-export const fetchMeetingsFailure = (message) => handleFailure(MEETINGS_FETCH_FAILED, message);
+export const fetchMeetingsFailure = createAction(MEETINGS_FETCH_FAILED, message => ({
+  message,
+}));
 
-export const createMeetingFailure = (message) => handleFailure(CREATE_MEETING_FAILURE, `Failed to create the meeting. ${message}`);
-
-export const resetUser = () => ({ type: RESET_USER });
-
-// export const resetUser = () => {
-//   console.log('resetUser');
-//   return { type: RESET_USER };
-// };
+export const createMeetingFailure = createAction(CREATE_MEETING_FAILURE, message => ({
+  message,
+}))
