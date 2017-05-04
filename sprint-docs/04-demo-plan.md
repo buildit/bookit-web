@@ -27,8 +27,8 @@ We will clean up the agenda view and its' behavior such that it matches Zeplin.
 - When you hover over a meeting, it will be outlined in white, and the tooltip will display.
 
 ### Booking form
-We will style the booking form such that it matches the designs seen on Zeplin.
-This includes color, font, and changes to the form display as the user interacts with it.
+We will style the booking form such that it matches the designs seen on Zeplin.<br />
+This includes color, font, and changes to the form display as the user interacts with it.<br />
 _This will not include styling of the calendar or time picker widgets. This will be addressed in a future sprint._
 
 ### Edit/cancel form
