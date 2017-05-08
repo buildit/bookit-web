@@ -7,11 +7,8 @@ import { destroy } from 'redux-form';
 import api from '../api';
 
 import {
-  CREATE_MEETING_SUCCESS,
-} from '../actions/actionTypes';
-
-import {
-  createMeetingFailure,
+  meetingCreateSucceeded,
+  meetingCreateFailed,
   closeMeetingDialog,
   meetingsFetchSucceeded,
   meetingsFetchFailed,
@@ -51,7 +48,7 @@ describe('Meetings Sagas', () => {
     expect(generator.next().value).toEqual(call(api.createMeeting, meeting, room));
     expect(generator.next().value).toEqual(put(closeMeetingDialog()));
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')));
-    expect(generator.next().value).toEqual(put({ type: CREATE_MEETING_SUCCESS }));
+    expect(generator.next().value).toEqual(put(meetingCreateSucceeded()));
     expect(generator.next().value).toEqual(call(fetchMeetings));
     expect(generator.next().done).toBeTruthy();
   });
@@ -60,7 +57,7 @@ describe('Meetings Sagas', () => {
       response: { body: { message: 'Foo' } },
     });
     const generator = createMeeting(action);
-    const correct = put(createMeetingFailure(
+    const correct = put(meetingCreateFailed(
       err.response && err.response.body && err.response.body.message
     ));
 

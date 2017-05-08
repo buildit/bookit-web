@@ -7,18 +7,18 @@ import { login, logout } from './auth';
 import rootSaga from './index';
 
 import {
-  LOGIN_REQUEST,
+  LOGIN_START,
   LOGOUT,
   MEETINGS_FETCH_START,
-  CREATE_MEETING_START,
+  MEETING_CREATE_START,
 } from '../actions/actionTypes';
 
 describe('Root Saga', () => {
   const rootGenerator = rootSaga();
 
   const fetchCorrect = takeEvery(MEETINGS_FETCH_START, fetchMeetings);
-  const createCorrect = takeEvery(CREATE_MEETING_START, createMeeting);
-  const loginCorrect = takeEvery(LOGIN_REQUEST, login);
+  const createCorrect = takeEvery(MEETING_CREATE_START, createMeeting);
+  const loginCorrect = takeEvery(LOGIN_START, login);
   const logoutCorrect = takeEvery(LOGOUT, logout);
 
   it('watches', () => {

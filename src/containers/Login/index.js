@@ -23,6 +23,7 @@ class Login extends React.Component {
   }
 
   submit = ({ email, password }) => {
+    console.log(this.props.loginRequest({ email, password }));
     this.props.loginRequest({ email, password });
   }
 

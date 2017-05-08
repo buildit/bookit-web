@@ -23,6 +23,7 @@ export function* login(action) {
     }
     browserHistory.push('/dashboard');
   } catch (error) {
+    console.log(error);
     // TODO: Catch meaningful errors from above
     // and pass them to `loginFailure`
     yield put(loginFailure(new Error('Oops! Login failed. Please try again.')));

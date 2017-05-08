@@ -1,5 +1,5 @@
 import * as meetingsFetch from './meetingsFetch';
-import * as meetingsCreate from './meetingsCreate';
+import * as meetingCreate from './meetingCreate';
 import * as ui from './ui';
 import * as auth from './auth';
 
@@ -7,8 +7,9 @@ export const meetingsFetchStart = meetingsFetch.meetingsFetchStart;
 export const meetingsFetchSucceeded = meetingsFetch.meetingsFetchSucceeded;
 export const meetingsFetchFailed = meetingsFetch.meetingsFetchFailed;
 
-export const createMeetingStart = meetingsCreate.createMeetingStart;
-export const createMeetingFailure = meetingsCreate.createMeetingFailure;
+export const meetingCreateStart = meetingCreate.meetingCreateStart;
+export const meetingCreateSucceeded = meetingCreate.meetingCreateSucceeded;
+export const meetingCreateFailed = meetingCreate.meetingCreateFailed;
 
 export const resetMeetings = ui.resetMeetings;
 export const populateMeetingEditForm = ui.populateMeetingEditForm;

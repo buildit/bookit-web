@@ -1,22 +1,22 @@
 import { createAction } from 'redux-actions';
 
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  LOGIN_START,
+  LOGIN_SUCCEEDED,
+  LOGIN_FAILED,
   LOGOUT,
   SET_USER,
   RESET_USER,
 } from './actionTypes';
 
-export const loginRequest = createAction(LOGIN_REQUEST, user => ({
+export const loginRequest = createAction(LOGIN_START, user => ({
   email: user.email,
   password: user.password,
 }));
 
-export const loginSuccess = createAction(LOGIN_SUCCESS);
+export const loginSuccess = createAction(LOGIN_SUCCEEDED);
 
-export const loginFailure = createAction(LOGIN_FAILURE);
+export const loginFailure = createAction(LOGIN_FAILED);
 
 export const logout = createAction(LOGOUT);
 

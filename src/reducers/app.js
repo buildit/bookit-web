@@ -5,7 +5,7 @@ import {
   CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
   CLOSE_MEETING_DIALOG,
-  CREATE_MEETING_FAILURE,
+  MEETING_CREATE_FAILED,
   MEETINGS_FETCH_FAILED,
 } from '../actions/actionTypes';
 
@@ -64,7 +64,7 @@ const app = (state = initialState, action) => {
     case CLOSE_MEETING_DIALOG:
       return { ...state, isEditingMeeting: false, messages: [] };
 
-    case CREATE_MEETING_FAILURE: {
+    case MEETING_CREATE_FAILED: {
       return { ...state, messages: [action.payload.message] };
     }
     case MEETINGS_FETCH_FAILED: {

@@ -5,7 +5,7 @@ describe('Login failure action creator', () => {
 
   it('to create a properly formed action.', () => {
     expect(loginFailure(error)).toEqual({
-      type: 'LOGIN_FAILURE',
+      type: 'LOGIN_FAILED',
       payload: error,
       error: true,
     });

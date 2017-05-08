@@ -4,14 +4,11 @@ import { destroy } from 'redux-form';
 import api from '../api';
 
 import {
-  CREATE_MEETING_SUCCESS,
-} from '../actions/actionTypes';
-
-import {
   meetingsFetchSucceeded,
   meetingsFetchFailed,
-  createMeetingFailure,
+  meetingCreateFailed,
   closeMeetingDialog,
+  meetingCreateSucceeded,
 } from '../actions';
 
 export function* fetchMeetings() {
@@ -30,9 +27,9 @@ export function* createMeeting(action) {
     yield call(api.createMeeting, meeting, room);
     yield put(closeMeetingDialog());
     yield put(destroy('meeting-editor'));
-    yield put({ type: CREATE_MEETING_SUCCESS });
+    yield put(meetingCreateSucceeded());
     yield call(fetchMeetings);
   } catch (err) {
-    yield put(createMeetingFailure(err.response && err.response.body && err.response.body.message));
+    yield put(meetingCreateFailed(err.response && err.response.body && err.response.body.message));
   }
 }
