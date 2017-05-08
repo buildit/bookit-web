@@ -12,7 +12,7 @@ import Messages from '../../components/02-molecules/Messages/index';
 import MeetingForm from '../MeetingForm';
 
 import {
-  startMeetingsRequest,
+  meetingsFetchStart,
   populateMeetingEditForm,
   logout,
  } from '../../actions';
@@ -101,7 +101,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
-    dispatch(startMeetingsRequest());
+    dispatch(meetingsFetchStart());
   },
   createMeetingRequest: (room, meeting) => {
     dispatch(populateMeetingEditForm(room, meeting));

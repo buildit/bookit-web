@@ -9,14 +9,14 @@ import rootSaga from './index';
 import {
   LOGIN_REQUEST,
   LOGOUT,
-  START_MEETINGS_REQUEST,
+  MEETINGS_FETCH_START,
   CREATE_MEETING_START,
 } from '../actions/actionTypes';
 
 describe('Root Saga', () => {
   const rootGenerator = rootSaga();
 
-  const fetchCorrect = takeEvery(START_MEETINGS_REQUEST, fetchMeetings);
+  const fetchCorrect = takeEvery(MEETINGS_FETCH_START, fetchMeetings);
   const createCorrect = takeEvery(CREATE_MEETING_START, createMeeting);
   const loginCorrect = takeEvery(LOGIN_REQUEST, login);
   const logoutCorrect = takeEvery(LOGOUT, logout);

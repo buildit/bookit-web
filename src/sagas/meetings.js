@@ -4,12 +4,12 @@ import { destroy } from 'redux-form';
 import api from '../api';
 
 import {
-  MEETINGS_RECEIVED,
-  MEETINGS_FETCH_FAILED,
   CREATE_MEETING_SUCCESS,
 } from '../actions/actionTypes';
 
 import {
+  meetingsFetchSucceeded,
+  meetingsFetchFailed,
   createMeetingFailure,
   closeMeetingDialog,
 } from '../actions';
@@ -17,9 +17,9 @@ import {
 export function* fetchMeetings() {
   try {
     const meetings = yield call(api.fetchMeetings);
-    yield put({ type: MEETINGS_RECEIVED, meetings });
-  } catch (e) {
-    yield put({ type: MEETINGS_FETCH_FAILED });
+    yield put(meetingsFetchSucceeded(meetings));
+  } catch (error) {
+    yield put(meetingsFetchFailed(error));
   }
 }
 

@@ -35,7 +35,9 @@ const fetchMeetings = () => agent
     const meetings = JSON.parse(response.text);
     return meetings;
   })
-  .catch(err => err);
+  .catch(err => {
+    throw new Error(err);
+  });
 
 const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.email}/meeting`)
   .send({

@@ -1,9 +1,11 @@
 import { createAction } from 'redux-actions';
 
 import {
-  CREATE_MEETING_START,
-  START_MEETINGS_REQUEST,
+  MEETINGS_FETCH_START,
+  MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
+
+  CREATE_MEETING_START,
   CREATE_MEETING_FAILURE,
   CREATE_MEETING_REQUEST,
   CREATE_MEETING_CANCEL,
@@ -11,21 +13,27 @@ import {
   RESET_MEETINGS,
 } from './actionTypes';
 
-export const startMeetingsRequest = createAction(START_MEETINGS_REQUEST);
+// MEETINGS FETCH
+export const meetingsFetchStart = createAction(MEETINGS_FETCH_START);
+export const meetingsFetchSucceeded = createAction(MEETINGS_FETCH_SUCCEEDED);
+export const meetingsFetchFailed = createAction(MEETINGS_FETCH_FAILED, message => ({
+  message,
+}));
 
+// MEETING CREATE
 export const createMeetingStart = createAction(CREATE_MEETING_START, (meeting, room) => ({
   meeting,
   room,
-}));
-
-export const fetchMeetingsFailure = createAction(MEETINGS_FETCH_FAILED, message => ({
-  message,
 }));
 
 export const createMeetingFailure = createAction(CREATE_MEETING_FAILURE, message => ({
   message,
 }));
 
+// TODO: Handle success case
+
+
+// TODO: Maybe move this stuff elsewhere?
 export const populateMeetingEditForm = createAction(CREATE_MEETING_REQUEST, (room, meeting) => ({
   room,
   meeting,

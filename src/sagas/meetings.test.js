@@ -7,14 +7,14 @@ import { destroy } from 'redux-form';
 import api from '../api';
 
 import {
-  MEETINGS_RECEIVED,
-  MEETINGS_FETCH_FAILED,
   CREATE_MEETING_SUCCESS,
 } from '../actions/actionTypes';
 
 import {
   createMeetingFailure,
   closeMeetingDialog,
+  meetingsFetchSucceeded,
+  meetingsFetchFailed,
 } from '../actions';
 
 import {
@@ -32,7 +32,8 @@ describe('Meetings Sagas', () => {
     const generator = fetchMeetings();
 
     expect(generator.next().value).toEqual(call(api.fetchMeetings));
-    expect(generator.next(meetings).value).toEqual(put({ type: MEETINGS_RECEIVED, meetings }));
+    expect(generator.next(meetings).value)
+      .toEqual(put(meetingsFetchSucceeded(meetings)));
     expect(generator.next().done).toBeTruthy();
   });
   it('errors properly when fetching meetings fails', () => {
@@ -40,7 +41,7 @@ describe('Meetings Sagas', () => {
     const generator = fetchMeetings();
 
     generator.next();
-    expect(generator.throw(err).value).toEqual(put({ type: MEETINGS_FETCH_FAILED }));
+    expect(generator.throw(err).value).toEqual(put(meetingsFetchFailed(err)));
     expect(generator.next().done).toBeTruthy();
   });
 
