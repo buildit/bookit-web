@@ -1,16 +1,19 @@
-import * as meetings from './meetings';
+import * as meetingsFetch from './meetingsFetch';
+import * as meetingsCreate from './meetingsCreate';
+import * as ui from './ui';
 import * as auth from './auth';
 
-export const meetingsFetchStart = meetings.meetingsFetchStart;
-export const meetingsFetchSucceeded = meetings.meetingsFetchSucceeded;
-export const meetingsFetchFailed = meetings.meetingsFetchFailed;
+export const meetingsFetchStart = meetingsFetch.meetingsFetchStart;
+export const meetingsFetchSucceeded = meetingsFetch.meetingsFetchSucceeded;
+export const meetingsFetchFailed = meetingsFetch.meetingsFetchFailed;
 
-export const resetMeetings = meetings.resetMeetings;
-export const createMeetingStart = meetings.createMeetingStart;
-export const createMeetingFailure = meetings.createMeetingFailure;
-export const populateMeetingEditForm = meetings.populateMeetingEditForm;
-export const cancelMeetingRequest = meetings.cancelMeetingRequest;
-export const closeMeetingDialog = meetings.closeMeetingDialog;
+export const createMeetingStart = meetingsCreate.createMeetingStart;
+export const createMeetingFailure = meetingsCreate.createMeetingFailure;
+
+export const resetMeetings = ui.resetMeetings;
+export const populateMeetingEditForm = ui.populateMeetingEditForm;
+export const cancelMeetingRequest = ui.cancelMeetingRequest;
+export const closeMeetingDialog = ui.closeMeetingDialog;
 
 export const loginRequest = auth.loginRequest;
 export const loginSuccess = auth.loginSuccess;
