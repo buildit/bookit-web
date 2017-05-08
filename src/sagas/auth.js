@@ -23,7 +23,8 @@ export function* login(action) {
   } catch (error) {
     // TODO: Catch meaningful errors from above
     // and pass them to `loginFailure`
-    yield put(loginFailure(new Error('Oops! Login failed. Please try again.')));
+    const sameErrorMessageForAllFailures = 'Oops! Login failed. Please try again.';
+    yield put(loginFailure(new Error(sameErrorMessageForAllFailures)));
   }
 }
 

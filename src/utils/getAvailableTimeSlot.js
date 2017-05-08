@@ -15,11 +15,9 @@ const getAvailableTimeSlot = (desiredStart, meetings, desiredDuration = moment.d
       if (m.start.isAfter(desiredStart)) {
         if (desiredEnd.isAfter(m.start)) {
           desiredEnd = m.start;
-          console.log('new end', desiredEnd.format());
         }
       } else if (m.end.isAfter(desiredStart) && desiredStart.isBefore(m.end)) {
         desiredStart = m.end;
-        console.log('new start', desiredStart.format());
       }
     });
 

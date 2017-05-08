@@ -23,7 +23,9 @@ jest.mock('react-router');
 describe('Auth Saga', () => {
   const email = 'foo@bar.com';
   const password = 'xyzzy';
-  const action = { email, password };
+  const action = {
+    payload: { email, password },
+  };
   const user = {
     email: 'test@test.com',
     name: 'Testy McTesterson',
@@ -45,13 +47,20 @@ describe('Auth Saga', () => {
     expect(browserHistory.push).toHaveBeenCalledWith('/dashboard');
   });
 
-  it('errors properly for logins', () => {
-    const err = new Error('what');
-    const generator = login(action);
+  it('returns the same error message for all errors', () => {
+    const expectedErrorMessage = 'Oops! Login failed. Please try again.';
 
-    generator.next();
-    expect(generator.throw(err).value).toEqual(put(loginFailure(err)));
-    expect(generator.next().done).toBeTruthy();
+    const generator1 = login(action);
+    generator1.next();
+    expect(generator1.throw(new Error('Polly whumps')).value)
+      .toEqual(put(loginFailure(new Error(expectedErrorMessage))));
+    expect(generator1.next().done).toBeTruthy();
+
+    const generator2 = login(action);
+    generator2.next();
+    expect(generator2.throw(new Error('Wally pumps')).value)
+      .toEqual(put(loginFailure(new Error(expectedErrorMessage))));
+    expect(generator2.next().done).toBeTruthy();
   });
 
   it('yields the proper sequence for logout', () => {
