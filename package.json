@@ -65,7 +65,7 @@
     "build": "kyt build",
     "start": "npm run dev",
     "proto": "kyt proto",
-    "test": "npm run lint && kyt test && npm run test-functional",
+    "test": "npm run lint && kyt test && npm run test-functional:ci",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
     "test-functional": "./node_modules/.bin/testcafe chrome ./src/functional-tests",
