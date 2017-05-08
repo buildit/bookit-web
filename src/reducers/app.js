@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   RESET_MEETINGS,
-  CREATE_MEETING_REQUEST,
+  POPULATE_MEETING_FORM,
   CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
   CLOSE_MEETING_DIALOG,
@@ -45,7 +45,7 @@ const app = (state = initialState, action) => {
     case MEETINGS_FETCH_SUCCEEDED: {
       return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
     }
-    case CREATE_MEETING_REQUEST: {
+    case POPULATE_MEETING_FORM: {
       const meetings = state.meetings
         .find(rm => rm.room.email === action.payload.room.email).meetings;
       const moment2 = state.selectedDate.clone().add(action.payload.meeting, 'hours');

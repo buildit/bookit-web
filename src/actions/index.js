@@ -12,7 +12,7 @@ export const meetingCreateSucceeded = meetingCreate.meetingCreateSucceeded;
 export const meetingCreateFailed = meetingCreate.meetingCreateFailed;
 
 export const resetMeetings = ui.resetMeetings;
-export const populateMeetingEditForm = ui.populateMeetingEditForm;
+export const populateMeetingForm = ui.populateMeetingForm;
 export const cancelMeetingRequest = ui.cancelMeetingRequest;
 export const closeMeetingDialog = ui.closeMeetingDialog;
 
