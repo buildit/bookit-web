@@ -25,6 +25,11 @@ npm run test-coverage
 
 ```
 
+Run in-browser tests (using Chrome)
+```
+npm run test-functional
+```
+
 ## Existing functionality
 
 ### Integration with Outlook
