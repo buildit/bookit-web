@@ -68,7 +68,7 @@
     "test": "npm run lint && kyt test && npm run test-functional",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
-    "test-functional": "./node_modules/.bin/testcafe chrome ./src/functional-tests",
+    "test-functional": "./node_modules/.bin/testcafe chrome ./src/functional-tests --app \"npm start\"",
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
     "lint-style": "kyt lint-style",
