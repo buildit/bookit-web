@@ -18,9 +18,7 @@ export function* login(action) {
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
-    if (localStorage) {
-      localStorage.setItem('user', JSON.stringify(user));
-    }
+    localStorage.setItem('user', JSON.stringify(user));
     browserHistory.push('/dashboard');
   } catch (error) {
     // TODO: Catch meaningful errors from above
@@ -31,8 +29,6 @@ export function* login(action) {
 
 export function* logout() {
   yield put(resetUser());
-  if (localStorage) {
-    localStorage.removeItem('user');
-  }
+  localStorage.removeItem('user');
   browserHistory.push('/login');
 }

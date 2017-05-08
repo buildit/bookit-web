@@ -5,7 +5,7 @@ Bookit is a web app aimed at providing a neat way to book meeting rooms in the D
 ## Quick start
 ```
 npm install
-npm run dev
+npm start
 ```
 
 ## Useful scripts
