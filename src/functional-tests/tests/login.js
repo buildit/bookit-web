@@ -1,14 +1,13 @@
 import LoginPage from '../pages/login';
 import DashboardPage from '../pages/dashboard';
 
-fixture `Login Process`
-    .page `http://localhost:3001`;
-
+// eslint-disable-next-line
+fixture `Login Process`.page `http://localhost:3001`;
 
 test('Logging in sends you to the dashboard', async t => {
   // Starting on the homepage sends you to the login page initially.
   const initialLocation = await t.eval(() => window.location);
-  await t.expect(initialLocation.pathname).eql('/login')
+  await t.expect(initialLocation.pathname).eql('/login');
 
   const loginPage = new LoginPage();
   await t

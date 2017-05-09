@@ -1,7 +1,5 @@
-import { Selector } from 'testcafe';
-
 export default class Page {
-  constructor () {
+  constructor() {
     this.pathName = '/dashboard';
   }
 }

@@ -25,7 +25,7 @@ npm run test-coverage
 
 ```
 
-Run in-browser tests (using Chrome)
+Run in-browser tests (using Chrome). You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
 ```
 npm run test-functional
 ```
