@@ -5,7 +5,7 @@ import RoomTimeline from '../../02-molecules/RoomTimeline';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
-  <div className={styles.agenda}>
+  <div className={styles.agenda} id={'agenda'}>
     <TimelineLabelList />
     { roomMeetings.map(roomMeeting => (
       <RoomTimeline

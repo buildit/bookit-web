@@ -1,8 +1,9 @@
 .agenda {
   font-weight: inherit;
-  position: relative;
   overflow-x: scroll;
-  overflow-y: hidden;
+  position: relative;
+  left: -120px;
+  max-width: 1312px;
 }
 
 .loading {

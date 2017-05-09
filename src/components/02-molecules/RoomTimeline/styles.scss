@@ -6,7 +6,7 @@
   margin-bottom: 50px;
   padding-left: 122px;
   position: relative;
-  width: 1968px;
+  width: $agenda-room-total-width;
 }
 
 .roomName {
@@ -18,11 +18,11 @@
   font-size: $base-font-size;
   font-style: normal;
   line-height: $agenda-row-height;
-  position: absolute;
+  position: fixed;
   top: 100;
   user-select: none;
   width: 120px;
-  left: 0;
+  left: 380px;
 }
 
 .timeline {
