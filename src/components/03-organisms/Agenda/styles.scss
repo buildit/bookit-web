@@ -1,13 +1,22 @@
 .agenda {
   font-weight: inherit;
-  overflow-x: scroll;
-  position: relative;
-  left: -120px;
-  max-width: 1312px;
+  overflow-x: hidden;
+  white-space:nowrap;
 }
 
 .loading {
   color: white;
   border: 10px solid pink;
   padding: 3rem;
+}
+
+.feh {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.feh:first-of-type { padding-top: 35px; }
+.feh:last-of-type {
+  width: 300px;
+  overflow-x: scroll;
 }

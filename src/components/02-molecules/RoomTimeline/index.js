@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import styles from './styles.scss';
 import Meeting from '../Meeting';
+
 import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
 
 const RoomTimeline = ({ room, meetings, createMeetingRequest }) => {
@@ -29,7 +30,6 @@ const RoomTimeline = ({ room, meetings, createMeetingRequest }) => {
           { timelineMeetings }
         </div>
       </div>
-      <div className={styles.roomName}>{ room.name }</div>
     </div>
   );
 };
