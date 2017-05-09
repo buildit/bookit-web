@@ -1,5 +1,5 @@
 {
-  "name": "bookit-react",
+  "name": "bookit-web",
   "version": "0.1.0",
   "description": "Meeting room booking application - user-facing",
   "author": "BuildIt",
@@ -58,7 +58,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/buildit/bookit-react.git"
+    "url": "git+ssh://git@github.com/buildit/bookit-web.git"
   },
   "scripts": {
     "dev": "kyt dev",
