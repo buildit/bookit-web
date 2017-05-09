@@ -14,10 +14,10 @@ const user = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER: {
       return {
-        email: action.email,
-        name: action.name,
-        id: action.id,
-        token: action.token,
+        email: action.payload.email,
+        name: action.payload.name,
+        id: action.payload.id,
+        token: action.payload.token,
       };
     }
     case RESET_USER: {

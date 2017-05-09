@@ -3,16 +3,16 @@ import { fetchMeetings, createMeeting } from './meetings';
 import { login, logout } from './auth';
 
 import {
-  LOGIN_REQUEST,
+  LOGIN_START,
   LOGOUT,
-  START_MEETINGS_REQUEST,
-  CREATE_MEETING_START,
+  MEETINGS_FETCH_START,
+  MEETING_CREATE_START,
 } from '../actions/actionTypes';
 
 function* rootSaga() {
-  yield takeEvery(START_MEETINGS_REQUEST, fetchMeetings);
-  yield takeEvery(CREATE_MEETING_START, createMeeting);
-  yield takeEvery(LOGIN_REQUEST, login);
+  yield takeEvery(MEETINGS_FETCH_START, fetchMeetings);
+  yield takeEvery(MEETING_CREATE_START, createMeeting);
+  yield takeEvery(LOGIN_START, login);
   yield takeEvery(LOGOUT, logout);
 }
 

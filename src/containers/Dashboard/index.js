@@ -12,8 +12,8 @@ import Messages from '../../components/02-molecules/Messages/index';
 import MeetingForm from '../MeetingForm';
 
 import {
-  startMeetingsRequest,
-  populateMeetingEditForm,
+  meetingsFetchStart,
+  populateMeetingForm,
   logout,
  } from '../../actions';
 
@@ -49,7 +49,7 @@ export class DashboardContainer extends React.Component {
           </div>
           <Agenda
             roomMeetings={this.props.rooms}
-            createMeetingRequest={this.props.createMeetingRequest}
+            populateMeetingForm={this.props.populateMeetingForm}
           />
         </div>
       </div>
@@ -61,7 +61,7 @@ DashboardContainer.propTypes = {
   requestRooms: PropTypes.func,
   userName: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
-  createMeetingRequest: PropTypes.func.isRequired,
+  populateMeetingForm: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   logout: PropTypes.func.isRequired,
@@ -101,10 +101,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
-    dispatch(startMeetingsRequest());
+    dispatch(meetingsFetchStart());
   },
-  createMeetingRequest: (room, meeting) => {
-    dispatch(populateMeetingEditForm(room, meeting));
+  populateMeetingForm: (room, meeting) => {
+    dispatch(populateMeetingForm(room, meeting));
   },
   logout: () => {
     dispatch(logout());

@@ -4,10 +4,10 @@ import styles from './styles.scss';
 import Meeting from '../Meeting';
 import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
 
-const RoomTimeline = ({ room, meetings, createMeetingRequest }) => {
+const RoomTimeline = ({ room, meetings, populateMeetingForm }) => {
   const onTimelineClick = (e) => {
     const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
-    createMeetingRequest(room, requestedStartTime);
+    populateMeetingForm(room, requestedStartTime);
   };
 
   const timelineMeetings = meetings.map((meeting, index) =>
@@ -40,7 +40,7 @@ RoomTimeline.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
   meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
-  createMeetingRequest: PropTypes.func.isRequired,
+  populateMeetingForm: PropTypes.func.isRequired,
 };
 
 export default RoomTimeline;
