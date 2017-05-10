@@ -7,7 +7,7 @@ import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
   <div className={styles.agenda} id={'agenda'}>
-    <div className={styles.feh}>
+    <div className={styles.column}>
       {
         roomMeetings.map(roomMeeting => (
           <RoomTimelineNames
@@ -17,7 +17,7 @@ const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
         ))
       }
     </div>
-    <div className={styles.feh}>
+    <div className={styles.column}>
       <TimelineLabelList />
       { roomMeetings.map(roomMeeting => (
         <RoomTimeline
@@ -27,7 +27,7 @@ const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
           createMeetingRequest={createMeetingRequest}
         />
         )) }
-        <CurrentTimeIndicator />
+      <CurrentTimeIndicator />
     </div>
   </div>
   );

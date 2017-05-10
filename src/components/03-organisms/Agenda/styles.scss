@@ -10,13 +10,18 @@
   padding: 3rem;
 }
 
-.feh {
+.column {
   display: inline-block;
   vertical-align: top;
   position: relative;
 }
-.feh:first-of-type { padding-top: 35px; }
-.feh:last-of-type {
-  width: 300px;
+
+.column:first-of-type {
+  padding-top: 35px;
+}
+
+.column:last-of-type {
+  width: 85%;
+  max-width: 1312px;
   overflow-x: scroll;
 }
