@@ -1,6 +1,7 @@
 {
   "extends": [
-    "eslint-config-kyt"
+    "eslint-config-kyt",
+    "plugin:testcafe/recommended"
   ],
 
   "parser": "babel-eslint",
@@ -9,6 +10,7 @@
   },
 
   "plugins": [
+    "testcafe"
   ],
 
   "rules": {

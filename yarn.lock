@@ -381,7 +381,7 @@ async-foreach@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
 
-async@0.2.6:
+async@0.2.6, async@~0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/async/-/async-0.2.6.tgz#ad3f373d9249ae324881565582bc90e152abbd68"
 
@@ -398,10 +398,6 @@ async@^2.0.1, async@^2.1.2, async@^2.1.4:
   resolved "https://registry.yarnpkg.com/async/-/async-2.1.5.tgz#e587c68580994ac67fc56ff86d3ac56bdbe810bc"
   dependencies:
     lodash "^4.14.0"
-
-async@~0.2.6:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -459,7 +455,7 @@ babel-code-frame@^6.11.0, babel-code-frame@^6.16.0, babel-code-frame@^6.22.0:
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-babel-core@6.18.0, babel-core@^6.0.0, babel-core@^6.11.4, babel-core@^6.18.0:
+babel-core@6.18.0, babel-core@^6.11.4:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.18.0.tgz#bb5ce9bc0a956e6e94e2f12d597abb3b0b330deb"
   dependencies:
@@ -483,7 +479,7 @@ babel-core@6.18.0, babel-core@^6.0.0, babel-core@^6.11.4, babel-core@^6.18.0:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-core@^6.22.1, babel-core@^6.24.0:
+babel-core@^6.0.0, babel-core@^6.18.0, babel-core@^6.22.1, babel-core@^6.24.0:
   version "6.24.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.24.0.tgz#8f36a0a77f5c155aed6f920b844d23ba56742a02"
   dependencies:
@@ -839,13 +835,13 @@ babel-plugin-transform-es2015-computed-properties@^6.22.0, babel-plugin-transfor
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
 
-babel-plugin-transform-es2015-destructuring@6.16.0, babel-plugin-transform-es2015-destructuring@^6.6.0:
+babel-plugin-transform-es2015-destructuring@6.16.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.16.0.tgz#050fe0866f5d53b36062ee10cdf5bfe64f929627"
   dependencies:
     babel-runtime "^6.9.0"
 
-babel-plugin-transform-es2015-destructuring@^6.22.0, babel-plugin-transform-es2015-destructuring@^6.23.0:
+babel-plugin-transform-es2015-destructuring@^6.22.0, babel-plugin-transform-es2015-destructuring@^6.23.0, babel-plugin-transform-es2015-destructuring@^6.6.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.23.0.tgz#997bb1f1ab967f682d2b0876fe358d60e765c56d"
   dependencies:
@@ -886,7 +882,7 @@ babel-plugin-transform-es2015-modules-amd@^6.22.0, babel-plugin-transform-es2015
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
 
-babel-plugin-transform-es2015-modules-commonjs@6.16.0, babel-plugin-transform-es2015-modules-commonjs@^6.6.0:
+babel-plugin-transform-es2015-modules-commonjs@6.16.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.16.0.tgz#0a34b447bc88ad1a70988b6d199cca6d0b96c892"
   dependencies:
@@ -895,7 +891,7 @@ babel-plugin-transform-es2015-modules-commonjs@6.16.0, babel-plugin-transform-es
     babel-template "^6.16.0"
     babel-types "^6.16.0"
 
-babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.0:
+babel-plugin-transform-es2015-modules-commonjs@^6.23.0, babel-plugin-transform-es2015-modules-commonjs@^6.24.0, babel-plugin-transform-es2015-modules-commonjs@^6.6.0:
   version "6.24.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.24.0.tgz#e921aefb72c2cc26cb03d107626156413222134f"
   dependencies:
@@ -927,7 +923,7 @@ babel-plugin-transform-es2015-object-super@^6.22.0, babel-plugin-transform-es201
     babel-helper-replace-supers "^6.22.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-es2015-parameters@6.17.0, babel-plugin-transform-es2015-parameters@^6.6.0:
+babel-plugin-transform-es2015-parameters@6.17.0:
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.17.0.tgz#e06d30cef897f46adb4734707bbe128a0d427d58"
   dependencies:
@@ -938,7 +934,7 @@ babel-plugin-transform-es2015-parameters@6.17.0, babel-plugin-transform-es2015-p
     babel-traverse "^6.16.0"
     babel-types "^6.16.0"
 
-babel-plugin-transform-es2015-parameters@^6.22.0, babel-plugin-transform-es2015-parameters@^6.23.0:
+babel-plugin-transform-es2015-parameters@^6.22.0, babel-plugin-transform-es2015-parameters@^6.23.0, babel-plugin-transform-es2015-parameters@^6.6.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.23.0.tgz#3a2aabb70c8af945d5ce386f1a4250625a83ae3b"
   dependencies:
@@ -2897,6 +2893,10 @@ eslint-plugin-react@6.4.1:
     doctrine "^1.2.2"
     jsx-ast-utils "^1.3.1"
 
+eslint-plugin-testcafe@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-testcafe/-/eslint-plugin-testcafe-0.2.1.tgz#4089f646dadb69b1376a01d7e608184907e6036b"
+
 eslint@3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.8.1.tgz#7d02db44cd5aaf4fa7aa489e1f083baa454342ba"
@@ -3748,7 +3748,7 @@ hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
-iconv-lite@0.4.11:
+iconv-lite@0.4.11, iconv-lite@^0.4.5:
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.11.tgz#2ecb42fd294744922209a2e7c404dac8793d8ade"
 
@@ -3756,7 +3756,7 @@ iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@^0.4.5, iconv-lite@~0.4.13:
+iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
@@ -5029,17 +5029,13 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@4.16.4:
+lodash@4.16.4, lodash@~4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
 
 "lodash@4.6.1 || ^4.16.1", lodash@4.x.x, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-lodash@~4.16.4:
-  version "4.16.6"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
 log-symbols@^1.0.2:
   version "1.0.2"

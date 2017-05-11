@@ -1,7 +1,7 @@
 import LoginPage from '../pages/login';
 import DashboardPage from '../pages/dashboard';
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-expressions
 fixture `Login Process`.page `http://localhost:3001`;
 
 test('Logging in sends you to the dashboard', async t => {
