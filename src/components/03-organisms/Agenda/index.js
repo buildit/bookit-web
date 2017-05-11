@@ -6,7 +6,7 @@ import RoomTimelineNames from '../../02-molecules/RoomTimelineNames';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
-  <div className={styles.agenda} id={'agenda'}>
+  <div className={styles.agenda}>
     <div className={styles.column}>
       {
         roomMeetings.map(roomMeeting => (
@@ -17,7 +17,7 @@ const Agenda = ({ roomMeetings = [], createMeetingRequest }) => (
         ))
       }
     </div>
-    <div className={styles.column}>
+    <div className={styles.column} id={'timelines'}>
       <TimelineLabelList />
       { roomMeetings.map(roomMeeting => (
         <RoomTimeline
