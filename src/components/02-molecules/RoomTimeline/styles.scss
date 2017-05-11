@@ -25,10 +25,11 @@
     $darkblue $block-color-stop,
     $darkblue $transparent-color-stop
   );
+
   display: block;
   height: $agenda-row-height;
   background-image: $opaque-gradient, $faded-gradient;
-  background-position: 656px 0, 0px 0px;
+  background-position: 656px 0, 0 0;
   background-size: 902px 100%, auto;
   background-repeat: no-repeat, no-repeat;
 }
