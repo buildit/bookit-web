@@ -9,18 +9,28 @@
 }
 
 .timeline {
-  display: inline-block;
+  $block-color-stop: 79px;
+  $transparent-color-stop: 82px;
+  $faded-gradient: repeating-linear-gradient(
+    to right,
+    $blackish-translucent,
+    $blackish-translucent $block-color-stop,
+    $darkblue $block-color-stop,
+    $darkblue $transparent-color-stop
+  );
+  $opaque-gradient: repeating-linear-gradient(
+    to right,
+    $blackish,
+    $blackish $block-color-stop,
+    $darkblue $block-color-stop,
+    $darkblue $transparent-color-stop
+  );
+  display: block;
   height: $agenda-row-height;
-  background:
-    repeating-linear-gradient(
-      to right,
-      $blackish,
-      $blackish 79px,
-      $darkblue 79px,
-      $darkblue 82px
-    );
-  position: relative;
-  width: $agenda-room-total-width;
+  background-image: $opaque-gradient, $faded-gradient;
+  background-position: 656px 0, 0px 0px;
+  background-size: 902px 100%, auto;
+  background-repeat: no-repeat, no-repeat;
 }
 
 .meetings {
