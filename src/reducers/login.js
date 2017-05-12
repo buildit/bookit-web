@@ -1,7 +1,7 @@
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
+  LOGIN_START,
+  LOGIN_SUCCEEDED,
+  LOGIN_FAILED,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -12,16 +12,14 @@ const initialState = {
 
 const login = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST: {
-      console.log('hey');
+    case LOGIN_START: {
       return { ...state, requesting: true, successful: false };
     }
-    case LOGIN_SUCCESS: {
+    case LOGIN_SUCCEEDED: {
       return { ...state, requesting: false, successful: true };
     }
-    case LOGIN_FAILURE: {
-      // TODO: Get message from action.error
-      const message = 'Oops! Login failed. Please try again.';
+    case LOGIN_FAILED: {
+      const message = action.payload.message;
 
       return {
         ...state,

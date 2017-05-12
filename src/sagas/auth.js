@@ -14,14 +14,17 @@ import {
 
 export function* login(action) {
   try {
-    const user = yield call(api.login, action.email, action.password);
+    const user = yield call(api.login, action.payload.email, action.payload.password);
     yield put(setClient(user));
     yield put(resetMeetings());
     yield put(loginSuccess());
     localStorage.setItem('user', JSON.stringify(user));
     browserHistory.push('/dashboard');
   } catch (error) {
-    yield put(loginFailure(error));
+    // TODO: Catch meaningful errors from above
+    // and pass them to `loginFailure`
+    const sameErrorMessageForAllFailures = 'Oops! Login failed. Please try again.';
+    yield put(loginFailure(new Error(sameErrorMessageForAllFailures)));
   }
 }
 

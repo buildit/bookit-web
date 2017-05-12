@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import moment from 'moment';
 import MeetingEditor from '../../components/02-molecules/MeetingEditor';
-import { cancelMeetingRequest, createMeetingStart } from '../../actions/index';
+import { cancelMeetingRequest, meetingCreateStart } from '../../actions/index';
 
 const validate = (values) => {
   const startMom = moment(values.start);
@@ -43,7 +43,7 @@ const mapFormValues = (values) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancel: () => dispatch(cancelMeetingRequest()),
-  handleSubmit: (meeting, room) => dispatch(createMeetingStart(meeting, room)),
+  handleSubmit: (meeting, room) => dispatch(meetingCreateStart(meeting, room)),
 });
 
 const getSubmittableMeeting = form => {

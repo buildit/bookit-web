@@ -1,5 +1,5 @@
 {
-  "name": "bookit-react",
+  "name": "bookit-web",
   "version": "0.1.0",
   "description": "Meeting room booking application - user-facing",
   "author": "BuildIt",
@@ -51,25 +51,25 @@
     "babel-preset-stage-2": "^6.22.0",
     "empty": "^0.10.1",
     "enzyme": "^2.4.1",
+    "eslint-plugin-testcafe": "^0.2.1",
     "react-addons-test-utils": "^15.3.0",
     "react-storybook-decorator-background": "^1.0.5",
     "resolve-url-loader": "^2.0.2",
-    "wdio-mocha-framework": "^0.5.10",
-    "webdriverio": "^4.8.0"
+    "testcafe": "^0.15.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/buildit/bookit-react.git"
+    "url": "git+ssh://git@github.com/buildit/bookit-web.git"
   },
   "scripts": {
-    "test-functional": "wdio wdio.conf.js --watch",
     "dev": "kyt dev",
     "build": "kyt build",
     "start": "npm run dev",
     "proto": "kyt proto",
-    "test": "npm run lint && kyt test",
+    "test": "npm run lint && kyt test && npm run test-functional",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
+    "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests --app \"npm start\" --app-init-delay 10000",
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
     "lint-style": "kyt lint-style",

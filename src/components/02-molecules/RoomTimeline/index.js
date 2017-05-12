@@ -45,7 +45,7 @@ RoomTimeline.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
   meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
-  createMeetingRequest: PropTypes.func.isRequired,
+  populateMeetingForm: PropTypes.func.isRequired,
 };
 
 export default RoomTimeline;

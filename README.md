@@ -25,18 +25,10 @@ npm run test-coverage
 
 ```
 
-### Running functional tests
-Set up and run a Selenium server:
-```
-source seleniumSetup.sh
-```
-
-Then run the tests:
+Run in-browser tests (using Chrome). You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
 ```
 npm run test-functional
 ```
-
-(Of course, you've got to have the Bookit app itself running, or these tests won't have anything to look at.)
 
 ## Existing functionality
 
