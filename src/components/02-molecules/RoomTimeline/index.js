@@ -12,7 +12,7 @@ class RoomTimeline extends React.Component {
   render() {
     const onTimelineClick = (e) => {
       const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
-      this.props.createMeetingRequest(this.props.room, requestedStartTime);
+      this.props.populateMeetingForm(this.props.room, requestedStartTime);
     };
 
     const timelineMeetings = this.props.meetings.map((meeting, index) =>

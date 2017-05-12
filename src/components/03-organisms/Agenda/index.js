@@ -24,7 +24,7 @@ const Agenda = ({ roomMeetings = [], populateMeetingForm }) => (
           key={roomMeeting.room.name}
           meetings={roomMeeting.meetings}
           room={roomMeeting.room}
-          createMeetingRequest={createMeetingRequest}
+          populateMeetingForm={populateMeetingForm}
         />
         )) }
       <CurrentTimeIndicator />
