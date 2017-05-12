@@ -4,6 +4,7 @@ import { TextField } from 'redux-form-material-ui';
 import DateTimePicker from '../DateTimePicker/index';
 import Button from '../../01-atoms/Button/index';
 import ErrorMessages from '../ErrorMessages';
+import styles from './styles.scss';
 // TODO: replace Cancel button with svg asset.
 
 const MeetingEditor = ({
@@ -16,19 +17,21 @@ const MeetingEditor = ({
   validationErrors = {},
   visibleErrorMessages,
  }) =>
- (<form
-   onSubmit={(event) => {
-     event.preventDefault();
-     handleSubmit(meeting, room);
-   }}
- >
-   <Field floatingLabelText="Title" name="title" component={TextField} errorText={errors.title} />
-   <DateTimePicker name="start" label="Start" />
-   <DateTimePicker name="end" label="End" />
-   <Button disabled={invalid} type="submit" content="Bookit" />
-   <Button onClick={handleCancel} content="Cancel" />
-   <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
- </form>);
+ (<div className={styles.editor}>
+   <form
+     onSubmit={(event) => {
+       event.preventDefault();
+       handleSubmit(meeting, room);
+     }}
+   >
+     <Field floatingLabelText="Title" name="title" component={TextField} errorText={errors.title} />
+     <DateTimePicker name="start" label="Start" />
+     <DateTimePicker name="end" label="End" />
+     <Button disabled={invalid} type="submit" content="Bookit" />
+     <Button onClick={handleCancel} content="Cancel" />
+     <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
+   </form>
+ </div>);
 
 MeetingEditor.propTypes = {
   invalid: PropTypes.bool,

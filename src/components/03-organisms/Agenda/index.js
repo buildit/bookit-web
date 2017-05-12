@@ -2,20 +2,33 @@ import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 import TimelineLabelList from '../../01-atoms/TimelineLabelList';
 import RoomTimeline from '../../02-molecules/RoomTimeline';
+import RoomTimelineNames from '../../02-molecules/RoomTimelineNames';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
 const Agenda = ({ roomMeetings = [], populateMeetingForm }) => (
   <div className={styles.agenda}>
-    <TimelineLabelList />
-    { roomMeetings.map(roomMeeting => (
-      <RoomTimeline
-        key={roomMeeting.room.name}
-        room={roomMeeting.room}
-        meetings={roomMeeting.meetings}
-        populateMeetingForm={populateMeetingForm}
-      />
-      )) }
-    <CurrentTimeIndicator />
+    <div className={styles.column}>
+      {
+        roomMeetings.map(roomMeeting => (
+          <RoomTimelineNames
+            key={roomMeeting.room.name}
+            room={roomMeeting.room}
+          />
+        ))
+      }
+    </div>
+    <div className={styles.column} id={'timelines'}>
+      <TimelineLabelList />
+      { roomMeetings.map(roomMeeting => (
+        <RoomTimeline
+          key={roomMeeting.room.name}
+          meetings={roomMeeting.meetings}
+          room={roomMeeting.room}
+          populateMeetingForm={populateMeetingForm}
+        />
+        )) }
+      <CurrentTimeIndicator />
+    </div>
   </div>
   );
 

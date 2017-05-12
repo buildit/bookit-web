@@ -1,10 +1,28 @@
 .agenda {
   font-weight: inherit;
-  position: relative;
+  overflow-x: hidden;
+  white-space: nowrap;
 }
 
 .loading {
   color: white;
   border: 10px solid pink;
   padding: 3rem;
+}
+
+.column {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+.column:first-of-type {
+  padding-top: 35px;
+}
+
+.column:last-of-type {
+  width: 80%;
+  max-width: 1312px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
