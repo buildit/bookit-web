@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 
 import Agenda from '../../components/03-organisms/Agenda';
-import Calendar from '../../components/03-organisms/Calendar';
+import Calendar from '../../components/01-atoms/Calendar';
 import Messages from '../../components/02-molecules/Messages/index';
 import MeetingForm from '../MeetingForm';
 
@@ -19,6 +19,7 @@ import {
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
+    // This fetches meetings. It should happen whenever `selectedDate` is updated.
     this.props.requestRooms();
   }
 
@@ -28,7 +29,7 @@ export class DashboardContainer extends React.Component {
         <MeetingForm />
       );
     }
-    return (<Calendar />);
+    return (<Calendar selectedDate={this.props.selectedDate} />);
   }
 
   render() {
@@ -65,6 +66,7 @@ DashboardContainer.propTypes = {
   isEditingMeeting: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   logout: PropTypes.func.isRequired,
+  selectedDate: PropTypes.shape.isRequired,
 };
 
 const mapMeeting = (rm, user) => {
@@ -97,10 +99,13 @@ const mapStateToProps = state => ({
   isEditingMeeting: state.app.isEditingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
+  selectedDate: state.app.selectedDate,
 });
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
+    // Why does `requestRooms` fetch Meetings?
+    // TODO: Fetch meetings for selectedDate.
     dispatch(meetingsFetchStart());
   },
   populateMeetingForm: (room, meeting) => {

@@ -15,6 +15,7 @@ export const resetMeetings = ui.resetMeetings;
 export const populateMeetingForm = ui.populateMeetingForm;
 export const cancelMeetingRequest = ui.cancelMeetingRequest;
 export const closeMeetingDialog = ui.closeMeetingDialog;
+export const selectDate = ui.selectDate;
 
 export const loginRequest = auth.loginRequest;
 export const loginSuccess = auth.loginSuccess;
