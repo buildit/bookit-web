@@ -25,10 +25,10 @@ class Meeting extends React.Component {
       const x = event.clientX - event.target.getBoundingClientRect().left;
       const meetingWidth = calculateWidth(this.props.duration);
       let excessWidth = 0;
-      if (meetingWidth > TOOLTIP_ANCHOR_RANGE) {
-        excessWidth = (meetingWidth - TOOLTIP_ANCHOR_RANGE) / 2;
+      if (meetingWidth > ANCHOR_RANGE) {
+        excessWidth = (meetingWidth - ANCHOR_RANGE) / 2;
       }
-      if (x > TOOLTIP_ANCHOR_RANGE + excessWidth || x < excessWidth) {
+      if (x > ANCHOR_RANGE + excessWidth || x < excessWidth) {
         this.setState({ tooltipVisible: true, tooltipOffset: x < excessWidth ? 0 : ANCHOR_RANGE });
       } else {
         this.setState({ tooltipVisible: true, tooltipOffset: x - excessWidth });
