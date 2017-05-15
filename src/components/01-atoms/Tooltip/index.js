@@ -31,7 +31,7 @@ const Tooltip = ({
     </div>
     <div className={styles.content}>
       <p>
-        <strong>{ title }</strong>
+        <strong>{ title.slice(0,25)+' ...' }</strong>
         { meetingStartTime.format('h:mma') } - { meetingEndTime.format('h:mma') }
       </p>
       <p>
