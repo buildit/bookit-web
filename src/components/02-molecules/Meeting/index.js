@@ -23,8 +23,8 @@ class Meeting extends React.Component {
   onMove(event) {
     if (this.state.tooltipVisible) {
       const x = event.clientX - event.target.getBoundingClientRect().left;
-      let meetingWidth = calculateWidth(this.props.duration);
-      const excessWidth = 0;
+      const meetingWidth = calculateWidth(this.props.duration);
+      let excessWidth = 0;
       if (meetingWidth > TOOLTIP_ANCHOR_RANGE) {
         excessWidth = (meetingWidth - TOOLTIP_ANCHOR_RANGE) / 2;
       }
