@@ -7,6 +7,7 @@ import {
   CLOSE_MEETING_DIALOG,
   MEETING_CREATE_FAILED,
   MEETINGS_FETCH_FAILED,
+  SELECT_DATE,
 } from '../actions/actionTypes';
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
@@ -69,6 +70,9 @@ const app = (state = initialState, action) => {
     }
     case MEETINGS_FETCH_FAILED: {
       return { ...state, messages: ['There was a problem fetching the meetings.'] };
+    }
+    case SELECT_DATE: {
+      return { ...state, selectedDate: action.payload.date };
     }
     default: {
       return state;

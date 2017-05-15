@@ -1,0 +1,23 @@
+.day {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.87);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  margin: 0.2rem;
+}
+
+.number {
+  padding-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  margin-top: 0.18rem;
+}
