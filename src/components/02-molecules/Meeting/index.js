@@ -7,6 +7,8 @@ import styles from './styles.scss';
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
 
+const ANCHOR_RANGE = 250;
+
 class Meeting extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,16 @@ class Meeting extends React.Component {
   onMove(event) {
     if (this.state.tooltipVisible) {
       const x = event.clientX - event.target.getBoundingClientRect().left;
-      this.setState({ tooltipVisible: true, tooltipOffset: x });
+      const meetingWidth = calculateWidth(this.props.duration);
+      let excessWidth = 0;
+      if (meetingWidth > ANCHOR_RANGE) {
+        excessWidth = (meetingWidth - ANCHOR_RANGE) / 2;
+      }
+      if (x > ANCHOR_RANGE + excessWidth || x < excessWidth) {
+        this.setState({ tooltipVisible: true, tooltipOffset: x < excessWidth ? 0 : ANCHOR_RANGE });
+      } else {
+        this.setState({ tooltipVisible: true, tooltipOffset: x - excessWidth });
+      }
     }
   }
 
