@@ -7,6 +7,8 @@ import ErrorMessages from '../ErrorMessages';
 import styles from './styles.scss';
 // TODO: replace Cancel button with svg asset.
 
+const meetingTitleStyle = { fontSize: '18px' };
+
 const MeetingEditor = ({
   handleSubmit,
   handleCancel,
@@ -25,7 +27,7 @@ const MeetingEditor = ({
        handleSubmit(meeting, room);
      }}
    >
-     <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} />
+     <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} style={meetingTitleStyle} />
      <DateTimePicker locale="en-US" name="start" label="Start" />
      <DateTimePicker name="end" label="End" />
      <Button disabled={invalid} type="submit" content="Bookit" />
