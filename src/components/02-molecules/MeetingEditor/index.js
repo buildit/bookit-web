@@ -6,8 +6,9 @@ import Button from '../../01-atoms/Button/index';
 import ErrorMessages from '../ErrorMessages';
 import styles from './styles.scss';
 // TODO: replace Cancel button with svg asset.
+const images = require.context('../../../assets/images', true);
 
-const meetingTitleStyle = { fontSize: '18px' };
+const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' };
 
 const MeetingEditor = ({
   handleSubmit,
@@ -20,6 +21,7 @@ const MeetingEditor = ({
   visibleErrorMessages,
  }) =>
  (<div className={styles.editor}>
+   <img src={images('./close-desktop.png')} className={styles.cancel} onClick={handleCancel} alt="X" />
    <div className={styles.room}>Book {room.name} Room</div>
    <form
      onSubmit={(event) => {
@@ -31,7 +33,6 @@ const MeetingEditor = ({
      <DateTimePicker locale="en-US" name="start" label="Start" />
      <DateTimePicker name="end" label="End" />
      <Button disabled={invalid} type="submit" content="Bookit" />
-     <Button onClick={handleCancel} content="Cancel" />
      <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
    </form>
  </div>);

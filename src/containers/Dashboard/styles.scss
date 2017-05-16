@@ -11,10 +11,10 @@
   width: 325px;
   height: 100vh;
   float: left;
-  background: #141516;
+  background: $blackish;
   display: flex;
   flex-direction: column;
-  padding: 90px 0 0 20px;
+  padding: 70px 0 0 20px;
 }
 
 .user {
@@ -27,20 +27,21 @@
 }
 
 .hello {
-  color: #faff29; // TODO: Replace with variable
+  color: $veryyellow;
   font-weight: 600;
   margin-right: 5pt;
 }
 
-.divider {
-  margin: 0 0.5rem;
+.name {
+  margin-right: 1rem;
 }
 
 .logout {
-  color: white;
+  color: $slategrey;
   cursor: pointer;
+  font-weight: 600;
 
   &:hover {
-    color: #faff29; // TODO: Replace with variable
+    color: $veryyellow;
   }
 }
