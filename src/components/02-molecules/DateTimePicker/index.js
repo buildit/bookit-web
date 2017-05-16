@@ -8,7 +8,7 @@ injectTapEventPlugin();
 
 const DateTimePicker = ({ name, label, error }) => {
   const datePickerStyle = { display: 'inline-block' };
-  const datePickerTextFieldStyle = { width: '135px', fontSize: '18px' };
+  const datePickerTextFieldStyle = { width: '145px', fontSize: '18px' };
   const timePickerStyle = datePickerStyle;
   const timePickerTextFieldStyle = { width: '68px', fontSize: '18px' };
 
@@ -22,7 +22,7 @@ const DateTimePicker = ({ name, label, error }) => {
         errorText={error}
         style={datePickerStyle}
         textFieldStyle={datePickerTextFieldStyle}
-        locale="en-US"
+        formatDate={new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }).format}
       />
       <Field
         name={name}
@@ -31,7 +31,6 @@ const DateTimePicker = ({ name, label, error }) => {
         floatingLabelText=" " /* Need this to keep lines aligned :/  */
         style={timePickerStyle}
         textFieldStyle={timePickerTextFieldStyle}
-        locale="en-US"
       />
     </div>
   );
