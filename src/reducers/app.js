@@ -50,7 +50,12 @@ const app = (state = initialState, action) => {
       return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
     }
     case CANCEL_MEETING_START: {
-      return { ...state, isEditingMeeting: false, isCancellingMeeting: true, requestedMeeting: action.payload.meeting };
+      return {
+        ...state,
+        isEditingMeeting: false,
+        isCancellingMeeting: true,
+        requestedMeeting: action.payload.meeting,
+      };
     }
     case POPULATE_MEETING_FORM: {
       const meetings = state.meetings
@@ -70,7 +75,13 @@ const app = (state = initialState, action) => {
     case CANCEL_MEETING_CANCEL:
     case CREATE_MEETING_CANCEL:
     case CLOSE_MEETING_DIALOG:
-      return { ...state, isEditingMeeting: false, isCancellingMeeting: false, messages: [], requestedMeeting: {} };
+      return {
+        ...state,
+        isEditingMeeting: false,
+        isCancellingMeeting: false,
+        messages: [],
+        requestedMeeting: {},
+      };
     case MEETING_CREATE_FAILED: {
       return { ...state, messages: [action.payload.message] };
     }

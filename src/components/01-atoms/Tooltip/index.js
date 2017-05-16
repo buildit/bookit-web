@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import styles from './styles.scss';
-
 import moment from 'moment';
+
+import styles from './styles.scss';
 
 import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
 import calculateWidth from '../../../utils/calculateWidth';

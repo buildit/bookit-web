@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import { connect } from 'react-redux';
 
+import moment from 'moment';
+
 import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
@@ -39,10 +41,6 @@ class MeetingContainer extends React.Component {
     this.onOver = this.onOver.bind(this);
     this.onOut = this.onOut.bind(this);
   }
-
-  // onClick(event) {
-  //   this.
-  // }
 
   onMove(event) {
     if (this.state.tooltipVisible) {
@@ -89,7 +87,7 @@ class MeetingContainer extends React.Component {
 
     const style = {
       width: calculateWidth(this.props.meeting.duration),
-      left: calculateMeetingOffset(this.props.meeting.startTime),
+      left: calculateMeetingOffset(moment(this.props.meeting.startTime)),
     };
 
     return (
