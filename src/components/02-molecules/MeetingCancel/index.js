@@ -16,7 +16,7 @@ export class MeetingCancelContainer extends React.Component {
       }),
       isOwnedByUser: PropTypes.bool,
       duration: PropTypes.number.isRequired,
-      startTime: PropTypes.shape({}),
+      startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
     cancelMeetingCancel: PropTypes.func.isRequired,
@@ -53,7 +53,7 @@ export class MeetingCancelContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  meeting: state.requestedMeeting,
+  meeting: state.app.requestedMeeting,
 });
 
 const mapDispatchToProps = dispatch => ({

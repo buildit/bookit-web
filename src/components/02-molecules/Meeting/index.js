@@ -62,7 +62,7 @@ class MeetingContainer extends React.Component {
   }
 
   onClick(event) {
-    this.props.cancelMeeting();
+    this.props.cancelMeeting(this.props.meeting);
     event.stopPropagation();
   }
 
@@ -115,7 +115,7 @@ class MeetingContainer extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  cancelMeeting: () => dispatch(cancelMeetingStart()),
+  cancelMeeting: meeting => dispatch(cancelMeetingStart(meeting)),
 });
 
 const connected = connect(null, mapDispatchToProps)(MeetingContainer);
