@@ -35,18 +35,18 @@ export class DashboardContainer extends React.Component {
   render() {
     return (
       <div className={styles.app}>
-        <div className={styles.user}>
-          <span className={styles.hello}>Hello</span>
-          <span className={styles.name}>
-            { this.props.userName }
-          </span>
-          <span className={styles.divider}>|</span>
-          <span className={styles.logout} onClick={this.props.logout}>Logout</span>
-        </div>
         <div className={styles.container}>
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
             <Messages messages={this.props.messages} />
+          </div>
+          <div className={styles.user}>
+            <span className={styles.hello}>Hello</span>
+            <span className={styles.name}>
+              { this.props.userName }
+            </span>
+            <span className={styles.divider}>|</span>
+            <span className={styles.logout} onClick={this.props.logout}>Logout</span>
           </div>
           <Agenda
             roomMeetings={this.props.rooms}
