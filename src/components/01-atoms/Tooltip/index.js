@@ -25,13 +25,18 @@ const Tooltip = ({
   const meetingStartTime = startTime;
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
+  const truncatePhrase = (phrase) => {
+    const TITLE_LENGTH = 25;
+    return `${phrase.slice(0, TITLE_LENGTH)} ...`;
+  };
+
   return (<div className={styles.tooltip} style={style}>
     <div style={anchorStyle} className={styles.anchorContainer}>
       <div style={tooltipStyle} className={styles.anchor} />
     </div>
     <div className={styles.content}>
       <p>
-        <strong>{ title }</strong>
+        <strong>{ truncatePhrase(title) }</strong>
         { meetingStartTime.format('h:mma') } - { meetingEndTime.format('h:mma') }
       </p>
       <p>
