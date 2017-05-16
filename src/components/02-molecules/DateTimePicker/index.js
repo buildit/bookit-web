@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { DatePicker, TimePicker } from 'redux-form-material-ui';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import styles from './styles.scss';
+
+injectTapEventPlugin();
 
 const DateTimePicker = ({ name, label, error }) => {
   const datePickerStyle = { display: 'inline-block' };
@@ -19,6 +22,7 @@ const DateTimePicker = ({ name, label, error }) => {
         errorText={error}
         style={datePickerStyle}
         textFieldStyle={datePickerTextFieldStyle}
+        locale="en-US"
       />
       <Field
         name={name}
@@ -27,6 +31,7 @@ const DateTimePicker = ({ name, label, error }) => {
         floatingLabelText=" " /* Need this to keep lines aligned :/  */
         style={timePickerStyle}
         textFieldStyle={timePickerTextFieldStyle}
+        locale="en-US"
       />
     </div>
   );

@@ -18,14 +18,15 @@ const MeetingEditor = ({
   visibleErrorMessages,
  }) =>
  (<div className={styles.editor}>
+   <div className={styles.room}>Book {room.name} Room</div>
    <form
      onSubmit={(event) => {
        event.preventDefault();
        handleSubmit(meeting, room);
      }}
    >
-     <Field floatingLabelText="Title" name="title" component={TextField} errorText={errors.title} />
-     <DateTimePicker name="start" label="Start" />
+     <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} />
+     <DateTimePicker locale="en-US" name="start" label="Start" />
      <DateTimePicker name="end" label="End" />
      <Button disabled={invalid} type="submit" content="Bookit" />
      <Button onClick={handleCancel} content="Cancel" />
