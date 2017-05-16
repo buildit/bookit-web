@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import styles from './styles.scss';
 
+import moment from 'moment';
+
 import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
 import calculateWidth from '../../../utils/calculateWidth';
 
@@ -22,7 +24,7 @@ const Tooltip = ({
     left: tooltipOffset,
   };
 
-  const meetingStartTime = startTime;
+  const meetingStartTime = moment(startTime);
   const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
 
   const truncatePhrase = (phrase) => {
@@ -50,7 +52,7 @@ const Tooltip = ({
 Tooltip.propTypes = {
   tooltipOffset: PropTypes.number,
   title: PropTypes.string,
-  startTime: PropTypes.shape({}),
+  startTime: PropTypes.string,
   roomTitle: PropTypes.string,
   isOwnedByUser: PropTypes.bool,
   owner: PropTypes.shape({

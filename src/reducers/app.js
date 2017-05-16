@@ -2,6 +2,8 @@ import moment from 'moment';
 import {
   RESET_MEETINGS,
   POPULATE_MEETING_FORM,
+  CANCEL_MEETING_START,
+  CANCEL_MEETING_CANCEL,
   CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
   CLOSE_MEETING_DIALOG,
@@ -20,6 +22,7 @@ const initialState = {
   selectedDate: moment().startOf('day'),
   meetings: [],
   isEditingMeeting: false,
+  isCancellingMeeting: false,
   meetingEditForm: {
     title: '',
     startTime: moment(),
@@ -46,6 +49,9 @@ const app = (state = initialState, action) => {
     case MEETINGS_FETCH_SUCCEEDED: {
       return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
     }
+    case CANCEL_MEETING_START: {
+      return { ...state, isEditingMeeting: false, isCancellingMeeting: true, requestedMeeting: action.payload.meeting };
+    }
     case POPULATE_MEETING_FORM: {
       const meetings = state.meetings
         .find(rm => rm.room.email === action.payload.room.email).meetings;
@@ -61,10 +67,10 @@ const app = (state = initialState, action) => {
       };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
     }
+    case CANCEL_MEETING_CANCEL:
     case CREATE_MEETING_CANCEL:
     case CLOSE_MEETING_DIALOG:
-      return { ...state, isEditingMeeting: false, messages: [] };
-
+      return { ...state, isEditingMeeting: false, isCancellingMeeting: false, messages: [], requestedMeeting: {} };
     case MEETING_CREATE_FAILED: {
       return { ...state, messages: [action.payload.message] };
     }

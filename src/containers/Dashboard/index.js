@@ -8,7 +8,10 @@ import styles from './styles.scss';
 
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
-import Messages from '../../components/02-molecules/Messages/index';
+import Messages from '../../components/02-molecules/Messages';
+
+import MeetingCancel from '../../components/02-molecules/MeetingCancel';
+
 import MeetingForm from '../MeetingForm';
 
 import {
@@ -28,6 +31,8 @@ export class DashboardContainer extends React.Component {
       return (
         <MeetingForm />
       );
+    } else if (this.props.isCancellingMeeting) {
+      return (<MeetingCancel />);
     }
     return (<Calendar selectedDate={this.props.selectedDate} />);
   }
@@ -64,9 +69,10 @@ DashboardContainer.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.object),
   populateMeetingForm: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
+  isCancellingMeeting: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   logout: PropTypes.func.isRequired,
-  selectedDate: PropTypes.shape.isRequired,
+  selectedDate: PropTypes.shape({}),
 };
 
 const mapMeeting = (rm, user) => {
@@ -97,9 +103,10 @@ const mapStateToProps = state => ({
   userName: state.user.name,
   rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
   isEditingMeeting: state.app.isEditingMeeting,
+  isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
-  selectedDate: state.app.selectedDate,
+  selectedDate: moment(state.app.selectedDate),
 });
 
 const mapDispatchToProps = dispatch => ({
