@@ -13,7 +13,6 @@ May 17, 2017
 4) Click "Yes" to confirm.
 5) See a message confirming that the cancellation succeeded.
 6) Refresh page and see that the meeting is no longer there.
-? 7) The meeting is also removed from the Outlook calendar.
 
 ## UI polish
 
