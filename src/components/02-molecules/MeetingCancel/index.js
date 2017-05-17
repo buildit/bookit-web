@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Button from '../../01-atoms/Button/index';
 
-import { closeCancellationDialog } from '../../../actions';
+import { closeCancellationDialog, cancelMeetingStart } from '../../../actions';
 
 import styles from './styles.scss';
 
@@ -31,7 +31,7 @@ export class MeetingCancelContainer extends React.Component {
 
   onConfirmCancel() {
     console.log('CANCELLING!', this.props.meeting);
-    this.props.cancelMeetingStart();
+    this.props.cancelMeeting(this.props.meeting);
   }
 
   onCancelCancel() {
@@ -57,9 +57,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeCancellationDialog: () => {
-    dispatch(closeCancellationDialog());
-  },
+  closeCancellationDialog: () => dispatch(closeCancellationDialog()),
+  cancelMeeting: meeting => dispatch(cancelMeetingStart(meeting)),
 });
 
 const connected = connect(

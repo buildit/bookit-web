@@ -47,10 +47,15 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   })
   .then((message) => message);
 
+const fakeMeetingCancel = (meeting, room) => {
+  return 'okay';
+};
+
 const Api = {
   login: fakeLogin,
   fetchMeetings,
   createMeeting,
+  cancelMeeting: fakeMeetingCancel,
 };
 
 export default Api;

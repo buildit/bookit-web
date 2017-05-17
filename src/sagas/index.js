@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga/effects';
-import { fetchMeetings, createMeeting } from './meetings';
+import { fetchMeetings, createMeeting, cancelMeeting } from './meetings';
 import { login, logout } from './auth';
 
 import {
@@ -15,9 +15,7 @@ function* rootSaga() {
   yield takeEvery(MEETING_CREATE_START, createMeeting);
   yield takeEvery(LOGIN_START, login);
   yield takeEvery(LOGOUT, logout);
-  yield takeEvery(CANCEL_MEETING_START, (thing) => {
-    console.log(thing);
-  });
+  yield takeEvery(CANCEL_MEETING_START, cancelMeeting);
 }
 
 export default rootSaga;
