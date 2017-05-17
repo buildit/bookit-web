@@ -11,6 +11,7 @@ import {
   SELECT_DATE,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
+  CANCEL_MEETING_FAILED,
 } from '../actions/actionTypes';
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
@@ -62,6 +63,13 @@ const app = (state = initialState, action) => {
         ...state,
         isCancellingMeeting: false,
         messages: ['Your meeting was successfully cancelled.'],
+      };
+    }
+    case CANCEL_MEETING_FAILED: {
+      return {
+        ...state,
+        isCancellingMeeting: false,
+        messages: ['Oh no! There was a problem cancelling your meeting.'],
       };
     }
     case POPULATE_MEETING_FORM: {
