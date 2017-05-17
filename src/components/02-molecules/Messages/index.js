@@ -3,8 +3,8 @@ import styles from './styles.scss';
 
 const Messages = ({ messages = [] }) => (
   <div className={styles.messages}>
-    {messages.map(message => (
-      <div className={styles.message}>{message}</div>
+    {messages.map((message, idx) => (
+      <div key={idx} className={styles.message}>{message}</div>
     ))}
   </div>
 );
