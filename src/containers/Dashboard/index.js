@@ -43,10 +43,9 @@ export class DashboardContainer extends React.Component {
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
             <span className={styles.name}>
-              { this.props.userName }
+              { this.props.userName }!
             </span>
-            <span className={styles.divider}>|</span>
-            <span className={styles.logout} onClick={this.props.logout}>Logout</span>
+            <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
           </div>
           <Agenda
             roomMeetings={this.props.rooms}
