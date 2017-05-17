@@ -8,5 +8,5 @@ const ErrorMessage = ({ message }) => (
 export default ErrorMessage;
 
 ErrorMessage.propTypes = {
-  message: PropTypes.arrayOf(PropTypes.string),
+  message: PropTypes.string,
 };
