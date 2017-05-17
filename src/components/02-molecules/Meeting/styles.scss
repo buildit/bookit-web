@@ -31,16 +31,13 @@
       );
 
     &::after {
-      background-color: $veryyellow;
-      border-radius: 50%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" viewBox="0 0 17 21"><path fill="#{$veryyellow}" fill-rule="nonzero" d="M10.563 15.17v-2.5a1.89 1.89 0 0 0-1.882-1.882 1.89 1.89 0 0 0-1.883 1.883v2.5H.546a8.432 8.432 0 0 1 16.25 0h-6.233zM8.671 7.866A3.933 3.933 0 1 1 8.67 0a3.933 3.933 0 0 1 0 7.866zm.31 12.174a.77.77 0 0 1-.276.07c-.07 0-.138 0-.414-.07-.138-.069-.207-.069-.276-.138L5.462 17.35a.75.75 0 0 1 0-1.035.75.75 0 0 1 1.035 0l1.38 1.38v-4.692c0-.414.345-.759.759-.759.414 0 .759.345.759.76v4.691l1.38-1.38a.75.75 0 0 1 1.035 0 .75.75 0 0 1 01.035l-2.5532.553c-.138.07-.164.092-.276.138z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
       content: '';
       display: block;
-      height: 20px;
-      left: 50%;
-      margin: -10px 0 0 -10px;
-      position: absolute;
-      top: 50%;
-      width: 20px;
+      height: 100%;
+      width: 100%;
     }
   }
 }
