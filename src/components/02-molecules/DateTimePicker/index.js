@@ -8,7 +8,7 @@ injectTapEventPlugin();
 
 const DateTimePicker = ({ name, label, error }) => {
   const datePickerStyle = { display: 'inline-block' };
-  const datePickerTextFieldStyle = { width: '145px', fontSize: '18px', fontWeight: '100' };
+  const datePickerTextFieldStyle = { width: '150px', fontSize: '18px', fontWeight: '100' };
   const timePickerStyle = datePickerStyle;
   const timePickerTextFieldStyle = { width: '68px', fontSize: '18px', fontWeight: '100' };
 
