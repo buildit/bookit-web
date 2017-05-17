@@ -1,7 +1,9 @@
 @import '../../shared-styles/bookit';
+@import '../../shared-styles/fonts';
 
 body {
   background-color: $darkblue;
+  font-family: $base-font-family;
 }
 
 .app {
