@@ -42,7 +42,6 @@ export function* cancelMeeting(action) {
     yield call(api.cancelMeeting, meeting, room); // TODO: Use meeting id instead?
     yield put(cancelMeetingSucceeded());
   } catch (err) {
-    console.log(err);
     yield put(cancelMeetingFailed());
   }
 }

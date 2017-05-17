@@ -19,7 +19,12 @@ export class MeetingCancelContainer extends React.Component {
       startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
+    room: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+    }),
     closeCancellationDialog: PropTypes.func.isRequired,
+    cancelMeeting: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -30,7 +35,6 @@ export class MeetingCancelContainer extends React.Component {
   }
 
   onConfirmCancel() {
-    console.log(this.props);
     this.props.cancelMeeting(this.props.meeting, this.props.room);
   }
 
@@ -53,7 +57,7 @@ export class MeetingCancelContainer extends React.Component {
 
 const mapStateToProps = state => ({
   meeting: state.app.requestedMeeting,
-  room: state.app.requestedMeeting.room, // TODO: This is undefined. Why? We need it to contruct the DELETE request url.
+  room: state.app.requestedMeeting.room,
 });
 
 const mapDispatchToProps = dispatch => ({

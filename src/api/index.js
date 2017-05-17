@@ -17,19 +17,6 @@ const fakeLogin = () => ({
   token: '12345abcde',
 });
 
-// Use this one when the server is ready
-// const login = (email, password) => agent.post(`${apiBaseUrl}/login`)
-//   .send({
-//     username: email,
-//     password,
-//   })
-//   .then((response) => {
-//     console.log(response);
-//     const user = JSON.parse(response.text);
-//     return user;
-//   })
-//   .catch(error => error);
-
 const fetchMeetings = () => agent
   .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`).then(response => {
     const meetings = JSON.parse(response.text);
@@ -47,19 +34,14 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   })
   .then((message) => message);
 
-const fakeMeetingCancel = (meeting, room) => {
-  // TODO: Use `meeting id` and `room` to construct the `DELETE` route.
-  // Meeting id is currently undefined. As is room. Figure out why.
-  console.log(meeting);
-  console.log(room);
-  return 'okay';
-};
+const cancelMeeting = (meeting, room) => agent.delete(`${apiBaseUrl}/room/${room.email}/meeting/${meeting.id}`)
+  .then((message) => message);
 
 const Api = {
   login: fakeLogin,
   fetchMeetings,
   createMeeting,
-  cancelMeeting: fakeMeetingCancel,
+  cancelMeeting,
 };
 
 export default Api;

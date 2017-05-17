@@ -74,26 +74,30 @@ DashboardContainer.propTypes = {
   selectedDate: PropTypes.shape({}),
 };
 
-const mapMeeting = (rm, user) => {
-  const meetings = rm.meetings.map(m => {
-    const startMoment = moment(m.start);
-    const endMoment = moment(m.end);
+const mapMeeting = (roomMeetings, user) => {
+  const meetings = roomMeetings.meetings.map(meeting => {
+    const startMoment = moment(meeting.start);
+    const endMoment = moment(meeting.end);
     const duration = endMoment.diff(startMoment, 'minutes') / 60;
-    const isOwnedByUser = m.owner && (user.email === m.owner.email);
+    const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
+
+    // console.log(rm);
     return {
-      startTime: moment(m.start).format('YYYY-MM-DDTHH:mm:ssZ'),
+      room: roomMeetings.room,
+      id: meeting.id,
+      startTime: moment(meeting.start).format('YYYY-MM-DDTHH:mm:ssZ'),
       duration,
-      start: moment(m.start),
-      end: moment(m.end),
+      start: moment(meeting.start),
+      end: moment(meeting.end),
       isOwnedByUser,
-      participants: m.participants,
-      owner: m.owner,
-      title: m.title,
+      participants: meeting.participants,
+      owner: meeting.owner,
+      title: meeting.title,
     };
   });
 
   return {
-    room: rm.room,
+    room: roomMeetings.room,
     meetings,
   };
 };
