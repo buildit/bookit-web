@@ -4,14 +4,11 @@ import {
   CANCEL_MEETING_START,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
-  CANCEL_MEETING_CANCEL,
 } from './actionTypes';
 
 export const cancelMeetingStart = createAction(CANCEL_MEETING_START, meeting => ({
   meeting,
 }));
-
-export const cancelMeetingCancel = createAction(CANCEL_MEETING_CANCEL);
 
 export const cancelMeetingSucceeded = createAction(CANCEL_MEETING_SUCCEEDED);
 

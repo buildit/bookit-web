@@ -14,7 +14,6 @@ export const meetingCreateSucceeded = meetingCreate.meetingCreateSucceeded;
 export const meetingCreateFailed = meetingCreate.meetingCreateFailed;
 
 export const cancelMeetingStart = meetingCancel.cancelMeetingStart;
-export const cancelMeetingCancel = meetingCancel.cancelMeetingCancel;
 export const cancelMeetingSucceeded = meetingCancel.cancelMeetingSucceeded;
 export const cancelMeetingFailed = meetingCancel.cancelMeetingFailed;
 
@@ -24,6 +23,8 @@ export const resetMeetings = ui.resetMeetings;
 export const populateMeetingForm = ui.populateMeetingForm;
 export const closeMeetingDialog = ui.closeMeetingDialog;
 export const selectDate = ui.selectDate;
+export const openCancellationDialog = ui.openCancellationDialog;
+export const closeCancellationDialog = ui.closeCancellationDialog;
 
 export const loginRequest = auth.loginRequest;
 export const loginSuccess = auth.loginSuccess;

@@ -8,7 +8,7 @@ import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
 
-import { cancelMeetingStart } from '../../../actions';
+import { openCancellationDialog } from '../../../actions';
 
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
@@ -28,7 +28,7 @@ class MeetingContainer extends React.Component {
       startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
-    cancelMeeting: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -62,7 +62,7 @@ class MeetingContainer extends React.Component {
   }
 
   onClick(event) {
-    this.props.cancelMeeting(this.props.meeting);
+    this.props.onClick(this.props.meeting);
     event.stopPropagation();
   }
 
@@ -115,7 +115,7 @@ class MeetingContainer extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  cancelMeeting: meeting => dispatch(cancelMeetingStart(meeting)),
+  onClick: meeting => dispatch(openCancellationDialog(meeting)),
 });
 
 const connected = connect(null, mapDispatchToProps)(MeetingContainer);
