@@ -48,6 +48,10 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   .then((message) => message);
 
 const fakeMeetingCancel = (meeting, room) => {
+  // TODO: Use `meeting id` and `room` to construct the `DELETE` route.
+  // Meeting id is currently undefined. As is room. Figure out why.
+  console.log(meeting);
+  console.log(room);
   return 'okay';
 };
 

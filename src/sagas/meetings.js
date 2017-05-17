@@ -38,7 +38,8 @@ export function* createMeeting(action) {
 export function* cancelMeeting(action) {
   try {
     const meeting = action.payload.meeting;
-    yield call(api.cancelMeeting, meeting); // TODO: Use meeting id instead?
+    const room = action.payload.room;
+    yield call(api.cancelMeeting, meeting, room); // TODO: Use meeting id instead?
     yield put(cancelMeetingSucceeded());
   } catch (err) {
     console.log(err);

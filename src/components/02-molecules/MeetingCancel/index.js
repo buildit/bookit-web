@@ -30,8 +30,8 @@ export class MeetingCancelContainer extends React.Component {
   }
 
   onConfirmCancel() {
-    console.log('CANCELLING!', this.props.meeting);
-    this.props.cancelMeeting(this.props.meeting);
+    console.log(this.props);
+    this.props.cancelMeeting(this.props.meeting, this.props.room);
   }
 
   onCancelCancel() {
@@ -42,7 +42,6 @@ export class MeetingCancelContainer extends React.Component {
     return (
       <div className={styles.cancelMeeting}>
         <p>Are you sure you want to cancel this meeting?</p>
-
         <div>
           <Button onClick={this.onConfirmCancel} content="Yes" />
           <Button onClick={this.onCancelCancel} content="No" />
@@ -54,11 +53,12 @@ export class MeetingCancelContainer extends React.Component {
 
 const mapStateToProps = state => ({
   meeting: state.app.requestedMeeting,
+  room: state.app.requestedMeeting.room, // TODO: This is undefined. Why? We need it to contruct the DELETE request url.
 });
 
 const mapDispatchToProps = dispatch => ({
   closeCancellationDialog: () => dispatch(closeCancellationDialog()),
-  cancelMeeting: meeting => dispatch(cancelMeetingStart(meeting)),
+  cancelMeeting: (meeting, room) => dispatch(cancelMeetingStart(meeting, room)),
 });
 
 const connected = connect(
