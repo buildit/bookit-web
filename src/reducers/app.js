@@ -2,12 +2,16 @@ import moment from 'moment';
 import {
   RESET_MEETINGS,
   POPULATE_MEETING_FORM,
+  CLOSE_CANCELLATION_DIALOG,
   CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
+  MEETINGS_FETCH_FAILED,
   CLOSE_MEETING_DIALOG,
   MEETING_CREATE_FAILED,
-  MEETINGS_FETCH_FAILED,
   SELECT_DATE,
+  OPEN_CANCELLATION_DIALOG,
+  CANCEL_MEETING_SUCCEEDED,
+  CANCEL_MEETING_FAILED,
 } from '../actions/actionTypes';
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
@@ -20,6 +24,7 @@ const initialState = {
   selectedDate: moment().startOf('day'),
   meetings: [],
   isEditingMeeting: false,
+  isCancellingMeeting: false,
   meetingEditForm: {
     title: '',
     startTime: moment(),
@@ -46,6 +51,27 @@ const app = (state = initialState, action) => {
     case MEETINGS_FETCH_SUCCEEDED: {
       return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
     }
+    case OPEN_CANCELLATION_DIALOG: {
+      return {
+        ...state,
+        isCancellingMeeting: true,
+        requestedMeeting: action.payload.meeting,
+      };
+    }
+    case CANCEL_MEETING_SUCCEEDED: {
+      return {
+        ...state,
+        isCancellingMeeting: false,
+        messages: ['Your meeting was successfully cancelled.'],
+      };
+    }
+    case CANCEL_MEETING_FAILED: {
+      return {
+        ...state,
+        isCancellingMeeting: false,
+        messages: ['Oh no! There was a problem cancelling your meeting.'],
+      };
+    }
     case POPULATE_MEETING_FORM: {
       const meetings = state.meetings
         .find(rm => rm.room.email === action.payload.room.email).meetings;
@@ -61,10 +87,16 @@ const app = (state = initialState, action) => {
       };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
     }
+    case CLOSE_CANCELLATION_DIALOG:
     case CREATE_MEETING_CANCEL:
     case CLOSE_MEETING_DIALOG:
-      return { ...state, isEditingMeeting: false, messages: [] };
-
+      return {
+        ...state,
+        isEditingMeeting: false,
+        isCancellingMeeting: false,
+        messages: [],
+        requestedMeeting: {},
+      };
     case MEETING_CREATE_FAILED: {
       return { ...state, messages: [action.payload.message] };
     }

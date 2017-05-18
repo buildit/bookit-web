@@ -6,6 +6,8 @@ import {
   CLOSE_MEETING_DIALOG,
   RESET_MEETINGS,
   SELECT_DATE,
+  OPEN_CANCELLATION_DIALOG,
+  CLOSE_CANCELLATION_DIALOG,
 } from './actionTypes';
 
 export const populateMeetingForm = createAction(POPULATE_MEETING_FORM, (room, meeting) => ({
@@ -20,3 +22,8 @@ export const closeMeetingDialog = createAction(CLOSE_MEETING_DIALOG);
 export const resetMeetings = createAction(RESET_MEETINGS);
 
 export const selectDate = createAction(SELECT_DATE, date => ({ date }));
+
+export const openCancellationDialog =
+  createAction(OPEN_CANCELLATION_DIALOG, meeting => ({ meeting }));
+
+export const closeCancellationDialog = createAction(CLOSE_CANCELLATION_DIALOG);

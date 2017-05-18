@@ -19,11 +19,7 @@ class RoomTimeline extends React.Component {
       <Meeting
         key={`${this.props.room.name}-${index}`}
         roomTitle={this.props.room.name}
-        owner={meeting.owner}
-        isOwnedByUser={meeting.isOwnedByUser}
-        startTime={meeting.start}
-        duration={meeting.duration}
-        title={meeting.title}
+        meeting={meeting}
       />
     );
 

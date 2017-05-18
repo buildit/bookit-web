@@ -8,7 +8,7 @@ import {
 
 // MEETINGS FETCH
 export const meetingsFetchStart = createAction(MEETINGS_FETCH_START);
-export const meetingsFetchSucceeded = createAction(MEETINGS_FETCH_SUCCEEDED);
-export const meetingsFetchFailed = createAction(MEETINGS_FETCH_FAILED, message => ({
-  message,
-}));
+export const meetingsFetchSucceeded =
+  createAction(MEETINGS_FETCH_SUCCEEDED);
+export const meetingsFetchFailed =
+  createAction(MEETINGS_FETCH_FAILED, message => ({ message }));
