@@ -18,6 +18,7 @@ import MeetingForm from '../MeetingForm';
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
+  populateMeetingEditForm,
   logout,
  } from '../../actions';
 
@@ -41,7 +42,10 @@ export class DashboardContainer extends React.Component {
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
             <Messages messages={this.props.messages} />
-            <ReservationList />
+            <ReservationList
+              roomMeetings={this.props.rooms}
+              handleEditClick={this.props.populateMeetingEditForm}
+            />
           </div>
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
@@ -65,6 +69,7 @@ DashboardContainer.propTypes = {
   userName: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
   populateMeetingCreateForm: PropTypes.func.isRequired,
+  populateMeetingEditForm: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
   isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
@@ -80,7 +85,6 @@ const mapMeeting = (roomMeetings, user) => {
     const duration = endMoment.diff(startMoment, 'minutes') / 60;
     const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
 
-    // console.log(rm);
     return {
       room: roomMeetings.room,
       id: meeting.id,
@@ -103,6 +107,7 @@ const mapMeeting = (roomMeetings, user) => {
 
 const mapStateToProps = state => ({
   userName: state.user.name,
+  // TODO: Rename `rooms`. This is not really a list of rooms.
   rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
@@ -120,6 +125,9 @@ const mapDispatchToProps = dispatch => ({
   },
   populateMeetingCreateForm: (room, meeting) => {
     dispatch(populateMeetingCreateForm(room, meeting));
+  },
+  populateMeetingEditForm: meeting => {
+    dispatch(populateMeetingEditForm(meeting));
   },
   logout: () => {
     dispatch(logout());
