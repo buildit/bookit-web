@@ -38,22 +38,28 @@ export class DashboardContainer extends React.Component {
   }
 
   render() {
+    const {
+      messages,
+      user,
+      agenda,
+    } = this.props;
+
     return (
       <div className={styles.app}>
         <div className={styles.container}>
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
-            <Messages messages={this.props.messages} />
+            <Messages messages={messages} />
           </div>
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
             <span className={styles.name}>
-              { this.props.userName }!
+              { user.name }!
             </span>
             <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
           </div>
           <Agenda
-            roomMeetings={this.props.rooms}
+            agenda={agenda}
             populateMeetingForm={this.props.populateMeetingForm}
           />
         </div>
@@ -63,53 +69,51 @@ export class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = {
-  requestRooms: PropTypes.func,
-  userName: PropTypes.string,
-  rooms: PropTypes.arrayOf(PropTypes.object),
-  populateMeetingForm: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+  agenda: PropTypes.arrayOf(PropTypes.object),
   isEditingMeeting: PropTypes.bool,
   isCancellingMeeting: PropTypes.bool,
+  selectedDate: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
+  requestRooms: PropTypes.func,
+  populateMeetingForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  selectedDate: PropTypes.shape({}),
 };
 
-const mapMeeting = (roomMeetings, user) => {
-  const meetings = roomMeetings.meetings.map(meeting => {
-    const startMoment = moment(meeting.start);
-    const endMoment = moment(meeting.end);
-    const duration = endMoment.diff(startMoment, 'minutes') / 60;
-    const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
-
-    // console.log(rm);
+const mapMeeting = (room, user) => {
+  const meetings = room.meetings.map(meeting => {
+    const start = moment(meeting.start);
+    const end = moment(meeting.end);
+    const duration = end.diff(start, 'minutes') / 60;
     return {
-      room: roomMeetings.room,
       id: meeting.id,
-      startTime: moment(meeting.start).format('YYYY-MM-DDTHH:mm:ssZ'),
+      start,
+      end,
       duration,
-      start: moment(meeting.start),
-      end: moment(meeting.end),
-      isOwnedByUser,
+      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
       participants: meeting.participants,
       owner: meeting.owner,
       title: meeting.title,
+      room: room.room,
     };
   });
 
   return {
-    room: roomMeetings.room,
+    room: room.room,
     meetings,
   };
 };
 
 const mapStateToProps = state => ({
-  userName: state.user.name,
-  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
+  user: state.user,
+  agenda: state.app.meetings.map(room => mapMeeting(room, state.user)),
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
-  selectedDate: moment(state.app.selectedDate),
+  selectedDate: state.app.selectedDate,
 });
 
 const mapDispatchToProps = dispatch => ({

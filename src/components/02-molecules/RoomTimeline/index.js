@@ -1,33 +1,27 @@
 import React, { PropTypes } from 'react';
 
-import styles from './styles.scss';
+import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
+
 import Meeting from '../Meeting';
 
-import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
+import styles from './styles.scss';
 
 class RoomTimeline extends React.Component {
   componentDidMount() {
     document.getElementById('timelines').scrollLeft = 653;
   }
+
   render() {
     const onTimelineClick = (e) => {
       const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
       this.props.populateMeetingForm(this.props.room, requestedStartTime);
     };
 
-    const timelineMeetings = this.props.meetings.map((meeting, index) =>
-      <Meeting
-        key={`${this.props.room.name}-${index}`}
-        roomTitle={this.props.room.name}
-        meeting={meeting}
-      />
-    );
-
     return (
       <div className={styles.room}>
         <div className={styles.timeline}>
           <div className={styles.meetings} onClick={onTimelineClick}>
-            { timelineMeetings }
+            { this.props.meetings.map(meeting => <Meeting key={meeting.id} meeting={meeting} />)}
           </div>
         </div>
       </div>
