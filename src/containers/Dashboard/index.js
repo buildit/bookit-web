@@ -9,6 +9,7 @@ import styles from './styles.scss';
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
 import Messages from '../../components/02-molecules/Messages';
+import ReservationList from '../../components/02-molecules/ReservationList';
 
 import MeetingCancel from '../../components/02-molecules/MeetingCancel';
 
@@ -40,6 +41,7 @@ export class DashboardContainer extends React.Component {
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
             <Messages messages={this.props.messages} />
+            <ReservationList />
           </div>
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
