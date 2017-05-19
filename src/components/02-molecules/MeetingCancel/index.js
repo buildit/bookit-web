@@ -15,7 +15,7 @@ export class MeetingCancelContainer extends React.Component {
         email: PropTypes.string,
       }),
       isOwnedByUser: PropTypes.bool,
-      duration: PropTypes.number.isRequired,
+      duration: PropTypes.number,
       startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,

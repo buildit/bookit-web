@@ -16,7 +16,7 @@ import MeetingForm from '../MeetingForm';
 
 import {
   meetingsFetchStart,
-  populateMeetingForm,
+  populateMeetingCreateForm,
   logout,
  } from '../../actions';
 
@@ -27,13 +27,9 @@ export class DashboardContainer extends React.Component {
   }
 
   leftPaneContent() {
-    if (this.props.isEditingMeeting) {
-      return (
-        <MeetingForm />
-      );
-    } else if (this.props.isCancellingMeeting) {
-      return (<MeetingCancel />);
-    }
+    if (this.props.isEditingMeeting) { return <MeetingForm />; }
+    if (this.props.isCreatingMeeting) { return <MeetingForm />; }
+    if (this.props.isCancellingMeeting) { return (<MeetingCancel />); }
     return (<Calendar selectedDate={this.props.selectedDate} />);
   }
 
@@ -54,7 +50,7 @@ export class DashboardContainer extends React.Component {
           </div>
           <Agenda
             roomMeetings={this.props.rooms}
-            populateMeetingForm={this.props.populateMeetingForm}
+            populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
         </div>
       </div>
@@ -66,8 +62,9 @@ DashboardContainer.propTypes = {
   requestRooms: PropTypes.func,
   userName: PropTypes.string,
   rooms: PropTypes.arrayOf(PropTypes.object),
-  populateMeetingForm: PropTypes.func.isRequired,
+  populateMeetingCreateForm: PropTypes.func.isRequired,
   isEditingMeeting: PropTypes.bool,
+  isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   logout: PropTypes.func.isRequired,
@@ -105,6 +102,7 @@ const mapMeeting = (roomMeetings, user) => {
 const mapStateToProps = state => ({
   userName: state.user.name,
   rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
+  isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
@@ -118,8 +116,8 @@ const mapDispatchToProps = dispatch => ({
     // TODO: Fetch meetings for selectedDate.
     dispatch(meetingsFetchStart());
   },
-  populateMeetingForm: (room, meeting) => {
-    dispatch(populateMeetingForm(room, meeting));
+  populateMeetingCreateForm: (room, meeting) => {
+    dispatch(populateMeetingCreateForm(room, meeting));
   },
   logout: () => {
     dispatch(logout());

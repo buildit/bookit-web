@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import moment from 'moment';
-import MeetingEditor from '../../components/02-molecules/MeetingEditor';
-import { cancelMeetingRequest, meetingCreateStart } from '../../actions/index';
+import MeetingForm from '../../components/02-molecules/MeetingForm';
+import {
+  cancelMeetingRequest,
+  meetingCreateStart,
+  openCancellationDialog,
+ } from '../../actions/index';
 
 const validate = (values) => {
   const startMom = moment(values.start);
@@ -30,34 +34,38 @@ const validate = (values) => {
   return errors;
 };
 
-const MeetingForm = reduxForm({
-  form: 'meeting-editor', // a unique name for this form
+const MeetingFormContainer = reduxForm({
+  form: 'meeting-form', // a unique name for this form
   validate,
-})(MeetingEditor);
+})(MeetingForm);
 
-const mapFormValues = (values) => ({
+const mapFormValues = values => ({
   title: values.title,
-  start: values.start && values.start.toDate(),
-  end: values.end && values.end.toDate(),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleCancel: () => dispatch(cancelMeetingRequest()),
-  handleSubmit: (meeting, room) => dispatch(meetingCreateStart(meeting, room)),
+  start: values.start && moment(values.start).toDate(),
+  end: values.end && moment(values.end).toDate(),
 });
 
 const getSubmittableMeeting = form => {
   // FIXME: This is crazy-sauce. What is the right way?
   if (!form) return { values: {} };
-  if (!form['meeting-editor']) return { values: {} };
-  if (!form['meeting-editor'].values) return { values: {} };
-  return form['meeting-editor'].values;
+  if (!form['meeting-form']) return { values: {} };
+  if (!form['meeting-form'].values) return { values: {} };
+  return form['meeting-form'].values;
 };
 
-export default connect((state) => ({
+const mapStateToProps = state => ({
   meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
   room: state.app.requestedMeeting.room,
   initialValues: mapFormValues(state.app.requestedMeeting),
-  validationErrors: state.form && state.form['meeting-editor'] && state.form['meeting-editor'].syncErrors,
+  validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound'],
-}), mapDispatchToProps)(MeetingForm);
+  isCreatingMeeting: state.app.isCreatingMeeting,
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleCancel: () => dispatch(cancelMeetingRequest()),
+  handleSubmit: (meeting, room) => dispatch(meetingCreateStart(meeting, room)),
+  handleDeleteClick: () => dispatch(openCancellationDialog()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MeetingFormContainer);

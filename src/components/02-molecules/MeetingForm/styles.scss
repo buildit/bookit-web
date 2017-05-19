@@ -15,3 +15,12 @@
 .cancel {
   margin-left: 302px;
 }
+
+.buttons {
+  display: flex;
+  margin-top: 20px;
+
+  & > * {
+    margin: 0 10px;
+  }
+}

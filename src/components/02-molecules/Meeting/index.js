@@ -8,7 +8,7 @@ import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
 
-import { openCancellationDialog } from '../../../actions';
+import { populateMeetingEditForm } from '../../../actions';
 
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
@@ -115,7 +115,7 @@ class MeetingContainer extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onClick: meeting => dispatch(openCancellationDialog(meeting)),
+  onClick: meeting => dispatch(populateMeetingEditForm(meeting)),
 });
 
 const connected = connect(null, mapDispatchToProps)(MeetingContainer);

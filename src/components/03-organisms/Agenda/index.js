@@ -5,7 +5,7 @@ import RoomTimeline from '../../02-molecules/RoomTimeline';
 import RoomTimelineNames from '../../02-molecules/RoomTimelineNames';
 import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
-const Agenda = ({ roomMeetings = [], populateMeetingForm }) => (
+const Agenda = ({ roomMeetings = [], populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
       {
@@ -24,7 +24,7 @@ const Agenda = ({ roomMeetings = [], populateMeetingForm }) => (
           key={roomMeeting.room.name}
           meetings={roomMeeting.meetings}
           room={roomMeeting.room}
-          populateMeetingForm={populateMeetingForm}
+          populateMeetingCreateForm={populateMeetingCreateForm}
         />
         )) }
       <CurrentTimeIndicator />
@@ -46,7 +46,7 @@ Agenda.propTypes = {
       end: PropTypes.object,
     })),
   })),
-  populateMeetingForm: PropTypes.func.isRequired,
+  populateMeetingCreateForm: PropTypes.func.isRequired,
 };
 
 export default Agenda;

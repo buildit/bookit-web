@@ -35,13 +35,15 @@ export function* createMeeting(action) {
     yield put(meetingCreateFailed(err.response && err.response.body && err.response.body.message));
   }
 }
+
 export function* cancelMeeting(action) {
   try {
     const meeting = action.payload.meeting;
     const room = action.payload.room;
-    yield call(api.cancelMeeting, meeting, room); // TODO: Use meeting id instead?
+    yield call(api.cancelMeeting, meeting.id, room.email); // TODO: Use meeting id instead?
     yield put(cancelMeetingSucceeded());
   } catch (err) {
+    console.log(err);
     yield put(cancelMeetingFailed());
   }
 }
