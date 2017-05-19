@@ -29,7 +29,14 @@ env:
 
 notifications:
   slack:
-    secure: W6ngcqgzcmk6Vn/+q+D7Yvk74unBtEn19W9jye4HcKPh6L23S8PgKNop7ANRf/msmlYZkmxPhT3bPB+nrYiIKHXbraelOtsjVVssf0GfpjN95tT6IQlKSD9HASWQaLDpqY6OtNL5zRf7l1dkou6BD+vUjOs27oLSnGJtJguSUAWiJ23176P0LkfFOhpgHrduDQE8pP5k/lmx3zZX4gdT2Zv8OHzqMhSJEjDvIL6OI9EAbP8atkVNTYKDeJmuiBRuGp+St3Pf9dv2qBK88eixLDTdxS0jmtPQHBgqPRon3ess3VoOnognHhSg+4YAcr6na9e0kXbBnADnQcK1sDYSiLTvqAqJ4usIwxVRmGsBawNmyXr4zMieJ7gt1pj/CgNap5rS/47bb+hAQWwSLUEVntwXEqvoOEBGUHEFVW5oD2zbor95tqdTwi51GCgjqVGmkNar27X7sB5/qQb3iaeftUBcWk5E4LrDTnhFzA3YiaoHhwtzbKed4Fht/x1oCV3ImAaOO4MCPa4d05iclCU7begU3fdOWMLkap4sZvSVccD6rt8jjfBa8pTEt81QW1Xu2PQn1oVIdLlheQX3O7FiZ9gA9C4fbfDfMlwNnTRWNitKJFn7VM7pNaqYA3UpNN370umohWWc/0xEcQlHa723sQDUSixrhm+RQtcr2tKYALM=
+    rooms:
+      - secure: "W6ngcqgzcmk6Vn/+q+D7Yvk74unBtEn19W9jye4HcKPh6L23S8PgKNop7ANRf/msmlYZkmxPhT3bPB+nrYiIKHXbraelOtsjVVssf0GfpjN95tT6IQlKSD9HASWQaLDpqY6OtNL5zRf7l1dkou6BD+vUjOs27oLSnGJtJguSUAWiJ23176P0LkfFOhpgHrduDQE8pP5k/lmx3zZX4gdT2Zv8OHzqMhSJEjDvIL6OI9EAbP8atkVNTYKDeJmuiBRuGp+St3Pf9dv2qBK88eixLDTdxS0jmtPQHBgqPRon3ess3VoOnognHhSg+4YAcr6na9e0kXbBnADnQcK1sDYSiLTvqAqJ4usIwxVRmGsBawNmyXr4zMieJ7gt1pj/CgNap5rS/47bb+hAQWwSLUEVntwXEqvoOEBGUHEFVW5oD2zbor95tqdTwi51GCgjqVGmkNar27X7sB5/qQb3iaeftUBcWk5E4LrDTnhFzA3YiaoHhwtzbKed4Fht/x1oCV3ImAaOO4MCPa4d05iclCU7begU3fdOWMLkap4sZvSVccD6rt8jjfBa8pTEt81QW1Xu2PQn1oVIdLlheQX3O7FiZ9gA9C4fbfDfMlwNnTRWNitKJFn7VM7pNaqYA3UpNN370umohWWc/0xEcQlHa723sQDUSixrhm+RQtcr2tKYALM="
+    template:
+      - "%{commit_message}"
+      - ":cat: :sparkles: :cat:  :sparkles:  :cat: :sparkles: :cat:"
+      - ":wrench: <%{build_url}|#%{build_number}>"
+      - ":eye: (<%{compare_url}|%{commit}>)"
+      - "%{repository_name}@%{branch} by %{author}"
 
 # Docker config
 sudo: required
