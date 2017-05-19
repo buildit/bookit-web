@@ -78,12 +78,13 @@ DashboardContainer.propTypes = {
   selectedDate: PropTypes.shape({}),
 };
 
-const mapMeeting = (roomMeetings, user) => {
+const mapMeeting = (roomMeetings, user, requestedMeeting = {}) => {
   const meetings = roomMeetings.meetings.map(meeting => {
     const startMoment = moment(meeting.start);
     const endMoment = moment(meeting.end);
     const duration = endMoment.diff(startMoment, 'minutes') / 60;
     const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
+    const isSelected = meeting.id === requestedMeeting.id;
 
     return {
       room: roomMeetings.room,
@@ -96,6 +97,7 @@ const mapMeeting = (roomMeetings, user) => {
       participants: meeting.participants,
       owner: meeting.owner,
       title: meeting.title,
+      isSelected,
     };
   });
 
@@ -108,13 +110,14 @@ const mapMeeting = (roomMeetings, user) => {
 const mapStateToProps = state => ({
   userName: state.user.name,
   // TODO: Rename `rooms`. This is not really a list of rooms.
-  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user)),
+  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.requestedMeeting)),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
   selectedDate: moment(state.app.selectedDate),
+  requestedMeeting: state.app.requestedMeeting,
 });
 
 const mapDispatchToProps = dispatch => ({

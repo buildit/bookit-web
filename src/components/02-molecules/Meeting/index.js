@@ -24,6 +24,7 @@ class MeetingContainer extends React.Component {
         email: PropTypes.string,
       }),
       isOwnedByUser: PropTypes.bool,
+      isSelected: PropTypes.bool,
       duration: PropTypes.number.isRequired,
       startTime: PropTypes.string,
       title: PropTypes.string,
@@ -62,7 +63,9 @@ class MeetingContainer extends React.Component {
   }
 
   onClick(event) {
-    this.props.onClick(this.props.meeting);
+    if (!this.props.isEditingMeeting) {
+      this.props.onClick(this.props.meeting);
+    }
     event.stopPropagation();
   }
 
@@ -79,6 +82,10 @@ class MeetingContainer extends React.Component {
 
     if (this.props.meeting.isOwnedByUser) {
       classNames.push(styles.isOwnedByUser);
+    }
+
+    if (this.props.meeting.isSelected) {
+      classNames.push(styles.isSelected);
     }
 
     if (this.state.tooltipVisible) {
@@ -118,6 +125,10 @@ const mapDispatchToProps = dispatch => ({
   onClick: meeting => dispatch(populateMeetingEditForm(meeting)),
 });
 
-const connected = connect(null, mapDispatchToProps)(MeetingContainer);
+const mapStateToProps = state => ({
+  isEditingMeeting: state.app.isEditingMeeting,
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);
 
 export default connected;

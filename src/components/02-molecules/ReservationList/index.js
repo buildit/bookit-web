@@ -4,13 +4,14 @@ import styles from './styles.scss';
 const ReservationList = ({ roomMeetings = [], handleEditClick }) => {
   const meetings = roomMeetings.reduce((result, roomMeeting) => {
     // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
-    const userOwnedMeetings = roomMeeting.meetings.filter(() => true);
+    const userOwnedMeetings = roomMeeting.meetings
+      .filter(meeting => meeting.owner.name === 'Comes from the session!!!');
     return result.concat(userOwnedMeetings);
   }, []);
 
   return (
     <div className={styles.reservationList}>
-      <h2 className={styles.header}>My Reservations</h2>
+      <h2 className={styles.header}>{meetings.length > 0 ? 'My Reservations' : ''}</h2>
       {meetings.map(meeting => (
         <div className={styles.meeting} key={meeting.id}>
           <div className={styles.info}>
