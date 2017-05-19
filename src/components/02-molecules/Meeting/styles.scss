@@ -52,11 +52,13 @@
 
 .tooltip {
   @extend %tooltip;
+
   left: -99999px;
   opacity: 0;
 
   &--visible {
     @extend %tooltip;
+
     left: 0;
     opacity: 1;
 

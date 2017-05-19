@@ -56,7 +56,7 @@ class MeetingContainer extends React.Component {
    * within the bounds of the meeting element.
    * @param  {Event} event
    */
-  handleMouseOver(event) {
+  handleMouseOver() {
     const mRect = this.$meeting.getBoundingClientRect();
     const tlRect = document.getElementById('timelines').getBoundingClientRect();
 
@@ -84,7 +84,7 @@ class MeetingContainer extends React.Component {
    * bound to the meeting element to prevent superfluous handlers.
    * @param  {Event} event
    */
-  handleMouseOut(event) {
+  handleMouseOut() {
     this.$tooltip.style.left = null;
     this.$tooltip.className = styles.tooltip;
     this.$meeting.removeEventListener('mousemove', this.handleMouseMove);
