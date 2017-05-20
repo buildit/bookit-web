@@ -29,6 +29,7 @@ class MeetingContainer extends React.Component {
       startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
+    isEditingMeeting: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
   };
 
