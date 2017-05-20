@@ -26,7 +26,7 @@ class RoomTimeline extends React.Component {
     return (
       <div className={styles.room}>
         <div className={styles.timeline}>
-          <div className={styles.meetings} onClick={onTimelineClick}>
+          <div className={`${styles.meetings} meetings`} onClick={onTimelineClick}>
             { timelineMeetings }
           </div>
         </div>

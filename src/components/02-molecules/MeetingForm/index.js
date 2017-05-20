@@ -25,16 +25,16 @@ const MeetingForm = ({
   const buttons = isCreatingMeeting
     ? <Button disabled={invalid} type="submit" content="Bookit" />
     : (<div className={styles.buttons}>
-      <Button disabled={invalid} onClick={() => handleDeleteClick()} content="Delete" />
+      <Button name={'delete'} disabled={invalid} onClick={() => handleDeleteClick()} content="Delete" />
       <Button disabled content="Save" />
     </div>);
 
   const header = isCreatingMeeting
-    ? <div className={styles.room}>Book {room.name} Room</div>
-    : <div className={styles.room}>Edit Event Info</div>;
+    ? <div id={'editor-header'} className={`${styles.header} header`}>Book {room.name} Room</div>
+    : <div id={'editor-header'} className={`${styles.header} header`}>Edit Event Info</div>;
 
   return (
-    <div className={styles.editor}>
+    <div className={`${styles.editor} editor`}>
       <img src={images('./close-desktop.png')} className={styles.cancel} onClick={handleCancel} alt="X" />
       { header }
       <form

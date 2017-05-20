@@ -28,6 +28,7 @@ class MeetingContainer extends React.Component {
       duration: PropTypes.number.isRequired,
       startTime: PropTypes.string,
       title: PropTypes.string,
+      id: PropTypes.string.isRequired,
     }).isRequired,
     isEditingMeeting: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
@@ -79,7 +80,7 @@ class MeetingContainer extends React.Component {
   }
 
   render() {
-    const classNames = [styles.meeting];
+    const classNames = [styles.meeting, 'meeting'];
 
     if (this.props.meeting.isOwnedByUser) {
       classNames.push(styles.isOwnedByUser);
@@ -98,8 +99,11 @@ class MeetingContainer extends React.Component {
       left: calculateMeetingOffset(moment(this.props.meeting.startTime)),
     };
 
+    const formatId = id => id.replace('.', '-');
+
     return (
       <div
+        id={formatId(this.props.meeting.id)}
         className={classNames.join(' ')}
         style={style}
         onMouseMove={this.onMove}

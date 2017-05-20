@@ -45,10 +45,10 @@ export class MeetingCancelContainer extends React.Component {
   render() {
     return (
       <div className={styles.cancelMeeting}>
-        <p>Are you sure you want to cancel this meeting?</p>
+        <p className={'confirmation-message'}>Are you sure you want to cancel this meeting?</p>
         <div>
-          <Button onClick={this.onConfirmCancel} content="Yes" />
-          <Button onClick={this.onCancelCancel} content="No" />
+          <Button name={'confirm-delete'} onClick={this.onConfirmCancel} content="Yes" />
+          <Button name={'abort-delete'} onClick={this.onCancelCancel} content="No" />
         </div>
       </div>
     );
