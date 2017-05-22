@@ -38,11 +38,11 @@ const Tooltip = ({
     </div>
     <div className={styles.content}>
       <p>
-        <strong>{ truncatePhrase(title) }</strong>
+        <strong className={styles.title}>{ truncatePhrase(title) }</strong>
         { meetingStartTime.format('h:mma') } - { meetingEndTime.format('h:mma') }
       </p>
       <p>
-        <strong>{ roomTitle } Room</strong>
+        <strong className={styles.roomTitle}>{ roomTitle } Room</strong>
         by { isOwnedByUser ? 'me' : owner.name }
       </p>
     </div>

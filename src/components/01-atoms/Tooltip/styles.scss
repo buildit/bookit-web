@@ -35,20 +35,24 @@
   padding: 15px;
 
   p {
-    font-weight: 300;
+    font-weight: 100;
     font-size: 14px;
     margin-bottom: 12px;
 
     &:last-child {
       margin-bottom: 0;
     }
-
-    > strong {
-      display: block;
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 4px;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.5);
-    }
   }
+}
+
+.title,
+.roomTitle {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.roomTitle {
+  font-weight: 100;
 }
