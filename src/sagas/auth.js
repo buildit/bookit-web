@@ -8,7 +8,7 @@ import {
   loginSuccess,
   loginFailure,
   setClient,
-  resetMeetings,
+  resetUi,
   resetUser,
 } from '../actions';
 
@@ -16,7 +16,7 @@ export function* login(action) {
   try {
     const user = yield call(api.login, action.payload.email, action.payload.password);
     yield put(setClient(user));
-    yield put(resetMeetings());
+    yield put(resetUi());
     yield put(loginSuccess());
     localStorage.setItem('user', JSON.stringify(user));
     browserHistory.push('/dashboard');

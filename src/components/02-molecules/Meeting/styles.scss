@@ -42,6 +42,10 @@
   }
 }
 
+.isSelected {
+  border: 1px solid $veryyellow;
+}
+
 %tooltip {
   width: 270px;
   margin-top: $agenda-row-height;

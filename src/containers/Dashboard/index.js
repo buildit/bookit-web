@@ -1,22 +1,23 @@
 import React, { PropTypes } from 'react';
 
-import moment from 'moment';
-
 import { connect } from 'react-redux';
 
-import styles from './styles.scss';
+import moment from 'moment';
 
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
 import Messages from '../../components/02-molecules/Messages';
+import ReservationList from '../../components/02-molecules/ReservationList';
 
 import MeetingCancel from '../../components/02-molecules/MeetingCancel';
-
 import MeetingForm from '../MeetingForm';
+
+import styles from './styles.scss';
 
 import {
   meetingsFetchStart,
-  populateMeetingForm,
+  populateMeetingCreateForm,
+  populateMeetingEditForm,
   logout,
  } from '../../actions';
 
@@ -27,13 +28,9 @@ export class DashboardContainer extends React.Component {
   }
 
   leftPaneContent() {
-    if (this.props.isEditingMeeting) {
-      return (
-        <MeetingForm />
-      );
-    } else if (this.props.isCancellingMeeting) {
-      return (<MeetingCancel />);
-    }
+    if (this.props.isEditingMeeting) { return <MeetingForm />; }
+    if (this.props.isCreatingMeeting) { return <MeetingForm />; }
+    if (this.props.isCancellingMeeting) { return (<MeetingCancel />); }
     return (<Calendar selectedDate={this.props.selectedDate} />);
   }
 
@@ -50,6 +47,10 @@ export class DashboardContainer extends React.Component {
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
             <Messages messages={messages} />
+            <ReservationList
+              roomMeetings={agenda}
+              handleEditClick={this.props.populateMeetingEditForm}
+            />
           </div>
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
@@ -60,7 +61,7 @@ export class DashboardContainer extends React.Component {
           </div>
           <Agenda
             agenda={agenda}
-            populateMeetingForm={this.props.populateMeetingForm}
+            populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
         </div>
       </div>
@@ -74,15 +75,17 @@ DashboardContainer.propTypes = {
   }),
   agenda: PropTypes.arrayOf(PropTypes.object),
   isEditingMeeting: PropTypes.bool,
+  isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
   selectedDate: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   requestRooms: PropTypes.func,
-  populateMeetingForm: PropTypes.func.isRequired,
+  populateMeetingCreateForm: PropTypes.func.isRequired,
+  populateMeetingEditForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
 };
 
-const mapMeeting = (room, user) => {
+const mapMeeting = (room, user, requestedMeeting) => {
   const meetings = room.meetings.map(meeting => {
     const start = moment(meeting.start);
     const end = moment(meeting.end);
@@ -92,11 +95,13 @@ const mapMeeting = (room, user) => {
       start,
       end,
       duration,
-      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
       participants: meeting.participants,
       owner: meeting.owner,
       title: meeting.title,
       room: room.room,
+      // isOwnedByUser: meeting.owner && (meeting.owner.name === 'Comes from the session!!!'),
+      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
+      isSelected: requestedMeeting && meeting.id === requestedMeeting.id,
     };
   });
 
@@ -109,11 +114,14 @@ const mapMeeting = (room, user) => {
 const mapStateToProps = state => ({
   user: state.user,
   agenda: state.app.meetings.map(room => mapMeeting(room, state.user)),
+  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.requestedMeeting)),
+  isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
   selectedDate: state.app.selectedDate,
+  requestedMeeting: state.app.requestedMeeting,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,8 +130,11 @@ const mapDispatchToProps = dispatch => ({
     // TODO: Fetch meetings for selectedDate.
     dispatch(meetingsFetchStart());
   },
-  populateMeetingForm: (room, meeting) => {
-    dispatch(populateMeetingForm(room, meeting));
+  populateMeetingCreateForm: (room, meeting) => {
+    dispatch(populateMeetingCreateForm(room, meeting));
+  },
+  populateMeetingEditForm: meeting => {
+    dispatch(populateMeetingEditForm(meeting));
   },
   logout: () => {
     dispatch(logout());

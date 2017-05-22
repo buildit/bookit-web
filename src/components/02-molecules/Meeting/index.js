@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Tooltip from '../../01-atoms/Tooltip';
 
-import { openCancellationDialog } from '../../../actions';
+import { populateMeetingEditForm } from '../../../actions';
 
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
@@ -23,7 +23,9 @@ class MeetingContainer extends React.Component {
 
   /** Prevents the onclick handler of the parent element from firing */
   handleClick(event) {
-    this.props.onClick(this.props.meeting);
+    if (!this.props.isEditingMeeting) {
+      this.props.onClick(this.props.meeting);
+    }
     event.stopPropagation();
   }
 
@@ -99,10 +101,15 @@ class MeetingContainer extends React.Component {
 
   render() {
     const { meeting } = this.props;
+    const classNames = [styles.meeting];
+
+    if (this.props.isSelected) {
+      classNames.push(styles.isSelected);
+    }
 
     return (
       <div
-        className={styles.meeting}
+        className={classNames.join(' ')}
         style={this.inlineStyle}
         onClick={this.handleClick}
         onMouseOver={this.handleMouseOver}
@@ -124,12 +131,18 @@ class MeetingContainer extends React.Component {
 MeetingContainer.propTypes = {
   meeting: PropTypes.shape({}).isRequired,
   onClick: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
+  isEditingMeeting: PropTypes.bool,
 };
 
 const mapDispatchToProps = dispatch => ({
-  onClick: meeting => dispatch(openCancellationDialog(meeting)),
+  onClick: meeting => dispatch(populateMeetingEditForm(meeting)),
 });
 
-const connected = connect(null, mapDispatchToProps)(MeetingContainer);
+const mapStateToProps = state => ({
+  isEditingMeeting: state.app.isEditingMeeting,
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);
 
 export default connected;

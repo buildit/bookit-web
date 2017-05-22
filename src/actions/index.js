@@ -19,8 +19,9 @@ export const cancelMeetingFailed = meetingCancel.cancelMeetingFailed;
 
 export const cancelMeetingRequest = ui.cancelMeetingRequest;
 
-export const resetMeetings = ui.resetMeetings;
-export const populateMeetingForm = ui.populateMeetingForm;
+export const resetUi = ui.resetUi;
+export const populateMeetingCreateForm = ui.populateMeetingCreateForm;
+export const populateMeetingEditForm = ui.populateMeetingEditForm;
 export const closeMeetingDialog = ui.closeMeetingDialog;
 export const selectDate = ui.selectDate;
 export const openCancellationDialog = ui.openCancellationDialog;
