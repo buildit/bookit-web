@@ -15,11 +15,19 @@ Demo date: Thursday May 25, 2017
 ## Canceling a booking
 
 1) Open the Bookit web app. See the agenda view, set to today's date, showing meetings for all rooms.
-2a) Hover over a booking, see the tooltip, and click "Edit".
-2b) See My Reservations. Click "Edit" on one of the reservations.
+
+2) Click "Edit". There are two ways to get there:
+
+a) Hover over a booking, see the tooltip, and click "Edit".
+
+b) See My Reservations. Click "Edit" on one of the reservations.
+
 3) See the cancellation dialog appear in the left panel.
+
 4) Click "Yes" to confirm.
+
 5) See a message confirming that the cancellation succeeded.
+
 6) Refresh page and see that the meeting is no longer there.
 
 * My Reservations only show meetings I own.
