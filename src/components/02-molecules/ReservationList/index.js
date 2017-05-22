@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
+
 import styles from './styles.scss';
 
-const ReservationList = ({ roomMeetings = [], handleEditClick }) => {
+const ReservationList = ({ user, roomMeetings = [], handleEditClick }) => {
   const meetings = roomMeetings.reduce((result, roomMeeting) => {
-    // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
-    // Also change this in containers/Dashboard
-    const userOwnedMeetings = roomMeeting.meetings
-      .filter(meeting => meeting.owner.name === 'Comes from the session!!!');
+    const userOwnedMeetings = roomMeeting.meetings.filter(
+      meeting => meeting.owner.email === user.email
+    );
     return result.concat(userOwnedMeetings);
   }, []);
 
@@ -33,6 +33,9 @@ const ReservationList = ({ roomMeetings = [], handleEditClick }) => {
 };
 
 ReservationList.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }),
   roomMeetings: PropTypes.arrayOf(PropTypes.shape()),
   handleEditClick: PropTypes.func.isRequired,
 };

@@ -48,6 +48,7 @@ export class DashboardContainer extends React.Component {
             { this.leftPaneContent() }
             <Messages messages={messages} />
             <ReservationList
+              user={user}
               roomMeetings={agenda}
               handleEditClick={this.props.populateMeetingEditForm}
             />
@@ -85,7 +86,7 @@ DashboardContainer.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapMeeting = (room, user, requestedMeeting) => {
+const mapMeeting = (room, user, requestedMeeting = {}) => {
   const meetings = room.meetings.map(meeting => {
     const start = moment(meeting.start);
     const end = moment(meeting.end);
@@ -99,10 +100,7 @@ const mapMeeting = (room, user, requestedMeeting) => {
       owner: meeting.owner,
       title: meeting.title,
       room: room.room,
-      // TODO: Change this to reflect actual meeting ownership
-      // See commented line below
-      isOwnedByUser: meeting.owner.name === 'Comes from the session!!!',
-      // isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
+      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
       isSelected: requestedMeeting && meeting.id === requestedMeeting.id,
     };
   });

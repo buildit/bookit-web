@@ -54,6 +54,7 @@ const getSubmittableMeeting = form => {
 };
 
 const mapStateToProps = state => ({
+  token: state.user.token,
   meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
   room: state.app.requestedMeeting.room,
   initialValues: mapFormValues(state.app.requestedMeeting),
@@ -64,7 +65,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleCancel: () => dispatch(cancelMeetingRequest()),
-  handleSubmit: (meeting, room) => dispatch(meetingCreateStart(meeting, room)),
+  handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
 });
 
