@@ -2,13 +2,9 @@
 
 Demo date: Thursday May 25, 2017
 
-1) Finish Meeting Cancelation functionality
-  - UI matches designs
-  - Cancelation is handled properly on server/MS Exchange
+1) Finish Meeting Cancelation functionality on the UI
 2) Login/Logout (stubbed)
 3) User can select a date to see Agenda for that date
-4) Do at least one session of design/dev pairing to refine the UI
-5) Fun Alexa weirdness
 
 =========
 
@@ -38,18 +34,16 @@ b) See My Reservations. Click "Edit" on one of the reservations.
 
 2) See "Hello Bruce" in the upper right of the screen.
 
-a) See "My Meetings" marked.
+a) See "My Meetings" marked as such.
 
 b) See "My Reservations" in the left pane.
 
-3) Cannot edit a meeting I don't own
+3) Click "Logout". See Login screen.
 
-4) Click "Logout". See Login screen.
-
-5) Login as Babs. See Babs' meetings marked.
+4) Login as Babs. See Babs' meetings marked as such.
 
 ## Select Date
-1) Create a meeting for today and tomorrow.  Or have them existing already.
+1) Create a meeting for today and another for tomorrow.
 
 2) Click on tomorrow in the calendar.
 
