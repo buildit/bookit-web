@@ -15,18 +15,9 @@ class MeetingContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
-  }
-
-  /** Prevents the onclick handler of the parent element from firing */
-  handleClick(event) {
-    if (!this.props.isEditingMeeting) {
-      this.props.onClick(this.props.meeting);
-    }
-    event.stopPropagation();
   }
 
   /**
@@ -100,7 +91,7 @@ class MeetingContainer extends React.Component {
   }
 
   render() {
-    const { meeting } = this.props;
+    const { meeting, onEditClick } = this.props;
     const classNames = [styles.meeting];
 
     if (this.props.isSelected) {
@@ -115,7 +106,7 @@ class MeetingContainer extends React.Component {
       <div
         className={classNames.join(' ')}
         style={this.inlineStyle}
-        onClick={this.handleClick}
+        onClick={event => event.stopPropagation()}
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
         ref={el => { this.$meeting = el; }}
@@ -126,6 +117,9 @@ class MeetingContainer extends React.Component {
           anchorContainerRef={el => { this.$anchorContainer = el; }}
           anchorRef={el => { this.$anchor = el; }}
           styles={styles}
+          onEditClick={() => {
+            onEditClick(meeting);
+          }}
         />
       </div>
     );
@@ -134,13 +128,12 @@ class MeetingContainer extends React.Component {
 
 MeetingContainer.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired,
   isSelected: PropTypes.bool,
-  isEditingMeeting: PropTypes.bool,
 };
 
 const mapDispatchToProps = dispatch => ({
-  onClick: meeting => dispatch(populateMeetingEditForm(meeting)),
+  onEditClick: meeting => dispatch(populateMeetingEditForm(meeting)),
 });
 
 const mapStateToProps = state => ({
