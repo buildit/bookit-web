@@ -35,11 +35,17 @@ b) See My Reservations. Click "Edit" on one of the reservations.
 
 ## Login/Logout
 1) See login. Enter the correct credentials for Bruce. Click "Login"
+
 2) See "Hello Bruce" in the upper right of the screen. 
+
 a) See "My Meetings" marked.
+
 b) See "My Reservations" in the left pane.
+
 3) Cannot edit a meeting I don't own
+
 4) Click "Logout". See Login screen.
+
 5) Login as Babs. See Babs' meetings marked.
 
 ## Select Date
