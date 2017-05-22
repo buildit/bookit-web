@@ -2,125 +2,142 @@ import React, { PropTypes } from 'react';
 
 import { connect } from 'react-redux';
 
-import moment from 'moment';
-
 import Tooltip from '../../01-atoms/Tooltip';
-
-import styles from './styles.scss';
 
 import { populateMeetingEditForm } from '../../../actions';
 
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
 
-const ANCHOR_RANGE = 250;
+import styles from './styles.scss';
 
 class MeetingContainer extends React.Component {
-  static propTypes = {
-    roomTitle: PropTypes.string,
-    meeting: PropTypes.shape({
-      owner: PropTypes.shape({
-        name: PropTypes.string,
-        email: PropTypes.string,
-      }),
-      isOwnedByUser: PropTypes.bool,
-      isSelected: PropTypes.bool,
-      duration: PropTypes.number.isRequired,
-      startTime: PropTypes.string,
-      title: PropTypes.string,
-    }).isRequired,
-    isEditingMeeting: PropTypes.bool,
-    onClick: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
-    this.state = { tooltipVisible: false, tooltipOffset: 0 };
-
-    this.onClick = this.onClick.bind(this);
-    this.onMove = this.onMove.bind(this);
-    this.onOver = this.onOver.bind(this);
-    this.onOut = this.onOut.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
-  onMove(event) {
-    if (this.state.tooltipVisible) {
-      const x = event.clientX - event.target.getBoundingClientRect().left;
-      const meetingWidth = calculateWidth(this.props.meeting.duration);
-
-      let excessWidth = 0;
-
-      if (meetingWidth > ANCHOR_RANGE) {
-        excessWidth = (meetingWidth - ANCHOR_RANGE) / 2;
-      }
-
-      if (x > ANCHOR_RANGE + excessWidth || x < excessWidth) {
-        this.setState({ tooltipVisible: true, tooltipOffset: x < excessWidth ? 0 : ANCHOR_RANGE });
-      } else {
-        this.setState({ tooltipVisible: true, tooltipOffset: x - excessWidth });
-      }
-    }
-  }
-
-  onClick(event) {
+  /** Prevents the onclick handler of the parent element from firing */
+  handleClick(event) {
     if (!this.props.isEditingMeeting) {
       this.props.onClick(this.props.meeting);
     }
     event.stopPropagation();
   }
 
-  onOver() {
-    this.setState({ tooltipVisible: true });
+  /**
+   * Handles tooltip anchor positioning.
+   *
+   * Is actually not bound to the meeting element until the mouse
+   * enters it, and gets removed when the mouse leaves said element.
+   * @param  {Event} event
+   */
+  handleMouseMove(event) {
+    const mRect = this.$meeting.getBoundingClientRect();
+    const tlRect = document.getElementById('timelines').getBoundingClientRect();
+
+    let offsetLeft = 0;
+
+    if (mRect.left < tlRect.left) {
+      offsetLeft = (tlRect.left - mRect.left);
+    }
+
+    const anchorLeft = Math.max(0, ((event.clientX - mRect.left) - offsetLeft));
+    this.$anchor.style.left = `${Math.min(anchorLeft, (this.inlineStyle.width - 10))}px`;
   }
 
-  onOut() {
-    this.setState({ tooltipVisible: false });
+  /**
+   * Handles visibility and positioning of the tooltip on the meeting
+   *
+   * Additionally binds the mousemove event handler, which adds
+   * the 'fancy' feature of the tooltip anchor following the cursor
+   * within the bounds of the meeting element.
+   * @param  {Event} event
+   */
+  handleMouseOver() {
+    const mRect = this.$meeting.getBoundingClientRect();
+    const tlRect = document.getElementById('timelines').getBoundingClientRect();
+
+    let effectiveWidth = this.inlineStyle.width;
+    let effectiveLeft = 0;
+
+    if (mRect.left < tlRect.left) {
+      effectiveWidth = mRect.width - (tlRect.left - mRect.left);
+      effectiveLeft = (tlRect.left - mRect.left);
+    }
+
+    this.$tooltip.className = styles['tooltip--visible'];
+    this.$tooltip.style.left = `${effectiveLeft}px`;
+
+    this.$meeting.addEventListener('mousemove', this.handleMouseMove);
+
+    this.$anchorContainer.style.width = `${effectiveWidth + 10}px`;
+    this.$anchorContainer.style.marginLeft = 0;
+  }
+
+  /**
+   * Removes tooltip visibility in a most cavalier fashion.
+   *
+   * Additionally removes the mousemove listener that was previously
+   * bound to the meeting element to prevent superfluous handlers.
+   * @param  {Event} event
+   */
+  handleMouseOut() {
+    this.$tooltip.style.left = null;
+    this.$tooltip.className = styles.tooltip;
+    this.$meeting.removeEventListener('mousemove', this.handleMouseMove);
+  }
+
+  get inlineStyle() {
+    const { meeting: { duration, start } } = this.props;
+    const width = calculateWidth(duration);
+    const left = calculateMeetingOffset(start);
+    return { width, left };
   }
 
   render() {
+    const { meeting } = this.props;
     const classNames = [styles.meeting];
+
+    if (this.props.isSelected) {
+      classNames.push(styles.isSelected);
+    }
 
     if (this.props.meeting.isOwnedByUser) {
       classNames.push(styles.isOwnedByUser);
     }
 
-    if (this.props.meeting.isSelected) {
-      classNames.push(styles.isSelected);
-    }
-
-    if (this.state.tooltipVisible) {
-      classNames.push(styles.hover);
-    }
-
-    const style = {
-      width: calculateWidth(this.props.meeting.duration),
-      left: calculateMeetingOffset(moment(this.props.meeting.startTime)),
-    };
-
     return (
       <div
         className={classNames.join(' ')}
-        style={style}
-        onMouseMove={this.onMove}
-        onMouseEnter={this.onOver}
-        onMouseOut={this.onOut}
-        onClick={this.onClick}
+        style={this.inlineStyle}
+        onClick={this.handleClick}
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
+        ref={el => { this.$meeting = el; }}
       >
         <Tooltip
-          title={this.props.meeting.title}
-          startTime={this.props.meeting.startTime}
-          roomTitle={this.props.roomTitle}
-          isOwnedByUser={this.props.meeting.isOwnedByUser}
-          owner={this.props.meeting.owner}
-          duration={this.props.meeting.duration}
-          tooltipOffset={this.state.tooltipOffset}
-          visible={this.state.tooltipVisible}
+          {...meeting}
+          tooltipRef={el => { this.$tooltip = el; }}
+          anchorContainerRef={el => { this.$anchorContainer = el; }}
+          anchorRef={el => { this.$anchor = el; }}
+          styles={styles}
         />
       </div>
     );
   }
 }
+
+MeetingContainer.propTypes = {
+  meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
+  isEditingMeeting: PropTypes.bool,
+};
 
 const mapDispatchToProps = dispatch => ({
   onClick: meeting => dispatch(populateMeetingEditForm(meeting)),

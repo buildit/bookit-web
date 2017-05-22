@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import moment from 'moment';
-
 import { connect } from 'react-redux';
 
-import styles from './styles.scss';
+import moment from 'moment';
 
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
@@ -12,8 +10,9 @@ import Messages from '../../components/02-molecules/Messages';
 import ReservationList from '../../components/02-molecules/ReservationList';
 
 import MeetingCancel from '../../components/02-molecules/MeetingCancel';
-
 import MeetingForm from '../MeetingForm';
+
+import styles from './styles.scss';
 
 import {
   meetingsFetchStart,
@@ -36,26 +35,32 @@ export class DashboardContainer extends React.Component {
   }
 
   render() {
+    const {
+      messages,
+      user,
+      agenda,
+    } = this.props;
+
     return (
       <div className={styles.app}>
         <div className={styles.container}>
           <div className={styles.leftPane}>
             { this.leftPaneContent() }
-            <Messages messages={this.props.messages} />
+            <Messages messages={messages} />
             <ReservationList
-              roomMeetings={this.props.rooms}
+              roomMeetings={agenda}
               handleEditClick={this.props.populateMeetingEditForm}
             />
           </div>
           <div className={styles.user}>
             <span className={styles.hello}>Hello</span>
             <span className={styles.name}>
-              { this.props.userName }!
+              { user.name }!
             </span>
             <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
           </div>
           <Agenda
-            roomMeetings={this.props.rooms}
+            agenda={agenda}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
         </div>
@@ -65,61 +70,59 @@ export class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = {
-  requestRooms: PropTypes.func,
-  userName: PropTypes.string,
-  rooms: PropTypes.arrayOf(PropTypes.object),
-  populateMeetingCreateForm: PropTypes.func.isRequired,
-  populateMeetingEditForm: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+  agenda: PropTypes.arrayOf(PropTypes.object),
   isEditingMeeting: PropTypes.bool,
   isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
+  selectedDate: PropTypes.shape({}).isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
+  requestRooms: PropTypes.func,
+  populateMeetingCreateForm: PropTypes.func.isRequired,
+  populateMeetingEditForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  selectedDate: PropTypes.shape({}),
 };
 
-const mapMeeting = (roomMeetings, user, requestedMeeting = {}) => {
-  const meetings = roomMeetings.meetings.map(meeting => {
-    const startMoment = moment(meeting.start);
-    const endMoment = moment(meeting.end);
-    const duration = endMoment.diff(startMoment, 'minutes') / 60;
-    // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
-    // Also change this in molecules/ReservationList
-    // const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
-    const isOwnedByUser = (meeting.owner.name === 'Comes from the session!!!');
-    const isSelected = meeting.id === requestedMeeting.id;
-
+const mapMeeting = (room, user, requestedMeeting) => {
+  const meetings = room.meetings.map(meeting => {
+    const start = moment(meeting.start);
+    const end = moment(meeting.end);
+    const duration = end.diff(start, 'minutes') / 60;
     return {
-      room: roomMeetings.room,
       id: meeting.id,
-      startTime: moment(meeting.start).format('YYYY-MM-DDTHH:mm:ssZ'),
+      start,
+      end,
       duration,
-      start: moment(meeting.start),
-      end: moment(meeting.end),
-      isOwnedByUser,
       participants: meeting.participants,
       owner: meeting.owner,
       title: meeting.title,
-      isSelected,
+      room: room.room,
+      // TODO: Change this to reflect actual meeting ownership
+      // See commented line below
+      isOwnedByUser: meeting.owner.name === 'Comes from the session!!!',
+      // isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
+      isSelected: requestedMeeting && meeting.id === requestedMeeting.id,
     };
   });
 
   return {
-    room: roomMeetings.room,
+    room: room.room,
     meetings,
   };
 };
 
 const mapStateToProps = state => ({
-  userName: state.user.name,
-  // TODO: Rename `rooms`. This is not really a list of rooms.
+  user: state.user,
+  agenda: state.app.meetings.map(room => mapMeeting(room, state.user)),
   rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.requestedMeeting)),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
   meetingEditForm: state.app.meetingEditForm,
   messages: state.app.messages,
-  selectedDate: moment(state.app.selectedDate),
+  selectedDate: state.app.selectedDate,
   requestedMeeting: state.app.requestedMeeting,
 });
 

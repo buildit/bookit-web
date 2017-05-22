@@ -1,50 +1,43 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.scss';
-import TimelineLabelList from '../../01-atoms/TimelineLabelList';
-import RoomTimeline from '../../02-molecules/RoomTimeline';
-import RoomTimelineNames from '../../02-molecules/RoomTimelineNames';
-import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
 
-const Agenda = ({ roomMeetings = [], populateMeetingCreateForm }) => (
+import roomTimelineNames from '../../01-atoms/RoomTimelineNames';
+import timelineLabelList from '../../01-atoms/TimelineLabelList';
+import currentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
+
+import RoomTimeline from '../../02-molecules/RoomTimeline';
+
+import styles from './styles.scss';
+
+const renderRoomTimelines = (agenda, populateMeetingCreateForm) => agenda.map(
+  ({ room, meetings }) => (
+    <RoomTimeline
+      key={room.name}
+      meetings={meetings}
+      room={room}
+      populateMeetingCreateForm={populateMeetingCreateForm}
+    />
+  )
+);
+
+const Agenda = ({ agenda = [], populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
-      {
-        roomMeetings.map(roomMeeting => (
-          <RoomTimelineNames
-            key={roomMeeting.room.name}
-            room={roomMeeting.room}
-          />
-        ))
-      }
+      { roomTimelineNames(agenda) }
     </div>
-    <div className={styles.column} id={'timelines'}>
-      <TimelineLabelList />
-      { roomMeetings.map(roomMeeting => (
-        <RoomTimeline
-          key={roomMeeting.room.name}
-          meetings={roomMeeting.meetings}
-          room={roomMeeting.room}
-          populateMeetingCreateForm={populateMeetingCreateForm}
-        />
-        )) }
-      <CurrentTimeIndicator />
+    <div className={[styles.column, styles.timeline].join(' ')} id="timelines">
+      { timelineLabelList() }
+      { renderRoomTimelines(agenda, populateMeetingCreateForm) }
+      { currentTimeIndicator() }
     </div>
   </div>
   );
 
 Agenda.propTypes = {
-  roomMeetings: PropTypes.arrayOf(PropTypes.shape({
+  agenda: PropTypes.arrayOf(PropTypes.shape({
     room: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string,
+      name: PropTypes.string.isRequired,
     }).isRequired,
-    meetings: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string,
-      participants: PropTypes.array,
-      owner: PropTypes.object,
-      start: PropTypes.object,
-      end: PropTypes.object,
-    })),
+    meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
   })),
   populateMeetingCreateForm: PropTypes.func.isRequired,
 };
