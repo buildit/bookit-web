@@ -83,7 +83,10 @@ const mapMeeting = (roomMeetings, user, requestedMeeting = {}) => {
     const startMoment = moment(meeting.start);
     const endMoment = moment(meeting.end);
     const duration = endMoment.diff(startMoment, 'minutes') / 60;
-    const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
+    // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
+    // Also change this in molecules/ReservationList
+    // const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
+    const isOwnedByUser = (meeting.owner.name === 'Comes from the session!!!')
     const isSelected = meeting.id === requestedMeeting.id;
 
     return {
