@@ -121,7 +121,9 @@ const mapMeeting = (room, user, date, requestedMeeting) => {
 const mapStateToProps = state => ({
   user: state.user,
   agenda: state.app.meetings.map(room => mapMeeting(room, state.user, state.app.selectedDate)),
-  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.selectedDate, state.app.requestedMeeting)),
+  rooms: state.app.meetings.map(
+    rm => mapMeeting(rm, state.user, state.app.selectedDate, state.app.requestedMeeting)
+  ),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
