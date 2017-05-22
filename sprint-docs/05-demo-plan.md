@@ -36,7 +36,7 @@ b) See My Reservations. Click "Edit" on one of the reservations.
 ## Login/Logout
 1) See login. Enter the correct credentials for Bruce. Click "Login"
 
-2) See "Hello Bruce" in the upper right of the screen. 
+2) See "Hello Bruce" in the upper right of the screen.
 
 a) See "My Meetings" marked.
 
@@ -49,3 +49,12 @@ b) See "My Reservations" in the left pane.
 5) Login as Babs. See Babs' meetings marked.
 
 ## Select Date
+1) Create a meeting for today and tomorrow.  Or have them existing already.
+
+2) Click on tomorrow in the calendar.
+
+3) Only tomorrow's meeting should appear.
+
+4) Click on today in the calendar.
+
+5) Only today's meeting should appear.
