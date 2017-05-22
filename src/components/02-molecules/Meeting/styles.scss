@@ -86,6 +86,16 @@
       width: 0;
     }
 
+    .ownerInfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .edit {
+      color: $veryyellow;
+    }
+
     .content {
       white-space: normal;
       background-color: $slategrey;
