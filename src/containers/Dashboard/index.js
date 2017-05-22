@@ -99,8 +99,10 @@ const mapMeeting = (room, user, requestedMeeting) => {
       owner: meeting.owner,
       title: meeting.title,
       room: room.room,
-      // isOwnedByUser: meeting.owner && (meeting.owner.name === 'Comes from the session!!!'),
-      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
+      // TODO: Change this to reflect actual meeting ownership
+      // See commented line below
+      isOwnedByUser: meeting.owner.name === 'Comes from the session!!!',
+      // isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
       isSelected: requestedMeeting && meeting.id === requestedMeeting.id,
     };
   });

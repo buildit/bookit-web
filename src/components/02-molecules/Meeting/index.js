@@ -107,6 +107,10 @@ class MeetingContainer extends React.Component {
       classNames.push(styles.isSelected);
     }
 
+    if (this.props.meeting.isOwnedByUser) {
+      classNames.push(styles.isOwnedByUser);
+    }
+
     return (
       <div
         className={classNames.join(' ')}
@@ -129,7 +133,7 @@ class MeetingContainer extends React.Component {
 }
 
 MeetingContainer.propTypes = {
-  meeting: PropTypes.shape({}).isRequired,
+  meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.bool,
   isEditingMeeting: PropTypes.bool,
