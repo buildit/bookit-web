@@ -86,7 +86,7 @@ const mapMeeting = (roomMeetings, user, requestedMeeting = {}) => {
     // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
     // Also change this in molecules/ReservationList
     // const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
-    const isOwnedByUser = (meeting.owner.name === 'Comes from the session!!!')
+    const isOwnedByUser = (meeting.owner.name === 'Comes from the session!!!');
     const isSelected = meeting.id === requestedMeeting.id;
 
     return {
