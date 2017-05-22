@@ -1,7 +1,8 @@
 import moment from 'moment';
 import {
-  RESET_MEETINGS,
-  POPULATE_MEETING_FORM,
+  RESET_UI,
+  POPULATE_MEETING_CREATE_FORM,
+  POPULATE_MEETING_EDIT_FORM,
   CLOSE_CANCELLATION_DIALOG,
   CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
@@ -23,6 +24,7 @@ const initialState = {
   requestedMeeting: {},
   selectedDate: moment().startOf('day'),
   meetings: [],
+  isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
   meetingEditForm: {
@@ -45,8 +47,8 @@ const mapMeetingRoomMeetings = roomMeetings => roomMeetings.map(roomMeeting => (
 
 const app = (state = initialState, action) => {
   switch (action.type) {
-    case RESET_MEETINGS: {
-      return { ...state, meetings: [] };
+    case RESET_UI: {
+      return { ...state, meetings: [], messages: [] };
     }
     case MEETINGS_FETCH_SUCCEEDED: {
       return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
@@ -54,8 +56,8 @@ const app = (state = initialState, action) => {
     case OPEN_CANCELLATION_DIALOG: {
       return {
         ...state,
+        isEditingMeeting: false,
         isCancellingMeeting: true,
-        requestedMeeting: action.payload.meeting,
       };
     }
     case CANCEL_MEETING_SUCCEEDED: {
@@ -72,7 +74,7 @@ const app = (state = initialState, action) => {
         messages: ['Oh no! There was a problem cancelling your meeting.'],
       };
     }
-    case POPULATE_MEETING_FORM: {
+    case POPULATE_MEETING_CREATE_FORM: {
       const meetings = state.meetings
         .find(rm => rm.room.email === action.payload.room.email).meetings;
       const moment2 = state.selectedDate.clone().add(action.payload.meeting, 'hours');
@@ -85,6 +87,16 @@ const app = (state = initialState, action) => {
         end: validatedSlot.end,
         room: action.payload.room,
       };
+      return { ...state, isCreatingMeeting: true, requestedMeeting: meeting };
+    }
+    case POPULATE_MEETING_EDIT_FORM: {
+      const meeting = {
+        title: action.payload.meeting.title,
+        start: moment(action.payload.meeting.start),
+        end: moment(action.payload.meeting.end),
+        room: action.payload.meeting.room,
+        id: action.payload.meeting.id,
+      };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
     }
     case CLOSE_CANCELLATION_DIALOG:
@@ -92,6 +104,7 @@ const app = (state = initialState, action) => {
     case CLOSE_MEETING_DIALOG:
       return {
         ...state,
+        isCreatingMeeting: false,
         isEditingMeeting: false,
         isCancellingMeeting: false,
         messages: [],

@@ -12,7 +12,7 @@ class RoomTimeline extends React.Component {
   render() {
     const onTimelineClick = (e) => {
       const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
-      this.props.populateMeetingForm(this.props.room, requestedStartTime);
+      this.props.populateMeetingCreateForm(this.props.room, requestedStartTime);
     };
 
     const timelineMeetings = this.props.meetings.map((meeting, index) =>
@@ -41,7 +41,7 @@ RoomTimeline.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
   meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
-  populateMeetingForm: PropTypes.func.isRequired,
+  populateMeetingCreateForm: PropTypes.func.isRequired,
 };
 
 export default RoomTimeline;

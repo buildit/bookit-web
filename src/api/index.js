@@ -34,7 +34,7 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   })
   .then((message) => message);
 
-const cancelMeeting = (meeting, room) => agent.delete(`${apiBaseUrl}/room/${room.email}/meeting/${meeting.id}`)
+const cancelMeeting = (meetingId, roomEmail) => agent.delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
   .then((message) => message);
 
 const Api = {

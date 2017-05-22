@@ -8,7 +8,7 @@ import Tooltip from '../../01-atoms/Tooltip';
 
 import styles from './styles.scss';
 
-import { openCancellationDialog } from '../../../actions';
+import { populateMeetingEditForm } from '../../../actions';
 
 import calculateWidth from '../../../utils/calculateWidth';
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
@@ -24,10 +24,12 @@ class MeetingContainer extends React.Component {
         email: PropTypes.string,
       }),
       isOwnedByUser: PropTypes.bool,
+      isSelected: PropTypes.bool,
       duration: PropTypes.number.isRequired,
       startTime: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
+    isEditingMeeting: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
   };
 
@@ -62,7 +64,9 @@ class MeetingContainer extends React.Component {
   }
 
   onClick(event) {
-    this.props.onClick(this.props.meeting);
+    if (!this.props.isEditingMeeting) {
+      this.props.onClick(this.props.meeting);
+    }
     event.stopPropagation();
   }
 
@@ -79,6 +83,10 @@ class MeetingContainer extends React.Component {
 
     if (this.props.meeting.isOwnedByUser) {
       classNames.push(styles.isOwnedByUser);
+    }
+
+    if (this.props.meeting.isSelected) {
+      classNames.push(styles.isSelected);
     }
 
     if (this.state.tooltipVisible) {
@@ -115,9 +123,13 @@ class MeetingContainer extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onClick: meeting => dispatch(openCancellationDialog(meeting)),
+  onClick: meeting => dispatch(populateMeetingEditForm(meeting)),
 });
 
-const connected = connect(null, mapDispatchToProps)(MeetingContainer);
+const mapStateToProps = state => ({
+  isEditingMeeting: state.app.isEditingMeeting,
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);
 
 export default connected;

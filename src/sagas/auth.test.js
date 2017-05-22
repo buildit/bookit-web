@@ -9,7 +9,7 @@ import {
   loginSuccess,
   loginFailure,
   setClient,
-  resetMeetings,
+  resetUi,
   resetUser,
 } from '../actions';
 
@@ -38,7 +38,7 @@ describe('Auth Saga', () => {
 
     expect(generator.next().value).toEqual(call(api.login, email, password));
     expect(generator.next(user).value).toEqual(put(setClient(user)));
-    expect(generator.next().value).toEqual(put(resetMeetings()));
+    expect(generator.next().value).toEqual(put(resetUi()));
     expect(generator.next().value).toEqual(put(loginSuccess()));
 
     expect(generator.next().done).toBeTruthy();
