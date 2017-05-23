@@ -11,6 +11,8 @@ import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
 
 import styles from './styles.scss';
 
+const TIMELINE_WIDTH = 1968;
+
 class MeetingContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -85,8 +87,14 @@ class MeetingContainer extends React.Component {
 
   get inlineStyle() {
     const { meeting: { duration, start } } = this.props;
-    const width = calculateWidth(duration);
+    let width = calculateWidth(duration);
     const left = calculateMeetingOffset(start);
+    // See if meeting will extend beyond the end of the timeline
+    // If so, reduce the width such that it does not
+    const totalWidth = width + left;
+    if (totalWidth > TIMELINE_WIDTH) {
+      width -= ((totalWidth) - TIMELINE_WIDTH);
+    }
     return { width, left };
   }
 
