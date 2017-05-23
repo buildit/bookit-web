@@ -14,6 +14,8 @@ import MeetingForm from '../MeetingForm';
 
 import styles from './styles.scss';
 
+import isMeetingOnDate from '../../utils/isMeetingOnDate';
+
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
@@ -86,11 +88,14 @@ DashboardContainer.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapMeeting = (room, user, requestedMeeting = {}) => {
-  const meetings = room.meetings.map(meeting => {
+const mapMeeting = (room, user, selectedDate, requestedMeeting) => {
+  const meetings = room.meetings
+  .filter(meeting => isMeetingOnDate(meeting, selectedDate))
+  .map(meeting => {
     const start = moment(meeting.start);
     const end = moment(meeting.end);
     const duration = end.diff(start, 'minutes') / 60;
+
     return {
       id: meeting.id,
       start,
@@ -113,8 +118,10 @@ const mapMeeting = (room, user, requestedMeeting = {}) => {
 
 const mapStateToProps = state => ({
   user: state.user,
-  agenda: state.app.meetings.map(room => mapMeeting(room, state.user)),
-  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.requestedMeeting)),
+  agenda: state.app.meetings.map(room => mapMeeting(room, state.user, state.app.selectedDate)),
+  rooms: state.app.meetings.map(
+    rm => mapMeeting(rm, state.user, state.app.selectedDate, state.app.requestedMeeting)
+  ),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   isCancellingMeeting: state.app.isCancellingMeeting,
