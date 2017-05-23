@@ -68,7 +68,7 @@
     "build": "kyt build",
     "start": "npm run dev",
     "proto": "kyt proto",
-    "test": "npm run lint && kyt test && npm run test-functional",
+    "test": "npm run lint && kyt test",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
     "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests --app \"npm start\" --app-init-delay 10000",

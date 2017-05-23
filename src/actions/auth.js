@@ -20,6 +20,12 @@ export const loginFailure = createAction(LOGIN_FAILED);
 
 export const logout = createAction(LOGOUT);
 
-export const setClient = createAction(SET_USER);
+export const setClient = createAction(SET_USER, user => ({
+  token: user.token,
+  user: user.name,
+  name: user.name,
+  id: user.id,
+  email: user.name, // FIXME: This is weird.
+}));
 
 export const resetUser = createAction(RESET_USER);
