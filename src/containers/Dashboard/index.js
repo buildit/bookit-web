@@ -25,7 +25,9 @@ import {
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
-    // This fetches meetings. It should happen whenever `selectedDate` is updated.
+    // This fetches meetings.
+    // It should happen whenever `selectedDate` is updated.
+    // It should not be called `requestRooms`, probably.
     this.props.requestRooms();
   }
 
