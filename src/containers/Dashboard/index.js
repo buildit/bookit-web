@@ -87,9 +87,9 @@ DashboardContainer.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapMeeting = (room, user, date, requestedMeeting) => {
+const mapMeeting = (room, user, selectedDate, requestedMeeting) => {
   const meetings = room.meetings
-  .filter(meeting => isMeetingOnDate(meeting, date))
+  .filter(meeting => isMeetingOnDate(meeting, selectedDate))
   .map(meeting => {
     const start = moment(meeting.start);
     const end = moment(meeting.end);
