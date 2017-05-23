@@ -91,10 +91,11 @@ class MeetingContainer extends React.Component {
   }
 
   render() {
-    const { meeting, onEditClick } = this.props;
+    const { meeting, onEditClick, requestedMeetingId } = this.props;
+    const isSelected = meeting.id === requestedMeetingId;
     const classNames = [styles.meeting];
 
-    if (this.props.isSelected) {
+    if (isSelected) {
       classNames.push(styles.isSelected);
     }
 
@@ -129,7 +130,7 @@ class MeetingContainer extends React.Component {
 MeetingContainer.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool,
+  requestedMeetingId: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -138,6 +139,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isEditingMeeting: state.app.isEditingMeeting,
+  requestedMeetingId: state.app.requestedMeeting.id,
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);

@@ -88,7 +88,7 @@ DashboardContainer.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapMeeting = (room, user, selectedDate, requestedMeeting) => {
+const mapMeeting = (room, user, selectedDate) => {
   const meetings = room.meetings
   .filter(meeting => isMeetingOnDate(meeting, selectedDate))
   .map(meeting => {
@@ -106,7 +106,6 @@ const mapMeeting = (room, user, selectedDate, requestedMeeting) => {
       title: meeting.title,
       room: room.room,
       isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
-      isSelected: requestedMeeting && meeting.id === requestedMeeting.id,
     };
   });
 
@@ -120,7 +119,7 @@ const mapStateToProps = state => ({
   user: state.user,
   agenda: state.app.meetings.map(room => mapMeeting(room, state.user, state.app.selectedDate)),
   rooms: state.app.meetings.map(
-    rm => mapMeeting(rm, state.user, state.app.selectedDate, state.app.requestedMeeting)
+    rm => mapMeeting(rm, state.user, state.app.selectedDate)
   ),
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
