@@ -18,6 +18,7 @@ const Tooltip = props => (
       owner={props.owner}
       isOwnedByUser={props.isOwnedByUser}
       styles={props.styles}
+      onEditClick={props.onEditClick}
     />
   </div>
 );
@@ -39,6 +40,7 @@ Tooltip.propTypes = {
   styles: PropTypes.shape({
     tooltip: PropTypes.string.isRequired,
   }).isRequired,
+  onEditClick: PropTypes.func.isRequired,
 };
 
 export default Tooltip;

@@ -10,12 +10,10 @@ const end = startMoment.clone().add(7, 'day').format('YYYY-MM-DD');
 
 const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888');
 
-const fakeLogin = () => ({
-  email: 'bruce@myews.onmicrosoft.com',
-  name: 'Bruce',
-  id: 12345,
-  token: '12345abcde',
-});
+const login = (user, password) => agent
+  .post(`${apiBaseUrl}/authenticate`)
+  .send({ user, password })
+  .then(response => response.body);
 
 // Use this one when the server is ready
 // const login = (email, password) => agent.post(`${apiBaseUrl}/login`)
@@ -39,7 +37,9 @@ const fetchMeetings = (startDate = start, endDate = end) => agent
     throw new Error(err);
   });
 
-const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.email}/meeting`)
+const createMeeting = (meeting, room, token) => agent
+  .post(`${apiBaseUrl}/room/${room.email}/meeting_protected`)
+  .set('x-access-token', token)
   .send({
     title: meeting.title,
     start: meeting.start,
@@ -47,11 +47,12 @@ const createMeeting = (meeting, room) => agent.post(`${apiBaseUrl}/room/${room.e
   })
   .then((message) => message);
 
-const cancelMeeting = (meetingId, roomEmail) => agent.delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
+const cancelMeeting = (meetingId, roomEmail) => agent
+  .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
   .then((message) => message);
 
 const Api = {
-  login: fakeLogin,
+  login,
   fetchMeetings,
   createMeeting,
   cancelMeeting,
