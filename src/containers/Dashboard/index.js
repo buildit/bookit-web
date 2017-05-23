@@ -29,6 +29,15 @@ export class DashboardContainer extends React.Component {
     this.props.requestRooms();
   }
 
+  componentDidUpdate(prevProps) {
+    const userJustCancelledMeeting =
+      this.props.isCancellingMeeting !== prevProps.isCancellingMeeting;
+
+    if (userJustCancelledMeeting) {
+      this.props.requestRooms();
+    }
+  }
+
   leftPaneContent() {
     if (this.props.isEditingMeeting) { return <MeetingForm />; }
     if (this.props.isCreatingMeeting) { return <MeetingForm />; }
