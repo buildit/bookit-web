@@ -11,6 +11,7 @@ import {
   meetingCreateSucceeded,
   cancelMeetingSucceeded,
   cancelMeetingFailed,
+  meetingsFetchStart,
 } from '../actions';
 
 export function* fetchMeetings() {
@@ -39,8 +40,9 @@ export function* cancelMeeting(action) {
   try {
     const meeting = action.payload.meeting;
     const room = action.payload.room;
-    yield call(api.cancelMeeting, meeting.id, room.email); // TODO: Use meeting id instead?
+    yield call(api.cancelMeeting, meeting.id, room.email);
     yield put(cancelMeetingSucceeded());
+    yield put(meetingsFetchStart());
   } catch (err) {
     yield put(cancelMeetingFailed());
   }

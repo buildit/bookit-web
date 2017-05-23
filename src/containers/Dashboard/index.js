@@ -25,17 +25,10 @@ import {
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
-    // This fetches meetings. It should happen whenever `selectedDate` is updated.
+    // This fetches meetings.
+    // It should happen whenever `selectedDate` is updated.
+    // It should not be called `requestRooms`, probably.
     this.props.requestRooms();
-  }
-
-  componentDidUpdate(prevProps) {
-    const userJustCancelledMeeting =
-      this.props.isCancellingMeeting !== prevProps.isCancellingMeeting;
-
-    if (userJustCancelledMeeting) {
-      this.props.requestRooms();
-    }
   }
 
   leftPaneContent() {
