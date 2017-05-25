@@ -13,9 +13,11 @@ import {
   cancelMeetingFailed,
 } from '../actions';
 
-export function* fetchMeetings() {
+export function* fetchMeetings(action = {}) {
   try {
-    const meetings = yield call(api.fetchMeetings);
+    const start = action.start ? action.start : undefined;
+    const end = action.end ? action.end : undefined;
+    const meetings = yield call(api.fetchMeetings, start, end);
     yield put(meetingsFetchSucceeded(meetings));
   } catch (error) {
     yield put(meetingsFetchFailed(error));

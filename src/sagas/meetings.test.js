@@ -29,7 +29,7 @@ describe('Meetings Sagas', () => {
     const meetings = [meeting];
     const generator = fetchMeetings();
 
-    expect(generator.next().value).toEqual(call(api.fetchMeetings));
+    expect(generator.next().value).toEqual(call(api.fetchMeetings, undefined, undefined));
     expect(generator.next(meetings).value)
       .toEqual(put(meetingsFetchSucceeded(meetings)));
     expect(generator.next().done).toBeTruthy();
