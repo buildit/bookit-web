@@ -2,12 +2,6 @@ import agent from 'superagent';
 import moment from 'moment';
 import configParam from './configParam';
 
-// FIXME: The default days in the future should be in the config.
-const startMoment = moment().startOf('day');
-const start = startMoment.format('YYYY-MM-DD');
-
-const end = startMoment.clone().add(7, 'day').format('YYYY-MM-DD');
-
 const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888');
 
 const login = (user, password) => agent
@@ -28,14 +22,25 @@ const login = (user, password) => agent
 //   })
 //   .catch(error => error);
 
-const fetchMeetings = (startDate = start, endDate = end) => agent
-  .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${startDate}&end=${endDate}`).then(response => {
-    const meetings = JSON.parse(response.text);
-    return meetings;
-  })
-  .catch(err => {
-    throw new Error(err);
-  });
+const fetchMeetings = (startDate, endDate) => {
+  let start = startDate;
+  let end = endDate;
+  if (!startDate) {
+    start = moment().startOf('day').format('YYYY-MM-DD');
+  }
+  if (!endDate) {
+    end = moment(start).add(1, 'day').format('YYYY-MM-DD');
+  }
+
+  return agent
+    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`).then(response => {
+      const meetings = JSON.parse(response.text);
+      return meetings;
+    })
+    .catch(err => {
+      throw new Error(err);
+    });
+};
 
 const createMeeting = (meeting, room, token) => agent
   .post(`${apiBaseUrl}/room/${room.email}/meeting_protected`)

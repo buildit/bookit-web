@@ -9,7 +9,7 @@ import {
   MEETINGS_FETCH_FAILED,
   CLOSE_MEETING_DIALOG,
   MEETING_CREATE_FAILED,
-  SELECT_DATE,
+  SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
@@ -116,7 +116,7 @@ const app = (state = initialState, action) => {
     case MEETINGS_FETCH_FAILED: {
       return { ...state, messages: ['There was a problem fetching the meetings.'] };
     }
-    case SELECT_DATE: {
+    case SELECT_DATE_SUCCEEDED: {
       return { ...state, selectedDate: action.payload.date };
     }
     default: {

@@ -7,6 +7,7 @@ import {
   CLOSE_MEETING_DIALOG,
   RESET_UI,
   SELECT_DATE,
+  SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CLOSE_CANCELLATION_DIALOG,
 } from './actionTypes';
@@ -31,6 +32,8 @@ export const closeMeetingDialog = createAction(CLOSE_MEETING_DIALOG);
 export const resetUi = createAction(RESET_UI);
 
 export const selectDate = createAction(SELECT_DATE, date => ({ date }));
+
+export const selectDateSucceeded = createAction(SELECT_DATE_SUCCEEDED, date => ({ date }));
 
 export const openCancellationDialog = createAction(OPEN_CANCELLATION_DIALOG);
 
