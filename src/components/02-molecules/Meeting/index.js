@@ -138,7 +138,7 @@ class MeetingContainer extends React.Component {
 MeetingContainer.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
-  requestedMeetingId: PropTypes.string.isRequired,
+  requestedMeetingId: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({

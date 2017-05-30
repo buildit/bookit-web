@@ -14,7 +14,7 @@ const Tooltip = props => (
       title={props.title}
       start={props.start}
       end={props.end}
-      room={props.room}
+      roomName={props.roomName}
       owner={props.owner}
       isOwnedByUser={props.isOwnedByUser}
       styles={props.styles}
@@ -27,9 +27,7 @@ Tooltip.propTypes = {
   title: PropTypes.string.isRequired,
   start: PropTypes.shape({}).isRequired,
   end: PropTypes.shape({}).isRequired,
-  room: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
+  roomName: PropTypes.string.isRequired,
   owner: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),

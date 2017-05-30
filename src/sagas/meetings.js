@@ -41,8 +41,7 @@ export function* createMeeting(action) {
 export function* cancelMeeting(action) {
   try {
     const meeting = action.payload.meeting;
-    const room = action.payload.room;
-    yield call(api.cancelMeeting, meeting.id, room.email);
+    yield call(api.cancelMeeting, meeting.id, meeting.roomId);
     yield put(cancelMeetingSucceeded());
     yield put(meetingsFetchStart());
   } catch (err) {

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import momentPropTypes from 'react-moment-proptypes';
 
 import roomTimelineNames from '../../01-atoms/RoomTimelineNames';
 import timelineLabelList from '../../01-atoms/TimelineLabelList';
@@ -8,38 +9,55 @@ import RoomTimeline from '../../02-molecules/RoomTimeline';
 
 import styles from './styles.scss';
 
-const renderRoomTimelines = (agenda, populateMeetingCreateForm) => agenda.map(
-  ({ room, meetings }) => (
-    <RoomTimeline
-      key={room.name}
-      meetings={meetings}
-      room={room}
-      populateMeetingCreateForm={populateMeetingCreateForm}
-    />
-  )
-);
+const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map((room) => (
+  <RoomTimeline
+    key={room.name}
+    meetings={meetings.filter(meeting => meeting.roomId === room.id)}
+    room={{
+      email: room.id,
+      name: room.name,
+    }}
+    populateMeetingCreateForm={populateMeetingCreateForm}
+  />
+));
 
-const Agenda = ({ agenda = [], populateMeetingCreateForm }) => (
+const Agenda = ({ meetings = [], rooms = [], populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
-      { roomTimelineNames(agenda) }
+      { roomTimelineNames(rooms) }
     </div>
     <div className={[styles.column, styles.timeline].join(' ')} id="timelines">
       { timelineLabelList() }
-      { renderRoomTimelines(agenda, populateMeetingCreateForm) }
+      { renderRoomTimelines(rooms, meetings, populateMeetingCreateForm) }
       { currentTimeIndicator() }
     </div>
   </div>
   );
 
 Agenda.propTypes = {
-  agenda: PropTypes.arrayOf(PropTypes.shape({
-    room: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
-  })),
   populateMeetingCreateForm: PropTypes.func.isRequired,
+  meetings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: momentPropTypes.momentObj.isRequired,
+      end: momentPropTypes.momentObj.isRequired,
+      duration: PropTypes.number.isRequired,
+      isOwnedByUser: PropTypes.bool.isRequired,
+      owner: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+      }).isRequired,
+      roomName: PropTypes.string.isRequired,
+      roomId: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rooms: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default Agenda;

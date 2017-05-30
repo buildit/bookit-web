@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-
+import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
-
-import moment from 'moment';
 
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
@@ -42,9 +40,9 @@ export class DashboardContainer extends React.Component {
     const {
       messages,
       user,
-      agenda,
+      meetings,
+      rooms,
     } = this.props;
-
     return (
       <div className={styles.app}>
         <div className={styles.container}>
@@ -53,7 +51,7 @@ export class DashboardContainer extends React.Component {
             <Messages messages={messages} />
             <ReservationList
               user={user}
-              roomMeetings={agenda}
+              meetings={meetings.filter(meeting => meeting.isOwnedByUser)}
               handleEditClick={this.props.populateMeetingEditForm}
             />
           </div>
@@ -65,7 +63,8 @@ export class DashboardContainer extends React.Component {
             <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
           </div>
           <Agenda
-            agenda={agenda}
+            meetings={meetings}
+            rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
         </div>
@@ -78,7 +77,6 @@ DashboardContainer.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  agenda: PropTypes.arrayOf(PropTypes.object),
   isEditingMeeting: PropTypes.bool,
   isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
@@ -88,49 +86,68 @@ DashboardContainer.propTypes = {
   populateMeetingCreateForm: PropTypes.func.isRequired,
   populateMeetingEditForm: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  meetings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: momentPropTypes.momentObj.isRequired,
+      end: momentPropTypes.momentObj.isRequired,
+      duration: PropTypes.number.isRequired,
+      isOwnedByUser: PropTypes.bool.isRequired,
+      owner: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+      }).isRequired,
+      roomName: PropTypes.string.isRequired,
+      roomId: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rooms: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
-const mapMeeting = (room, user, selectedDate) => {
-  const meetings = room.meetings
-  .filter(meeting => isMeetingOnDate(meeting, selectedDate))
-  .map(meeting => {
-    const start = moment(meeting.start);
-    const end = moment(meeting.end);
-    const duration = end.diff(start, 'minutes') / 60;
 
-    return {
-      id: meeting.id,
-      start,
-      end,
-      duration,
-      participants: meeting.participants,
-      owner: meeting.owner,
-      title: meeting.title,
-      room: room.room,
-      isOwnedByUser: meeting.owner && (user.email === meeting.owner.email),
-    };
-  });
+const mapStateToProps = state => {
+  const {
+    allMeetingIds,
+    meetingsById,
+    allRoomIds,
+    roomsById,
+    selectedDate,
+    isCreatingMeeting,
+    isEditingMeeting,
+    isCancellingMeeting,
+    meetingEditForm,
+    messages,
+    requestedMeeting,
+  } = state.app;
 
-  return {
-    room: room.room,
+  const meetings = allMeetingIds
+    .map(id => meetingsById[id])
+    .filter(meeting => isMeetingOnDate(meeting, selectedDate))
+    .map(meeting => ({
+      ...meeting,
+      isOwnedByUser: meeting.owner.email === state.user.email }));
+
+  const rooms = allRoomIds.map(id => roomsById[id]);
+
+  return ({
+    user: state.user,
     meetings,
-  };
+    rooms,
+    isCreatingMeeting,
+    isEditingMeeting,
+    isCancellingMeeting,
+    meetingEditForm,
+    messages,
+    selectedDate,
+    requestedMeeting,
+  });
 };
-
-const mapStateToProps = state => ({
-  user: state.user,
-  agenda: state.app.meetings.map(room => mapMeeting(room, state.user, state.app.selectedDate)),
-  rooms: state.app.meetings.map(
-    rm => mapMeeting(rm, state.user, state.app.selectedDate)
-  ),
-  isCreatingMeeting: state.app.isCreatingMeeting,
-  isEditingMeeting: state.app.isEditingMeeting,
-  isCancellingMeeting: state.app.isCancellingMeeting,
-  meetingEditForm: state.app.meetingEditForm,
-  messages: state.app.messages,
-  selectedDate: state.app.selectedDate,
-  requestedMeeting: state.app.requestedMeeting,
-});
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
