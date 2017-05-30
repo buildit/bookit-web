@@ -11,7 +11,7 @@ import {
   LOGOUT,
   MEETINGS_FETCH_START,
   MEETING_CREATE_START,
-} from '../actions/actionTypes';
+} from 'actions/actionTypes';
 
 describe('Root Saga', () => {
   const rootGenerator = rootSaga();

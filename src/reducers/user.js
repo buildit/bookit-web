@@ -1,7 +1,7 @@
 import {
   SET_USER,
   RESET_USER,
-} from '../actions/actionTypes';
+} from 'actions/actionTypes';
 
 const initialState = {
   email: null,

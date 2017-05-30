@@ -3,7 +3,7 @@ import 'jsdom-global/register';
 import { call, put } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 
-import api from '../api';
+import api from 'api';
 
 import {
   loginSuccess,
@@ -11,7 +11,7 @@ import {
   setClient,
   resetUi,
   resetUser,
-} from '../actions';
+} from 'actions';
 
 import {
   login,

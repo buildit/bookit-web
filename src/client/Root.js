@@ -8,8 +8,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import bookitTheme from './bookitTheme';
 import configureStore from '../configureStore';
 
-import routes from '../routes';
-import rootSaga from '../sagas';
+import routes from 'routes';
+import rootSaga from 'sagas';
 
 const store = configureStore();
 store.runSaga(rootSaga);

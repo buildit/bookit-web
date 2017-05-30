@@ -2,7 +2,7 @@ import {
   LOGIN_START,
   LOGIN_SUCCEEDED,
   LOGIN_FAILED,
-} from '../actions/actionTypes';
+} from 'actions/actionTypes';
 
 const initialState = {
   requesting: false,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Button from '../../01-atoms/Button/index';
 
-import { closeCancellationDialog, cancelMeetingStart } from '../../../actions';
+import { closeCancellationDialog, cancelMeetingStart } from 'actions';
 
 import styles from './styles.scss';
 

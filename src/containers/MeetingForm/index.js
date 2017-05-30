@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import moment from 'moment';
-import MeetingForm from '../../components/02-molecules/MeetingForm';
+import MeetingForm from 'components/02-molecules/MeetingForm';
 import {
   cancelMeetingRequest,
   meetingCreateStart,
   openCancellationDialog,
- } from '../../actions/index';
+ } from 'actions/index';
 
 const validate = (values) => {
   const startMom = moment(values.start);

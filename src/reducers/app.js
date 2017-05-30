@@ -13,9 +13,9 @@ import {
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
-} from '../actions/actionTypes';
+} from 'actions/actionTypes';
 
-import getAvailableTimeSlot from '../utils/getAvailableTimeSlot';
+import getAvailableTimeSlot from 'utils/getAvailableTimeSlot';
 
 // TODO: flatten!
 

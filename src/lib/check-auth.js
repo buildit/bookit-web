@@ -1,4 +1,4 @@
-import { setClient } from '../actions';
+import { setClient } from 'actions';
 
 function checkAuthorization(dispatch) {
   const storedUser = localStorage.getItem('user');

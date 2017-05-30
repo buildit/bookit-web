@@ -4,24 +4,24 @@ import { connect } from 'react-redux';
 
 import moment from 'moment';
 
-import Agenda from '../../components/03-organisms/Agenda';
-import Calendar from '../../components/01-atoms/Calendar';
-import Messages from '../../components/02-molecules/Messages';
-import ReservationList from '../../components/02-molecules/ReservationList';
+import Agenda from 'components/03-organisms/Agenda';
+import Calendar from 'components/Calendar';
+import Messages from 'components/02-molecules/Messages';
+import ReservationList from 'components/02-molecules/ReservationList';
 
-import MeetingCancel from '../../components/02-molecules/MeetingCancel';
+import MeetingCancel from 'components/02-molecules/MeetingCancel';
 import MeetingForm from '../MeetingForm';
 
 import styles from './styles.scss';
 
-import isMeetingOnDate from '../../utils/isMeetingOnDate';
+import isMeetingOnDate from 'utils/isMeetingOnDate';
 
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
   populateMeetingEditForm,
   logout,
- } from '../../actions';
+ } from 'actions';
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {

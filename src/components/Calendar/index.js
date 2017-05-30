@@ -1,9 +1,9 @@
 import React from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import Week from './Week';
-import DateDisplay from './DateDisplay';
-import DayNames from './DayNames';
-import calendar from '../../../utils/calendar';
+import DateDisplay from './01-Atoms/DateDisplay';
+import DayNames from './01-Atoms/DayNames';
+import calendar from 'utils/calendar';
 import styles from './styles.scss';
 import { calendar as config } from './config';
 

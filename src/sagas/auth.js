@@ -2,7 +2,7 @@ import 'regenerator-runtime/runtime';
 import { call, put } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 
-import api from '../api';
+import api from 'api';
 
 import {
   loginSuccess,
@@ -10,7 +10,7 @@ import {
   setClient,
   resetUi,
   resetUser,
-} from '../actions';
+} from 'actions';
 
 export function* login(action) {
   try {

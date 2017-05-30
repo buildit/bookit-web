@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import Tooltip from '../../01-atoms/Tooltip';
 
-import { populateMeetingEditForm } from '../../../actions';
+import { populateMeetingEditForm } from 'actions';
 
-import calculateWidth from '../../../utils/calculateWidth';
-import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
+import calculateWidth from 'utils/calculateWidth';
+import { calculateMeetingOffset } from 'utils/calculateMeetingOffset';
 
 import styles from './styles.scss';
 

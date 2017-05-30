@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import styles from './styles.scss';
 
-import { loginRequest } from '../../actions';
+import { loginRequest } from 'actions';
 
 class Login extends React.Component {
 

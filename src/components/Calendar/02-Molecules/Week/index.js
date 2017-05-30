@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Day from '../Day';
+import Day from '../01-Atoms/Day';
 
 const Week = ({ week }) => (
   <div>

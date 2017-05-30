@@ -8,7 +8,7 @@ import {
   MEETINGS_FETCH_START,
   MEETING_CREATE_START,
   CANCEL_MEETING_START,
-} from '../actions/actionTypes';
+} from 'actions/actionTypes';
 
 function* rootSaga() {
   yield takeEvery(MEETINGS_FETCH_START, fetchMeetings);

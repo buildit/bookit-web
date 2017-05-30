@@ -4,7 +4,7 @@ import 'regenerator-runtime/runtime';
 import { call, put } from 'redux-saga/effects';
 import { destroy } from 'redux-form';
 
-import api from '../api';
+import api from 'api';
 
 import {
   meetingCreateSucceeded,
@@ -12,7 +12,7 @@ import {
   closeMeetingDialog,
   meetingsFetchSucceeded,
   meetingsFetchFailed,
-} from '../actions';
+} from 'actions';
 
 import {
   fetchMeetings,

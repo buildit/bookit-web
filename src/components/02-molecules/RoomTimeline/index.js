@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
+import { HOUR_WIDTH } from 'utils/calculateMeetingOffset';
 
 import Meeting from '../Meeting';
 

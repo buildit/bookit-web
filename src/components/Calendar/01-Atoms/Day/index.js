@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
-import { selectDate } from '../../../../actions';
+import { selectDate } from 'actions';
 import styles from './styles.scss';
-import { day as dayConfig, dot as dotConfig } from '../config';
+import { day as dayConfig, dot as dotConfig } from '../../config';
 
 const Day = ({ day, handleClick }) => {
   const dayStyle = {

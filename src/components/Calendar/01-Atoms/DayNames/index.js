@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.scss';
-import { day as config } from '../config';
+import { day as config } from '../../config';
 
 const style = {
   width: `${config.size}rem`,
