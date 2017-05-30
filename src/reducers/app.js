@@ -40,7 +40,7 @@ const mapMeeting = m => {
   return ({ ...m, start, end });
 };
 
-const mapMeetingRoomMeetings = roomMeetings => roomMeetings.map(roomMeeting => (
+const mapMeetingRoomMeetings = (roomMeetings = []) => roomMeetings.map(roomMeeting => (
   { room: roomMeeting.room,
     meetings: roomMeeting.meetings ? roomMeeting.meetings.map(mapMeeting) : [],
   }));
