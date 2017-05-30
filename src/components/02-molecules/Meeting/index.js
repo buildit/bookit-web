@@ -147,7 +147,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   isEditingMeeting: state.app.isEditingMeeting,
-  requestedMeetingId: state.app.requestedMeeting.id,
+  requestedMeetingId: state.app.requestedMeeting.id || '',
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);
