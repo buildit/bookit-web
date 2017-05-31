@@ -5,26 +5,32 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 import { selectDate } from '../../../../actions';
 
-const DateDisplay = ({ date, handleClick }) => (
-  <div className={styles.dateDisplay}>
-    <div
+const DateDisplay = ({ date, handleClick }) => {
+  let today = null;
+  if (!date.isSame(moment(), 'day')) {
+    today = (<div
       className={styles.today}
       onClick={() => handleClick()}
     >
-      { date.isSame(moment(), 'day') ? '' : 'Today' }
-    </div>
-    <div className={styles.past} />
-    <div className={styles.date}>
-      <div className={styles.month}>
-        {date.format('MMMM')}
+      Today
+    </div>);
+  }
+  return (
+    <div className={styles.dateDisplay}>
+      {today}
+      <div className={styles.past} />
+      <div className={styles.date}>
+        <div className={styles.month}>
+          {date.format('MMMM')}
+        </div>
+        <div className={styles.day}>
+          {date.format('dddd D')}
+        </div>
       </div>
-      <div className={styles.day}>
-        {date.format('dddd D')}
-      </div>
+      <div className={styles.future} />
     </div>
-    <div className={styles.future} />
-  </div>
-);
+  );
+};
 
 DateDisplay.propTypes = {
   date: momentPropTypes.momentObj,
