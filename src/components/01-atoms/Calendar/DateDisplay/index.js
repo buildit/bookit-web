@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 import { selectDate } from '../../../../actions';
 
-const DateDisplay = ({ date, handleTodayClick, forwardHandler, backHandler }) => {
+const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackClick }) => {
   let today = null;
   if (!date.isSame(moment(), 'day')) {
     today = (<div
@@ -18,7 +18,7 @@ const DateDisplay = ({ date, handleTodayClick, forwardHandler, backHandler }) =>
   return (
     <div className={styles.dateDisplay}>
       {today}
-      <div className={styles.past} onClick={backHandler(date)} />
+      <div className={styles.past} onClick={handleBackClick(date)} />
       <div className={styles.date}>
         <div className={styles.month}>
           {date.format('MMMM')}
@@ -27,7 +27,7 @@ const DateDisplay = ({ date, handleTodayClick, forwardHandler, backHandler }) =>
           {date.format('dddd D')}
         </div>
       </div>
-      <div className={styles.future} onClick={forwardHandler(date)} />
+      <div className={styles.future} onClick={handleForwardClick(date)} />
     </div>
   );
 };

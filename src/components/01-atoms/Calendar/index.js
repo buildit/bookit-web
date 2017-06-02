@@ -26,7 +26,7 @@ const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
     className={styles.calendar}
     style={style}
   >
-    <DateDisplay date={selectedDate} forwardHandler={handleForwardClick} backHandler={handleBackClick} />
+    <DateDisplay date={selectedDate} handleForwardClick={handleForwardClick} handleBackClick={handleBackClick} />
     <DayNames />
     {calendar(selectedDate)
         .map((week, index) => <Week key={index} week={week} />)}
