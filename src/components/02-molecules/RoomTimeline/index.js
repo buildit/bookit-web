@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import momentPropTypes from 'react-moment-proptypes';
 
 import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
 
@@ -34,7 +35,20 @@ RoomTimeline.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
-  meetings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  meetings: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    start: momentPropTypes.momentObj.isRequired,
+    end: momentPropTypes.momentObj.isRequired,
+    duration: PropTypes.number.isRequired,
+    isOwnedByUser: PropTypes.bool.isRequired,
+    owner: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }).isRequired,
+    roomName: PropTypes.string.isRequired,
+    roomId: PropTypes.string.isRequired,
+  })).isRequired,
   populateMeetingCreateForm: PropTypes.func.isRequired,
 };
 
