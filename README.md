@@ -168,3 +168,6 @@ The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll 
 
 ## Bookit server
 Check it out [here](https://github.com/buildit/bookit-server).
+
+## Release Plan 
+The [plan](https://github.com/buildit/bookit-web/wiki) as it stands.
