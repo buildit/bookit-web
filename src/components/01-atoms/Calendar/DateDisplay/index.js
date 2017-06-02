@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 import { selectDate } from '../../../../actions';
 
-const DateDisplay = ({ date, handleClick }) => {
+const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackClick }) => {
   let today = null;
   if (!date.isSame(moment(), 'day')) {
     today = (<div
       className={styles.today}
-      onClick={() => handleClick()}
+      onClick={() => handleTodayClick()}
     >
       Today
     </div>);
@@ -18,7 +18,7 @@ const DateDisplay = ({ date, handleClick }) => {
   return (
     <div className={styles.dateDisplay}>
       {today}
-      <div className={styles.past} />
+      <div className={styles.past} onClick={handleBackClick(date)} />
       <div className={styles.date}>
         <div className={styles.month}>
           {date.format('MMMM')}
@@ -27,18 +27,20 @@ const DateDisplay = ({ date, handleClick }) => {
           {date.format('dddd D')}
         </div>
       </div>
-      <div className={styles.future} />
+      <div className={styles.future} onClick={handleForwardClick(date)} />
     </div>
   );
 };
 
 DateDisplay.propTypes = {
   date: momentPropTypes.momentObj,
-  handleClick: PropTypes.func.isRequired,
+  handleTodayClick: PropTypes.func.isRequired,
+  handleBackClick: PropTypes.func.isRequired,
+  handleForwardClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleClick: () => dispatch(selectDate(moment())),
+  handleTodayClick: () => dispatch(selectDate(moment())),
 });
 
 export default connect(null, mapDispatchToProps)(DateDisplay);
