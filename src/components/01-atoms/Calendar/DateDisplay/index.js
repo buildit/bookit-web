@@ -34,7 +34,9 @@ const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackCli
 
 DateDisplay.propTypes = {
   date: momentPropTypes.momentObj,
-  handleClick: PropTypes.func.isRequired,
+  handleTodayClick: PropTypes.func.isRequired,
+  handleBackClick: PropTypes.func.isRequired,
+  handleForwardClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

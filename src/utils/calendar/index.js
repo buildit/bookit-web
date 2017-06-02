@@ -9,10 +9,11 @@ const calendar = selectedDate => {
     const week = [];
     const date = sunday;
     for (let i = 0; i < 7; i += 1) {
+      const todaysDate = date.clone();
       week.push({
-        date: date.clone(),
-        isSelectedDate: date.isSame(selectedDate),
-        isInCurrentMonth: date.isSame(selectedDate, 'month'),
+        date: todaysDate,
+        isSelectedDate: todaysDate.isSame(selectedDate, 'day'),
+        isInCurrentMonth: todaysDate.isSame(selectedDate, 'month'),
       });
       date.add(1, 'day');
     }

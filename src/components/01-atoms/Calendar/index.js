@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import momentPropTypes from 'react-moment-proptypes';
@@ -14,11 +14,7 @@ const style = {
   minWidth: `${config.minWidth}px`,
 };
 
-const forwardDate = selectedDate => {
-  const date = selectedDate.clone().add(1, 'month').startOf('month');
-  console.log(date.format('YYYY-MM-DD'));
-  return date;
-}
+const forwardDate = selectedDate => selectedDate.clone().add(1, 'month').startOf('month');
 const backDate = selectedDate => selectedDate.clone().subtract(1, 'month').startOf('month');
 
 const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
@@ -26,7 +22,11 @@ const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
     className={styles.calendar}
     style={style}
   >
-    <DateDisplay date={selectedDate} handleForwardClick={handleForwardClick} handleBackClick={handleBackClick} />
+    <DateDisplay
+      date={selectedDate}
+      handleForwardClick={handleForwardClick}
+      handleBackClick={handleBackClick}
+    />
     <DayNames />
     {calendar(selectedDate)
         .map((week, index) => <Week key={index} week={week} />)}
@@ -35,6 +35,8 @@ const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
 
 Calendar.propTypes = {
   selectedDate: momentPropTypes.momentObj,
+  handleBackClick: PropTypes.func.isRequired,
+  handleForwardClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
