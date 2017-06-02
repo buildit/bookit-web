@@ -105,7 +105,11 @@ Nicole Tibaldi - Buildit (@ntibaldi92)
 
 Roman Safronov - Buildit (@electroma)
 
-Andrew Tuliszewki - Buildit
+Andrew Tuliszewki - Buildit (@defpearlpilot)
+
+Peter Monks - Buildit (@monksp-buildit)
+
+Tiani Jones - Buildit (@tianioriginal)
 
 ## Configuration
 We are using [Kyt](https://open.blogs.nytimes.com/2016/09/13/introducing-kyt-our-web-app-configuration-toolkit/?_r=0) to manage the configuration of our React app. This means that rather than explicitly defining our config here, we allow Kyt abstract away things like the configuration for Webpack, linters, and test runners.
@@ -169,5 +173,5 @@ The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll 
 ## Bookit server
 Check it out [here](https://github.com/buildit/bookit-server).
 
-## Release Plan 
+## Release Plan
 The [plan](https://github.com/buildit/bookit-web/wiki) as it stands.
