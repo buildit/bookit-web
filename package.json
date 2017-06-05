@@ -74,6 +74,7 @@
     "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests --app \"npm start\" --app-init-delay 10000",
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
+    "lint-fix": "kyt lint-script --fix",
     "lint-style": "kyt lint-style",
     "kyt:help": "kyt --help",
     "storybook": "start-storybook -p 6006",

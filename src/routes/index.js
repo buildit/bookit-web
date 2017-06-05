@@ -7,6 +7,7 @@ import Route from 'react-router/lib/Route';
 import App from '../containers/App';
 import Login from '../containers/Login';
 import Dashboard from '../containers/Dashboard';
+import Admin from '../containers/Admin';
 
 import {
   checkIndexAuthorization,
@@ -16,6 +17,7 @@ import {
 const routes = store => (
   <Route path="/" component={App}>
     <IndexRoute onEnter={checkIndexAuthorization(store)} />
+    <Route path="/admin" component={Admin} />
     <Route path="/login" component={Login} />
     <Route onEnter={checkDashboardAuthorization(store)} path="/dashboard" component={Dashboard} />
   </Route>

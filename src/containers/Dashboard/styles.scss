@@ -37,10 +37,11 @@
   text-transform: capitalize;
 }
 
-.logout {
+.link {
   color: $slategrey;
   cursor: pointer;
   font-weight: 600;
+  margin-right: 0.4rem;
 
   &:hover {
     color: $veryyellow;

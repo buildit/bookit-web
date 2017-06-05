@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import Agenda from '../../components/03-organisms/Agenda';
 import Calendar from '../../components/01-atoms/Calendar';
@@ -60,7 +61,8 @@ export class DashboardContainer extends React.Component {
             <span className={styles.name}>
               { user.name }!
             </span>
-            <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
+            <span className={styles.link} onClick={() => browserHistory.push('/admin')}>Admin</span>
+            <span className={styles.link} onClick={this.props.logout}>Log Out</span>
           </div>
           <Agenda
             meetings={meetings}
