@@ -11,7 +11,6 @@ function checkAuthorization(dispatch) {
 
     // if the user has expired return false
     // if (created > expiry) return false;
-
     dispatch(setClient(user));
     return true;
   }
@@ -40,6 +39,19 @@ export function checkDashboardAuthorization({ dispatch, getState }) {
     if (checkAuthorization(dispatch)) return next();
 
     replace('login');
+    return next();
+  };
+}
+
+export function checkAdminAuthorization({ dispatch, getState }) {
+  return (nextState, replace, next) => {
+    if (checkAuthorization(dispatch)) {
+      const user = getState().user;
+      if (user.id === 1) {
+        return next();
+      }
+    }
+    replace('forbidden');
     return next();
   };
 }
