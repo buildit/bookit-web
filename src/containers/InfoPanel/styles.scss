@@ -1,0 +1,9 @@
+@import '../../shared-styles/bookit';
+
+.infoPanel {
+  flex: 0 0 325px;
+  background: $blackish;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 30px 30px 20px;
+}

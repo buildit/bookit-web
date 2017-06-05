@@ -1,0 +1,31 @@
+@import '../../../shared-styles/bookit';
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  height: 50px;
+  color: white;
+  font-weight: 100;
+}
+
+.hello {
+  color: $veryyellow;
+  font-weight: 600;
+  margin-right: 5pt;
+}
+
+.name {
+  margin-right: 1rem;
+  text-transform: capitalize;
+}
+
+.logout {
+  color: $slategrey;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover {
+    color: $veryyellow;
+  }
+}
