@@ -1,0 +1,23 @@
+.recentlyAddedUsersTable {
+  font-weight: 100;
+  color: white;
+  margin: 2rem;
+
+  th {
+    text-align: left;
+  }
+
+  td {
+    padding: 0.8rem 0;
+    min-width: 130px;
+  }
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.team {
+  text-transform: capitalize;
+}

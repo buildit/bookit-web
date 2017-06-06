@@ -6,9 +6,9 @@ import SearchableUserTable from '../../components/03-organisms/SearchableUserTab
 import { logout } from '../../actions';
 import styles from './styles.scss';
 
-const Admin = ({ user, users = [], onLogoutClick }) => (
+const Admin = ({ user, users = [], onLogoutClick, location }) => (
   <div className={styles.admin}>
-    <InfoPanel />
+    <InfoPanel pathName={location.pathname} />
     <main>
       <Header user={user} logout={onLogoutClick} />
       <SearchableUserTable users={users} />
@@ -42,4 +42,5 @@ Admin.propTypes = {
     name: PropTypes.string.isRequired,
   }),
   onLogoutClick: PropTypes.func.isRequired,
+  location: PropTypes.shape({}),
 };

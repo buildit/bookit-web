@@ -29,11 +29,12 @@ export class DashboardContainer extends React.Component {
       meetings,
       rooms,
       onLogoutClick,
+      location,
     } = this.props;
 
     return (
       <div className={styles.dashboard}>
-        <InfoPanel />
+        <InfoPanel pathName={location.pathname} />
         <main>
           <Header user={user} logout={onLogoutClick} />
           <Agenda
@@ -76,6 +77,7 @@ DashboardContainer.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  location: PropTypes.shape({}),
 };
 
 
