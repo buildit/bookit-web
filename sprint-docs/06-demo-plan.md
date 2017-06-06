@@ -2,12 +2,30 @@
 
 Demo date: Wednesday June 7, 2017
 
-1) Finish Meeting Cancelation functionality on the server
-2) Admin can manage users
+1) Cancelation functionality: UI and server-side
+2) Admin user management: UI only
 
 ## Canceling a booking
 
-** Need to fill this in. **
+### Cancel in Bookit
+1) See the agenda view, set to today's date. See a meeting that I own.
+2) See that same meeting in my Outlook calendar.
+3) In Bookit, click "Edit".
+4) See the cancelation dialog appear in the left panel.
+5) Click "Yes" to confirm.
+6) See:
+- A message confirming that the cancelation succeeded.
+- The meeting has disappeared from the agenda in Bookit.
+- The meeting has disappeared from my Outlook calendar.
+
+### Cancel in Outlook
+1) See the agenda view, set to today's date. See a meeting that I own.
+2) See that same meeting in my Outlook calendar.
+3) Cancel the meeting in Outlook.
+4) See:
+- The meeting has disappeared from my Outlook calendar.
+- The meeting has disappeared from the agenda in Bookit.
+
 
 ## Admin functionality
 
