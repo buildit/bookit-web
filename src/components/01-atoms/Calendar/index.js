@@ -39,9 +39,13 @@ Calendar.propTypes = {
   handleForwardClick: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  selectedDate: state.app.selectedDate,
+});
+
 const mapDispatchToProps = dispatch => ({
   handleForwardClick: date => () => dispatch(selectDate(forwardDate(date))),
   handleBackClick: date => () => dispatch(selectDate(backDate(date))),
 });
 
-export default connect(null, mapDispatchToProps)(Calendar);
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

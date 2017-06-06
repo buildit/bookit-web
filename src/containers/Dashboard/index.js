@@ -1,18 +1,11 @@
 import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
-
+import InfoPanel from '../InfoPanel';
 import Agenda from '../../components/03-organisms/Agenda';
-import Calendar from '../../components/01-atoms/Calendar';
-import Messages from '../../components/02-molecules/Messages';
-import ReservationList from '../../components/02-molecules/ReservationList';
-
-import MeetingCancel from '../../components/02-molecules/MeetingCancel';
-import MeetingForm from '../MeetingForm';
-
-import styles from './styles.scss';
-
+import Header from '../../components/02-molecules/Header';
 import isMeetingOnDate from '../../utils/isMeetingOnDate';
+import styles from './styles.scss';
 
 import {
   meetingsFetchStart,
@@ -29,45 +22,25 @@ export class DashboardContainer extends React.Component {
     this.props.requestRooms();
   }
 
-  leftPaneContent() {
-    if (this.props.isEditingMeeting) { return <MeetingForm />; }
-    if (this.props.isCreatingMeeting) { return <MeetingForm />; }
-    if (this.props.isCancellingMeeting) { return (<MeetingCancel />); }
-    return (<Calendar selectedDate={this.props.selectedDate} />);
-  }
-
   render() {
     const {
-      messages,
       user,
       meetings,
       rooms,
+      onLogoutClick,
     } = this.props;
+
     return (
-      <div className={styles.app}>
-        <div className={styles.container}>
-          <div className={styles.leftPane}>
-            { this.leftPaneContent() }
-            <Messages messages={messages} />
-            <ReservationList
-              user={user}
-              meetings={meetings.filter(meeting => meeting.isOwnedByUser)}
-              handleEditClick={this.props.populateMeetingEditForm}
-            />
-          </div>
-          <div className={styles.user}>
-            <span className={styles.hello}>Hello</span>
-            <span className={styles.name}>
-              { user.name }!
-            </span>
-            <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
-          </div>
+      <div className={styles.dashboard}>
+        <InfoPanel />
+        <main>
+          <Header user={user} logout={onLogoutClick} />
           <Agenda
             meetings={meetings}
             rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
-        </div>
+        </main>
       </div>
     );
   }
@@ -77,15 +50,9 @@ DashboardContainer.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  isEditingMeeting: PropTypes.bool,
-  isCreatingMeeting: PropTypes.bool.isRequired,
-  isCancellingMeeting: PropTypes.bool,
-  selectedDate: PropTypes.shape({}).isRequired,
-  messages: PropTypes.arrayOf(PropTypes.string),
   requestRooms: PropTypes.func,
   populateMeetingCreateForm: PropTypes.func.isRequired,
-  populateMeetingEditForm: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
+  onLogoutClick: PropTypes.func.isRequired,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -161,7 +128,7 @@ const mapDispatchToProps = dispatch => ({
   populateMeetingEditForm: meeting => {
     dispatch(populateMeetingEditForm(meeting));
   },
-  logout: () => {
+  onLogoutClick: () => {
     dispatch(logout());
   },
 });
