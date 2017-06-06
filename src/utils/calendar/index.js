@@ -14,6 +14,7 @@ const calendar = selectedDate => {
         date: todaysDate,
         isSelectedDate: todaysDate.isSame(selectedDate, 'day'),
         isInCurrentMonth: todaysDate.isSame(selectedDate, 'month'),
+        isToday: todaysDate.isSame(new Date(), 'day'),
       });
       date.add(1, 'day');
     }
