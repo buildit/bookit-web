@@ -1,0 +1,15 @@
+@import '../../shared-styles/bookit';
+
+.admin {
+  display: flex;
+  background-color: $darkblue;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  // padding: 70px 30px 30px 20px;
+}
