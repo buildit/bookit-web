@@ -1,49 +1,15 @@
 @import '../../shared-styles/bookit';
 
-.app {
+.dashboard {
+  display: flex;
   background-color: $darkblue;
   margin: 0;
   padding: 0;
   height: 100vh;
 }
 
-.leftPane {
-  width: 325px;
-  height: 100vh;
-  float: left;
-  background: $blackish;
+main {
   display: flex;
   flex-direction: column;
-  padding: 70px 30px 30px 20px;
-}
-
-.user {
-  display: flex;
-  justify-content: flex-end;
-  padding: 2rem;
-  height: 50px;
-  color: white;
-  font-weight: 100;
-}
-
-.hello {
-  color: $veryyellow;
-  font-weight: 600;
-  margin-right: 5pt;
-}
-
-.name {
-  margin-right: 1rem;
-  text-transform: capitalize;
-}
-
-.link {
-  color: $slategrey;
-  cursor: pointer;
-  font-weight: 600;
-  margin-right: 0.4rem;
-
-  &:hover {
-    color: $veryyellow;
-  }
+  // padding: 70px 30px 30px 20px;
 }
