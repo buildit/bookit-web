@@ -1,0 +1,19 @@
+@import '../../shared-styles/bookit';
+
+h1 {
+  color: white;
+  font-size: 58px;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.forbidden {
+  align-items: center;
+  background-color: $darkblue;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
