@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { REMOVE_USER } from '../actions/actionTypes';
 
 const fakeUsers = [
   { name: 'Bill Lome', location: 'New York', email: 'bill@designit.com', team: 'DESIGNIT', dateAdded: moment().subtract(1, 'month') },
@@ -8,8 +9,9 @@ const fakeUsers = [
 
 const users = (state = [], action) => {
   switch (action.type) {
-    case 'NOTHING_YET!': {
-      return ['some', 'users'];
+    case REMOVE_USER: {
+      const emailOfRemovedUser = action.payload;
+      return state.filter(_user => _user.email !== emailOfRemovedUser);
     }
     default: {
       return fakeUsers;

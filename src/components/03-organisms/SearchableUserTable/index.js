@@ -26,7 +26,7 @@ class SearchableUserTable extends React.Component {
   }
 
   render() {
-    const { users } = this.props;
+    const { users, onRemoveClick } = this.props;
     const filteredUsers = users
       .filter(user => (
         this.state.filterTeam === 'ALL' ||
@@ -57,7 +57,13 @@ class SearchableUserTable extends React.Component {
         <table>
           <UserTableHeader />
           <tbody>
-            {filteredUsers.map(user => <UserTableRow key={user.email} user={user} />)}
+            {filteredUsers.map(user => (
+              <UserTableRow
+                key={user.email}
+                user={user}
+                onRemoveClick={onRemoveClick}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -68,11 +74,13 @@ class SearchableUserTable extends React.Component {
 export default SearchableUserTable;
 
 SearchableUserTable.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    team: PropTypes.string.isRequired,
-  }),
-),
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      team: PropTypes.string.isRequired,
+    }),
+  ),
+  onRemoveClick: PropTypes.func.isRequired,
 };
