@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.scss';
 
-const UserTableRow = ({ user }) => (
+const UserTableRow = ({ user, onRemoveClick }) => (
   <tr className={styles.userTableRow}>
     <td>{user.name}</td>
     <td>{user.location}</td>
     <td>{user.email}</td>
+    <td onClick={() => onRemoveClick(user.email)}>Remove</td>
   </tr>
 );
 
@@ -18,4 +19,5 @@ UserTableRow.propTypes = {
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
   }),
+  onRemoveClick: PropTypes.func.isRequired,
 };

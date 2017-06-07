@@ -10,6 +10,8 @@ import {
   SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CLOSE_CANCELLATION_DIALOG,
+  OPEN_REMOVE_USER_DIALOG,
+  CLOSE_CONFIRMATION_DIALOG,
 } from './actionTypes';
 
 export const populateMeetingCreateForm =
@@ -38,3 +40,7 @@ export const selectDateSucceeded = createAction(SELECT_DATE_SUCCEEDED, date => (
 export const openCancellationDialog = createAction(OPEN_CANCELLATION_DIALOG);
 
 export const closeCancellationDialog = createAction(CLOSE_CANCELLATION_DIALOG);
+
+export const openRemoveUserDialog = createAction(OPEN_REMOVE_USER_DIALOG);
+
+export const closeConfirmationDialog = createAction(CLOSE_CONFIRMATION_DIALOG);
