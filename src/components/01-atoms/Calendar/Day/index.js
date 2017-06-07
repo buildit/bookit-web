@@ -24,7 +24,7 @@ const Day = ({ day, handleClick }) => {
     dayStyle.opacity = '0';
   }
   // Not sure what it's for, but it's in the design.
-  if (day.hasLineUnderneath) {
+  if (day.isToday) {
     numberStyle.borderBottom = '2px solid white';
   }
   if (day.hasUserOwnedMeeting) {
