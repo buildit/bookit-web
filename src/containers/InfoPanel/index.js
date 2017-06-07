@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import momentPropTypes from 'react-moment-proptypes';
 import {
   populateMeetingEditForm,
+  userRemoveStart,
+  closeConfirmationDialog,
  } from '../../actions';
 import styles from './styles.scss';
 import Calendar from '../../components/01-atoms/Calendar';
@@ -10,6 +12,7 @@ import Messages from '../../components/02-molecules/Messages';
 import ReservationList from '../../components/02-molecules/ReservationList';
 import RecentlyAddedUsersTable from '../../components/02-molecules/RecentlyAddedUsersTable';
 import MeetingCancel from '../../components/02-molecules/MeetingCancel';
+import ConfirmationDialog from '../../components/02-molecules/ConfirmationDialog';
 import MeetingForm from '../MeetingForm';
 import isMeetingOnDate from '../../utils/isMeetingOnDate';
 
@@ -28,7 +31,11 @@ class InfoPanel extends React.Component {
      isEditingMeeting,
      isCancellingMeeting,
      isCreatingMeeting,
+     isRemovingUser,
      users,
+     onRemoveUserClick,
+     userToBeRemoved,
+     onAbortRemovingUser,
    } = this.props;
 
     let content = [];
@@ -50,7 +57,17 @@ class InfoPanel extends React.Component {
     }
 
     if (this.pathName === 'admin' || this.pathName === '/admin') {
-      content.push(<RecentlyAddedUsersTable users={users} />);
+      content = [<RecentlyAddedUsersTable users={users} />];
+
+      if (isRemovingUser) {
+        content = [
+          <ConfirmationDialog
+            message="Are you sure you want to remove this user?"
+            onClickYes={() => onRemoveUserClick(userToBeRemoved)}
+            onClickNo={onAbortRemovingUser}
+          />,
+        ];
+      }
     }
 
     content.push(<Messages messages={messages} />);
@@ -78,13 +95,21 @@ const mapStateToProps = state => {
     isEditingMeeting: state.app.isEditingMeeting,
     isCancellingMeeting: state.app.isCancellingMeeting,
     isCreatingMeeting: state.app.isCreatingMeeting,
+    isRemovingUser: state.app.isRemovingUser,
     users: state.users,
+    userToBeRemoved: state.app.userToBeRemoved,
   });
 };
 
 const mapDispatchToProps = dispatch => ({
   handleReservationEditClick: meeting => {
     dispatch(populateMeetingEditForm(meeting));
+  },
+  onRemoveUserClick: userEmail => {
+    dispatch(userRemoveStart(userEmail));
+  },
+  onAbortRemovingUser: () => {
+    dispatch(closeConfirmationDialog());
   },
 });
 
@@ -97,8 +122,12 @@ InfoPanel.propTypes = {
   isEditingMeeting: PropTypes.bool,
   isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
+  isRemovingUser: PropTypes.bool.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
+  onAbortRemovingUser: PropTypes.func.isRequired,
+  onRemoveUserClick: PropTypes.func.isRequired,
+  userToBeRemoved: PropTypes.string,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

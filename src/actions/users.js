@@ -1,5 +1,12 @@
 import { createAction } from 'redux-actions';
-import { REMOVE_USER } from './actionTypes';
+import {
+  USER_REMOVE_START,
+  USER_REMOVE_SUCCEEDED,
+  USER_REMOVE_FAILED,
+ } from './actionTypes';
 
-/* eslint-disable import/prefer-default-export */
-export const removeUser = createAction(REMOVE_USER);
+export const userRemoveStart = createAction(USER_REMOVE_START);
+
+export const userRemoveSucceeded = createAction(USER_REMOVE_SUCCEEDED);
+
+export const userRemoveFailed = createAction(USER_REMOVE_FAILED);

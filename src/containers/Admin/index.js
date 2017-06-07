@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../../components/02-molecules/Header';
 import InfoPanel from '../InfoPanel';
 import SearchableUserTable from '../../components/03-organisms/SearchableUserTable';
-import { logout, removeUser } from '../../actions';
+import { logout, openRemoveUserDialog } from '../../actions';
 import styles from './styles.scss';
 
 const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => (
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logout());
   },
   onRemoveClick: userEmail => {
-    dispatch(removeUser(userEmail));
+    dispatch(openRemoveUserDialog(userEmail));
   },
 });
 
