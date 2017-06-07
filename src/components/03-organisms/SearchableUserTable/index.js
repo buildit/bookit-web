@@ -27,17 +27,16 @@ class SearchableUserTable extends React.Component {
 
   render() {
     const { users, onRemoveClick } = this.props;
+    let filterTextMatcher;
+    if (this.state.filterText.length > 0) {
+      filterTextMatcher = new RegExp(this.state.filterText, 'i');
+    }
     const filteredUsers = users
       .filter(user => (
         this.state.filterTeam === 'ALL' ||
         user.team === this.state.filterTeam
       ))
-      .filter(user => {
-        if (this.state.filterText.length > 0) {
-          return user.name === this.state.filterText;
-        }
-        return true;
-      });
+      .filter(user => (filterTextMatcher ? filterTextMatcher.test(user.name) : true));
 
     return (
       <div className={styles.userTable}>
