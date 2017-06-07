@@ -47,7 +47,7 @@ export function checkAdminAuthorization({ dispatch, getState }) {
   return (nextState, replace, next) => {
     if (checkAuthorization(dispatch)) {
       const user = getState().user;
-      if (user.id === 1 || user.id === 4) {
+      if (user.id === 1 || user.email === 'rasmus@designit.com') {
         return next();
       }
     }
