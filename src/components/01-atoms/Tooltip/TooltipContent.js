@@ -3,15 +3,15 @@ import React, { PropTypes } from 'react';
 const TooltipContent =
   ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick }) => (
     <div className={styles.content}>
-      <p>
+      <div>
         <strong className={styles.title}>{ title }</strong>
         <p>{ start.format('h:mma') } - { end.format('h:mma') }</p>
-      </p>
+      </div>
       <div className={styles.ownerInfo}>
-        <p>
+        <div>
           <strong className={styles.roomTitle}>{ roomName } Room</strong>
           <p>by { isOwnedByUser ? 'me' : owner.name }</p>
-        </p>
+        </div>
         {isOwnedByUser ? <div onClick={() => onEditClick()} className={styles.edit}>Edit</div> : '' }
       </div>
     </div>
