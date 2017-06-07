@@ -48,7 +48,6 @@ class SearchableUserTable extends React.Component {
           teams={[
             { name: 'Designit', id: 'DESIGNIT' },
             { name: 'Buildit', id: 'BUILDIT' },
-            { name: 'Others', id: 'OTHERS' },
           ]}
           selectedTeam={this.state.filterTeam}
           handleSelectTeamChange={this.handleSelectTeamChange}
