@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const TooltipContent =
   ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick }) => (
@@ -15,7 +16,7 @@ const TooltipContent =
         {isOwnedByUser ? <div onClick={() => onEditClick()} className={styles.edit}>Edit</div> : '' }
       </div>
     </div>
-);
+)
 
 TooltipContent.propTypes = {
   title: PropTypes.string.isRequired,
@@ -28,6 +29,6 @@ TooltipContent.propTypes = {
   isOwnedByUser: PropTypes.bool.isRequired,
   styles: PropTypes.shape({}),
   onEditClick: PropTypes.func.isRequired,
-};
+}
 
-export default TooltipContent;
+export default TooltipContent

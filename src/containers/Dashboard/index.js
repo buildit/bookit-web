@@ -1,26 +1,29 @@
-import React, { PropTypes } from 'react';
-import momentPropTypes from 'react-moment-proptypes';
-import { connect } from 'react-redux';
-import InfoPanel from '../InfoPanel';
+import React from 'react'
+import PropTypes from 'prop-types'
+import momentPropTypes from 'react-moment-proptypes'
+import { connect } from 'react-redux'
 
-import Agenda from '../../components/03-organisms/Agenda';
-import Header from '../../components/02-molecules/Header';
-import isMeetingOnDate from '../../utils/isMeetingOnDate';
-import styles from './styles.scss';
+import Agenda from '../../components/03-organisms/Agenda'
+import Header from '../../components/02-molecules/Header'
+import InfoPanel from '../InfoPanel'
+
+import isMeetingOnDate from '../../utils/isMeetingOnDate'
+
+import styles from './styles.scss'
 
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
   populateMeetingEditForm,
   logout,
- } from '../../actions';
+ } from '../../actions'
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
     // This fetches meetings.
     // It should happen whenever `selectedDate` is updated.
     // It should not be called `requestRooms`, probably.
-    this.props.requestRooms();
+    this.props.requestRooms()
   }
 
   render() {
@@ -30,7 +33,7 @@ export class DashboardContainer extends React.Component {
       rooms,
       onLogoutClick,
       location,
-    } = this.props;
+    } = this.props
 
     return (
       <div className={styles.dashboard}>
@@ -44,7 +47,7 @@ export class DashboardContainer extends React.Component {
           />
         </main>
       </div>
-    );
+    )
   }
 }
 
@@ -78,10 +81,10 @@ DashboardContainer.propTypes = {
     }).isRequired
   ).isRequired,
   location: PropTypes.shape({}),
-};
+}
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const {
     allMeetingIds,
     meetingsById,
@@ -94,16 +97,16 @@ const mapStateToProps = state => {
     meetingEditForm,
     messages,
     requestedMeeting,
-  } = state.app;
+  } = state.app
 
   const meetings = allMeetingIds
     .map(id => meetingsById[id])
     .filter(meeting => isMeetingOnDate(meeting, selectedDate))
     .map(meeting => ({
       ...meeting,
-      isOwnedByUser: meeting.owner.email === state.user.email }));
+      isOwnedByUser: meeting.owner.email === state.user.email }))
 
-  const rooms = allRoomIds.map(id => roomsById[id]);
+  const rooms = allRoomIds.map(id => roomsById[id])
 
   return ({
     user: state.user,
@@ -116,29 +119,29 @@ const mapStateToProps = state => {
     messages,
     selectedDate,
     requestedMeeting,
-  });
-};
+  })
+}
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
     // Why does `requestRooms` fetch Meetings?
     // TODO: Fetch meetings for selectedDate.
-    dispatch(meetingsFetchStart());
+    dispatch(meetingsFetchStart())
   },
   populateMeetingCreateForm: (room, meeting) => {
-    dispatch(populateMeetingCreateForm(room, meeting));
+    dispatch(populateMeetingCreateForm(room, meeting))
   },
-  populateMeetingEditForm: meeting => {
-    dispatch(populateMeetingEditForm(meeting));
+  populateMeetingEditForm: (meeting) => {
+    dispatch(populateMeetingEditForm(meeting))
   },
   onLogoutClick: () => {
-    dispatch(logout());
+    dispatch(logout())
   },
-});
+})
 
 const connected = connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(DashboardContainer);
+  mapDispatchToProps
+)(DashboardContainer)
 
-export default connected;
+export default connected

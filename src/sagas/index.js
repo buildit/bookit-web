@@ -1,24 +1,28 @@
-import { takeEvery } from 'redux-saga/effects';
-import { fetchMeetings, createMeeting, cancelMeeting } from './meetings';
-import { login, logout } from './auth';
-import selectDate from './selectDate';
+import { take, fork, cancel } from 'redux-saga/effects'
 
-import {
-  LOGIN_START,
-  LOGOUT,
-  MEETINGS_FETCH_START,
-  MEETING_CREATE_START,
-  CANCEL_MEETING_START,
-  SELECT_DATE,
-} from '../actions/actionTypes';
+import rootSaga from './rootSaga'
 
-function* rootSaga() {
-  yield takeEvery(MEETINGS_FETCH_START, fetchMeetings);
-  yield takeEvery(MEETING_CREATE_START, createMeeting);
-  yield takeEvery(LOGIN_START, login);
-  yield takeEvery(LOGOUT, logout);
-  yield takeEvery(CANCEL_MEETING_START, cancelMeeting);
-  yield takeEvery(SELECT_DATE, selectDate);
+const sagas = [rootSaga]
+
+export const CANCEL_SAGAS_HMR = 'CANCEL_SAGAS_HMR'
+
+const createAbortableSaga = (saga) => {
+  if (process.env.NODE_ENV === 'development') {
+    return function* main () {
+      const task = yield fork(saga)
+      yield take(CANCEL_SAGAS_HMR)
+      yield cancel(task)
+    }
+  }
+  return saga
 }
 
-export default rootSaga;
+export default {
+  startSagas(sagaMiddleware) {
+    sagas.map(createAbortableSaga).forEach(saga => sagaMiddleware.run(saga))
+  },
+
+  cancelSagas(store) {
+    store.dispatch({ type: CANCEL_SAGAS_HMR })
+  },
+}

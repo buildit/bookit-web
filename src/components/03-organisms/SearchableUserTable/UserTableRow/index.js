@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
-import styles from './styles.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import styles from './styles.scss'
 
 const UserTableRow = ({ user }) => (
   <tr className={styles.userTableRow}>
@@ -7,9 +9,9 @@ const UserTableRow = ({ user }) => (
     <td>{user.location}</td>
     <td>{user.email}</td>
   </tr>
-);
+)
 
-export default UserTableRow;
+export default UserTableRow
 
 UserTableRow.propTypes = {
   user: PropTypes.shape({
@@ -18,4 +20,4 @@ UserTableRow.propTypes = {
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
   }),
-};
+}

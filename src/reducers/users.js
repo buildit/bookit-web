@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment'
 
 const fakeUsers = [
   { name: 'Bill Lome', location: 'New York', email: 'bill@designit.com', team: 'DESIGNIT' },
@@ -36,17 +36,17 @@ const fakeUsers = [
   { name: 'Illyana Rasputin', location: 'New York', email: '5@designit.com', team: 'DESIGNIT' },
   { name: 'Doug Ramsey', location: 'New York', email: '6@designit.com', team: 'DESIGNIT' },
   { name: 'z', location: 'New York', email: 'zac@buildit.com', team: 'BUILDIT' },
-];
+]
 
 const users = (state = [], action) => {
   switch (action.type) {
-    case 'NOTHING_YET!': {
-      return ['some', 'users'];
-    }
-    default: {
-      return fakeUsers;
-    }
+  case 'NOTHING_YET!': {
+    return ['some', 'users']
   }
-};
+  default: {
+    return fakeUsers
+  }
+  }
+}
 
-export default users;
+export default users

@@ -1,9 +1,9 @@
-import * as colors from 'material-ui/styles/colors';
-import * as colorManipulator from 'material-ui/utils/colorManipulator';
-import * as spacing from 'material-ui/styles/spacing';
+import * as colors from 'material-ui/styles/colors'
+import * as colorManipulator from 'material-ui/utils/colorManipulator'
+import * as spacing from 'material-ui/styles/spacing'
 
 // Bookit brand colors
-const yellow = '#faff29';
+const yellow = '#faff29'
 
 const theme = {
   spacing: spacing.default,
@@ -25,6 +25,6 @@ const theme = {
     pickerHeaderColor: (0, colorManipulator.fade)(colors.fullWhite, 0.12),
     clockCircleColor: (0, colorManipulator.fade)(colors.fullWhite, 0.12),
   },
-};
+}
 
-export default theme;
+export default theme

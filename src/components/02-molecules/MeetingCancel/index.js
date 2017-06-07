@@ -1,11 +1,13 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Button from '../../01-atoms/Button/index';
+import { connect } from 'react-redux'
 
-import { closeCancellationDialog, cancelMeetingStart } from '../../../actions';
+import Button from '../../01-atoms/Button/index'
 
-import styles from './styles.scss';
+import { closeCancellationDialog, cancelMeetingStart } from '../../../actions'
+
+import styles from './styles.scss'
 
 export class MeetingCancelContainer extends React.Component {
   static propTypes = {
@@ -28,18 +30,18 @@ export class MeetingCancelContainer extends React.Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.onConfirmCancel = this.onConfirmCancel.bind(this);
-    this.onCancelCancel = this.onCancelCancel.bind(this);
+    this.onConfirmCancel = this.onConfirmCancel.bind(this)
+    this.onCancelCancel = this.onCancelCancel.bind(this)
   }
 
   onConfirmCancel() {
-    this.props.cancelMeeting(this.props.meeting, this.props.room);
+    this.props.cancelMeeting(this.props.meeting, this.props.room)
   }
 
   onCancelCancel() {
-    this.props.closeCancellationDialog();
+    this.props.closeCancellationDialog()
   }
 
   render() {
@@ -51,23 +53,23 @@ export class MeetingCancelContainer extends React.Component {
           <Button onClick={this.onCancelCancel} content="No" />
         </div>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => ({
   meeting: state.app.requestedMeeting,
   room: state.app.requestedMeeting.room,
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   closeCancellationDialog: () => dispatch(closeCancellationDialog()),
   cancelMeeting: (meeting, room) => dispatch(cancelMeetingStart(meeting, room)),
-});
+})
 
 const connected = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MeetingCancelContainer);
+)(MeetingCancelContainer)
 
-export default connected;
+export default connected

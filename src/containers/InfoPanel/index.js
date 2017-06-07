@@ -1,22 +1,27 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import momentPropTypes from 'react-moment-proptypes';
+import React from 'react'
+import PropTypes from 'prop-types'
+import momentPropTypes from 'react-moment-proptypes'
+
+import { connect } from 'react-redux'
+
 import {
   populateMeetingEditForm,
- } from '../../actions';
-import styles from './styles.scss';
-import Calendar from '../../components/01-atoms/Calendar';
-import Messages from '../../components/02-molecules/Messages';
-import ReservationList from '../../components/02-molecules/ReservationList';
-import RecentlyAddedUsersTable from '../../components/02-molecules/RecentlyAddedUsersTable';
-import MeetingCancel from '../../components/02-molecules/MeetingCancel';
-import MeetingForm from '../MeetingForm';
-import isMeetingOnDate from '../../utils/isMeetingOnDate';
+ } from '../../actions'
+
+import Calendar from '../../components/01-atoms/Calendar'
+import Messages from '../../components/02-molecules/Messages'
+import ReservationList from '../../components/02-molecules/ReservationList'
+import RecentlyAddedUsersTable from '../../components/02-molecules/RecentlyAddedUsersTable'
+import MeetingCancel from '../../components/02-molecules/MeetingCancel'
+import MeetingForm from '../MeetingForm'
+import isMeetingOnDate from '../../utils/isMeetingOnDate'
+
+import styles from './styles.scss'
 
 class InfoPanel extends React.Component {
   constructor(props) {
-    super(props);
-    this.pathName = props.pathName;
+    super(props)
+    this.pathName = props.pathName
   }
 
   render() {
@@ -29,47 +34,48 @@ class InfoPanel extends React.Component {
      isCancellingMeeting,
      isCreatingMeeting,
      users,
-   } = this.props;
+   } = this.props
 
-    let content = [];
+    let content = []
 
     if (this.pathName === 'dashboard' || this.pathName === '/dashboard') {
       content.push(
-        <Calendar />,
+        <Calendar key="0" />,
         <ReservationList
+          key="1"
           user={user}
           meetings={meetings}
           handleEditClick={handleReservationEditClick}
-        />);
+        />)
       if (isEditingMeeting || isCreatingMeeting) {
-        content = [<MeetingForm />];
+        content = [<MeetingForm key="2" />]
       }
       if (isCancellingMeeting) {
-        content = [<MeetingCancel />];
+        content = [<MeetingCancel key="3" />]
       }
     }
 
     if (this.pathName === 'admin' || this.pathName === '/admin') {
-      content.push(<RecentlyAddedUsersTable users={users} />);
+      content.push(<RecentlyAddedUsersTable key="4" users={users} />)
     }
 
-    content.push(<Messages messages={messages} />);
+    content.push(<Messages key="5" messages={messages} />)
 
     return (
       <div className={styles.infoPanel}>
         { content }
       </div>
-   );
+    )
   }
 }
 
-const mapStateToProps = state => {
-  const { allMeetingIds, meetingsById, selectedDate } = state.app;
+const mapStateToProps = (state) => {
+  const { allMeetingIds, meetingsById, selectedDate } = state.app
 
   const meetings = allMeetingIds
     .map(id => meetingsById[id])
     .filter(meeting => isMeetingOnDate(meeting, selectedDate))
-    .filter(meeting => meeting.owner.email === state.user.email);
+    .filter(meeting => meeting.owner.email === state.user.email)
 
   return ({
     messages: state.app.messages,
@@ -79,16 +85,16 @@ const mapStateToProps = state => {
     isCancellingMeeting: state.app.isCancellingMeeting,
     isCreatingMeeting: state.app.isCreatingMeeting,
     users: state.users,
-  });
-};
+  })
+}
 
 const mapDispatchToProps = dispatch => ({
-  handleReservationEditClick: meeting => {
-    dispatch(populateMeetingEditForm(meeting));
+  handleReservationEditClick: (meeting) => {
+    dispatch(populateMeetingEditForm(meeting))
   },
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoPanel)
 
 InfoPanel.propTypes = {
   user: PropTypes.shape({
@@ -106,7 +112,6 @@ InfoPanel.propTypes = {
       start: momentPropTypes.momentObj.isRequired,
       end: momentPropTypes.momentObj.isRequired,
       duration: PropTypes.number.isRequired,
-      isOwnedByUser: PropTypes.bool.isRequired,
       owner: PropTypes.shape({
         name: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
@@ -121,6 +126,6 @@ InfoPanel.propTypes = {
     email: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
-  }),
+  })
 ),
-};
+}

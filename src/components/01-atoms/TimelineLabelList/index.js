@@ -1,21 +1,21 @@
-import React from 'react';
+import React from 'react'
 
-import moment from 'moment';
+import moment from 'moment'
 
-import styles from './styles.scss';
+import styles from './styles.scss'
 
 
 const timeLabels = () => {
-  const today = moment().startOf('day');
-  const nextDay = moment().startOf('day').add(1, 'day').dayOfYear();
-  const labels = [];
+  const today = moment().startOf('day')
+  const nextDay = moment().startOf('day').add(1, 'day').dayOfYear()
+  const labels = []
 
   while (today.dayOfYear() < nextDay) {
-    labels.push(today.format('h:00a'));
-    today.add(1, 'hour');
+    labels.push(today.format('h:00a'))
+    today.add(1, 'hour')
   }
-  return labels;
-};
+  return labels
+}
 
 const TimelineLabelList = () => (
   <div className={styles.timelabels}>
@@ -23,6 +23,6 @@ const TimelineLabelList = () => (
       <div key={index} className={styles.timelabel}>{timeLabel}</div>
     )}
   </div>
-);
+)
 
-export default TimelineLabelList;
+export default TimelineLabelList

@@ -1,22 +1,24 @@
-import React, { PropTypes } from 'react';
-import momentPropTypes from 'react-moment-proptypes';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset';
+import momentPropTypes from 'react-moment-proptypes'
 
-import Meeting from '../Meeting';
+import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset'
 
-import styles from './styles.scss';
+import Meeting from '../Meeting'
+
+import styles from './styles.scss'
 
 class RoomTimeline extends React.Component {
   componentDidMount() {
-    document.getElementById('timelines').scrollLeft = 653;
+    document.getElementById('timelines').scrollLeft = 653
   }
 
   render() {
     const onTimelineClick = (e) => {
-      const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH;
-      this.props.populateMeetingCreateForm(this.props.room, requestedStartTime);
-    };
+      const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH
+      this.props.populateMeetingCreateForm(this.props.room, requestedStartTime)
+    }
 
     return (
       <div className={styles.room}>
@@ -26,7 +28,7 @@ class RoomTimeline extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -50,6 +52,6 @@ RoomTimeline.propTypes = {
     roomId: PropTypes.string.isRequired,
   })).isRequired,
   populateMeetingCreateForm: PropTypes.func.isRequired,
-};
+}
 
-export default RoomTimeline;
+export default RoomTimeline

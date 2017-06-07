@@ -1,28 +1,23 @@
+import React from 'react'
+import { render } from 'react-dom'
 
-import React from 'react';
-import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader'
 
-import { AppContainer } from 'react-hot-loader';
+import configureStore from '../configureStore'
 
-import Root from './Root';
+import Root from './Root'
 
-const root = document.querySelector('#root');
+const store = configureStore({})
 
-const mount = (RootComponent) => {
+const mount = (Component) => {
   render(
     <AppContainer>
-      <RootComponent />
+      <Component store={store} />
     </AppContainer>,
-    root
-  );
-};
-
-if (module.hot) {
-  module.hot.accept('./Root', () => {
-    // eslint-disable-next-line global-require,import/newline-after-import
-    const RootComponent = require('./Root').default;
-    mount(RootComponent);
-  });
+    document.querySelector('#root')
+  )
 }
 
-mount(Root);
+mount(Root)
+
+if (module.hot) module.hot.accept('./Root', () => mount(Root))

@@ -1,25 +1,26 @@
-import React, { PropTypes } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import Tooltip from '../../01-atoms/Tooltip';
+import Tooltip from '../../01-atoms/Tooltip'
 
-import { populateMeetingEditForm } from '../../../actions';
+import { populateMeetingEditForm } from '../../../actions'
 
-import calculateWidth from '../../../utils/calculateWidth';
-import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset';
+import calculateWidth from '../../../utils/calculateWidth'
+import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset'
 
-import styles from './styles.scss';
+import styles from './styles.scss'
 
-const TIMELINE_WIDTH = 1968;
+const TIMELINE_WIDTH = 1968
 
 class MeetingContainer extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this)
+    this.handleMouseOver = this.handleMouseOver.bind(this)
+    this.handleMouseOut = this.handleMouseOut.bind(this)
   }
 
   /**
@@ -30,17 +31,17 @@ class MeetingContainer extends React.Component {
    * @param  {Event} event
    */
   handleMouseMove(event) {
-    const mRect = this.$meeting.getBoundingClientRect();
-    const tlRect = document.getElementById('timelines').getBoundingClientRect();
+    const mRect = this.$meeting.getBoundingClientRect()
+    const tlRect = document.getElementById('timelines').getBoundingClientRect()
 
-    let offsetLeft = 0;
+    let offsetLeft = 0
 
     if (mRect.left < tlRect.left) {
-      offsetLeft = (tlRect.left - mRect.left);
+      offsetLeft = (tlRect.left - mRect.left)
     }
 
-    const anchorLeft = Math.max(0, ((event.clientX - mRect.left) - offsetLeft));
-    this.$anchor.style.left = `${Math.min(anchorLeft, (this.inlineStyle.width - 10))}px`;
+    const anchorLeft = Math.max(0, ((event.clientX - mRect.left) - offsetLeft))
+    this.$anchor.style.left = `${Math.min(anchorLeft, (this.inlineStyle.width - 10))}px`
   }
 
   /**
@@ -52,24 +53,24 @@ class MeetingContainer extends React.Component {
    * @param  {Event} event
    */
   handleMouseOver() {
-    const mRect = this.$meeting.getBoundingClientRect();
-    const tlRect = document.getElementById('timelines').getBoundingClientRect();
+    const mRect = this.$meeting.getBoundingClientRect()
+    const tlRect = document.getElementById('timelines').getBoundingClientRect()
 
-    let effectiveWidth = this.inlineStyle.width;
-    let effectiveLeft = 0;
+    let effectiveWidth = this.inlineStyle.width
+    let effectiveLeft = 0
 
     if (mRect.left < tlRect.left) {
-      effectiveWidth = mRect.width - (tlRect.left - mRect.left);
-      effectiveLeft = (tlRect.left - mRect.left);
+      effectiveWidth = mRect.width - (tlRect.left - mRect.left)
+      effectiveLeft = (tlRect.left - mRect.left)
     }
 
-    this.$tooltip.className = styles['tooltip--visible'];
-    this.$tooltip.style.left = `${effectiveLeft}px`;
+    this.$tooltip.className = styles.tooltipVisible
+    this.$tooltip.style.left = `${effectiveLeft}px`
 
-    this.$meeting.addEventListener('mousemove', this.handleMouseMove);
+    this.$meeting.addEventListener('mousemove', this.handleMouseMove)
 
-    this.$anchorContainer.style.width = `${effectiveWidth + 10}px`;
-    this.$anchorContainer.style.marginLeft = 0;
+    this.$anchorContainer.style.width = `${effectiveWidth + 10}px`
+    this.$anchorContainer.style.marginLeft = 0
   }
 
   /**
@@ -80,35 +81,35 @@ class MeetingContainer extends React.Component {
    * @param  {Event} event
    */
   handleMouseOut() {
-    this.$tooltip.style.left = null;
-    this.$tooltip.className = styles.tooltip;
-    this.$meeting.removeEventListener('mousemove', this.handleMouseMove);
+    this.$tooltip.style.left = null
+    this.$tooltip.className = styles.tooltip
+    this.$meeting.removeEventListener('mousemove', this.handleMouseMove)
   }
 
   get inlineStyle() {
-    const { meeting: { duration, start } } = this.props;
-    let width = calculateWidth(duration);
-    const left = calculateMeetingOffset(start);
+    const { meeting: { duration, start } } = this.props
+    let width = calculateWidth(duration)
+    const left = calculateMeetingOffset(start)
     // See if meeting will extend beyond the end of the timeline
     // If so, reduce the width such that it does not
-    const totalWidth = width + left;
+    const totalWidth = width + left
     if (totalWidth > TIMELINE_WIDTH) {
-      width -= ((totalWidth) - TIMELINE_WIDTH);
+      width -= ((totalWidth) - TIMELINE_WIDTH)
     }
-    return { width, left };
+    return { width, left }
   }
 
   render() {
-    const { meeting, onEditClick, requestedMeetingId } = this.props;
-    const isSelected = meeting.id === requestedMeetingId;
-    const classNames = [styles.meeting];
+    const { meeting, onEditClick, requestedMeetingId } = this.props
+    const isSelected = meeting.id === requestedMeetingId
+    const classNames = [styles.meeting]
 
     if (isSelected) {
-      classNames.push(styles.isSelected);
+      classNames.push(styles.isSelected)
     }
 
     if (this.props.meeting.isOwnedByUser) {
-      classNames.push(styles.isOwnedByUser);
+      classNames.push(styles.isOwnedByUser)
     }
 
     return (
@@ -118,20 +119,20 @@ class MeetingContainer extends React.Component {
         onClick={event => event.stopPropagation()}
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
-        ref={el => { this.$meeting = el; }}
+        ref={(el) => { this.$meeting = el }}
       >
         <Tooltip
           {...meeting}
-          tooltipRef={el => { this.$tooltip = el; }}
-          anchorContainerRef={el => { this.$anchorContainer = el; }}
-          anchorRef={el => { this.$anchor = el; }}
+          tooltipRef={(el) => { this.$tooltip = el }}
+          anchorContainerRef={(el) => { this.$anchorContainer = el }}
+          anchorRef={(el) => { this.$anchor = el }}
           styles={styles}
           onEditClick={() => {
-            onEditClick(meeting);
+            onEditClick(meeting)
           }}
         />
       </div>
-    );
+    )
   }
 }
 
@@ -139,17 +140,17 @@ MeetingContainer.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
   requestedMeetingId: PropTypes.string,
-};
+}
 
 const mapDispatchToProps = dispatch => ({
   onEditClick: meeting => dispatch(populateMeetingEditForm(meeting)),
-});
+})
 
 const mapStateToProps = state => ({
   isEditingMeeting: state.app.isEditingMeeting,
   requestedMeetingId: state.app.requestedMeeting.id,
-});
+})
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer);
+const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer)
 
-export default connected;
+export default connected

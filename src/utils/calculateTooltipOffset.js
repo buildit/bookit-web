@@ -1,9 +1,9 @@
-import calculateWidth from './calculateWidth';
+import calculateWidth from './calculateWidth'
 
-const TOOLTIP_WIDTH = 270;
+const TOOLTIP_WIDTH = 270
 
-const calculateTooltipOffset = (duration) => (
+const calculateTooltipOffset = duration => (
   (calculateWidth(duration) / 2) - (TOOLTIP_WIDTH / 2)
-);
+)
 
-export default calculateTooltipOffset;
+export default calculateTooltipOffset

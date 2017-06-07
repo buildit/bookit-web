@@ -1,5 +1,5 @@
 export default class Page {
   constructor() {
-    this.pathName = '/dashboard';
+    this.pathName = '/dashboard'
   }
 }

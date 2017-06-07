@@ -1,7 +1,9 @@
-import React, { PropTypes } from 'react';
-import momentPropTypes from 'react-moment-proptypes';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import styles from './styles.scss';
+import momentPropTypes from 'react-moment-proptypes'
+
+import styles from './styles.scss'
 
 const ReservationList = ({ meetings = [], handleEditClick }) => (
   <div className={styles.reservationList}>
@@ -15,14 +17,14 @@ const ReservationList = ({ meetings = [], handleEditClick }) => (
         </div>
         <div
           onClick={() => {
-            handleEditClick(meeting);
+            handleEditClick(meeting)
           }}
           className={styles.button}
         >Edit</div>
       </div>
     ))}
   </div>
-);
+)
 
 ReservationList.propTypes = {
   handleEditClick: PropTypes.func.isRequired,
@@ -42,6 +44,6 @@ ReservationList.propTypes = {
       roomId: PropTypes.string.isRequired,
     })
   ).isRequired,
-};
+}
 
-export default ReservationList;
+export default ReservationList
