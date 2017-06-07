@@ -8,40 +8,60 @@ import styles from './styles.scss';
 import Calendar from '../../components/01-atoms/Calendar';
 import Messages from '../../components/02-molecules/Messages';
 import ReservationList from '../../components/02-molecules/ReservationList';
+import RecentlyAddedUsersTable from '../../components/02-molecules/RecentlyAddedUsersTable';
 import MeetingCancel from '../../components/02-molecules/MeetingCancel';
 import MeetingForm from '../MeetingForm';
 import isMeetingOnDate from '../../utils/isMeetingOnDate';
 
-const InfoPanel = ({
-  messages,
-  meetings,
-  user,
-  handleReservationEditClick,
-  isEditingMeeting,
-  isCancellingMeeting,
-  isCreatingMeeting }) => {
-  let content = [
-    <Calendar />,
-    <ReservationList
-      user={user}
-      meetings={meetings.filter(meeting => meeting.isOwnedByUser)}
-      handleEditClick={handleReservationEditClick}
-    />,
-  ];
-
-  if (isEditingMeeting || isCreatingMeeting) {
-    content = [<MeetingForm />];
+class InfoPanel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.pathName = props.pathName;
   }
-  if (isCancellingMeeting) {
-    content = [<MeetingCancel />];
-  }
-  content.push(<Messages messages={messages} />);
 
-  return (
-    <div className={styles.infoPanel}>
-      { content }
-    </div>
-); };
+  render() {
+    const {
+     messages,
+     meetings,
+     user,
+     handleReservationEditClick,
+     isEditingMeeting,
+     isCancellingMeeting,
+     isCreatingMeeting,
+     users,
+   } = this.props;
+
+    let content = [];
+
+    if (this.pathName === 'dashboard' || this.pathName === '/dashboard') {
+      content.push(
+        <Calendar />,
+        <ReservationList
+          user={user}
+          meetings={meetings}
+          handleEditClick={handleReservationEditClick}
+        />);
+      if (isEditingMeeting || isCreatingMeeting) {
+        content = [<MeetingForm />];
+      }
+      if (isCancellingMeeting) {
+        content = [<MeetingCancel />];
+      }
+    }
+
+    if (this.pathName === 'admin' || this.pathName === '/admin') {
+      content.push(<RecentlyAddedUsersTable users={users} />);
+    }
+
+    content.push(<Messages messages={messages} />);
+
+    return (
+      <div className={styles.infoPanel}>
+        { content }
+      </div>
+   );
+  }
+}
 
 const mapStateToProps = state => {
   const { allMeetingIds, meetingsById, selectedDate } = state.app;
@@ -58,6 +78,7 @@ const mapStateToProps = state => {
     isEditingMeeting: state.app.isEditingMeeting,
     isCancellingMeeting: state.app.isCancellingMeeting,
     isCreatingMeeting: state.app.isCreatingMeeting,
+    users: state.users,
   });
 };
 
@@ -94,4 +115,12 @@ InfoPanel.propTypes = {
       roomId: PropTypes.string.isRequired,
     })
   ).isRequired,
+  pathName: PropTypes.string.isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    team: PropTypes.string.isRequired,
+  }),
+),
 };

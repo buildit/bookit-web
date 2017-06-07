@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
 import InfoPanel from '../InfoPanel';
+
 import Agenda from '../../components/03-organisms/Agenda';
 import Header from '../../components/02-molecules/Header';
 import isMeetingOnDate from '../../utils/isMeetingOnDate';
@@ -28,11 +29,12 @@ export class DashboardContainer extends React.Component {
       meetings,
       rooms,
       onLogoutClick,
+      location,
     } = this.props;
 
     return (
       <div className={styles.dashboard}>
-        <InfoPanel />
+        <InfoPanel pathName={location.pathname} />
         <main>
           <Header user={user} logout={onLogoutClick} />
           <Agenda
@@ -75,6 +77,7 @@ DashboardContainer.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  location: PropTypes.shape({}),
 };
 
 

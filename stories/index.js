@@ -6,7 +6,18 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Meeting from '../src/components/02-molecules/Meeting';
 import RoomTimeline from '../src/components/02-molecules/RoomTimeline';
 import Agenda from '../src/components/03-organisms/Agenda';
+import SearchableUserTable from '../src/components/03-organisms/SearchableUserTable';
 import TimelineLabelList from '../src/components/01-atoms/TimelineLabelList';
+
+storiesOf('SearchableUserTable', module)
+  .add('shows all users', () => {
+    const fakeUsers = [
+      { name: 'Bill Lome', location: 'New York', email: 'bill@designit.com', team: 'DESIGNIT' },
+      { name: 'Eunice Chung', location: 'New York', email: 'eunice@designit.com', team: 'DESIGNIT' },
+      { name: 'z', location: 'New York', email: 'zac@buildit.com', team: 'BUILDIT' },
+    ]
+    return <SearchableUserTable users={fakeUsers} />
+  })
 
 storiesOf('Agenda', module)
   .add('displays multiple rooms', () => {

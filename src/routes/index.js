@@ -7,17 +7,18 @@ import Route from 'react-router/lib/Route';
 import App from '../containers/App';
 import Login from '../containers/Login';
 import Dashboard from '../containers/Dashboard';
+import Admin from '../containers/Admin';
+import Forbidden from '../containers/Forbidden';
 
-import {
-  checkIndexAuthorization,
-  checkDashboardAuthorization,
-} from '../lib/check-auth';
+import * as auth from '../lib/check-auth';
 
 const routes = store => (
   <Route path="/" component={App}>
-    <IndexRoute onEnter={checkIndexAuthorization(store)} />
+    <IndexRoute onEnter={auth.checkIndexAuthorization(store)} />
+    <Route onEnter={auth.checkAdminAuthorization(store)} path="/admin" component={Admin} />
     <Route path="/login" component={Login} />
-    <Route onEnter={checkDashboardAuthorization(store)} path="/dashboard" component={Dashboard} />
+    <Route path="/forbidden" component={Forbidden} />
+    <Route onEnter={auth.checkDashboardAuthorization(store)} path="/dashboard" component={Dashboard} />
   </Route>
 );
 
@@ -28,6 +29,8 @@ if (module.hot) {
   require('../components/03-organisms/Agenda');    // eslint-disable-line global-require
   require('../containers/Login');    // eslint-disable-line global-require
   require('../containers/Dashboard');    // eslint-disable-line global-require
+  require('../containers/Forbidden'); // eslint-disable-line global-require
+  require('../containers/Admin'); // eslint-disable-line global-require
 }
 
 export default routes;
