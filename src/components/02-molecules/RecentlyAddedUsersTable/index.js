@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import styles from './styles.scss';
 
-const isUserRecent = user => user.dateAdded.isAfter(moment().subtract(1, 'week'));
+const isUserRecent = user => user.dateAdded ? user.dateAdded.isAfter(moment().subtract(1, 'week')) : false;
 
 const RecentlyAddedUsersTable = ({ users = [] }) => (
   <div className={styles.recentlyAddedUsersTable}>
