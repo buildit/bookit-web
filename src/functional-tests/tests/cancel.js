@@ -8,7 +8,7 @@ const dashboardPage = new DashboardPage();
 fixture `Cancelling a meeting`.page `http://localhost:3001`;
 
 test
-  // Log in and create a meeting
+  // To prepare for the test, first log in and create a meeting
   .before(async t => {
     await t
     .typeText(loginPage.emailInput, 'bruce@myews.onmicrosoft.com')
@@ -32,27 +32,4 @@ test
     await t.navigateTo('/dashboard')
       .expect(DashboardPage.meetingByTitle('Blurgtime').exists)
         .notOk('The meeting should have been removed from the Agenda.');
-  });
-
-test.skip
-  // Log in and create a meeting
-  .before(async t => {
-    await t
-    .typeText(loginPage.emailInput, 'bruce@myews.onmicrosoft.com')
-    .typeText(loginPage.passwordInput, 'who da boss?')
-    .click(loginPage.submitButton)
-    .click(dashboardPage.timeline)
-    .typeText(dashboardPage.meetingFormNameInput, 'Blurgtime')
-    .click(dashboardPage.bookitButton);
-  })('User can cancel a meeting', async t => {
-    await t
-      .setTestSpeed(0.3)
-      .hover(DashboardPage.meetingByTitle('Blurgtime'))
-      .click(dashboardPage.editButton)
-      .click(dashboardPage.deleteButton)
-      .expect(DashboardPage.meetingByTitle('Blurgtime').exists)
-          .ok('The meeting we are cancelling still exists, before we have clicked the confirmation button.')
-      .click(dashboardPage.deleteAbortButton)
-      .expect(DashboardPage.meetingByTitle('Blurgtime').exists)
-          .ok('The meeting is still there after aborting the cancellation.');
   });
