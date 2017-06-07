@@ -1,58 +1,61 @@
-// export function checkAdminAuthorization({ dispatch, getState }) {
-//   return (nextState, replace, next) => {
-//     if (checkAuthorization(dispatch)) {
-//       const user = getState().user
-//       if (user.id === 1) {
-//         return next()
-//       }
-//     }
-//     replace('forbidden')
-//     return next()
-//   }
-// }
-
 import * as auth from './check-auth'
 
-describe('admin auth', () => {
-  const dispatch = jest.fn()
+const user = { id: 1234, email: 'tester@test.com', token: '1a2b3c4d5e' }
+const admin = { id: 1, email: 'admin@test.com', token: 'a1b2c3d4e5' }
+const notAUser = { id: null, email: null, token: null }
 
+const dispatch = jest.fn()
+
+beforeEach(() => {
+  localStorage.removeItem('user')
+  dispatch.mockClear()
+})
+
+describe('auth.isAuthorizedUser', () => {
   it('forbids with no logged in user', () => {
-    const getState = () => ({ user: undefined })
-    const replace = jest.fn()
-    const next = jest.fn()
-
-    const authReturn = auth.checkAdminAuthorization({ dispatch, getState })
-    authReturn(undefined, replace, next)
-
-    expect(replace.mock.calls.length).toBe(1)
-    expect(replace.mock.calls[0][0]).toBe('forbidden')
+    expect(auth.isAuthorizedUser(notAUser, dispatch)).toBeFalsy()
+    expect(dispatch.mock.calls.length).toBe(0)
   })
 
-  it('returns properly for authorized users', () => {
-    global.localStorage.setItem('user', JSON.stringify('any arbitrary value'))
-    const getState = () => ({ user: { id: 1 } })
-    const replace = jest.fn()
-    const next = jest.fn()
+  it('returns true when DANGEROUSLY rehydrating stored user when state is empty', () => {
+    localStorage.setItem('user', JSON.stringify(user))
 
-    const authReturn = auth.checkAdminAuthorization({ dispatch, getState })
-    authReturn(undefined, replace, next)
-
-    global.localStorage.removeItem('user')
-    expect(replace.mock.calls.length).toBe(0)
+    expect(auth.isAuthorizedUser(notAUser, dispatch)).toBeTruthy()
+    expect(dispatch.mock.calls.length).toBe(1)
   })
 
-  it('forbids an unauthorized user', () => {
-    global.localStorage.setItem('user', JSON.stringify('any arbitrary value'))
-    const getState = () => ({ user: { id: 2 } })
-    const replace = jest.fn()
-    const next = jest.fn()
+  it('returns true when DANGEROUSLY allowing full user from state', () => {
+    expect(auth.isAuthorizedUser(user, dispatch)).toBeTruthy()
+    expect(dispatch.mock.calls.length).toBe(0)
+  })
+})
 
-    const authReturn = auth.checkAdminAuthorization({ dispatch, getState })
-    authReturn(undefined, replace, next)
+describe('auth.isAuthorizedAdmin', () => {
+  it('forbids with no logged in user', () => {
+    expect(auth.isAuthorizedAdmin(notAUser, dispatch)).toBeFalsy()
+    expect(dispatch.mock.calls.length).toBe(0)
+  })
 
-    global.localStorage.removeItem('user')
+  it('forbids non-admin users', () => {
+    expect(auth.isAuthorizedAdmin(user, dispatch)).toBeFalsy()
+  })
 
-    expect(replace.mock.calls.length).toBe(1)
-    expect(replace.mock.calls[0][0]).toBe('forbidden')
+  it('forbids non-admin users rehydrated from storage', () => {
+    localStorage.setItem('user', JSON.stringify(user))
+
+    expect(auth.isAuthorizedAdmin(notAUser, dispatch)).toBeFalsy()
+    expect(dispatch.mock.calls.length).toBe(1)
+  })
+
+  it('returns true when DANGEROUSLY rehydrating stored admin user when state is empty', () => {
+    localStorage.setItem('user', JSON.stringify(admin))
+
+    expect(auth.isAuthorizedAdmin(notAUser, dispatch)).toBeTruthy()
+    expect(dispatch.mock.calls.length).toBe(1)
+  })
+
+  it('returns true when DANGEROUSLY allowing full admin user from state', () => {
+    expect(auth.isAuthorizedAdmin(admin, dispatch)).toBeTruthy()
+    expect(dispatch.mock.calls.length).toBe(0)
   })
 })
