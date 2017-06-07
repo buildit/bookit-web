@@ -8,6 +8,7 @@ export default class Page {
     this.meetingFormHeader = selector('#editor-header');
     this.meetingFormNameInput = selector('input[name="title"]');
     this.deleteButton = selector('button[name="delete"]');
+    this.editButton = selector('.edit');
     this.bookitButton = selector('button[type="submit"]');
     this.deleteConfirmationButton = selector('button[name="confirm-delete"]');
     this.deleteAbortButton = selector('button[name="abort-delete"]');

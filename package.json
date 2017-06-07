@@ -77,7 +77,7 @@
     "test": "npm run lint && kyt test",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
-    "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests/tests/cancel.js --app \"npm start\" --app-init-delay 10000",
+    "test-functional": "./node_modules/.bin/testcafe chrome ./src/functional-tests/ --app \"npm start\" --app-init-delay 10000",
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
     "lint-style": "kyt lint-style",
