@@ -11,5 +11,6 @@
 main {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   // padding: 70px 30px 30px 20px;
 }
