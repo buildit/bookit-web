@@ -9,7 +9,7 @@ import {
   MEETINGS_FETCH_FAILED,
   CLOSE_MEETING_DIALOG,
   MEETING_CREATE_FAILED,
-  SELECT_DATE,
+  SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
@@ -23,7 +23,10 @@ const initialState = {
   messages: [],
   requestedMeeting: {},
   selectedDate: moment().startOf('day'),
-  meetings: [],
+  meetingsById: {},
+  allMeetingIds: [],
+  roomsById: {},
+  allRoomIds: [],
   isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
@@ -34,24 +37,19 @@ const initialState = {
   },
 };
 
-const mapMeeting = m => {
-  const start = moment(m.start);
-  const end = moment(m.end);
-  return ({ ...m, start, end });
-};
-
-const mapMeetingRoomMeetings = roomMeetings => roomMeetings.map(roomMeeting => (
-  { room: roomMeeting.room,
-    meetings: roomMeeting.meetings ? roomMeeting.meetings.map(mapMeeting) : [],
-  }));
-
 const app = (state = initialState, action) => {
   switch (action.type) {
     case RESET_UI: {
       return { ...state, meetings: [], messages: [] };
     }
     case MEETINGS_FETCH_SUCCEEDED: {
-      return { ...state, meetings: mapMeetingRoomMeetings(action.payload) };
+      return {
+        ...state,
+        meetingsById: action.payload.meetingsById,
+        allMeetingIds: action.payload.allMeetingIds,
+        roomsById: action.payload.roomsById,
+        allRoomIds: action.payload.allRoomIds,
+      };
     }
     case OPEN_CANCELLATION_DIALOG: {
       return {
@@ -75,8 +73,12 @@ const app = (state = initialState, action) => {
       };
     }
     case POPULATE_MEETING_CREATE_FORM: {
-      const meetings = state.meetings
-        .find(rm => rm.room.email === action.payload.room.email).meetings;
+      const meetings = state.allMeetingIds
+        .map(id => state.meetingsById[id])
+        .filter(meeting => meeting.roomId === action.payload.room.email);
+
+      // const meetings = Object.values(state.meetingsById)
+      //   .filter(meeting => meeting.roomId === action.payload.room.email);
       const moment2 = state.selectedDate.clone().add(action.payload.meeting, 'hours');
       const roundedDate = moment2.minutes(Math.floor(state.selectedDate.minutes() / 30) * 30);
       const validatedSlot = getAvailableTimeSlot(roundedDate, meetings);
@@ -94,7 +96,7 @@ const app = (state = initialState, action) => {
         title: action.payload.meeting.title,
         start: moment(action.payload.meeting.start),
         end: moment(action.payload.meeting.end),
-        room: action.payload.meeting.room,
+        roomId: action.payload.meeting.roomId,
         id: action.payload.meeting.id,
       };
       return { ...state, isEditingMeeting: true, requestedMeeting: meeting };
@@ -116,7 +118,7 @@ const app = (state = initialState, action) => {
     case MEETINGS_FETCH_FAILED: {
       return { ...state, messages: ['There was a problem fetching the meetings.'] };
     }
-    case SELECT_DATE: {
+    case SELECT_DATE_SUCCEEDED: {
       return { ...state, selectedDate: action.payload.date };
     }
     default: {

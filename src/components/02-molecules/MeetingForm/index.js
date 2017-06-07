@@ -15,6 +15,7 @@ const MeetingForm = ({
   handleCancel,
   invalid,
   errors = {},
+  token,
   meeting,
   room,
   validationErrors = {},
@@ -40,7 +41,7 @@ const MeetingForm = ({
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          handleSubmit(meeting, room);
+          handleSubmit(meeting, room, token);
         }}
       >
         <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} style={meetingTitleStyle} />
@@ -60,6 +61,7 @@ MeetingForm.propTypes = {
   visibleErrorMessages: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func,
   handleCancel: PropTypes.func,
+  token: PropTypes.string,
   meeting: PropTypes.shape({
     title: PropTypes.string,
     start: PropTypes.date,

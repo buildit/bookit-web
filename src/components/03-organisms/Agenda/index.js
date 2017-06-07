@@ -1,52 +1,63 @@
 import React, { PropTypes } from 'react';
-import styles from './styles.scss';
-import TimelineLabelList from '../../01-atoms/TimelineLabelList';
-import RoomTimeline from '../../02-molecules/RoomTimeline';
-import RoomTimelineNames from '../../02-molecules/RoomTimelineNames';
-import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
+import momentPropTypes from 'react-moment-proptypes';
 
-const Agenda = ({ roomMeetings = [], populateMeetingCreateForm }) => (
+import roomTimelineNames from '../../01-atoms/RoomTimelineNames';
+import timelineLabelList from '../../01-atoms/TimelineLabelList';
+import currentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
+
+import RoomTimeline from '../../02-molecules/RoomTimeline';
+
+import styles from './styles.scss';
+
+const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map((room) => (
+  <RoomTimeline
+    key={room.name}
+    meetings={meetings.filter(meeting => meeting.roomId === room.id)}
+    room={{
+      email: room.id,
+      name: room.name,
+    }}
+    populateMeetingCreateForm={populateMeetingCreateForm}
+  />
+));
+
+const Agenda = ({ meetings = [], rooms = [], populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
-      {
-        roomMeetings.map(roomMeeting => (
-          <RoomTimelineNames
-            key={roomMeeting.room.name}
-            room={roomMeeting.room}
-          />
-        ))
-      }
+      { roomTimelineNames(rooms) }
     </div>
-    <div className={styles.column} id={'timelines'}>
-      <TimelineLabelList />
-      { roomMeetings.map(roomMeeting => (
-        <RoomTimeline
-          key={roomMeeting.room.name}
-          meetings={roomMeeting.meetings}
-          room={roomMeeting.room}
-          populateMeetingCreateForm={populateMeetingCreateForm}
-        />
-        )) }
-      <CurrentTimeIndicator />
+    <div className={[styles.column, styles.timeline].join(' ')} id="timelines">
+      { timelineLabelList() }
+      { renderRoomTimelines(rooms, meetings, populateMeetingCreateForm) }
+      { currentTimeIndicator() }
     </div>
   </div>
   );
 
 Agenda.propTypes = {
-  roomMeetings: PropTypes.arrayOf(PropTypes.shape({
-    room: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string,
-    }).isRequired,
-    meetings: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string,
-      participants: PropTypes.array,
-      owner: PropTypes.object,
-      start: PropTypes.object,
-      end: PropTypes.object,
-    })),
-  })),
   populateMeetingCreateForm: PropTypes.func.isRequired,
+  meetings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: momentPropTypes.momentObj.isRequired,
+      end: momentPropTypes.momentObj.isRequired,
+      duration: PropTypes.number.isRequired,
+      isOwnedByUser: PropTypes.bool.isRequired,
+      owner: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+      }).isRequired,
+      roomName: PropTypes.string.isRequired,
+      roomId: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rooms: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default Agenda;

@@ -11,8 +11,8 @@ test('Logging in sends you to the dashboard', async t => {
 
   const loginPage = new LoginPage();
   await t
-    .typeText(loginPage.emailInput, 'monksp@monksp.org')
-    .typeText(loginPage.passwordInput, 'foo')
+    .typeText(loginPage.emailInput, 'romans@myews.onmicrosoft.com')
+    .typeText(loginPage.passwordInput, 'enterprise: engage')
     .click(loginPage.submitButton);
 
   // Once we've logged in, we should land on the dashboard.
@@ -23,5 +23,7 @@ test('Logging in sends you to the dashboard', async t => {
   // Once logged in, the homepage sends you to the dashboard, as well.
   await t.navigateTo('/');
   const finalLocation = await t.eval(() => window.location);
-  await t.expect(finalLocation.pathname).eql(dashboardPage.pathName);
+  await t
+    .expect(finalLocation.pathname).eql(dashboardPage.pathName)
+    .expect(dashboardPage.timeline.exists);
 });

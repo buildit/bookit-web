@@ -14,7 +14,10 @@
   font-weight: 300;
   font-size: $base-font-size;
   font-style: normal;
+  height: $agenda-row-height;
   line-height: $agenda-row-height;
+  margin-bottom: 50px;
+  position: relative;
   user-select: none;
   width: 120px;
 }

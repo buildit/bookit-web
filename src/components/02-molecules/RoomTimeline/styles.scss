@@ -15,15 +15,15 @@
     to right,
     $blackish-translucent,
     $blackish-translucent $block-color-stop,
-    $darkblue $block-color-stop,
-    $darkblue $transparent-color-stop
+    $dividerColorAfterHours $block-color-stop,
+    $dividerColorAfterHours $transparent-color-stop
   );
   $opaque-gradient: repeating-linear-gradient(
     to right,
     $blackish,
     $blackish $block-color-stop,
-    $darkblue $block-color-stop,
-    $darkblue $transparent-color-stop
+    $dividerColor $block-color-stop,
+    $dividerColor $transparent-color-stop
   );
 
   display: block;

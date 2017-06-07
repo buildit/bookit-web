@@ -25,7 +25,7 @@ npm run test-coverage
 
 ```
 
-Run in-browser tests (using Chrome). You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
+Run in-browser tests against Chrome and Firefox. You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
 ```
 npm run test-functional
 ```
@@ -33,7 +33,7 @@ npm run test-functional
 ## Existing functionality
 
 ### Integration with Outlook
-The app (or more specifically, the server-side code) can integrate with a Microsoft Exchange server. Events in a connected Outlook appear in Bookit's UI.
+The app (or more specifically, the server-side code) can integrate with a Microsoft Exchange server.
 
 ### Booking
 The app can handle _very_ basic room booking.
@@ -44,7 +44,7 @@ A user can do this:
 3) See the room booking form appear on the left, pre-populated with the correct time and date.
 4) Add a meeting title.
 5) Click "Bookit".
-6) See the booking appear in Bookit and in the Outlook calendar.
+6) See the booking appear in Bookit.
 
 Some common booking errors are handled. For example:
 1) Open the Bookit web app.
@@ -56,14 +56,11 @@ Some common booking errors are handled. For example:
 There are two layers of validation at work. Basic form validation (e.g. is startDate before endDate) happens in the `validate` function within `containers/MeetingForm`. Validation related to business rules (e.g. overlapping meetings are disallowed) happens in `utils/getAvailableTimeSlot`.
 
 ### Login/Logout
-The login functionality is faked out at the moment. The function `fakeLogin` in `api` simply returns a The Boss with every login attempt.
+You can log in with this example user:
+email: 'bruce@myews.onmicrosoft.com'
+password: 'who da boss?'
 
-![The Boss](https://24.media.tumblr.com/tumblr_m3jp5eT0bs1r0ckzpo3_250.gif)
-
-This means that users can login to the app using any username and password. (Or just click "Login"! We're not picky!)
-
-`api.login` is a somewhat more realistic call to the server. It can be "turned on" whenever the server is actually listening for login requests.
-
+These credentials are [hardcoded into the server, along with a few other sample users](https://github.com/buildit/bookit-server/blob/master/src/service/stub/StubPasswordStore.ts).
 
 ## Design assets
 [Designs on Zeplin (must be granted access)](https://app.zeplin.io/project/58d4072283526a2ba8174a28)
@@ -95,15 +92,6 @@ Designit IT). These questions are currently outstanding:
 Roughly speaking, this would allow our app to read and modify calendars for Designit users. It also allows the app to read the list of Designit users. It does not give the app any other information, such as email. You can read more these permissions here: https://developer.microsoft.com/en-us/graph/docs/authorization/permission_scopes
 3) We'd like to create a key for the application. Of course, this is needed so that our app can authenticate against Designit's Exchange server.
 
-## Feature backlog
-As of the week of 4/17, this project has been put on hold.
-
-This is an itemized list of the work remaining: [Bookit feature backlog](/docs/backlog.md)
-
-## Technical debt
-Here is an itemized list of technical debt and cleanup the team would like to do:
-[Bookit tech debt](/docs/techdebt.md)
-
 ## Team members
 Lawrence Lee - Designit
 
@@ -117,10 +105,16 @@ Nicole Tibaldi - Buildit (@ntibaldi92)
 
 Roman Safronov - Buildit (@electroma)
 
+Andrew Tuliszewki - Buildit (@defpearlpilot)
+
+Peter Monks - Buildit (@monksp-buildit)
+
+Tiani Jones - Buildit (@tianioriginal)
+
 ## Configuration
 We are using [Kyt](https://open.blogs.nytimes.com/2016/09/13/introducing-kyt-our-web-app-configuration-toolkit/?_r=0) to manage the configuration of our React app. This means that rather than explicitly defining our config here, we allow Kyt abstract away things like the configuration for Webpack, linters, and test runners.
 
-The app was bootstrapped with Kyt's `kyt-static-starter`. To reproduce, do this:
+The app was bootstrapped with Kyt's `kyt-static-starter`. It is not necessary to globally install Kyt to run the app, but in case you want to retrace our steps, do this:
 
 ```
 npm install -g kyt-cli
@@ -178,3 +172,6 @@ The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll 
 
 ## Bookit server
 Check it out [here](https://github.com/buildit/bookit-server).
+
+## Release Plan
+The [plan](https://github.com/buildit/bookit-web/wiki) as it stands.

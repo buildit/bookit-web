@@ -1,39 +1,47 @@
 import React, { PropTypes } from 'react';
+import momentPropTypes from 'react-moment-proptypes';
+
 import styles from './styles.scss';
 
-const ReservationList = ({ roomMeetings = [], handleEditClick }) => {
-  const meetings = roomMeetings.reduce((result, roomMeeting) => {
-    // TODO: Filter by `isOwnedByUser` once the server serves up the goods.
-    const userOwnedMeetings = roomMeeting.meetings
-      .filter(meeting => meeting.owner.name === 'Comes from the session!!!');
-    return result.concat(userOwnedMeetings);
-  }, []);
-
-  return (
-    <div className={styles.reservationList}>
-      <h2 className={styles.header}>{meetings.length > 0 ? 'My Reservations' : ''}</h2>
-      {meetings.map(meeting => (
-        <div className={styles.meeting} key={meeting.id}>
-          <div className={styles.info}>
-            <div className={styles.title}>{meeting.title}</div>
-            <div className={styles.time}>{meeting.start.format('h:mma')} - {meeting.end.format('h:mma')}</div>
-            <div className={styles.room}>{`${meeting.room.name} Room`}</div>
-          </div>
-          <div
-            onClick={() => {
-              handleEditClick(meeting);
-            }}
-            className={styles.button}
-          >Edit</div>
+const ReservationList = ({ meetings = [], handleEditClick }) => (
+  <div className={styles.reservationList}>
+    <h2 className={styles.header}>{meetings.length > 0 ? 'My Reservations' : ''}</h2>
+    {meetings.map(meeting => (
+      <div className={styles.meeting} key={meeting.id}>
+        <div className={styles.info}>
+          <div className={styles.title}>{meeting.title}</div>
+          <div className={styles.time}>{meeting.start.format('h:mma')} - {meeting.end.format('h:mma')}</div>
+          <div className={styles.room}>{`${meeting.roomName} Room`}</div>
         </div>
-      ))}
-    </div>
-  );
-};
+        <div
+          onClick={() => {
+            handleEditClick(meeting);
+          }}
+          className={styles.button}
+        >Edit</div>
+      </div>
+    ))}
+  </div>
+);
 
 ReservationList.propTypes = {
-  roomMeetings: PropTypes.arrayOf(PropTypes.shape()),
   handleEditClick: PropTypes.func.isRequired,
+  meetings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: momentPropTypes.momentObj.isRequired,
+      end: momentPropTypes.momentObj.isRequired,
+      duration: PropTypes.number.isRequired,
+      isOwnedByUser: PropTypes.bool.isRequired,
+      owner: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+      }).isRequired,
+      roomName: PropTypes.string.isRequired,
+      roomId: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ReservationList;

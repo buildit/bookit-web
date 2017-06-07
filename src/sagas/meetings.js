@@ -11,11 +11,14 @@ import {
   meetingCreateSucceeded,
   cancelMeetingSucceeded,
   cancelMeetingFailed,
+  meetingsFetchStart,
 } from '../actions';
 
-export function* fetchMeetings() {
+export function* fetchMeetings(action = {}) {
   try {
-    const meetings = yield call(api.fetchMeetings);
+    const start = action.start ? action.start : undefined;
+    const end = action.end ? action.end : undefined;
+    const meetings = yield call(api.fetchMeetings, start, end);
     yield put(meetingsFetchSucceeded(meetings));
   } catch (error) {
     yield put(meetingsFetchFailed(error));
@@ -24,9 +27,8 @@ export function* fetchMeetings() {
 
 export function* createMeeting(action) {
   try {
-    const meeting = action.payload.meeting;
-    const room = action.payload.room;
-    yield call(api.createMeeting, meeting, room);
+    const { payload: { meeting, room, token } } = action;
+    yield call(api.createMeeting, meeting, room, token);
     yield put(closeMeetingDialog());
     yield put(destroy('meeting-editor'));
     yield put(meetingCreateSucceeded());
@@ -39,9 +41,9 @@ export function* createMeeting(action) {
 export function* cancelMeeting(action) {
   try {
     const meeting = action.payload.meeting;
-    const room = action.payload.room;
-    yield call(api.cancelMeeting, meeting.id, room.email); // TODO: Use meeting id instead?
+    yield call(api.cancelMeeting, meeting.id, meeting.roomId);
     yield put(cancelMeetingSucceeded());
+    yield put(meetingsFetchStart());
   } catch (err) {
     yield put(cancelMeetingFailed());
   }

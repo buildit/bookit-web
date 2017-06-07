@@ -8,31 +8,34 @@ const dashboardPage = new DashboardPage();
 fixture `Cancelling a meeting`.page `http://localhost:3001`;
 
 test
+  // Log in and create a meeting
   .before(async t => {
     await t
-    .typeText(loginPage.emailInput, 'blurglie@blurgliedee.org')
-    .typeText(loginPage.passwordInput, 'pants')
-    .click(loginPage.submitButton);
+    .typeText(loginPage.emailInput, 'bruce@myews.onmicrosoft.com')
+    .typeText(loginPage.passwordInput, 'who da boss?')
+    .click(loginPage.submitButton)
+    .click(dashboardPage.timeline)
+    .typeText(dashboardPage.meetingFormNameInput, 'Blurgtime')
+    .click(dashboardPage.bookitButton);
   })('User can cancel a meeting', async t => {
-    const firstMeetingId = await dashboardPage.firstMeeting.id;
-
     await t
-      .click(dashboardPage.firstMeeting)
+      .setTestSpeed(0.3)
+      .click(DashboardPage.meetingByTitle('Blurgtime'))
       .click(dashboardPage.deleteButton)
-      .expect(DashboardPage.meeting(firstMeetingId).exists)
+      .expect(DashboardPage.meetingByTitle('Blurgtime').exists)
           .ok('The meeting we are cancelling still exists, before we have clicked the confirmation button.')
       .click(dashboardPage.deleteConfirmationButton);
 
     await t.navigateTo('/dashboard')
-      .expect(DashboardPage.meeting(firstMeetingId).exists)
+      .expect(DashboardPage.meetingByTitle('Blurgtime').exists)
         .notOk('The meeting should have been removed from the Agenda.');
   });
 
-test
+test.skip
   .before(async t => {
     await t
-    .typeText(loginPage.emailInput, 'monksp@monksp.org')
-    .typeText(loginPage.passwordInput, 'foo')
+    .typeText(loginPage.emailInput, 'bruce@myews.onmicrosoft.com')
+    .typeText(loginPage.passwordInput, 'who da boss?')
     .click(loginPage.submitButton);
   })('User can abort the cancellation process', async t => {
     const firstMeetingId = await dashboardPage.firstMeeting.id;

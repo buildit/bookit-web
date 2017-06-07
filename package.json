@@ -17,7 +17,13 @@
       "name": "ntibaldi92"
     },
     {
-      "name": "Peter Monks"
+      "name": "monksp-buildit"
+    },
+    {
+      "name": "defpearlpilot"
+    },
+    {
+      "name": "tianioriginal"
     }
   ],
   "license": "Apache-2.0",
@@ -68,10 +74,10 @@
     "build": "kyt build",
     "start": "npm run dev",
     "proto": "kyt proto",
-    "test": "npm run lint && kyt test && npm run test-functional",
+    "test": "npm run lint && kyt test",
     "test-watch": "kyt test -- --watch",
     "test-coverage": "kyt test -- --coverage",
-    "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests --app \"npm start\" --app-init-delay 10000",
+    "test-functional": "./node_modules/.bin/testcafe chrome,firefox ./src/functional-tests/tests/cancel.js --app \"npm start\" --app-init-delay 10000",
     "lint": "npm run lint-script && npm run lint-style",
     "lint-script": "kyt lint-script",
     "lint-style": "kyt lint-style",

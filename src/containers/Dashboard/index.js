@@ -1,19 +1,11 @@
 import React, { PropTypes } from 'react';
-
-import moment from 'moment';
-
+import momentPropTypes from 'react-moment-proptypes';
 import { connect } from 'react-redux';
-
-import styles from './styles.scss';
-
+import InfoPanel from '../InfoPanel';
 import Agenda from '../../components/03-organisms/Agenda';
-import Calendar from '../../components/01-atoms/Calendar';
-import Messages from '../../components/02-molecules/Messages';
-import ReservationList from '../../components/02-molecules/ReservationList';
-
-import MeetingCancel from '../../components/02-molecules/MeetingCancel';
-
-import MeetingForm from '../MeetingForm';
+import Header from '../../components/02-molecules/Header';
+import isMeetingOnDate from '../../utils/isMeetingOnDate';
+import styles from './styles.scss';
 
 import {
   meetingsFetchStart,
@@ -24,101 +16,105 @@ import {
 
 export class DashboardContainer extends React.Component {
   componentDidMount() {
-    // This fetches meetings. It should happen whenever `selectedDate` is updated.
+    // This fetches meetings.
+    // It should happen whenever `selectedDate` is updated.
+    // It should not be called `requestRooms`, probably.
     this.props.requestRooms();
   }
 
-  leftPaneContent() {
-    if (this.props.isEditingMeeting) { return <MeetingForm />; }
-    if (this.props.isCreatingMeeting) { return <MeetingForm />; }
-    if (this.props.isCancellingMeeting) { return (<MeetingCancel />); }
-    return (<Calendar selectedDate={this.props.selectedDate} />);
-  }
-
   render() {
+    const {
+      user,
+      meetings,
+      rooms,
+      onLogoutClick,
+    } = this.props;
+
     return (
-      <div className={styles.app}>
-        <div className={styles.container}>
-          <div className={styles.leftPane}>
-            { this.leftPaneContent() }
-            <Messages messages={this.props.messages} />
-            <ReservationList
-              roomMeetings={this.props.rooms}
-              handleEditClick={this.props.populateMeetingEditForm}
-            />
-          </div>
-          <div className={styles.user}>
-            <span className={styles.hello}>Hello</span>
-            <span className={styles.name}>
-              { this.props.userName }!
-            </span>
-            <span className={styles.logout} onClick={this.props.logout}>Log Out</span>
-          </div>
+      <div className={styles.dashboard}>
+        <InfoPanel />
+        <main>
+          <Header user={user} logout={onLogoutClick} />
           <Agenda
-            roomMeetings={this.props.rooms}
+            meetings={meetings}
+            rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
-        </div>
+        </main>
       </div>
     );
   }
 }
 
 DashboardContainer.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
   requestRooms: PropTypes.func,
-  userName: PropTypes.string,
-  rooms: PropTypes.arrayOf(PropTypes.object),
   populateMeetingCreateForm: PropTypes.func.isRequired,
-  populateMeetingEditForm: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool,
-  isCreatingMeeting: PropTypes.bool.isRequired,
-  isCancellingMeeting: PropTypes.bool,
-  messages: PropTypes.arrayOf(PropTypes.string),
-  logout: PropTypes.func.isRequired,
-  selectedDate: PropTypes.shape({}),
+  onLogoutClick: PropTypes.func.isRequired,
+  meetings: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: momentPropTypes.momentObj.isRequired,
+      end: momentPropTypes.momentObj.isRequired,
+      duration: PropTypes.number.isRequired,
+      isOwnedByUser: PropTypes.bool.isRequired,
+      owner: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+      }).isRequired,
+      roomName: PropTypes.string.isRequired,
+      roomId: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  rooms: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
-const mapMeeting = (roomMeetings, user, requestedMeeting = {}) => {
-  const meetings = roomMeetings.meetings.map(meeting => {
-    const startMoment = moment(meeting.start);
-    const endMoment = moment(meeting.end);
-    const duration = endMoment.diff(startMoment, 'minutes') / 60;
-    const isOwnedByUser = meeting.owner && (user.email === meeting.owner.email);
-    const isSelected = meeting.id === requestedMeeting.id;
 
-    return {
-      room: roomMeetings.room,
-      id: meeting.id,
-      startTime: moment(meeting.start).format('YYYY-MM-DDTHH:mm:ssZ'),
-      duration,
-      start: moment(meeting.start),
-      end: moment(meeting.end),
-      isOwnedByUser,
-      participants: meeting.participants,
-      owner: meeting.owner,
-      title: meeting.title,
-      isSelected,
-    };
-  });
+const mapStateToProps = state => {
+  const {
+    allMeetingIds,
+    meetingsById,
+    allRoomIds,
+    roomsById,
+    selectedDate,
+    isCreatingMeeting,
+    isEditingMeeting,
+    isCancellingMeeting,
+    meetingEditForm,
+    messages,
+    requestedMeeting,
+  } = state.app;
 
-  return {
-    room: roomMeetings.room,
+  const meetings = allMeetingIds
+    .map(id => meetingsById[id])
+    .filter(meeting => isMeetingOnDate(meeting, selectedDate))
+    .map(meeting => ({
+      ...meeting,
+      isOwnedByUser: meeting.owner.email === state.user.email }));
+
+  const rooms = allRoomIds.map(id => roomsById[id]);
+
+  return ({
+    user: state.user,
     meetings,
-  };
+    rooms,
+    isCreatingMeeting,
+    isEditingMeeting,
+    isCancellingMeeting,
+    meetingEditForm,
+    messages,
+    selectedDate,
+    requestedMeeting,
+  });
 };
-
-const mapStateToProps = state => ({
-  userName: state.user.name,
-  // TODO: Rename `rooms`. This is not really a list of rooms.
-  rooms: state.app.meetings.map(rm => mapMeeting(rm, state.user, state.app.requestedMeeting)),
-  isCreatingMeeting: state.app.isCreatingMeeting,
-  isEditingMeeting: state.app.isEditingMeeting,
-  isCancellingMeeting: state.app.isCancellingMeeting,
-  meetingEditForm: state.app.meetingEditForm,
-  messages: state.app.messages,
-  selectedDate: moment(state.app.selectedDate),
-  requestedMeeting: state.app.requestedMeeting,
-});
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {
@@ -132,7 +128,7 @@ const mapDispatchToProps = dispatch => ({
   populateMeetingEditForm: meeting => {
     dispatch(populateMeetingEditForm(meeting));
   },
-  logout: () => {
+  onLogoutClick: () => {
     dispatch(logout());
   },
 });

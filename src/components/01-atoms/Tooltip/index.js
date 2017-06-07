@@ -1,66 +1,44 @@
 import React, { PropTypes } from 'react';
 
-import moment from 'moment';
+import TooltipAnchor from './TooltipAnchor';
+import TooltipContent from './TooltipContent';
 
-import styles from './styles.scss';
-
-import calculateTooltipOffset from '../../../utils/calculateTooltipOffset';
-import calculateWidth from '../../../utils/calculateWidth';
-
-const Tooltip = ({
-  tooltipOffset, title, startTime, duration, roomTitle, isOwnedByUser, owner, visible,
-}) => {
-  const style = {
-    display: 'block',
-    opacity: visible ? 1 : 0,
-    left: visible ? calculateTooltipOffset(duration) : -99999,
-  };
-
-  const anchorStyle = {
-    width: calculateWidth(duration) + 20.0,
-  };
-
-  const tooltipStyle = {
-    left: tooltipOffset,
-  };
-
-  const meetingStartTime = moment(startTime);
-  const meetingEndTime = meetingStartTime.clone().add(duration, 'hours');
-
-  const truncatePhrase = (phrase) => {
-    const TITLE_LENGTH = 25;
-    return `${phrase.slice(0, TITLE_LENGTH)} ...`;
-  };
-
-  return (<div className={styles.tooltip} style={style}>
-    <div style={anchorStyle} className={styles.anchorContainer}>
-      <div style={tooltipStyle} className={styles.anchor} />
-    </div>
-    <div className={styles.content}>
-      <p>
-        <strong>{ truncatePhrase(title) }</strong>
-        { meetingStartTime.format('h:mma') } - { meetingEndTime.format('h:mma') }
-      </p>
-      <p>
-        <strong>{ roomTitle } Room</strong>
-        by { isOwnedByUser ? 'me' : owner.name }
-      </p>
-    </div>
-  </div>);
-};
+const Tooltip = props => (
+  <div className={props.styles.tooltip} ref={props.tooltipRef}>
+    <TooltipAnchor
+      anchorContainerRef={props.anchorContainerRef}
+      anchorRef={props.anchorRef}
+      styles={props.styles}
+    />
+    <TooltipContent
+      title={props.title}
+      start={props.start}
+      end={props.end}
+      roomName={props.roomName}
+      owner={props.owner}
+      isOwnedByUser={props.isOwnedByUser}
+      styles={props.styles}
+      onEditClick={props.onEditClick}
+    />
+  </div>
+);
 
 Tooltip.propTypes = {
-  tooltipOffset: PropTypes.number,
-  title: PropTypes.string,
-  startTime: PropTypes.string,
-  roomTitle: PropTypes.string,
-  isOwnedByUser: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  start: PropTypes.shape({}).isRequired,
+  end: PropTypes.shape({}).isRequired,
+  roomName: PropTypes.string.isRequired,
   owner: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
+    name: PropTypes.string.isRequired,
   }),
-  visible: PropTypes.bool,
-  duration: PropTypes.number.isRequired,
+  isOwnedByUser: PropTypes.bool.isRequired,
+  tooltipRef: PropTypes.func.isRequired,
+  anchorContainerRef: PropTypes.func.isRequired,
+  anchorRef: PropTypes.func.isRequired,
+  styles: PropTypes.shape({
+    tooltip: PropTypes.string.isRequired,
+  }).isRequired,
+  onEditClick: PropTypes.func.isRequired,
 };
 
 export default Tooltip;

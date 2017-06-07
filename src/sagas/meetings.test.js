@@ -22,13 +22,14 @@ import {
 describe('Meetings Sagas', () => {
   const meeting = 'foo';
   const room = 'bar';
-  const action = { payload: { meeting, room } };
+  const token = '123456abcde';
+  const action = { payload: { meeting, room, token } };
 
   it('fetches meetings', () => {
     const meetings = [meeting];
     const generator = fetchMeetings();
 
-    expect(generator.next().value).toEqual(call(api.fetchMeetings));
+    expect(generator.next().value).toEqual(call(api.fetchMeetings, undefined, undefined));
     expect(generator.next(meetings).value)
       .toEqual(put(meetingsFetchSucceeded(meetings)));
     expect(generator.next().done).toBeTruthy();
@@ -45,7 +46,7 @@ describe('Meetings Sagas', () => {
   it('creates meetings', () => {
     const generator = createMeeting(action);
 
-    expect(generator.next().value).toEqual(call(api.createMeeting, meeting, room));
+    expect(generator.next().value).toEqual(call(api.createMeeting, meeting, room, token));
     expect(generator.next().value).toEqual(put(closeMeetingDialog()));
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')));
     expect(generator.next().value).toEqual(put(meetingCreateSucceeded()));
