@@ -28,8 +28,9 @@ class SearchableUserTable extends React.Component {
   }
 
   render() {
-    const { users } = this.props
+    const { users, onRemoveClick } = this.props
     let filterTextMatcher
+
     if (this.state.filterText.length > 0) {
       filterTextMatcher = new RegExp(this.state.filterText, 'i')
     }
@@ -50,7 +51,6 @@ class SearchableUserTable extends React.Component {
           teams={[
             { name: 'Designit', id: 'DESIGNIT' },
             { name: 'Buildit', id: 'BUILDIT' },
-            { name: 'Others', id: 'OTHERS' },
           ]}
           selectedTeam={this.state.filterTeam}
           handleSelectTeamChange={this.handleSelectTeamChange}
@@ -58,7 +58,13 @@ class SearchableUserTable extends React.Component {
         <table>
           <UserTableHeader />
           <tbody>
-            {filteredUsers.map(user => <UserTableRow key={user.email} user={user} />)}
+            {filteredUsers.map(user => (
+              <UserTableRow
+                key={user.email}
+                user={user}
+                onRemoveClick={onRemoveClick}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -69,11 +75,13 @@ class SearchableUserTable extends React.Component {
 export default SearchableUserTable
 
 SearchableUserTable.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    team: PropTypes.string.isRequired,
-  })
-),
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      team: PropTypes.string.isRequired,
+    })
+  ),
+  onRemoveClick: PropTypes.func.isRequired,
 }

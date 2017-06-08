@@ -13,6 +13,10 @@ import {
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
+  OPEN_REMOVE_USER_DIALOG,
+  CLOSE_CONFIRMATION_DIALOG,
+  USER_REMOVE_SUCCEEDED,
+  USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot'
@@ -30,6 +34,8 @@ const initialState = {
   isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
+  isRemovingUser: false,
+  userToBeRemoved: '',
   meetingEditForm: {
     title: '',
     startTime: moment(),
@@ -103,7 +109,7 @@ const app = (state = initialState, action) => {
   }
   case CLOSE_CANCELLATION_DIALOG:
   case CREATE_MEETING_CANCEL:
-  case CLOSE_MEETING_DIALOG:
+  case CLOSE_MEETING_DIALOG: {
     return {
       ...state,
       isCreatingMeeting: false,
@@ -112,6 +118,36 @@ const app = (state = initialState, action) => {
       messages: [],
       requestedMeeting: {},
     }
+  }
+  case OPEN_REMOVE_USER_DIALOG: {
+    const userToBeRemoved = action.payload
+    return {
+      ...state,
+      isRemovingUser: true,
+      userToBeRemoved,
+    }
+  }
+  case CLOSE_CONFIRMATION_DIALOG: {
+    return {
+      ...state,
+      isRemovingUser: false,
+      userToBeRemoved: '',
+    }
+  }
+  case USER_REMOVE_SUCCEEDED: {
+    const userEmail = action.payload
+    return {
+      ...state,
+      messages: [`Fare thee well, ${userEmail}!`],
+    }
+  }
+  case USER_REMOVE_FAILED: {
+    const message = action.payload
+    return {
+      ...state,
+      messages: [message],
+    }
+  }
   case MEETING_CREATE_FAILED: {
     return { ...state, messages: [action.payload.message] }
   }
