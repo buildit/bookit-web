@@ -1,11 +1,13 @@
 # Bookit
 
+[![Build Status](https://travis-ci.org/buildit/bookit-web.svg?branch=master)](https://travis-ci.org/buildit/bookit-web) [![Coverage Status](https://coveralls.io/repos/github/buildit/bookit-web/badge.svg?branch=master)](https://coveralls.io/github/buildit/bookit-web?branch=master)
+
 Bookit is a web app aimed at providing a neat way to book meeting rooms in the Designit/Buildit office in Brooklyn.
 
 ## Quick start
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 ## Useful scripts
@@ -16,18 +18,18 @@ npm test
 
 Run tests and watch for changes
 ```
-npm run test-watch
+npm run test:unit:watch
 ```
 
 See a terrifying chart that reveals all the untested code 😱
 ```
-npm run test-coverage
+npm run test:unit:coverage
 
 ```
 
-Run in-browser tests against Chrome and Firefox. You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
+Run in-browser tests against Chrome. You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
 ```
-npm run test-functional
+npm run test:functional
 ```
 
 ## Existing functionality
@@ -73,17 +75,6 @@ These credentials are [hardcoded into the server, along with a few other sample 
 
 [Calendar module PDF](/docs/CalendarModule.pdf)
 
-## React Storybook
-We used [Storybook](https://storybooks.js.org/) at the beginning of this project to quickly build out UI components before we had wired up the application state. Some of the stories need to be updated to match the new component apis. (See [Technical debt](##technical-debt).)
-
-To run Storybook:
-
-```
-npm run Storybook
-```
-
-Note! Storybook runs on Webpack 1. Our app uses Webpack 2. We have tried to make the two webpack configs as similar as possible, but you might encounter friction between the two. Storybook's webpack modifications can be found in `.storybook/webpack.config.js`.
-
 ## Outstanding questions
 In order for this app to work as expected, we need the answers to some specific questions (in this case, these questions were directed to
 Designit IT). These questions are currently outstanding:
@@ -112,30 +103,21 @@ Peter Monks - Buildit (@monksp-buildit)
 Tiani Jones - Buildit (@tianioriginal)
 
 ## Configuration
-We are using [Kyt](https://open.blogs.nytimes.com/2016/09/13/introducing-kyt-our-web-app-configuration-toolkit/?_r=0) to manage the configuration of our React app. This means that rather than explicitly defining our config here, we allow Kyt abstract away things like the configuration for Webpack, linters, and test runners.
+Bookit was bootstrapped from [React Skellington](https://github.com/buildit/react-skellington).
 
-The app was bootstrapped with Kyt's `kyt-static-starter`. It is not necessary to globally install Kyt to run the app, but in case you want to retrace our steps, do this:
+Configuration can be tweaked via changes to `webpack.config.babel.js`.
 
-```
-npm install -g kyt-cli
-kyt-cli setup
-```
+Deeper changes can be made via the modules under `webpack/parts`
 
-The Kyt CLI will ask you some questions. We went with the static app:
-
+The following files give control over the project:
 ```
-? Choose a starter-kyt: static
-```
-
-This gave us a starting point, but we needed to make some modifications to Kyt's base configuration. See the following for our changes:
-```
-kyt.config.js
 .eslintrc.json
 .stylelintrc.json
-.bablerc
+.browserlistrc
+webpack.config.babel.js
 ```
 
-It can be really useful to see Kyt's original webpack config. One easy way to do that is to look at the source code for [kyt-core](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core), particularly the [config folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/config). You can see the webpacks for dev and prod here. The [actions folder](https://github.com/NYTimes/kyt/tree/master/packages/kyt-core/cli/actions), which contains the scripts that run tests, lints your code, and [performs other interesting tricks](https://github.com/NYTimes/kyt/blob/master/docs/commands.md), is also helpful.
+Changes to `.babelrc` are NOT recommended (except for the addition/removal of plugins). Babel configuration should be modified through `webpack/parts/javascript.js`
 
 ## CI & Deployment
 We are using Travis to manage continuous integration.

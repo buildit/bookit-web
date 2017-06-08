@@ -39,6 +39,7 @@
     "babel-preset-react": "^6.24.1",
     "babili-webpack-plugin": "^0.1.1",
     "clean-webpack-plugin": "^0.1.16",
+    "coveralls": "^2.13.1",
     "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
@@ -93,7 +94,7 @@
     "lint": "npm-run-all lint:style lint:js",
     "lint:js": "eslint src/ test/ --cache",
     "lint:style": "stylelint src/**/*.scss src/**/*.css",
-    "test": "npm run test:unit",
+    "test": "npm-run-all lint test:unit",
     "test:unit": "jest",
     "test:unit:coverage": "jest --coverage",
     "test:unit:watch": "jest --watch",
@@ -110,7 +111,11 @@
     "testEnvironment": "jsdom",
     "testRegex": "\\.test.js$",
     "collectCoverageFrom": [
-      "**/*.js"
+      "**/src/**/*.js"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov"
     ],
     "rootDir": ".",
     "globals": {
