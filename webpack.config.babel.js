@@ -69,6 +69,12 @@ const productionConfig = merge([
 
   parts.cleanPlugin({ path: PATHS.build, root: PATHS.root }),
 
+  parts.definePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production'),
+    },
+  }),
+
   parts.minifyJavascript(),
 
   parts.extractStyles(),
