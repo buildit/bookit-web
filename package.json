@@ -115,7 +115,7 @@
     ],
     "coverageReporters": [
       "text",
-      "lcov",
+      "lcov"
     ],
     "rootDir": ".",
     "globals": {
