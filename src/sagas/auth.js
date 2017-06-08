@@ -19,7 +19,7 @@ export function* login(action) {
     yield put(resetUi())
     yield put(loginSuccess())
     localStorage.setItem('user', JSON.stringify(user))
-    // history.push('/dashboard')
+    history.push('/')
   } catch (error) {
     // TODO: Catch meaningful errors from above
     // and pass them to `loginFailure`

@@ -9,7 +9,8 @@
   },
   "globals": {
     "jest": true,
-    "expect": true
+    "expect": true,
+    "fixture": true
   },
   "plugins": [
     "import",

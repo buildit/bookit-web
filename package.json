@@ -61,6 +61,7 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "stylelint": "^7.10.1",
+    "testcafe": "^0.15.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",
@@ -92,21 +93,28 @@
     "lint": "npm-run-all lint:style lint:js",
     "lint:js": "eslint src/ test/ --cache",
     "lint:style": "stylelint src/**/*.scss src/**/*.css",
-    "test": "jest"
+    "test": "jest",
+    "test:functional": "testcafe chrome ./src/functional-tests --app \"npm run dev\" --app-init-delay 10000"
   },
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "^[./a-zA-Z0-9!&$_-]+\\.(css|scss)$": "identity-obj-proxy"
     },
-    "testPathIgnorePatterns": [ "<rootDir>/(build|docs|node_modules|images)/" ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|docs|node_modules|images)/"
+    ],
     "testEnvironment": "jsdom",
     "testRegex": "\\.test.js$",
-    "collectCoverageFrom": [ "**/*.js" ],
+    "collectCoverageFrom": [
+      "**/*.js"
+    ],
     "rootDir": ".",
     "globals": {
       "window": {}
     },
-    "setupFiles": [ "<rootDir>/__mocks__/storageMock.js" ]
+    "setupFiles": [
+      "<rootDir>/__mocks__/storageMock.js"
+    ]
   }
 }

@@ -38,7 +38,7 @@ class InfoPanel extends React.Component {
 
     let content = []
 
-    if (this.pathName === 'dashboard' || this.pathName === '/dashboard') {
+    if (this.pathName === '' || this.pathName === '/') {
       content.push(
         <Calendar key="0" />,
         <ReservationList
