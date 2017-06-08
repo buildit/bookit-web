@@ -50,7 +50,6 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.28.0",
     "identity-obj-proxy": "^3.0.0",
-    "ignore-styles": "^5.0.1",
     "jest": "^20.0.4",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.0.2",
@@ -88,12 +87,16 @@
     "url": "git+ssh://git@github.com/buildit/bookit-web.git"
   },
   "scripts": {
+    "start": "npm run dev",
     "dev": "webpack-dev-server --env development",
     "build": "webpack --env production",
     "lint": "npm-run-all lint:style lint:js",
     "lint:js": "eslint src/ test/ --cache",
     "lint:style": "stylelint src/**/*.scss src/**/*.css",
-    "test": "jest",
+    "test": "npm run test:unit",
+    "test:unit": "jest",
+    "test:unit:coverage": "jest --coverage",
+    "test:unit:watch": "jest --watch",
     "test:functional": "testcafe chrome ./src/functional-tests --app \"npm run dev\" --app-init-delay 10000"
   },
   "jest": {

@@ -80,7 +80,7 @@ const productionConfig = merge([
   parts.generateSourceMaps('source-map'),
 ])
 
-export default env => {
+export default (env) => {
   process.env.NODE_ENV = env
   process.env.BABEL_ENV = env
 
