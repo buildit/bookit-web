@@ -1,14 +1,16 @@
-import React, { PropTypes } from 'react';
-import { Field } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
-import DateTimePicker from '../DateTimePicker/index';
-import Button from '../../01-atoms/Button/index';
-import ErrorMessages from '../ErrorMessages';
-import styles from './styles.scss';
-// TODO: replace Cancel button with svg asset.
-const images = require.context('../../../assets/images', true);
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' };
+import { Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
+import DateTimePicker from '../DateTimePicker/index'
+import Button from '../../01-atoms/Button/index'
+import ErrorMessages from '../ErrorMessages'
+import styles from './styles.scss'
+// TODO: replace Cancel button with svg asset.
+const images = require.context('../../../assets/images', true)
+
+const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' }
 
 const MeetingForm = ({
   handleSubmit,
@@ -28,11 +30,11 @@ const MeetingForm = ({
     : (<div className={styles.buttons}>
       <Button disabled={invalid} onClick={() => handleDeleteClick()} content="Delete" />
       <Button disabled content="Save" />
-    </div>);
+    </div>)
 
   const header = isCreatingMeeting
     ? <div className={styles.room}>Book {room.name} Room</div>
-    : <div className={styles.room}>Edit Event Info</div>;
+    : <div className={styles.room}>Edit Event Info</div>
 
   return (
     <div className={styles.editor}>
@@ -40,8 +42,8 @@ const MeetingForm = ({
       { header }
       <form
         onSubmit={(event) => {
-          event.preventDefault();
-          handleSubmit(meeting, room, token);
+          event.preventDefault()
+          handleSubmit(meeting, room, token)
         }}
       >
         <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} style={meetingTitleStyle} />
@@ -51,8 +53,8 @@ const MeetingForm = ({
         <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
       </form>
     </div>
-   );
-};
+  )
+}
 
 MeetingForm.propTypes = {
   invalid: PropTypes.bool,
@@ -73,6 +75,6 @@ MeetingForm.propTypes = {
   }),
   handleDeleteClick: PropTypes.func.isRequired,
   isCreatingMeeting: PropTypes.bool.isRequired,
-};
+}
 
-export default MeetingForm;
+export default MeetingForm

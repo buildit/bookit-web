@@ -1,15 +1,17 @@
-import React, { PropTypes } from 'react';
-import momentPropTypes from 'react-moment-proptypes';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import roomTimelineNames from '../../01-atoms/RoomTimelineNames';
-import timelineLabelList from '../../01-atoms/TimelineLabelList';
-import currentTimeIndicator from '../../01-atoms/CurrentTimeIndicator';
+import momentPropTypes from 'react-moment-proptypes'
 
-import RoomTimeline from '../../02-molecules/RoomTimeline';
+import roomTimelineNames from '../../01-atoms/RoomTimelineNames'
+import timelineLabelList from '../../01-atoms/TimelineLabelList'
+import currentTimeIndicator from '../../01-atoms/CurrentTimeIndicator'
 
-import styles from './styles.scss';
+import RoomTimeline from '../../02-molecules/RoomTimeline'
 
-const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map((room) => (
+import styles from './styles.scss'
+
+const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map(room => (
   <RoomTimeline
     key={room.name}
     meetings={meetings.filter(meeting => meeting.roomId === room.id)}
@@ -19,7 +21,7 @@ const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => room
     }}
     populateMeetingCreateForm={populateMeetingCreateForm}
   />
-));
+))
 
 const Agenda = ({ meetings = [], rooms = [], populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
@@ -32,7 +34,7 @@ const Agenda = ({ meetings = [], rooms = [], populateMeetingCreateForm }) => (
       { currentTimeIndicator() }
     </div>
   </div>
-  );
+  )
 
 Agenda.propTypes = {
   populateMeetingCreateForm: PropTypes.func.isRequired,
@@ -58,6 +60,6 @@ Agenda.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
-};
+}
 
-export default Agenda;
+export default Agenda

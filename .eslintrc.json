@@ -1,26 +1,41 @@
+
 {
-  "extends": [
-    "eslint-config-kyt",
-    "plugin:testcafe/recommended"
-  ],
-
   "parser": "babel-eslint",
-
   "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "mocha": true
   },
-
+  "globals": {
+    "jest": true,
+    "expect": true,
+    "fixture": true
+  },
   "plugins": [
-    "testcafe"
+    "import",
+    "react"
   ],
-
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended"
+  ],
   "rules": {
-    "jsx-a11y/no-static-element-interactions": 0,
-    "arrow-parens": 0,
-    "react/no-unused-prop-types": [
-      2,
-      {
-        "skipShapeProps": true
-      }
-    ]
+    "semi": [ 2, "never" ],
+    "indent": [ 2, 2 ],
+    "no-console": 0,
+    "arrow-parens": [ 1, "as-needed", { "requireForBlockBody": true } ],
+    "comma-dangle": [ 2, {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
   }
 }

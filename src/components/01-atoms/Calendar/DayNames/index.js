@@ -1,13 +1,15 @@
-import React from 'react';
-import styles from './styles.scss';
-import { day as config } from '../config';
+import React from 'react'
+
+import { day as config } from '../config'
+
+import styles from './styles.scss'
 
 const style = {
   width: `${config.size}rem`,
   height: `${config.size}rem`,
   padding: `${config.padding}rem`,
   fontSize: `${config.fontSize}rem`,
-};
+}
 
 const DayNames = () => (
   <div className={styles.dayNames}>
@@ -19,6 +21,6 @@ const DayNames = () => (
       >{day}</span>
     ))}
   </div>
-);
+)
 
-export default DayNames;
+export default DayNames

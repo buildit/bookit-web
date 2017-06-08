@@ -3,17 +3,17 @@
 // return the first day of the week for all weeks in that calendar month.
 
 const firstDayOfEachWeek = (firstDayOfMonth, monthIndex) => {
-  const date = firstDayOfMonth.clone();
-  const firstDays = [];
-  let done = false;
+  const date = firstDayOfMonth.clone()
+  const firstDays = []
+  let done = false
 
   do {
-    firstDays.push(date.clone());
-    date.add(1, 'week');
-    done = monthIndex !== date.month();
-  } while (!done);
+    firstDays.push(date.clone())
+    date.add(1, 'week')
+    done = monthIndex !== date.month()
+  } while (!done)
 
-  return firstDays;
-};
+  return firstDays
+}
 
-export default firstDayOfEachWeek;
+export default firstDayOfEachWeek

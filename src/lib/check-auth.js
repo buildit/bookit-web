@@ -1,57 +1,47 @@
-import { setClient } from '../actions';
+import { setClient } from '../actions'
 
-function checkAuthorization(dispatch) {
-  const storedUser = localStorage.getItem('user');
+/**
+ * Ehhhhhhhhhhhhhh... Needs a little more cleanup, but in general
+ * we kinda dumbly trust a user from localStorage if there is no user
+ * in state.
+ *
+ * It is entirely possible that I suck at branching logic
+ */
+
+const isUser = user => user.id && user.email && user.token
+const isAdmin = user => isUser(user) && (user.id === 1 || user.email === 'rasmus@designit.com')
+
+const checkStoredAuthorization = (dispatch, verifyUser) => {
+  const storedUser = localStorage.getItem('user')
 
   if (storedUser) {
-    const user = JSON.parse(storedUser);
-    // const created = Math.round(createdDate.getTime() / 1000);
-    // const ttl = 1209600;
-    // const expiry = created + ttl;
+    const user = JSON.parse(storedUser)
+
+    // We need a better system here to verify a user from localStorage
+    // is who they say they are, and additionally verify the JWT token
+
+    // const created = Math.round(createdDate.getTime() / 1000)
+    // const ttl = 1209600
+    // const expiry = created + ttl
 
     // if the user has expired return false
-    // if (created > expiry) return false;
-    dispatch(setClient(user));
-    return true;
+    // if (created > expiry) return false
+
+    dispatch(setClient(user))
+    return verifyUser(user)
   }
 
-  return false;
+  return false
 }
 
-export function checkIndexAuthorization({ dispatch }) {
-  return (nextState, replace, next) => {
-    if (checkAuthorization(dispatch)) {
-      replace('dashboard');
-      return next();
-    }
-
-    replace('login');
-    return next();
-  };
+export function isAuthorizedUser(user, dispatch) {
+  if (!isUser(user))
+    return checkStoredAuthorization(dispatch, isUser)
+  return true
 }
 
-export function checkDashboardAuthorization({ dispatch, getState }) {
-  return (nextState, replace, next) => {
-    const user = getState().user;
-
-    if (user) return next();
-
-    if (checkAuthorization(dispatch)) return next();
-
-    replace('login');
-    return next();
-  };
-}
-
-export function checkAdminAuthorization({ dispatch, getState }) {
-  return (nextState, replace, next) => {
-    if (checkAuthorization(dispatch)) {
-      const user = getState().user;
-      if (user.id === 1 || user.email === 'rasmus@designit.com') {
-        return next();
-      }
-    }
-    replace('forbidden');
-    return next();
-  };
+export function isAuthorizedAdmin(user, dispatch) {
+  if (!isUser(user))
+    return checkStoredAuthorization(dispatch, isAdmin)
+  return isAdmin(user)
 }

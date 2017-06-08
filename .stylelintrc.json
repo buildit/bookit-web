@@ -1,6 +1,5 @@
 {
-  "extends": "stylelint-config-kyt",
-
   "rules": {
+    "color-hex-case": "lower"
   }
 }

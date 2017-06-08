@@ -1,16 +1,18 @@
-import React, { PropTypes } from 'react';
-import { Field } from 'redux-form';
-import { DatePicker, TimePicker } from 'redux-form-material-ui';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import styles from './styles.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-injectTapEventPlugin();
+import { Field } from 'redux-form'
+import { DatePicker, TimePicker } from 'redux-form-material-ui'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import styles from './styles.scss'
+
+injectTapEventPlugin()
 
 const DateTimePicker = ({ name, label, error }) => {
-  const datePickerStyle = { display: 'inline-block' };
-  const datePickerTextFieldStyle = { width: '150px', fontSize: '18px', fontWeight: '100' };
-  const timePickerStyle = datePickerStyle;
-  const timePickerTextFieldStyle = { width: '68px', fontSize: '18px', fontWeight: '100' };
+  const datePickerStyle = { display: 'inline-block' }
+  const datePickerTextFieldStyle = { width: '150px', fontSize: '18px', fontWeight: '100' }
+  const timePickerStyle = datePickerStyle
+  const timePickerTextFieldStyle = { width: '68px', fontSize: '18px', fontWeight: '100' }
 
   return (
     <div className={styles.dateTimePicker} >
@@ -33,13 +35,13 @@ const DateTimePicker = ({ name, label, error }) => {
         textFieldStyle={timePickerTextFieldStyle}
       />
     </div>
-  );
-};
+  )
+}
 
 DateTimePicker.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   error: PropTypes.string,
-};
+}
 
-export default DateTimePicker;
+export default DateTimePicker

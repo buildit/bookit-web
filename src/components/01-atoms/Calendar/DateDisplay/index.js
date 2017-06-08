@@ -1,19 +1,21 @@
-import React, { PropTypes } from 'react';
-import moment from 'moment';
-import momentPropTypes from 'react-moment-proptypes';
-import { connect } from 'react-redux';
-import styles from './styles.scss';
-import { selectDate } from '../../../../actions';
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import moment from 'moment'
+import momentPropTypes from 'react-moment-proptypes'
+import { connect } from 'react-redux'
+import styles from './styles.scss'
+import { selectDate } from '../../../../actions'
 
 const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackClick }) => {
-  let today = null;
+  let today = null
   if (!date.isSame(moment(), 'day')) {
     today = (<div
       className={styles.today}
       onClick={() => handleTodayClick()}
     >
       Today
-    </div>);
+    </div>)
   }
   return (
     <div className={styles.dateDisplay}>
@@ -29,18 +31,18 @@ const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackCli
       </div>
       <div className={styles.future} onClick={handleForwardClick(date)} />
     </div>
-  );
-};
+  )
+}
 
 DateDisplay.propTypes = {
   date: momentPropTypes.momentObj,
   handleTodayClick: PropTypes.func.isRequired,
   handleBackClick: PropTypes.func.isRequired,
   handleForwardClick: PropTypes.func.isRequired,
-};
+}
 
 const mapDispatchToProps = dispatch => ({
   handleTodayClick: () => dispatch(selectDate(moment())),
-});
+})
 
-export default connect(null, mapDispatchToProps)(DateDisplay);
+export default connect(null, mapDispatchToProps)(DateDisplay)
