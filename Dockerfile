@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 # Copy app files
-COPY build/public /usr/share/nginx/html
+COPY build /usr/share/nginx/html
 # Install SPA-friendly config
 COPY nginx/default.conf /etc/nginx/conf.d/
 # Install JQ to work with JSON configs
