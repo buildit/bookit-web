@@ -13,7 +13,7 @@ const calculateOffset = () => {
   return (WIDTH * (hour + (minutes / 60)))
 }
 
-const calculatedStyle = {
+export const calculatedStyle = {
   left: calculateOffset(),
 }
 

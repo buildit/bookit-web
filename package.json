@@ -93,7 +93,7 @@
     "lint": "npm-run-all lint:style lint:js",
     "lint:js": "eslint src/ test/ --cache",
     "lint:style": "stylelint src/**/*.scss src/**/*.css",
-    "test": "npm run test:unit",
+    "test": "npm-run-all lint test:unit",
     "test:unit": "jest",
     "test:unit:coverage": "jest --coverage",
     "test:unit:watch": "jest --watch",
@@ -110,7 +110,10 @@
     "testEnvironment": "jsdom",
     "testRegex": "\\.test.js$",
     "collectCoverageFrom": [
-      "**/*.js"
+      "**/src/**/*.js"
+    ],
+    "coverageReporters": [
+      "text", "text-summary", "html"
     ],
     "rootDir": ".",
     "globals": {
