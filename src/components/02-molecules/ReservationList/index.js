@@ -35,7 +35,6 @@ ReservationList.propTypes = {
       start: momentPropTypes.momentObj.isRequired,
       end: momentPropTypes.momentObj.isRequired,
       duration: PropTypes.number.isRequired,
-      isOwnedByUser: PropTypes.bool.isRequired,
       owner: PropTypes.shape({
         name: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
