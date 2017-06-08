@@ -4,7 +4,7 @@ import { loadHtml, loadAssets } from './asset'
 
 import { devServer, hotloader } from './devserver'
 
-import { cleanPlugin, noErrorsPlugin, namedModulesPlugin, hashedModuleIdsPlugin } from './plugins'
+import { cleanPlugin, noErrorsPlugin, namedModulesPlugin, hashedModuleIdsPlugin, definePlugin } from './plugins'
 import { page } from './page'
 import { stats } from './stats'
 
@@ -13,7 +13,7 @@ export default {
   loadStyles, lintStyles, extractStyles,
   loadHtml, loadAssets,
   devServer, hotloader,
-  cleanPlugin, noErrorsPlugin, namedModulesPlugin, hashedModuleIdsPlugin,
+  cleanPlugin, noErrorsPlugin, namedModulesPlugin, hashedModuleIdsPlugin, definePlugin,
   page,
   stats,
 }

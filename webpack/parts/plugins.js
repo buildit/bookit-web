@@ -1,4 +1,4 @@
-import { NamedModulesPlugin, NoEmitOnErrorsPlugin, HashedModuleIdsPlugin } from 'webpack'
+import { NamedModulesPlugin, NoEmitOnErrorsPlugin, HashedModuleIdsPlugin, DefinePlugin } from 'webpack'
 
 import  CleanWebpackPlugin from 'clean-webpack-plugin'
 
@@ -23,5 +23,11 @@ export const namedModulesPlugin = () => ({
 export const hashedModuleIdsPlugin = () => ({
   plugins: [
     new HashedModuleIdsPlugin,
+  ],
+})
+
+export const definePlugin = obj => ({
+  plugins: [
+    new DefinePlugin(obj),
   ],
 })

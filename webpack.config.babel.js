@@ -69,6 +69,12 @@ const productionConfig = merge([
 
   parts.cleanPlugin({ path: PATHS.build, root: PATHS.root }),
 
+  parts.definePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production'),
+    },
+  }),
+
   parts.minifyJavascript(),
 
   parts.extractStyles(),
@@ -80,7 +86,7 @@ const productionConfig = merge([
   parts.generateSourceMaps('source-map'),
 ])
 
-export default env => {
+export default (env) => {
   process.env.NODE_ENV = env
   process.env.BABEL_ENV = env
 
