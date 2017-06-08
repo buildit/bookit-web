@@ -1,10 +1,11 @@
 
-# Bookit Iteration #6: Demo Plan
+# Bookit Iteration #7: Demo Plan
 
-Demo date: Wednesday June 7, 2017
+Demo date: Wednesday June 14, 2017
 
-1) Cancelation functionality: UI and server-side
+1) Cancelation functionality: UI, server-side, and Outlook
 2) Admin user management: UI only
+3) Autho functionality: UI, server-side, and Azure AD
 
 ## Canceling a booking
 
