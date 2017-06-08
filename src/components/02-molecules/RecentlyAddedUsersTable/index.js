@@ -1,12 +1,14 @@
-import React, { PropTypes } from 'react';
-import moment from 'moment';
-import styles from './styles.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import moment from 'moment'
+import styles from './styles.scss'
 
 const isUserRecent = user => (
   user.dateAdded
   ? user.dateAdded.isAfter(moment().subtract(1, 'week'))
   : false
-);
+)
 
 const RecentlyAddedUsersTable = ({ users = [] }) => (
   <div className={styles.recentlyAddedUsersTable}>
@@ -23,9 +25,9 @@ const RecentlyAddedUsersTable = ({ users = [] }) => (
       }
     </table>
   </div>
-);
+)
 
-export default RecentlyAddedUsersTable;
+export default RecentlyAddedUsersTable
 
 RecentlyAddedUsersTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({
@@ -33,6 +35,6 @@ RecentlyAddedUsersTable.propTypes = {
     email: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
-  }),
+  })
 ),
-};
+}

@@ -1,5 +1,6 @@
-import moment from 'moment';
-import { USER_REMOVE_SUCCEEDED } from '../actions/actionTypes';
+import moment from 'moment'
+
+import { USER_REMOVE_SUCCEEDED } from '../actions/actionTypes'
 
 const fakeUsers = [
   {
@@ -77,18 +78,18 @@ const fakeUsers = [
   { name: 'Illyana Rasputin', location: 'New York', email: '5@designit.com', team: 'BUILDIT' },
   { name: 'Doug Ramsey', location: 'New York', email: '6@designit.com', team: 'BUILDIT' },
   { name: 'z', location: 'New York', email: 'zac@buildit.com', team: 'BUILDIT' },
-];
+]
 
 const users = (state = fakeUsers, action) => {
   switch (action.type) {
-    case USER_REMOVE_SUCCEEDED: {
-      const emailOfRemovedUser = action.payload;
-      return state.filter(_user => _user.email !== emailOfRemovedUser);
-    }
-    default: {
-      return state;
-    }
+  case USER_REMOVE_SUCCEEDED: {
+    const emailOfRemovedUser = action.payload
+    return state.filter(_user => _user.email !== emailOfRemovedUser)
   }
-};
+  default: {
+    return state
+  }
+  }
+}
 
-export default users;
+export default users

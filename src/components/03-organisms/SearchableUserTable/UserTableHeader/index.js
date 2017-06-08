@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const UserTableHeader = () => (
   <thead>
@@ -8,6 +8,6 @@ const UserTableHeader = () => (
       <td>Email</td>
     </tr>
   </thead>
-);
+)
 
-export default UserTableHeader;
+export default UserTableHeader

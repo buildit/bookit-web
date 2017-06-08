@@ -1,14 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { reduxForm, Field } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
-import { CircularProgress, RaisedButton } from 'material-ui';
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
+import { CircularProgress, RaisedButton } from 'material-ui'
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import styles from './styles.scss';
+import styles from './styles.scss'
 
-import { loginRequest } from '../../actions';
+import { loginRequest } from '../../actions'
 
 class Login extends React.Component {
 
@@ -23,7 +24,7 @@ class Login extends React.Component {
   }
 
   submit = ({ email, password }) => {
-    this.props.loginRequest({ email, password });
+    this.props.loginRequest({ email, password })
   }
 
   render() {
@@ -33,7 +34,7 @@ class Login extends React.Component {
         requesting,
         message,
       },
-    } = this.props;
+    } = this.props
 
     return (
       <div className={styles.login}>
@@ -73,16 +74,16 @@ class Login extends React.Component {
           </div>
         </form>
       </div>
-    );
+    )
   }
 
 }
 
 const mapStateToProps = state => ({
   login: state.login,
-});
+})
 
-const connected = connect(mapStateToProps, { loginRequest })(Login);
-const formed = reduxForm({ form: 'login' })(connected);
+const connected = connect(mapStateToProps, { loginRequest })(Login)
+const formed = reduxForm({ form: 'login' })(connected)
 
-export default formed;
+export default formed

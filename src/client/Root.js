@@ -1,28 +1,28 @@
-import React from 'react';
-import Router from 'react-router/lib/Router';
-import { Provider } from 'react-redux';
-import browserHistory from 'react-router/lib/browserHistory';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import bookitTheme from './bookitTheme';
-import configureStore from '../configureStore';
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 
-import routes from '../routes';
-import rootSaga from '../sagas';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import bookitTheme from './bookitTheme'
 
-const store = configureStore();
-store.runSaga(rootSaga);
+import history from '../history'
+import routes from '../routes'
 
-// We need a Root component for React Hot Loading.
-function Root() {
-  return (
-    <MuiThemeProvider muiTheme={getMuiTheme(bookitTheme)}>
-      <Provider store={store}>
-        <Router history={browserHistory} routes={routes(store)} />
-      </Provider>
-    </MuiThemeProvider>
-  );
+const Root = ({ store }) => (
+  <MuiThemeProvider muiTheme={getMuiTheme(bookitTheme)}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        { routes(store) }
+      </ConnectedRouter>
+    </Provider>
+  </MuiThemeProvider>
+)
+
+Root.propTypes = {
+  store: PropTypes.object,
 }
 
-export default Root;
+export default Root

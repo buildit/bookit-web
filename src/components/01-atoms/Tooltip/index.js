@@ -1,7 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import TooltipAnchor from './TooltipAnchor';
-import TooltipContent from './TooltipContent';
+import TooltipAnchor from './TooltipAnchor'
+import TooltipContent from './TooltipContent'
 
 const Tooltip = props => (
   <div className={props.styles.tooltip} ref={props.tooltipRef}>
@@ -21,7 +22,7 @@ const Tooltip = props => (
       onEditClick={props.onEditClick}
     />
   </div>
-);
+)
 
 Tooltip.propTypes = {
   title: PropTypes.string.isRequired,
@@ -39,6 +40,6 @@ Tooltip.propTypes = {
     tooltip: PropTypes.string.isRequired,
   }).isRequired,
   onEditClick: PropTypes.func.isRequired,
-};
+}
 
-export default Tooltip;
+export default Tooltip

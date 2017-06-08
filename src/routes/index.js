@@ -1,36 +1,27 @@
+import React from 'react'
 
-import React from 'react';
+import { Switch, Route } from 'react-router'
 
-import IndexRoute from 'react-router/lib/IndexRoute';
-import Route from 'react-router/lib/Route';
+import ProtectedRoute from './ProtectedRoute'
 
-import App from '../containers/App';
-import Login from '../containers/Login';
-import Dashboard from '../containers/Dashboard';
-import Admin from '../containers/Admin';
-import Forbidden from '../containers/Forbidden';
+import Dashboard from '../containers/Dashboard'
+import Admin from '../containers/Admin'
+import Login from '../containers/Login'
+import Forbidden from '../containers/Forbidden'
 
-import * as auth from '../lib/check-auth';
+import { isAuthorizedUser, isAuthorizedAdmin } from '../lib/check-auth'
 
-const routes = store => (
-  <Route path="/" component={App}>
-    <IndexRoute onEnter={auth.checkIndexAuthorization(store)} />
-    <Route onEnter={auth.checkAdminAuthorization(store)} path="/admin" component={Admin} />
-    <Route path="/login" component={Login} />
-    <Route path="/forbidden" component={Forbidden} />
-    <Route onEnter={auth.checkDashboardAuthorization(store)} path="/dashboard" component={Dashboard} />
-  </Route>
-);
+import styles from '../containers/App/styles.scss'
 
-// Unfortunately, HMR breaks when we dynamically resolve
-// routes so we need to require them here as a workaround.
-// https://github.com/gaearon/react-hot-loader/issues/288
-if (module.hot) {
-  require('../components/03-organisms/Agenda');    // eslint-disable-line global-require
-  require('../containers/Login');    // eslint-disable-line global-require
-  require('../containers/Dashboard');    // eslint-disable-line global-require
-  require('../containers/Forbidden'); // eslint-disable-line global-require
-  require('../containers/Admin'); // eslint-disable-line global-require
-}
+const routes = () => (
+  <div className={styles.app}>
+    <Switch>
+      <ProtectedRoute exact path="/" component={Dashboard} authTest={isAuthorizedUser} failTo="/login" />
+      <ProtectedRoute exact path="/admin" component={Admin} authTest={isAuthorizedAdmin} failTo="/forbidden" />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/forbidden" component={Forbidden} />
+    </Switch>
+  </div>
+)
 
-export default routes;
+export default routes
