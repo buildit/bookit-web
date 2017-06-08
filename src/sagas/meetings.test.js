@@ -20,10 +20,9 @@ import {
 } from './meetings';
 
 describe('Meetings Sagas', () => {
-  const meeting = 'foo';
+  const meeting = { room: 'Fuschia' };
   const room = 'bar';
   const token = '123456abcde';
-  const action = { payload: { meeting, room, token } };
 
   it('fetches meetings', () => {
     const meetings = [meeting];
@@ -44,6 +43,7 @@ describe('Meetings Sagas', () => {
   });
 
   it('creates meetings', () => {
+    const action = { payload: { meeting, room, token } };
     const generator = createMeeting(action);
 
     expect(generator.next().value).toEqual(call(api.createMeeting, meeting, room, token));
@@ -57,6 +57,7 @@ describe('Meetings Sagas', () => {
     const err = new Error({
       response: { body: { message: 'Foo' } },
     });
+    const action = { payload: { meeting, room, token } };
     const generator = createMeeting(action);
     const correct = put(meetingCreateFailed(
       err.response && err.response.body && err.response.body.message

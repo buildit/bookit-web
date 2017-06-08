@@ -8,6 +8,7 @@ import {
 } from './actionTypes';
 
 const normalizeMeetingsResponse = schedule => {
+  // Flatten meetings data
   const meetingsById = schedule.reduce((roomSchedule, curr) => {
     const meetings = curr.meetings || [];
     meetings.forEach(meeting => {
@@ -31,16 +32,19 @@ const normalizeMeetingsResponse = schedule => {
 
   const allMeetingIds = Object.keys(meetingsById);
 
-  const roomsById = allMeetingIds.map(id => meetingsById[id])
-    .reduce((rooms, curr) => {
-      rooms[curr.roomId] = {
-        name: curr.roomName,
-        id: curr.roomId,
+
+  // Flatten rooms data
+  const roomsById = schedule.map(roomSchedule => roomSchedule.room)
+    .reduce((_roomsById, room) => {
+      _roomsById[room.email] = {
+        name: room.name,
+        id: room.email,
       };
-      return rooms;
+      return _roomsById;
     }, {});
 
   // `allRoomIds` determines the order of the rooms.
+  // Currently sorted alphabetically.
   const allRoomIds = Object.keys(roomsById).sort();
 
   return {
