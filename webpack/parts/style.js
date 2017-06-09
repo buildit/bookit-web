@@ -10,6 +10,8 @@ const autoprefix = () => ({
   },
 })
 
+const cssClassNameScheme = '[name]-[local]--[hash:base64:5]'
+
 export const loadStyles = ({ include, exclude }) => ({
   module: {
     rules: [
@@ -28,7 +30,7 @@ export const loadStyles = ({ include, exclude }) => ({
               sourceMap: true,
               modules: true,
               camelCase: 'only',
-              localIdentName: '[name]-[local]--[hash:base64:5]',
+              localIdentName: cssClassNameScheme,
               importLoaders: 2,
             },
           },
@@ -83,7 +85,7 @@ export const extractStyles = ({ include, exclude } = {}) => {
             use: [
               {
                 loader: 'css-loader',
-                options: { sourceMap: true, modules: true, camelCase: 'only', localIdentName: '[name]-[local]', importLoaders: 2 },
+                options: { sourceMap: true, modules: true, camelCase: 'only', localIdentName: cssClassNameScheme, importLoaders: 2 },
               },
               autoprefix(),
               { loader: 'sass-loader', options: { sourceMap: true } },
@@ -95,4 +97,3 @@ export const extractStyles = ({ include, exclude } = {}) => {
     plugins: [ plugin ],
   }
 }
-
