@@ -26,7 +26,7 @@ const middlewareEnhancer = applyMiddleware(...middlewares)
 storeEnhancers.unshift(middlewareEnhancer)
 
 export default (initialState) => {
-  const composer = (window ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose)
+  const composer = (window ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : compose)
 
   const store = createStore(
     makeRootReducer(reducers),
@@ -48,4 +48,3 @@ export default (initialState) => {
 
   return store
 }
-
