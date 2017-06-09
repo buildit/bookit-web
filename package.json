@@ -98,7 +98,7 @@
     "test:unit": "jest",
     "test:unit:coverage": "jest --coverage",
     "test:unit:watch": "jest --watch",
-    "test:functional": "testcafe chrome ./src/functional-tests --app \"npm run dev\" --app-init-delay 10000"
+    "test:functional": "testcafe chrome ./src/functional-tests"
   },
   "jest": {
     "moduleNameMapper": {
