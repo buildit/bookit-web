@@ -4,6 +4,8 @@ import { shallow } from 'enzyme'
 import moment from 'moment'
 
 import Tooltip from '.'
+import TooltipAnchor from './TooltipAnchor'
+import TooltipContent from './TooltipContent'
 
 describe('<Tooltip />', () => {
   const props = {
@@ -34,5 +36,7 @@ describe('<Tooltip />', () => {
   it('does a thing', () => {
     const wrapper = shallow(<Tooltip {...props} />)
     expect(wrapper).toBeTruthy()
+    expect(wrapper.find(TooltipAnchor).length).toBe(1)
+    expect(wrapper.find(TooltipContent).length).toBe(1)
   })
 })
