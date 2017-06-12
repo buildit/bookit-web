@@ -11,8 +11,8 @@ test('Logging in sends you to the dashboard', async (t) => {
 
   const loginPage = new LoginPage()
   await t
-    .typeText(loginPage.emailInput, 'romans@myews.onmicrosoft.com')
-    .typeText(loginPage.passwordInput, 'enterprise: engage')
+    .typeText(loginPage.emailInput, 'z')
+    .typeText(loginPage.passwordInput, 'z')
     .click(loginPage.submitButton)
 
   // Once we've logged in, we should land on the dashboard.
