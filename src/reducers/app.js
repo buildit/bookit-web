@@ -13,6 +13,8 @@ import {
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
+  OPEN_INVITE_USER_DIALOG,
+  CLOSE_INVITE_USER_DIALOG,
   OPEN_REMOVE_USER_DIALOG,
   CLOSE_CONFIRMATION_DIALOG,
   USER_REMOVE_SUCCEEDED,
@@ -34,12 +36,17 @@ const initialState = {
   isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
+  isInvitingUser: false,
   isRemovingUser: false,
   userToBeRemoved: '',
   meetingEditForm: {
     title: '',
     startTime: moment(),
     endTime: moment(),
+  },
+  inviteUserForm: {
+    name: '',
+    email: '',
   },
 }
 
@@ -117,6 +124,18 @@ const app = (state = initialState, action) => {
       isCancellingMeeting: false,
       messages: [],
       requestedMeeting: {},
+    }
+  }
+  case OPEN_INVITE_USER_DIALOG: {
+    return {
+      ...state,
+      isInvitingUser: true,
+    }
+  }
+  case CLOSE_INVITE_USER_DIALOG: {
+    return {
+      ...state,
+      isInvitingUser: false,
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {

@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { USER_REMOVE_SUCCEEDED } from '../actions/actionTypes'
+import { USER_INVITE_SUCCEEDED, USER_REMOVE_SUCCEEDED } from '../actions/actionTypes'
 
 const fakeUsers = [
   {
@@ -82,6 +82,14 @@ const fakeUsers = [
 
 const users = (state = fakeUsers, action) => {
   switch (action.type) {
+  case USER_INVITE_SUCCEEDED: {
+    state.push({
+      name: action.payload.name,
+      location: 'New York',
+      email: action.payload.email,
+      team: 'BUILDIT'})
+    return state
+  }
   case USER_REMOVE_SUCCEEDED: {
     const emailOfRemovedUser = action.payload
     return state.filter(_user => _user.email !== emailOfRemovedUser)
