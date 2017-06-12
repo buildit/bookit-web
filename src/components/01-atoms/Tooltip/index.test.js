@@ -33,7 +33,7 @@ describe('<Tooltip />', () => {
     onEditClick: () => true,
   }
 
-  it('does a thing', () => {
+  it('renders itself and the <TooltipAnchor /> and <TooltipContent /> child nodes', () => {
     const wrapper = shallow(<Tooltip {...props} />)
     expect(wrapper).toBeTruthy()
     expect(wrapper.find(TooltipAnchor).length).toBe(1)
