@@ -17,7 +17,7 @@ describe('<ErrorMessages />', () => {
     expect(wrapper.find(ErrorMessage).first().prop('message')).toEqual(props.messages.test)
   })
 
-  it('filters messages on `allowableMessage`', () => {
+  it('filters <ErrorMessage /> messages on `allowableMessage`', () => {
     const props = {
       messages: {
         'test': 'one',
@@ -28,5 +28,10 @@ describe('<ErrorMessages />', () => {
     }
     const wrapper = shallow(<ErrorMessages {...props} />)
     expect(wrapper.find(ErrorMessage).length).toBe(2)
+  })
+
+  it('has no <ErrorMessage /> entries when nothing is passed', () => {
+    const wrapper = shallow(<ErrorMessages />)
+    expect(wrapper.find(ErrorMessages).length).toBe(0)
   })
 })
