@@ -13,7 +13,7 @@ const TooltipContent =
           <strong className={styles.roomTitle}>{ roomName } Room</strong>
           <p className="owner-name">by { isOwnedByUser ? 'me' : owner.name }</p>
         </div>
-        {isOwnedByUser ? <div onClick={() => onEditClick()} className={styles.edit}>Edit</div> : '' }
+        {isOwnedByUser ? <div onClick={onEditClick} className={styles.edit}>Edit</div> : '' }
       </div>
     </div>
 )
