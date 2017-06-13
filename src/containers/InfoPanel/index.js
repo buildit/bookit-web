@@ -68,6 +68,9 @@ class InfoPanel extends React.Component {
     }
 
     if (this.pathName === 'admin' || this.pathName === '/admin') {
+      content.push(
+        <div className={styles.invite} onClick={() => onInviteClick()}>Invite User </div>
+      )
       content.push(<RecentlyAddedUsersTable key="4" users={users} />)
 
       if (isRemovingUser) {
@@ -87,9 +90,6 @@ class InfoPanel extends React.Component {
     }
 
     content.push(<Messages key="6" messages={messages} />)
-    content.push(
-        <div onClick={() => onInviteClick()}>Invite User </div>
-      )
 
     return (
       <div className={styles.infoPanel}>

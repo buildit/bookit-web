@@ -17,6 +17,8 @@ import {
   CLOSE_INVITE_USER_DIALOG,
   OPEN_REMOVE_USER_DIALOG,
   CLOSE_CONFIRMATION_DIALOG,
+  USER_INVITE_SUCCEEDED,
+  USER_INVITE_FAILED,
   USER_REMOVE_SUCCEEDED,
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
@@ -151,6 +153,19 @@ const app = (state = initialState, action) => {
       ...state,
       isRemovingUser: false,
       userToBeRemoved: '',
+    }
+  }
+  case USER_INVITE_SUCCEEDED: {
+    return {
+      ...state,
+      messages: [`Welcome, ${action.payload.email}!`],
+    }
+  }
+  case USER_INVITE_FAILED: {
+    const message = action.payload
+    return {
+      ...state,
+      messages: [message],
     }
   }
   case USER_REMOVE_SUCCEEDED: {

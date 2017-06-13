@@ -2,8 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { fetchMeetings, createMeeting, cancelMeeting } from './meetings'
 import { login, logout } from './auth'
 import selectDate from './selectDate'
-import { userInvite } from './users'
-import { userRemove } from './users'
+import { userInvite, userRemove } from './users'
 
 import {
   LOGIN_START,

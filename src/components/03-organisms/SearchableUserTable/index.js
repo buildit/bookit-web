@@ -50,7 +50,7 @@ class SearchableUserTable extends React.Component {
         <TeamSelector
           teams={[
             { name: 'Designit', id: 'DESIGNIT' },
-            { name: 'Buildit', id: 'BUILDIT' },
+            { name: 'Wipro', id: 'WIPRO' },
           ]}
           selectedTeam={this.state.filterTeam}
           handleSelectTeamChange={this.handleSelectTeamChange}

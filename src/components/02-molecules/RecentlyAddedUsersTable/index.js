@@ -18,7 +18,12 @@ const RecentlyAddedUsersTable = ({ users = [] }) => (
         .filter(isUserRecent)
         .map(user => (
           <tr key={user.id}>
-            <td>{user.name}</td>
+            <td>{user.name}
+              { !user.active ?
+                <div className={styles.pending}>(Pending)</div>
+              : ''
+              }
+            </td>
             <td className={styles.team}>{user.team.toLowerCase()}</td>
           </tr>
         ))
@@ -35,6 +40,7 @@ RecentlyAddedUsersTable.propTypes = {
     email: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
   })
 ),
 }

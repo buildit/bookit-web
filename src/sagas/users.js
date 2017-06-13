@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects'
 
 import {
   userInviteSucceeded,
-  // userInviteFailed,
+  userInviteFailed,
   closeInviteUserDialog,
   userRemoveSucceeded,
   userRemoveFailed,
@@ -16,7 +16,7 @@ export function* userInvite(action) {
     yield put(userInviteSucceeded(action.payload.user))
     yield put(closeInviteUserDialog())
   } catch (err) {
-    console.log('Failed')
+    yield put(userInviteFailed(err.message))
   }
 }
 

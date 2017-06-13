@@ -22,6 +22,12 @@ const UserForm = ({
     <div className={styles.form}>
       <img src={images('./close-desktop.png')} className={styles.cancel} onClick={handleCancel} alt="X" />
       { header }
+      <div className={styles.section}>Select a directory</div>
+      {// Right now the only directory we can add users from is Wipro.
+       // We may need to change this in the future
+      }
+      <div className={styles.teamSelector}>Wipro</div>
+      <div className={styles.section}>Enter user information</div>
       <form
         onSubmit={(event) => {
           event.preventDefault()
