@@ -42,7 +42,7 @@ As a Bookit admin, I want to invite new users so that people can use bookit.
 
 ## Auth functionality
 
-We intend to demonstrate that we can log into BookIt using Azure AD credentials
+We intend to demonstrate that we can log into BookIt using Azure AD credentials.  The reason for logging into Azure is to demonstrate that when we reset the password, that it is the same password we use to log into BookIt.
 
 1) Log into Azure AD (portal.azure.com) using an administrator account
 2) Navigate to Azure AD user panel and select "Demo Oregano."  Select the reset password option.
