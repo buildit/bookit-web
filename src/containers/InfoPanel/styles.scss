@@ -8,6 +8,18 @@
   padding: 70px 30px 30px 20px;
 }
 
+.invite:before {
+  content: '+';
+}
 .invite {
-  color: $veryyellow;
+  background-color: $veryyellow;
+  color: $blackish;
+  align-self: flex-end;
+  height: 42px;
+  width: 44px;
+  font-size: 48px;
+  font-weight: 100;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
 }
