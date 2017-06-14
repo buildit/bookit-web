@@ -13,8 +13,12 @@ import {
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
+  OPEN_INVITE_USER_DIALOG,
+  CLOSE_INVITE_USER_DIALOG,
   OPEN_REMOVE_USER_DIALOG,
   CLOSE_CONFIRMATION_DIALOG,
+  USER_INVITE_SUCCEEDED,
+  USER_INVITE_FAILED,
   USER_REMOVE_SUCCEEDED,
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
@@ -34,12 +38,17 @@ const initialState = {
   isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
+  isInvitingUser: false,
   isRemovingUser: false,
   userToBeRemoved: '',
   meetingEditForm: {
     title: '',
     startTime: moment(),
     endTime: moment(),
+  },
+  inviteUserForm: {
+    name: '',
+    email: '',
   },
 }
 
@@ -119,6 +128,18 @@ const app = (state = initialState, action) => {
       requestedMeeting: {},
     }
   }
+  case OPEN_INVITE_USER_DIALOG: {
+    return {
+      ...state,
+      isInvitingUser: true,
+    }
+  }
+  case CLOSE_INVITE_USER_DIALOG: {
+    return {
+      ...state,
+      isInvitingUser: false,
+    }
+  }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
@@ -132,6 +153,19 @@ const app = (state = initialState, action) => {
       ...state,
       isRemovingUser: false,
       userToBeRemoved: '',
+    }
+  }
+  case USER_INVITE_SUCCEEDED: {
+    return {
+      ...state,
+      messages: [`Welcome, ${action.payload.email}!`],
+    }
+  }
+  case USER_INVITE_FAILED: {
+    const message = action.payload
+    return {
+      ...state,
+      messages: [message],
     }
   }
   case USER_REMOVE_SUCCEEDED: {

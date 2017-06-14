@@ -1,0 +1,31 @@
+@import '../../../shared-styles/bookit';
+
+.invite {
+  color: white;
+  font-family: $base-font-family;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.section {
+  color: white;
+  font-size: 16px;
+  margin-top: 30px;
+  font-weight: 200;
+}
+
+.teamSelector{
+  font-size: 18px;
+  color: $veryyellow;
+  margin-top: 15px;
+}
+
+.form {
+  width: 300px;
+  float: left;
+}
+
+.cancel {
+  margin-left: 332px;
+  cursor: pointer;
+}

@@ -1,3 +1,4 @@
+/*eslint-disable no-unused-vars*/
 import React from 'react'
 import PropTypes from 'prop-types'
 import momentPropTypes from 'react-moment-proptypes'
@@ -7,6 +8,7 @@ import { connect } from 'react-redux'
 import {
   populateMeetingEditForm,
   userRemoveStart,
+  openInviteUserDialog,
   closeConfirmationDialog,
  } from '../../actions'
 
@@ -17,6 +19,7 @@ import RecentlyAddedUsersTable from '../../components/02-molecules/RecentlyAdded
 import MeetingCancel from '../../components/02-molecules/MeetingCancel'
 import ConfirmationDialog from '../../components/02-molecules/ConfirmationDialog'
 import MeetingForm from '../MeetingForm'
+import UserForm from '../UserForm'
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
 import styles from './styles.scss'
@@ -37,8 +40,10 @@ class InfoPanel extends React.Component {
      isCancellingMeeting,
      isCreatingMeeting,
      isRemovingUser,
+     isInvitingUser,
      users,
      onRemoveUserClick,
+     onInviteClick,
      userToBeRemoved,
      onAbortRemovingUser,
    } = this.props
@@ -63,6 +68,9 @@ class InfoPanel extends React.Component {
     }
 
     if (this.pathName === 'admin' || this.pathName === '/admin') {
+      content.push(
+        <div className={styles.invite} key="8" onClick={() => onInviteClick()} />
+      )
       content.push(<RecentlyAddedUsersTable key="4" users={users} />)
 
       if (isRemovingUser) {
@@ -74,6 +82,10 @@ class InfoPanel extends React.Component {
             onClickNo={onAbortRemovingUser}
           />,
         ]
+      }
+
+      if (isInvitingUser) {
+        content = [<UserForm key="7"/>]
       }
     }
 
@@ -103,6 +115,7 @@ const mapStateToProps = (state) => {
     isCancellingMeeting: state.app.isCancellingMeeting,
     isCreatingMeeting: state.app.isCreatingMeeting,
     isRemovingUser: state.app.isRemovingUser,
+    isInvitingUser: state.app.isInvitingUser,
     users: state.users,
     userToBeRemoved: state.app.userToBeRemoved,
   })
@@ -118,6 +131,9 @@ const mapDispatchToProps = dispatch => ({
   onAbortRemovingUser: () => {
     dispatch(closeConfirmationDialog())
   },
+  onInviteClick: () => {
+    dispatch(openInviteUserDialog())
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoPanel)
@@ -129,11 +145,13 @@ InfoPanel.propTypes = {
   isEditingMeeting: PropTypes.bool,
   isCreatingMeeting: PropTypes.bool.isRequired,
   isCancellingMeeting: PropTypes.bool,
+  isInvitingUser: PropTypes.bool,
   isRemovingUser: PropTypes.bool.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
   onAbortRemovingUser: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,
+  onInviteClick: PropTypes.func.isRequired,
   userToBeRemoved: PropTypes.string,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({
