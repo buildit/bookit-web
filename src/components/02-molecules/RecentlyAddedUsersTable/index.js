@@ -11,13 +11,14 @@ const isUserRecent = user => (
 )
 
 const RecentlyAddedUsersTable = ({ users = [] }) => (
-  <div className={styles.recentlyAddedUsersTable}>
+  <div key="9" className={styles.recentlyAddedUsersTable}>
     <h2>Recently Added Users</h2>
     <table>
+      <tbody>
       {users
         .filter(isUserRecent)
         .map(user => (
-          <tr key={user.id}>
+          <tr key={user.email}>
             <td>{user.name}
               { !user.active ?
                 <div className={styles.pending}>(Pending)</div>
@@ -28,6 +29,7 @@ const RecentlyAddedUsersTable = ({ users = [] }) => (
           </tr>
         ))
       }
+      </tbody>
     </table>
   </div>
 )

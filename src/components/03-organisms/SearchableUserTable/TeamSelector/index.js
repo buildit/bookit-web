@@ -21,6 +21,6 @@ export default TeamSelector
 
 TeamSelector.propTypes = {
   handleSelectTeamChange: PropTypes.func.isRequired,
-  teams: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  teams: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   selectedTeam: PropTypes.string.isRequired,
 }

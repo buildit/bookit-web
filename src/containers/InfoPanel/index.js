@@ -69,7 +69,7 @@ class InfoPanel extends React.Component {
 
     if (this.pathName === 'admin' || this.pathName === '/admin') {
       content.push(
-        <div className={styles.invite} onClick={() => onInviteClick()} />
+        <div className={styles.invite} key="8" onClick={() => onInviteClick()} />
       )
       content.push(<RecentlyAddedUsersTable key="4" users={users} />)
 
