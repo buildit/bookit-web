@@ -42,7 +42,7 @@ ReservationList.propTypes = {
       roomName: PropTypes.string.isRequired,
       roomId: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
 }
 
 export default ReservationList
