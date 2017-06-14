@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import Button from '../../01-atoms/Button/index'
+import Button from '../../01-atoms/Button'
 
 import { closeCancellationDialog, cancelMeetingStart } from '../../../actions'
 
 import styles from './styles.scss'
 
-export class MeetingCancelContainer extends React.Component {
+export class MeetingCancel extends React.Component {
   static propTypes = {
     meeting: PropTypes.shape({
       owner: PropTypes.shape({
@@ -70,6 +70,6 @@ const mapDispatchToProps = dispatch => ({
 const connected = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MeetingCancelContainer)
+)(MeetingCancel)
 
 export default connected

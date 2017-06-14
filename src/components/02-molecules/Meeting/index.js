@@ -12,9 +12,9 @@ import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset'
 
 import styles from './styles.scss'
 
-const TIMELINE_WIDTH = 1968
+export const TIMELINE_WIDTH = 1968
 
-class MeetingContainer extends React.Component {
+export class Meeting extends React.Component {
   constructor(props) {
     super(props)
 
@@ -136,7 +136,7 @@ class MeetingContainer extends React.Component {
   }
 }
 
-MeetingContainer.propTypes = {
+Meeting.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
   requestedMeetingId: PropTypes.string,
@@ -151,6 +151,6 @@ const mapStateToProps = state => ({
   requestedMeetingId: state.app.requestedMeeting.id,
 })
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(MeetingContainer)
+const connected = connect(mapStateToProps, mapDispatchToProps)(Meeting)
 
 export default connected
