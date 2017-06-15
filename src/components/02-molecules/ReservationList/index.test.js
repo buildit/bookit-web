@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 import moment from 'moment'
 
@@ -32,7 +32,7 @@ describe('<ReservationList />', () => {
   })
 
   it('responds to button clicks', () => {
-    const wrapper = shallow(<ReservationList {...props} />)
+    const wrapper = mount(<ReservationList {...props} />)
     wrapper.find(`.${styles.button}`).first().simulate('click')
     expect(props.handleEditClick.mock.calls.length).toBe(1)
   })

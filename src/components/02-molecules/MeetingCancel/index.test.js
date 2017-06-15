@@ -29,7 +29,7 @@ describe('<MeetingCancel />', () => {
     cancelMeeting: jest.fn(),
   }
 
-  it('renders ok', () => {
+  it('renders', () => {
     const wrapper = shallow(<MeetingCancel {...props} />)
     expect(wrapper).toBeTruthy()
   })

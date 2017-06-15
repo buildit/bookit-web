@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import history from '../../../history'
+import Link from '../../01-atoms/Link'
 
 import styles from './styles.scss'
 
@@ -11,8 +11,8 @@ const Header = ({ user, logout }) => (
     <span className={styles.name}>
       { user.name }!
     </span>
-    <span className={styles.link} onClick={() => history.push('/admin')}>Admin</span>
-    <span className={styles.link} onClick={logout}>Log Out</span>
+    <Link to="/admin" className={styles.link}>Admin</Link>
+    <Link to="/login" className={styles.link} onClick={logout}>Log Out</Link>
   </header>
 )
 
