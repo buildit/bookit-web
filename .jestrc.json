@@ -1,0 +1,27 @@
+{
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+    "^[./a-zA-Z0-9!&$_-]+\\.(css|scss)$": "identity-obj-proxy"
+  },
+  "testPathIgnorePatterns": [
+    "<rootDir>/(build|docs|node_modules|images)/"
+  ],
+  "testEnvironment": "jsdom",
+  "testRegex": "\\.test.js$",
+  "collectCoverageFrom": [
+    "**/src/**/*.js"
+  ],
+  "coverageReporters": [
+    "text",
+    "lcov",
+    "json"
+  ],
+  "rootDir": ".",
+  "globals": {
+    "window": {}
+  },
+  "setupFiles": [
+    "<rootDir>/__mocks__/storageMock.js"
+  ],
+  "verbose": false
+}
