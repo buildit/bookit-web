@@ -7,7 +7,6 @@ import moment from 'moment'
 import MeetingForm from '../../components/02-molecules/MeetingForm'
 
 import {
-  cancelMeetingRequest,
   meetingCreateStart,
   openCancellationDialog,
  } from '../../actions/index'
@@ -68,7 +67,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleCancel: () => dispatch(cancelMeetingRequest()),
   handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
 })

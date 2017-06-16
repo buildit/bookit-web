@@ -13,7 +13,7 @@ const UserTableRow = ({ user, onRemoveClick }) => (
     </td>
     <td>{user.location}</td>
     <td>{user.email}</td>
-    <td onClick={() => onRemoveClick(user.email)}>Remove</td>
+    <td className={styles.remove} onClick={() => onRemoveClick(user.email)}>Remove</td>
   </tr>
 )
 

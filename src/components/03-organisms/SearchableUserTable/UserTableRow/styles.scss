@@ -2,6 +2,21 @@
 
 .userTableRow {
   font-weight: 100;
+  height: 20px;
+}
+
+.userTableRow:hover {
+  background: $slategrey;
+}
+
+.remove {
+  opacity: 0;
+  color: white;
+  cursor: pointer;
+}
+
+.userTableRow:hover > .remove {
+  opacity: 1;
 }
 
 .pending {
