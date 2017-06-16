@@ -6,10 +6,12 @@ import momentPropTypes from 'react-moment-proptypes'
 import { connect } from 'react-redux'
 
 import {
+  cancelMeetingRequest,
   populateMeetingEditForm,
   userRemoveStart,
   openInviteUserDialog,
   closeConfirmationDialog,
+  closeInviteUserDialog,
  } from '../../actions'
 
 import Calendar from '../../components/01-atoms/Calendar'
@@ -42,58 +44,59 @@ class InfoPanel extends React.Component {
      isRemovingUser,
      isInvitingUser,
      users,
+     onMeetingCloseClick,
      onRemoveUserClick,
      onInviteClick,
+     onInviteCloseClick,
      userToBeRemoved,
      onAbortRemovingUser,
    } = this.props
 
-    let content = []
-
-    if (this.pathName === '' || this.pathName === '/') {
-      content.push(
-        <Calendar key="0" />,
+    let agendaContent =
+      <div>
+        <Calendar key="0" />
         <ReservationList
           key="1"
           user={user}
           meetings={meetings}
           handleEditClick={handleReservationEditClick}
-        />)
-      if (isEditingMeeting || isCreatingMeeting) {
-        content = [<MeetingForm key="2" />]
-      }
-      if (isCancellingMeeting) {
-        content = [<MeetingCancel key="3" />]
-      }
+        />
+      </div>
+    if (isEditingMeeting || isCreatingMeeting) {
+      agendaContent = <MeetingForm key="2" />
+    }
+    if (isCancellingMeeting) {
+      agendaContent = <MeetingCancel key="3" />
     }
 
-    if (this.pathName === 'admin' || this.pathName === '/admin') {
-      content.push(
-        <div className={styles.invite} key="8" onClick={() => onInviteClick()} />
-      )
-      content.push(<RecentlyAddedUsersTable key="4" users={users} />)
-
-      if (isRemovingUser) {
-        content = [
-          <ConfirmationDialog
-            key="5"
-            message="Are you sure you want to remove this user?"
-            onClickYes={() => onRemoveUserClick(userToBeRemoved)}
-            onClickNo={onAbortRemovingUser}
-          />,
-        ]
-      }
-
-      if (isInvitingUser) {
-        content = [<UserForm key="7"/>]
-      }
+    let adminContent = <RecentlyAddedUsersTable key="4" users={users} />
+    if (isRemovingUser) {
+      adminContent =
+        <ConfirmationDialog
+          key="5"
+          message="Are you sure you want to remove this user?"
+          onClickYes={() => onRemoveUserClick(userToBeRemoved)}
+          onClickNo={onAbortRemovingUser}
+        />
+    }
+    if (isInvitingUser) {
+      adminContent = <UserForm key="6"/>
     }
 
-    content.push(<Messages key="6" messages={messages} />)
 
     return (
       <div className={styles.infoPanel}>
-        { content }
+        <div
+          key="7"
+          onClick={() => isInvitingUser ?
+            onInviteCloseClick() : isCreatingMeeting || isEditingMeeting ?
+            onMeetingCloseClick() : onInviteClick() }
+          className={ isInvitingUser || isCreatingMeeting || isEditingMeeting ?
+            styles.close : styles.invite }
+        />
+        { (this.pathName === '' || this.pathName === '/') && agendaContent }
+        { (this.pathName === 'admin' || this.pathName === '/admin') && adminContent }
+        <Messages key="8" messages={messages} />
       </div>
     )
   }
@@ -134,6 +137,12 @@ const mapDispatchToProps = dispatch => ({
   onInviteClick: () => {
     dispatch(openInviteUserDialog())
   },
+  onInviteCloseClick: () => {
+    dispatch(closeInviteUserDialog())
+  },
+  onMeetingCloseClick: () => {
+    dispatch(cancelMeetingRequest())
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoPanel)
@@ -142,16 +151,18 @@ InfoPanel.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  isEditingMeeting: PropTypes.bool,
+  isEditingMeeting: PropTypes.bool.isRequired,
   isCreatingMeeting: PropTypes.bool.isRequired,
-  isCancellingMeeting: PropTypes.bool,
-  isInvitingUser: PropTypes.bool,
+  isCancellingMeeting: PropTypes.bool.isRequired,
+  isInvitingUser: PropTypes.bool.isRequired,
   isRemovingUser: PropTypes.bool.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
   onAbortRemovingUser: PropTypes.func.isRequired,
+  onMeetingCloseClick: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,
   onInviteClick: PropTypes.func.isRequired,
+  onInviteCloseClick: PropTypes.func.isRequired,
   userToBeRemoved: PropTypes.string,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({

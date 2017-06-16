@@ -9,7 +9,6 @@ import DateDisplay from './DateDisplay'
 import DayNames from './DayNames'
 import calendar from '../../../utils/calendar'
 import { selectDate } from '../../../actions'
-import styles from './styles.scss'
 import { calendar as config } from './config'
 
 const style = {
@@ -21,7 +20,6 @@ const backDate = selectedDate => selectedDate.clone().subtract(1, 'month').start
 
 const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
   <div
-    className={styles.calendar}
     style={style}
   >
     <DateDisplay

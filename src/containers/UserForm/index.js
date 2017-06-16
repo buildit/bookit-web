@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form'
 
 import UserForm from '../../components/02-molecules/UserForm'
 
-import { userInviteStart, closeInviteUserDialog } from '../../actions/index'
+import { userInviteStart } from '../../actions/index'
 
 const UserFormContainer = reduxForm({
   form: 'user-form',
@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleCancel: () => dispatch(closeInviteUserDialog()),
   handleSubmit: user => dispatch(userInviteStart(user)),
 })
 

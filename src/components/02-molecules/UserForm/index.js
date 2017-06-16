@@ -5,13 +5,10 @@ import { Field } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
 import Button from '../../01-atoms/Button/index'
 import styles from './styles.scss'
-// TODO: replace Cancel button with svg asset.
-const images = require.context('../../../assets/images', true)
 
 const UserForm = ({
   user,
   handleSubmit,
-  handleCancel,
   invalid,
  }) => {
   const buttons = <Button disabled={invalid} type="submit" content="Invite" />
@@ -20,7 +17,6 @@ const UserForm = ({
 
   return (
     <div className={styles.form}>
-      <img src={images('./close-desktop.png')} className={styles.cancel} onClick={handleCancel} alt="X" />
       { header }
       <div className={styles.section}>Select a directory</div>
       {// Right now the only directory we can add users from is Wipro.
@@ -44,7 +40,6 @@ const UserForm = ({
 
 UserForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string,
