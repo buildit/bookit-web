@@ -20,6 +20,9 @@
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  -ms-transition: background-color 0.75s, -ms-transform 0.75s;
+  -webkit-transition: background-color 0.75s, -webkit-transform 0.75s;
+  transition: background-color 0.75s, transform 0.75s;
 }
 
 .close:before, .invite:before {
@@ -32,8 +35,8 @@
 
 .close {
   background-color: $slategrey;
-  -ms-transform: rotate(45deg); /* IE 9 */
-  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
