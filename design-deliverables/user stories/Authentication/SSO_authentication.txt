@@ -1,0 +1,23 @@
+Design-It & Wipro accounts trying to authenticate into BookIt:
+
+
+As a user, I should have the option to authenticate into the BookIt system using my DesignIt or Wipro email address.
+
+Acceptance Criteria:
+
+- the user should be able to access the BookIt system with SSO   
+- the user can access the main booking area & book rooms successfullly
+
+
+User steps:
+
+1.) User authenticates in Office365
+2.) The user navigates to BookIt's site
+3.) The user successfully uses SSO and is led to the main meeting room booking screen
+
+Atomic/Molecular Behaviors or Interactions:
+
+None
+
+
+Please refer to flow 2 & 3 on Auth_Flow.pdf.
