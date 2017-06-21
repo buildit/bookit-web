@@ -9,10 +9,7 @@ import {
   RESET_USER,
 } from './actionTypes'
 
-export const loginRequest = createAction(LOGIN_START, user => ({
-  email: user.email,
-  password: user.password,
-}))
+export const loginRequest = createAction(LOGIN_START, code => ({ code }))
 
 export const loginSuccess = createAction(LOGIN_SUCCEEDED)
 

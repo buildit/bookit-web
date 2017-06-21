@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects'
 
-// import history from '../history'
 import api from '../api'
 
 import {
@@ -17,10 +16,9 @@ import {
 } from './auth'
 
 describe('Auth Saga', () => {
-  const email = 'foo@bar.com'
-  const password = 'xyzzy'
+  const code = 'xyzzy'
   const action = {
-    payload: { email, password },
+    payload: { code },
   }
   const user = {
     email: 'test@test.com',
@@ -29,10 +27,10 @@ describe('Auth Saga', () => {
     token: 'test12345test',
   }
 
-  it('yields the proper sequence for logins', () => {
+  it('yields the proper sequence for logins with a password', () => {
     const generator = login(action)
 
-    expect(generator.next().value).toEqual(call(api.login, email, password))
+    expect(generator.next().value).toEqual(call(api.login, code))
     expect(generator.next(user).value).toEqual(put(setClient(user)))
     expect(generator.next().value).toEqual(put(resetUi()))
     expect(generator.next().value).toEqual(put(loginSuccess()))

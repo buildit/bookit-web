@@ -14,13 +14,14 @@ import {
 
 export function* login(action) {
   try {
-    const user = yield call(api.login, action.payload.email, action.payload.password)
+    const user = yield call(api.login, action.payload.code)
     yield put(setClient(user))
     yield put(resetUi())
     yield put(loginSuccess())
     localStorage.setItem('user', JSON.stringify(user))
     history.push('/')
   } catch (error) {
+    console.log(error)
     // TODO: Catch meaningful errors from above
     // and pass them to `loginFailure`
     const sameErrorMessageForAllFailures = 'Oops! Login failed. Please try again.'
