@@ -1,0 +1,24 @@
+Design-It & Wipro accounts trying to authenticate into BookIt with the wrong credentials:
+ 
+ 
+As a user, I want to log in to Bookit system but I have not log in to Outlook beforehand. However, I log in with wrong credentials. 
+ 
+Acceptance Criteria:
+ 
+- the user is unable to authenticate to Bookit system with wrong Outlook credentials 
+ 
+ 
+User steps:
+ 
+1.) User enters the URL to bookit
+2.) System shows the message and inform the user to authentic via Outlook
+3.) User navigates to Outlook 365
+4.) User authenticate to Outlook 365 
+5.) Outlook365 tells the user that the credential are wrong (password and/or email). 
+6.) Users can switch account, or click “Can’t access your account?” to restore their credentials
+ 
+Atomic/Molecular Behaviors or Interactions:
+ 
+None
+ 
+**Please refer Outlook Azure for “switch account” and “can’t access your account” for further step.**
