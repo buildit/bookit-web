@@ -17,6 +17,7 @@ class SearchableUserTable extends React.Component {
     }
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
     this.handleSelectTeamChange = this.handleSelectTeamChange.bind(this)
+    this.checkFirstLastName = this.checkFirstLastName.bind(this)
   }
 
   handleFilterTextChange(filterText) {
@@ -27,19 +28,26 @@ class SearchableUserTable extends React.Component {
     this.setState({ filterTeam })
   }
 
+  checkFirstLastName(filterTextMatcher, name) {
+    let names = name.split(" ")
+    return names.some((x) => {
+      return filterTextMatcher.test(x)
+    })
+  }
+
   render() {
     const { users, onRemoveClick } = this.props
     let filterTextMatcher
 
     if (this.state.filterText.length > 0) {
-      filterTextMatcher = new RegExp(this.state.filterText, 'i')
+      filterTextMatcher = new RegExp(`^${this.state.filterText}`, 'i')
     }
     const filteredUsers = users
       .filter(user => (
         this.state.filterTeam === 'ALL' ||
         user.team === this.state.filterTeam
       ))
-      .filter(user => (filterTextMatcher ? filterTextMatcher.test(user.name) : true))
+      .filter(user => (filterTextMatcher ? this.checkFirstLastName(filterTextMatcher, user.name) : true))
 
     return (
       <div className={styles.userTable}>
