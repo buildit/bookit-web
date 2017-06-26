@@ -56,11 +56,18 @@ const cancelMeeting = (meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
   .then(message => message)
 
+const addUser = (user, token) => agent
+  .post(`${apiBaseUrl}/user`)
+  .set('x-access-token', token)
+  .send(user)
+  .then(message => message)
+
 const Api = {
   login,
   fetchMeetings,
   createMeeting,
   cancelMeeting,
+  addUser,
 }
 
 export default Api
