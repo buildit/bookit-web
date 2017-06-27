@@ -6,20 +6,8 @@ script:
 - yarn lint
 - yarn test:unit
 - yarn build
-- docker pull builditdigital/bookit-server:latest
-- docker run -d -p 8888:8888 builditdigital/bookit-server:latest
-- docker build . -t builditdigital/bookit-web:test
-- docker run -d -p 3001:80 -e API_BASE_URL=http://localhost:8888 builditdigital/bookit-web:test
-- sleep 10; yarn test:functional
-- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_EVENT_TYPE" == "push" ]; then
-    export IMG_VERSION=`node -p -e "require('./package.json').version"`;
-    echo "Building $IMG_VERSION";
-    docker build -t builditdigital/bookit-web:$IMG_VERSION .;
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push builditdigital/bookit-web:$IMG_VERSION;
-    docker tag builditdigital/bookit-web:$IMG_VERSION builditdigital/bookit-web:latest;
-    docker push builditdigital/bookit-web:latest;
-  fi
+- ./scripts/run-functional-tests.sh
+- ./scripts/push-docker-image.sh
 
 deploy:
   provider: script

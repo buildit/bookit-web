@@ -99,34 +99,9 @@
     "lint:js": "eslint src/ test/ --cache",
     "lint:style": "stylelint src/**/*.scss src/**/*.css",
     "test": "npm-run-all lint test:unit",
-    "test:unit": "jest",
-    "test:unit:coverage": "jest --coverage",
-    "test:unit:watch": "jest --watch",
+    "test:unit": "jest -c .jestrc.json",
+    "test:unit:watch": "jest -c .jestrc.json --watch",
+    "test:unit:coverage": "jest -c .jestrc.json --coverage",
     "test:functional": "testcafe chrome ./src/functional-tests"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "^[./a-zA-Z0-9!&$_-]+\\.(css|scss)$": "identity-obj-proxy"
-    },
-    "testPathIgnorePatterns": [
-      "<rootDir>/(build|docs|node_modules|images)/"
-    ],
-    "testEnvironment": "jsdom",
-    "testRegex": "\\.test.js$",
-    "collectCoverageFrom": [
-      "**/src/**/*.js"
-    ],
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "rootDir": ".",
-    "globals": {
-      "window": {}
-    },
-    "setupFiles": [
-      "<rootDir>/__mocks__/storageMock.js"
-    ]
   }
 }

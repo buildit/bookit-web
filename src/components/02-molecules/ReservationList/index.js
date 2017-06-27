@@ -3,25 +3,16 @@ import PropTypes from 'prop-types'
 
 import momentPropTypes from 'react-moment-proptypes'
 
+import ReservationItem from './ReservationItem'
+// import Button from '../../01-atoms/Button'
+
 import styles from './styles.scss'
 
 const ReservationList = ({ meetings = [], handleEditClick }) => (
   <div className={styles.reservationList}>
     <h2 className={styles.header}>{meetings.length > 0 ? 'My Reservations' : ''}</h2>
     {meetings.map(meeting => (
-      <div className={styles.meeting} key={meeting.id}>
-        <div className={styles.info}>
-          <div className={styles.title}>{meeting.title}</div>
-          <div className={styles.time}>{meeting.start.format('h:mma')} - {meeting.end.format('h:mma')}</div>
-          <div className={styles.room}>{`${meeting.roomName} Room`}</div>
-        </div>
-        <div
-          onClick={() => {
-            handleEditClick(meeting)
-          }}
-          className={styles.button}
-        >Edit</div>
-      </div>
+      <ReservationItem key={meeting.id} styles={styles} meeting={meeting} onClick={() => handleEditClick(meeting)} />
     ))}
   </div>
 )
@@ -42,7 +33,7 @@ ReservationList.propTypes = {
       roomName: PropTypes.string.isRequired,
       roomId: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
 }
 
 export default ReservationList

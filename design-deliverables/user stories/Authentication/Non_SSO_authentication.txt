@@ -1,0 +1,25 @@
+Design-It & Wipro accounts trying to authenticate into BookIt (without the SSO):
+ 
+ 
+As a user, I want to log in to Bookit system but I have not log in to Outlook beforehand. I should be able to log in with my Designit or Wipro email. 
+ 
+Acceptance Criteria:
+ 
+- the user should be able to authenticate to the BookIt system with Outlook credentials
+- the user is directed to the main meeting room booking screen after authentication
+ 
+ 
+User steps:
+ 
+1.) User enters the URL to bookit
+2.) System shows the message and inform the user to authentic via Outlook
+3.) User navigates to Outlook 365
+4.) User authenticate to Outlook 365 
+5.) User is now directed to Bookit’s site
+6.) The user successfully access to the meeting room booking screen.
+ 
+Atomic/Molecular Behaviors or Interactions:
+ 
+None
+ 
+Please refer to flow 2 & 3 on Auth_Flow.pdf.

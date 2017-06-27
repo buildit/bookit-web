@@ -7,14 +7,12 @@ import DateTimePicker from '../DateTimePicker/index'
 import Button from '../../01-atoms/Button/index'
 import ErrorMessages from '../ErrorMessages'
 import styles from './styles.scss'
-// TODO: replace Cancel button with svg asset.
-const images = require.context('../../../assets/images', true)
+
 
 const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' }
 
 const MeetingForm = ({
   handleSubmit,
-  handleCancel,
   invalid,
   errors = {},
   token,
@@ -38,7 +36,6 @@ const MeetingForm = ({
 
   return (
     <div className={styles.editor}>
-      <img src={images('./close-desktop.png')} className={styles.cancel} onClick={handleCancel} alt="X" />
       { header }
       <form
         onSubmit={(event) => {
@@ -62,7 +59,6 @@ MeetingForm.propTypes = {
   validationErrors: PropTypes.shape({}),
   visibleErrorMessages: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func,
-  handleCancel: PropTypes.func,
   token: PropTypes.string,
   meeting: PropTypes.shape({
     title: PropTypes.string,

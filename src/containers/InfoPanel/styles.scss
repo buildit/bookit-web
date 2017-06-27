@@ -8,13 +8,11 @@
   padding: 70px 30px 30px 20px;
 }
 
-.invite:before {
-  content: '+';
-}
-.invite {
-  background-color: $veryyellow;
+.invite, .close {
+  position: absolute;
+  left: 353px;
+  top: 30px;
   color: $blackish;
-  align-self: flex-end;
   height: 42px;
   width: 44px;
   font-size: 48px;
@@ -22,4 +20,24 @@
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  -ms-transition: background-color 0.75s, -ms-transform 0.75s;
+  -webkit-transition: background-color 0.75s, -webkit-transform 0.75s;
+  transition: background-color 0.75s, transform 0.75s;
 }
+
+.close:before, .invite:before {
+  content: '+';
+}
+
+.invite {
+  background-color: $veryyellow;
+}
+
+.close {
+  background-color: $slategrey;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+

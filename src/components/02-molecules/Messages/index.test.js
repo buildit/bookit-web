@@ -1,7 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Messages from './index'
+import Messages from '.'
+
 import styles from './styles.scss'
 
 describe('Messages Component', () => {
