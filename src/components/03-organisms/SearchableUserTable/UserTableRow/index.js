@@ -5,12 +5,7 @@ import styles from './styles.scss'
 
 const UserTableRow = ({ user, onRemoveClick }) => (
   <tr className={styles.userTableRow}>
-    <td>{user.name}
-      { !user.active ?
-        <div className={styles.pending}>(Pending)</div>
-      : ''
-      }
-    </td>
+    <td>{user.name}</td>
     <td>{user.location}</td>
     <td>{user.email}</td>
     <td className={styles.remove} onClick={() => onRemoveClick(user.email)}>Remove</td>
@@ -25,7 +20,6 @@ UserTableRow.propTypes = {
     email: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
-    active: PropTypes.bool.isRequired,
   }),
   onRemoveClick: PropTypes.func.isRequired,
 }

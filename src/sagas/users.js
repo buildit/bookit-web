@@ -15,8 +15,8 @@ export function* userInvite(action) {
   const user = action.payload.user
 
   try {
-    yield call(api.addUser, user)
-    yield put(userInviteSucceeded(user))
+    const apiUser = yield call(api.addUser, user)
+    yield put(userInviteSucceeded(apiUser))
     yield put(closeInviteUserDialog())
   } catch (err) {
     yield put(userInviteFailed(err.message))

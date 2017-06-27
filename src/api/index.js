@@ -57,10 +57,13 @@ const cancelMeeting = (meetingId, roomEmail) => agent
   .then(message => message)
 
 const addUser = (user, token) => agent
-  .post(`${apiBaseUrl}/user`)
+  .post(`${apiBaseUrl}/users`)
   .set('x-access-token', token)
   .send(user)
-  .then(message => message)
+  .then((response) => {
+    const user = JSON.parse(response.text)
+    return user
+  })
 
 const Api = {
   login,
