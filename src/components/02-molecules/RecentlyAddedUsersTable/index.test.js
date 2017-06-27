@@ -25,19 +25,6 @@ describe('<RecentlyAddedUsersTable />', () => {
     expect(wrapper.find('tr').length).toBe(1)
   })
 
-  it('shows a non-active user added within the current week as "Pending"', () => {
-    const user = {
-      name: 'Testy McTesterson',
-      email: 'test@test.com',
-      location: 'Testerton',
-      team: 'Testing',
-      active: false,
-      dateAdded: moment(),
-    }
-    const wrapper = shallow(<RecentlyAddedUsersTable users={[user]} />)
-    expect(wrapper.find(`.${styles.pending}`).text()).toEqual('(Pending)')
-  })
-
   it('does not show a user that is missing the `dateAdded` "hidden" property', () => {
     const user = {
       name: 'Testy McTesterson',
