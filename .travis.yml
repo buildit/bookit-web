@@ -2,11 +2,13 @@ language: node_js
 node_js:
 - '7'
 
+# NOTE: Removed the following from before ./scripts/push-docker-image.sh
+# - ./scripts/run-functional-tests.sh
+
 script:
 - yarn lint
 - yarn test:unit
 - yarn build
-- ./scripts/run-functional-tests.sh
 - ./scripts/push-docker-image.sh
 
 deploy:
