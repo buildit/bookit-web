@@ -4,6 +4,7 @@ import { destroy } from 'redux-form'
 import api from '../api'
 
 import {
+  meetingsFetched,
   meetingsFetchSucceeded,
   meetingsFetchFailed,
   meetingCreateFailed,
@@ -20,6 +21,7 @@ export function* fetchMeetings(action = {}) {
     const end = action.end ? action.end : undefined
     const meetings = yield call(api.fetchMeetings, start, end)
     yield put(meetingsFetchSucceeded(meetings))
+    yield put(meetingsFetched(meetings))
   } catch (error) {
     yield put(meetingsFetchFailed(error))
   }

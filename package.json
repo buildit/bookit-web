@@ -69,8 +69,10 @@
   },
   "dependencies": {
     "history": "^4.6.1",
+    "immutable": "^3.8.1",
     "material-ui": "^0.18.1",
     "moment": "^2.18.1",
+    "normalizr": "^3.2.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
@@ -81,6 +83,8 @@
     "redux-form": "^6.7.0",
     "redux-form-material-ui": "^4.2.0",
     "redux-saga": "^0.15.3",
+    "reselect": "^3.0.1",
+    "reselect-immutable-helpers": "^1.2.2",
     "superagent": "^3.5.2"
   },
   "repository": {

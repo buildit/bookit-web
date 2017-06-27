@@ -3,9 +3,13 @@ import PropTypes from 'prop-types'
 import momentPropTypes from 'react-moment-proptypes'
 import { connect } from 'react-redux'
 
+import { getCurrentUser } from '../../selectors'
+
 import Agenda from '../../components/03-organisms/Agenda'
 import Header from '../../components/02-molecules/Header'
 import InfoPanel from '../InfoPanel'
+
+import RoomAndMeetingView from '../../coms/RoomAndMeetingView'
 
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
@@ -45,6 +49,7 @@ export class DashboardContainer extends React.Component {
             rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
           />
+          <RoomAndMeetingView />
         </main>
       </div>
     )
@@ -101,17 +106,19 @@ const mapStateToProps = (state) => {
     requestedMeeting,
   } = state.app
 
+  const user = getCurrentUser(state)
+
   const meetings = allMeetingIds
     .map(id => meetingsById[id])
     .filter(meeting => isMeetingOnDate(meeting, selectedDate))
     .map(meeting => ({
       ...meeting,
-      isOwnedByUser: meeting.owner.email === state.user.email }))
+      isOwnedByUser: meeting.owner.email === user.email }))
 
   const rooms = allRoomIds.map(id => roomsById[id])
 
   return ({
-    user: state.user,
+    user,
     meetings,
     rooms,
     isCreatingMeeting,

@@ -2,10 +2,13 @@ import { createAction } from 'redux-actions'
 import moment from 'moment'
 
 import {
+  MEETINGS_FETCHED,
   MEETINGS_FETCH_START,
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
 } from './actionTypes'
+
+import dataNormalizer from '../api/schema'
 
 const normalizeMeetingsResponse = (schedule) => {
   // Flatten meetings data
@@ -56,6 +59,8 @@ const normalizeMeetingsResponse = (schedule) => {
 }
 
 export const meetingsFetchStart = createAction(MEETINGS_FETCH_START)
+
+export const meetingsFetched = createAction(MEETINGS_FETCHED, dataNormalizer)
 
 export const meetingsFetchSucceeded =
   createAction(MEETINGS_FETCH_SUCCEEDED, normalizeMeetingsResponse)

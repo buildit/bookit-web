@@ -9,6 +9,8 @@ import SearchableUserTable from '../../components/03-organisms/SearchableUserTab
 
 import { logout, openRemoveUserDialog } from '../../actions'
 
+import { getCurrentUser } from '../../selectors'
+
 import styles from './styles.scss'
 
 const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => (
@@ -23,7 +25,7 @@ const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => 
 
 const mapStateToProps = state => ({
   users: state.users,
-  user: state.user,
+  user: getCurrentUser(state),
 })
 
 const mapDispatchToProps = dispatch => ({

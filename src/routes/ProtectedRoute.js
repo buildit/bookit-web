@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
+import { getCurrentUser } from '../selectors'
+
 import { Route, Redirect } from 'react-router'
 
 export const ProtectedRoute = ({ component: Component, authTest, user, dispatch, failTo, ...rest }) => (
@@ -28,6 +30,6 @@ ProtectedRoute.propTypes = {
   location: PropTypes.object,
 }
 
-const mapStateToProps = state => ({ user: state.user })
+const mapStateToProps = state => ({ user: getCurrentUser(state) })
 
 export default connect(mapStateToProps)(ProtectedRoute)

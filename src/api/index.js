@@ -33,13 +33,8 @@ const fetchMeetings = (startDate, endDate) => {
   }
 
   return agent
-    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`).then((response) => {
-      const meetings = JSON.parse(response.text)
-      return meetings
-    })
-    .catch((err) => {
-      throw new Error(err)
-    })
+    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`)
+    .then(response => response.body)
 }
 
 const createMeeting = (meeting, room, token) => agent

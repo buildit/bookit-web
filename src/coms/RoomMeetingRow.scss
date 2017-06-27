@@ -1,0 +1,43 @@
+@import '../shared-styles/bookit';
+
+.room {
+  background-color: $darkblue;
+  height: $agenda-row-height;
+  margin-bottom: 50px;
+  position: relative;
+  width: $agenda-room-total-width;
+}
+
+.timeline {
+  $block-color-stop: 79px;
+  $transparent-color-stop: 82px;
+  $faded-gradient: repeating-linear-gradient(
+    to right,
+    $blackish-translucent,
+    $blackish-translucent $block-color-stop,
+    $dividerColorAfterHours $block-color-stop,
+    $dividerColorAfterHours $transparent-color-stop
+  );
+  $opaque-gradient: repeating-linear-gradient(
+    to right,
+    $blackish,
+    $blackish $block-color-stop,
+    $dividerColor $block-color-stop,
+    $dividerColor $transparent-color-stop
+  );
+
+  display: block;
+  height: $agenda-row-height;
+  background-image: $opaque-gradient, $faded-gradient;
+  background-position: 656px 0, 0 0;
+  background-size: 902px 100%, auto;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.meetings {
+  position: absolute;
+  height: $agenda-row-height;
+  left: 0;
+  right: 0;
+  top: 0;
+}

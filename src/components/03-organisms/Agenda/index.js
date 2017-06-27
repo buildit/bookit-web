@@ -11,7 +11,7 @@ import RoomTimeline from '../../02-molecules/RoomTimeline'
 
 import styles from './styles.scss'
 
-const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map(room => (
+export const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map(room => (
   <RoomTimeline
     key={room.name}
     meetings={meetings.filter(meeting => meeting.roomId === room.id)}
@@ -23,7 +23,7 @@ const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => room
   />
 ))
 
-const Agenda = ({ meetings = [], rooms = [], populateMeetingCreateForm }) => (
+const Agenda = ({ meetings, rooms, populateMeetingCreateForm }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
       { roomTimelineNames(rooms) }
