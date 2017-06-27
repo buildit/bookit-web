@@ -4,7 +4,6 @@ import { shallow } from 'enzyme'
 import moment from 'moment'
 
 import RecentlyAddedUsersTable from '.'
-import styles from './styles.scss'
 
 describe('<RecentlyAddedUsersTable />', () => {
   it('renders', () => {
