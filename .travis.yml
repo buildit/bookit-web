@@ -57,5 +57,5 @@ before_script:
 - fluxbox >/dev/null 2>&1 &
 
 after_success:
-- 'npm run test:unit:coverage'
+- 'yarn test:unit:coverage'
 - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
