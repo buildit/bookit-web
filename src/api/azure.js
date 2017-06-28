@@ -11,6 +11,7 @@ export const signinRequestUrl = () => {
     scope: 'openid',
     response_mode: 'query',
     nonce: '12345',
+    prompt: 'login',
   }
 
   return url.format({

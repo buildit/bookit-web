@@ -10,8 +10,8 @@ describe('<OpenId />', () => {
   it('calls the login function when mounted with a success code', () => {
     const login = jest.fn()
     const code = 'xyzzy'
-    const location = { search: `?code=${code}` }
-    const wrapper = mount(<OpenId login={login} location={location} />)
+    const location = { search: `?id_token=${code}` }
+    mount(<OpenId login={login} location={location} />)
 
     expect(login).toBeCalled()
   })
@@ -20,7 +20,7 @@ describe('<OpenId />', () => {
     const error = 'access_denied'
     const errorDescription = 'the+user+canceled+the+authentication'
     const location = { search: `?error=${error}&error_description=${errorDescription}` }
-    const wrapper = mount(<OpenId location={location} />)
+    mount(<OpenId location={location} />)
 
     expect(history.push).toBeCalled()
   })
