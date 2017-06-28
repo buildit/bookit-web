@@ -47,7 +47,6 @@ const initialState = {
     endTime: moment(),
   },
   inviteUserForm: {
-    name: '',
     email: '',
   },
 }
@@ -158,7 +157,7 @@ const app = (state = initialState, action) => {
   case USER_INVITE_SUCCEEDED: {
     return {
       ...state,
-      messages: [`Welcome, ${action.payload.email}!`],
+      messages: [`Welcome, ${action.payload.name}!`],
     }
   }
   case USER_INVITE_FAILED: {

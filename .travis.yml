@@ -6,7 +6,6 @@ script:
 - yarn lint
 - yarn test:unit
 - yarn build
-- ./scripts/run-functional-tests.sh
 - ./scripts/push-docker-image.sh
 
 deploy:

@@ -1,5 +1,5 @@
-import { put } from 'redux-saga/effects'
-
+import { put, call } from 'redux-saga/effects'
+import api from '../api'
 import {
   userInviteSucceeded,
   userInviteFailed,
@@ -12,8 +12,11 @@ import {
 /* eslint-disable import/prefer-default-export */
 
 export function* userInvite(action) {
+  const user = action.payload.user
+
   try {
-    yield put(userInviteSucceeded(action.payload.user))
+    const apiUser = yield call(api.addUser, user)
+    yield put(userInviteSucceeded(apiUser))
     yield put(closeInviteUserDialog())
   } catch (err) {
     yield put(userInviteFailed(err.message))

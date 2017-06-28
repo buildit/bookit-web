@@ -30,7 +30,6 @@ const UserForm = ({
           handleSubmit(user)
         }}
       >
-        <Field floatingLabelFixed floatingLabelText="Name" name="name" component={TextField} />
         <Field floatingLabelFixed floatingLabelText="E-mail address" name="email" component={TextField} />
         { buttons }
       </form>
@@ -42,7 +41,6 @@ UserForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    name: PropTypes.string,
     email: PropTypes.string,
   }),
 }
