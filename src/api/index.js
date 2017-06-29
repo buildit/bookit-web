@@ -9,19 +9,6 @@ const login = (user, password) => agent
   .send({ user, password })
   .then(response => response.body)
 
-// Use this one when the server is ready
-// const login = (email, password) => agent.post(`${apiBaseUrl}/login`)
-//   .send({
-//     username: email,
-//     password,
-//   })
-//   .then((response) => {
-//     console.log(response);
-//     const user = JSON.parse(response.text);
-//     return user;
-//   })
-//   .catch(error => error);
-
 const fetchMeetings = (startDate, endDate) => {
   let start = startDate
   let end = endDate
