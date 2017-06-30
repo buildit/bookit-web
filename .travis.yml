@@ -1,5 +1,4 @@
 sudo: required
-
 services:
   - docker
 
@@ -21,13 +20,11 @@ env:
 
 before_install:
   - docker --version
-
-# install:
-#   docker build -t ${DOCKER_REPOSITORY}:${COMMIT_SHA} --pull=true .
+  - ./scripts/build.sh
 
 script:
+  - yarn lint
   - yarn test
-  # - docker-compose run web...
 
 notifications:
   slack:

@@ -42,3 +42,6 @@ build
 # OS-specific temporary files
 Thumbs.db
 .DS_Store
+
+# Yarn cache from building (only exists on travis)
+.yarn-cache.tgz

@@ -1,15 +1,13 @@
-FROM nginx:alpine
+FROM node:8-alpine
 
-# Copy app files
-COPY build /usr/share/nginx/html
+ENV TERM=xterm
 
-# Install SPA-friendly config
-COPY nginx/default.conf /etc/nginx/conf.d/
+ADD package.json yarn.lock /tmp/
+ADD .yarn-cache.tgz /
 
-# Install JQ to work with JSON configs
-RUN apk add --no-cache jq
+RUN cd /tmp && yarn
+RUN mkdir -p /opt/app && cd /opt/app && ln -s /tmp/node_modules
 
-#Configure and start the app
-WORKDIR /usr/share/nginx/html
+COPY . /opt/app
 
-CMD /bin/ash -c "echo -n 'window.__CONFIG=' > config.js && jq -ncM '{apiBaseUrl: env.API_BASE_URL}' >> config.js && cat config.js && nginx -g 'daemon off;'"
+WORKDIR /opt/app

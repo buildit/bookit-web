@@ -1,16 +1,44 @@
-version: '2'
-
+version: '3'
 services:
-  web:
+
+  app:
+    container_name: app
     build: .
-    ports:
-     - "8080:80"
+    command: yarn build
     environment:
-    - API_BASE_URL=http://localhost:8888
-  server:
-    image: bookit-server:local
+      NODE_ENV: production
+    volumes:
+      - static-content:/opt/app/build
+      - nginx-conf:/opt/app/nginx
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    depends_on:
+        - app
+    volumes:
+      - static-content:/opt/app
+      - nginx-conf:/etc/nginx/conf.d
     ports:
-    - "8888:8888"
-    #env_file: .env
+      - 80:80
     environment:
-    - MICROSOFT_CLIENT_SECRET=setme_for_real_exchange
+      - BOOKIT_API_BASE_URL=http://booki.riglet.io:8888
+    command: /bin/ash -c "envsubst < /etc/nginx/conf.d/config.js.template > /opt/app/config.js && nginx -g 'daemon off;'"
+
+  api:
+    container_name: api
+    image: builditdigital/bookit-server:latest
+    ports:
+      - 8888:8888
+    environment:
+      - USE_CLOUD=true
+      - CLOUD_CONFIG=test
+      - JWT_TOKEN_SECRET="I need to get a grip on Biggus Dickus"
+      - TEST_SECRET=yuqsRL6HQ3Zl99UT5cJ5zLMRiO6CVm2DfgeNuRwhSOI=
+      - DIGITAL_SECRET=F7eblUFlSARg9N13W1/TJ+egR7JyY+ZE+Hx04u2ugfE=
+      - ROMAN_SECRET=SkeCuPhlU4P7goQay9x+MCRBs3RokXzvtOP2pMlfRo4=
+      - CONTOSO_SECRET=hf5wRmG8scmuCXrVYxeU6fC
+
+volumes:
+  static-content:
+  nginx-conf:
