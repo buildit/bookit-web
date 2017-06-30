@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# This is hardcoded to find the yarn cache INSIDE the docker image
+# we're building, which right now appears to be jammed into
+# /usr/local/share/.cache/yarn/v1.
+#
+# If it's possible, we should switch to using shell
+# escape/interpolation to find the cache dir with `yarn cache dir`
+
 DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
 cd $DIR
@@ -24,7 +31,7 @@ if ! diff -q yarn.lock /tmp/yarn.lock > /dev/null  2>&1; then
     --rm \
     --entrypoint tar \
     bookit-web:latest \
-    czf - /root/.yarn-cache/ > .yarn-cache.tgz
+    czf - /usr/local/share/.cache/yarn/v1/ > .yarn-cache.tgz
 
   echo "+ build: Saving yarn.lock"
 
