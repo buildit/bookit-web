@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/buildit/bookit-web.svg?branch=master)](https://travis-ci.org/buildit/bookit-web) [![Coverage Status](https://coveralls.io/repos/github/buildit/bookit-web/badge.svg?branch=master)](https://coveralls.io/github/buildit/bookit-web?branch=master)
 
-Bookit is a web app aimed at providing a neat way to book meeting rooms in the Designit/Buildit office in Brooklyn.
+Bookit is a web app aimed at providing a neat way to book meeting rooms in the Designit/Buildit office in Brooklyn, NY.
 
 ## Quick start
 ```
