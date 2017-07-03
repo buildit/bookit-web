@@ -36,6 +36,9 @@ script:
   # - docker run --rm bookit-web:latest yarn lint
   # - docker run --rm bookit-web:latest yarn test:unit
 
+after_success:
+  - echo woot!
+
 notifications:
   slack:
     rooms:
