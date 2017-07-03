@@ -11,6 +11,11 @@ DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
 cd $DIR
 
+if [ ! -f .cache ]; then
+  echo "+ making cache dir"
+  mkdir -p .cache
+fi
+
 if [ ! -f .cache/.yarn-cache.tgz ]; then
   echo "+ build: Init empty .yarn-cache.tgz"
   tar cvzf .cache/.yarn-cache.tgz --files-from /dev/null
