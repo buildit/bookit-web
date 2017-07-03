@@ -11,6 +11,8 @@ DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
 cd $DIR
 
+echo "+ I am now inside $DIR"
+
 if [ ! -f .cache ]; then
   echo "+ making cache dir"
   mkdir -p .cache
