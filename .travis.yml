@@ -28,8 +28,8 @@ install:
   - ./scripts/build.sh
 
 script:
-  - docker run --rm --entrypoint yarn lint
-  - docker run --rm --entrypoint yarn test:unit
+  - docker run --rm bookit-web:latest yarn lint
+  - docker run --rm bookit-web:latest yarn test:unit
 
 notifications:
   slack:
