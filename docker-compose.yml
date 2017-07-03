@@ -4,7 +4,6 @@ services:
   app:
     container_name: app
     build: .
-    command: yarn build
     environment:
       NODE_ENV: production
     volumes:

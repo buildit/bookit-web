@@ -6,7 +6,9 @@ language: node_js
 node_js:
   - '7'
 
-cache: yarn
+cache:
+  directories:
+    $HOME/.cache
 
 env:
   global:
@@ -20,11 +22,14 @@ env:
 
 before_install:
   - docker --version
+  - docker-compose --version
+
+install:
   - ./scripts/build.sh
 
 script:
-  - yarn lint
-  - yarn test:unit
+  - docker run --rm --entrypoint yarn lint
+  - docker run --rm --entrypoint yarn test:unit
 
 notifications:
   slack:
