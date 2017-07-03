@@ -14,7 +14,7 @@ cd $DIR
 echo "+ I am now inside $DIR"
 
 if [ ! -f .cache ]; then
-  echo "+ making cache dir"
+  echo "+ build: Making cache dir"
   mkdir -p .cache
 fi
 
@@ -23,14 +23,14 @@ if [ ! -f .cache/.yarn-cache.tgz ]; then
   tar cvzf .cache/.yarn-cache.tgz --files-from /dev/null
 fi
 
-docker build -t bookit-web:latest .
+docker build -t builditdigital/bookit-web:latest .
 
-docker run --rm --entrypoint cat bookit-web:latest /tmp/yarn.lock > /tmp/yarn.lock
+docker run --rm --entrypoint cat builditdigital/bookit-web:latest /tmp/yarn.lock > /tmp/yarn.lock
 
 if ! diff -q yarn.lock /tmp/yarn.lock > /dev/null  2>&1; then
   echo "+ build: Saving Yarn cache"
 
-  docker run --rm --entrypoint tar bookit-web:latest czf - /root/.yarn-cache/ > .cache/.yarn-cache.tgz
+  docker run --rm --entrypoint tar builditdigital/bookit-web:latest czf - /root/.yarn-cache/ > .cache/.yarn-cache.tgz
 
   echo "+ build: Saving yarn.lock"
 
