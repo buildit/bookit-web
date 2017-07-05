@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import { destroy } from 'redux-form'
 
 import api from '../api'
@@ -16,6 +16,8 @@ import {
   createMeeting,
 } from './meetings'
 
+import { getUserToken } from '../selectors'
+
 describe('Meetings Sagas', () => {
   const meeting = { room: 'Fuschia' }
   const room = 'bar'
@@ -25,7 +27,8 @@ describe('Meetings Sagas', () => {
     const meetings = [meeting]
     const generator = fetchMeetings()
 
-    expect(generator.next().value).toEqual(call(api.fetchMeetings, undefined, undefined))
+    expect(generator.next().value).toEqual(select(getUserToken))
+    expect(generator.next().value).toEqual(call(api.fetchMeetings, undefined, undefined, undefined))
     expect(generator.next(meetings).value)
       .toEqual(put(meetingsFetchSucceeded(meetings)))
     expect(generator.next().done).toBeTruthy()
@@ -40,10 +43,11 @@ describe('Meetings Sagas', () => {
   })
 
   it('creates meetings', () => {
-    const action = { payload: { meeting, room, token } }
+    const action = { payload: { meeting, room } }
     const generator = createMeeting(action)
 
-    expect(generator.next().value).toEqual(call(api.createMeeting, meeting, room, token))
+    expect(generator.next().value).toEqual(select(getUserToken))
+    expect(generator.next().value).toEqual(call(api.createMeeting, undefined, meeting, room))
     expect(generator.next().value).toEqual(put(closeMeetingDialog()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
     expect(generator.next().value).toEqual(put(meetingCreateSucceeded()))

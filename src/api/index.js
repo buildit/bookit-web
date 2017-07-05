@@ -9,50 +9,35 @@ const login = (user, password) => agent
   .send({ user, password })
   .then(response => response.body)
 
-// Use this one when the server is ready
-// const login = (email, password) => agent.post(`${apiBaseUrl}/login`)
-//   .send({
-//     username: email,
-//     password,
-//   })
-//   .then((response) => {
-//     console.log(response);
-//     const user = JSON.parse(response.text);
-//     return user;
-//   })
-//   .catch(error => error);
-
-const fetchMeetings = (startDate, endDate) => {
+const fetchMeetings = (token, startDate, endDate) => {
   let start = startDate
   let end = endDate
+
   if (!startDate) {
     start = moment().startOf('day').format('YYYY-MM-DD')
   }
+
   if (!endDate) {
     end = moment(start).add(1, 'day').format('YYYY-MM-DD')
   }
 
   return agent
-    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`).then((response) => {
-      const meetings = JSON.parse(response.text)
-      return meetings
-    })
-    .catch((err) => {
-      throw new Error(err)
-    })
+    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`)
+    .set('x-access-token', token)
+    .then(response => response.body)
 }
 
-const createMeeting = (meeting, room, token) => agent
-  .post(`${apiBaseUrl}/room/${room.email}/meeting_protected`)
+const createMeeting = (token, meeting, room) => agent
+  .post(`${apiBaseUrl}/room/${room.email}/meeting`)
   .set('x-access-token', token)
   .send({
     title: meeting.title,
     start: meeting.start,
     end: meeting.end,
   })
-  .then(message => message)
+  .then(response => response.body)
 
-const cancelMeeting = (meetingId, roomEmail) => agent
+const cancelMeeting = (token, meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
   .then(message => message)
 
