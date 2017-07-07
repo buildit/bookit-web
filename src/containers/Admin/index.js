@@ -11,7 +11,7 @@ import { logout, openRemoveUserDialog } from '../../actions'
 
 import styles from './styles.scss'
 
-const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => (
+export const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => (
   <div className={styles.admin}>
     <InfoPanel pathName={location.pathname} />
     <main>
@@ -35,8 +35,6 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin)
-
 Admin.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
@@ -53,3 +51,8 @@ Admin.propTypes = {
   onRemoveClick: PropTypes.func.isRequired,
   location: PropTypes.shape({}),
 }
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(Admin)
+
+export default connected
+
