@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import { destroy } from 'redux-form'
 
 import api from '../api'
@@ -14,11 +14,16 @@ import {
   meetingsFetchStart,
 } from '../actions'
 
+import { getUserToken } from '../selectors'
+
 export function* fetchMeetings(action = {}) {
   try {
+    const token = yield select(getUserToken)
     const start = action.start ? action.start : undefined
     const end = action.end ? action.end : undefined
-    const meetings = yield call(api.fetchMeetings, start, end)
+
+    const meetings = yield call(api.fetchMeetings, token, start, end)
+
     yield put(meetingsFetchSucceeded(meetings))
   } catch (error) {
     yield put(meetingsFetchFailed(error))
@@ -27,8 +32,9 @@ export function* fetchMeetings(action = {}) {
 
 export function* createMeeting(action) {
   try {
-    const { payload: { meeting, room, token } } = action
-    yield call(api.createMeeting, meeting, room, token)
+    const token = yield select(getUserToken)
+    const { payload: { meeting, room } } = action
+    yield call(api.createMeeting, token, meeting, room)
     yield put(closeMeetingDialog())
     yield put(destroy('meeting-editor'))
     yield put(meetingCreateSucceeded())
@@ -40,8 +46,9 @@ export function* createMeeting(action) {
 
 export function* cancelMeeting(action) {
   try {
+    const token = yield select(getUserToken)
     const meeting = action.payload.meeting
-    yield call(api.cancelMeeting, meeting.id, meeting.roomId)
+    yield call(api.cancelMeeting, token, meeting.id, meeting.roomId)
     yield put(cancelMeetingSucceeded())
     yield put(meetingsFetchStart())
   } catch (err) {
