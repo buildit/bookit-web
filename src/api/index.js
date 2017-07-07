@@ -2,11 +2,13 @@ import agent from 'superagent'
 import moment from 'moment'
 import configParam from './configParam'
 
+import * as Azure from './azure'
+
 const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888')
 
-const login = (user, password) => agent
+const login = code => agent
   .post(`${apiBaseUrl}/authenticate`)
-  .send({ user, password })
+  .send({ code })
   .then(response => response.body)
 
 const fetchMeetings = (token, startDate, endDate) => {
@@ -50,12 +52,15 @@ const addUser = (user, token) => agent
     return user
   })
 
+const getOpenIdUrl = () => Azure.signinRequestUrl()
+
 const Api = {
   login,
   fetchMeetings,
   createMeeting,
   cancelMeeting,
   addUser,
+  getOpenIdUrl,
 }
 
 export default Api
