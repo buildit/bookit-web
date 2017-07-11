@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import styles from './styles.scss'
 import { selectDate } from '../../../../actions'
 
-const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackClick }) => {
+export const DateDisplay = ({ date, handleTodayClick, handleForwardClick, handleBackClick }) => {
   let today = null
   if (!date.isSame(moment(), 'day')) {
     today = (<div
@@ -45,4 +45,5 @@ const mapDispatchToProps = dispatch => ({
   handleTodayClick: () => dispatch(selectDate(moment())),
 })
 
-export default connect(null, mapDispatchToProps)(DateDisplay)
+const connected = connect(null, mapDispatchToProps)(DateDisplay)
+export default connected
