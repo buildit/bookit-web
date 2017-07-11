@@ -6,7 +6,6 @@ import moment from 'moment'
 
 import { Calendar } from '.'
 import DateDisplay from './DateDisplay'
-import Day from './Day'
 // import DayNames from './DayNames'
 // import Week from './Week'
 
@@ -29,6 +28,7 @@ describe('<Calendar />', () => {
     selectedDate: moment("07-08-2017", "MM-DD-YYYY"),
     handleBackClick: jest.fn(),
     handleForwardClick: jest.fn(),
+    date: moment("07-09-2017", "MM-DD-YYYY"),
   }
 
   it('renders', () => {
@@ -46,21 +46,5 @@ describe('<Calendar />', () => {
     const wrapper = mount(<Calendar {...props} />, options)
     const month = wrapper.find(DateDisplay).find('.dateDisplay').find('.date').find('.day')
     expect(month.text()).toBe('Saturday 8')
-  })
-
-  // FIXME: these next two tests need to be changed to handle the current date
-
-  it('underlines todays date', () => {
-    const wrapper = mount(<Calendar {...props} />, options)
-    const number = wrapper.find(Day).find('.day').find('.number').at(12)
-    const numberBorder = number.node.style._values['border-bottom']
-    expect(numberBorder).toBe('2px solid white')
-  })
-
-  it('does not underline other dates', () => {
-    const wrapper = mount(<Calendar {...props} />, options)
-    const number = wrapper.find(Day).find('.day').find('.number').at(17)
-    const numberBorder = number.node.style._values['border-bottom']
-    expect(numberBorder).toBe(undefined)
   })
 })

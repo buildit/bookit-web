@@ -7,7 +7,7 @@ import { selectDate } from '../../../../actions'
 import styles from './styles.scss'
 import { day as dayConfig, dot as dotConfig } from '../config'
 
-const Day = ({ day, handleClick }) => {
+export const Day = ({ day, handleClick }) => {
   const dayStyle = {
     width: `${dayConfig.size}rem`,
     height: `${dayConfig.size}rem`,
@@ -62,4 +62,6 @@ const mapDispatchToProps = dispatch => ({
   handleClick: date => dispatch(selectDate(date)),
 })
 
-export default connect(null, mapDispatchToProps)(Day)
+const connected = connect(null, mapDispatchToProps)(Day)
+
+export default connected
