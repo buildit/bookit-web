@@ -18,7 +18,7 @@ const style = {
 const forwardDate = selectedDate => selectedDate.clone().add(1, 'month').startOf('month')
 const backDate = selectedDate => selectedDate.clone().subtract(1, 'month').startOf('month')
 
-const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
+export const Calendar = ({ selectedDate, handleForwardClick, handleBackClick }) => (
   <div
     style={style}
   >
@@ -48,4 +48,6 @@ const mapDispatchToProps = dispatch => ({
   handleBackClick: date => () => dispatch(selectDate(backDate(date))),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
+const connected = connect(mapStateToProps, mapDispatchToProps)(Calendar)
+
+export default connected

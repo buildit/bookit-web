@@ -7,7 +7,7 @@ import { selectDate } from '../../../../actions'
 import styles from './styles.scss'
 import { day as dayConfig, dot as dotConfig } from '../config'
 
-const Day = ({ day, handleClick }) => {
+export const Day = ({ day, handleClick }) => {
   const dayStyle = {
     width: `${dayConfig.size}rem`,
     height: `${dayConfig.size}rem`,
@@ -25,7 +25,6 @@ const Day = ({ day, handleClick }) => {
   if (!day.isInCurrentMonth) {
     dayStyle.opacity = '0'
   }
-  // Not sure what it's for, but it's in the design.
   if (day.isToday) {
     numberStyle.borderBottom = '2px solid white'
   }
@@ -63,4 +62,6 @@ const mapDispatchToProps = dispatch => ({
   handleClick: date => dispatch(selectDate(date)),
 })
 
-export default connect(null, mapDispatchToProps)(Day)
+const connected = connect(null, mapDispatchToProps)(Day)
+
+export default connected
