@@ -65,4 +65,5 @@ describe('<Day />', () => {
     const number = wrapper.find('.day').find('.number')
     expect(number.text()).toBe('9')
   })
+
 })

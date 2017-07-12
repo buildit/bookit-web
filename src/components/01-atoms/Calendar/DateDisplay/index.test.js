@@ -8,12 +8,15 @@ import { DateDisplay } from '.'
 
 describe('<DateDisplay />', () => {
 
-  const props = {
-    handleBackClick: jest.fn(),
-    handleForwardClick: jest.fn(),
-    handleTodayClick: jest.fn(),
-    date: moment("07-09-2017", "MM-DD-YYYY"),
-  }
+  let props
+  beforeEach(() => {
+    props = {
+      handleBackClick: jest.fn(),
+      handleForwardClick: jest.fn(),
+      handleTodayClick: jest.fn(),
+      date: moment("07-09-2017", "MM-DD-YYYY"),
+    }
+  })
 
   it('renders', () => {
     const wrapper = shallow(<DateDisplay {...props} />)
@@ -46,13 +49,26 @@ describe('<DateDisplay />', () => {
     expect(today.length).toBe(0)
   })
 
-  it('changes the displayed month when a user clicks on the today button', () => {
+  it('calls the proper function when the today button is clicked', () => {
     props.date = moment().add(1, 'month')
-    console.log(props.date)
     const wrapper = shallow(<DateDisplay {...props} />)
     const today = wrapper.find('.dateDisplay').find('.today')
     today.simulate('click')
-    const month = wrapper.find('.dateDisplay').find('.date').find('.month')
-    expect(month.text()).toBe(moment().format('MMMM'))
+    expect(props.handleTodayClick.mock.calls.length).toBe(1)
   })
+
+  it('calls the function to change to the previous month when the back arrow is clicked', () => {
+    const wrapper = shallow(<DateDisplay {...props} />)
+    const back = wrapper.find('.dateDisplay').find('.past')
+    back.simulate('click')
+    expect(props.handleBackClick.mock.calls.length).toBe(1)
+  })
+
+  it('calls the function to change to the previous month when the back arrow is clicked', () => {
+    const wrapper = shallow(<DateDisplay {...props} />)
+    const back = wrapper.find('.dateDisplay').find('.past')
+    back.simulate('click')
+    expect(props.handleForwardClick.mock.calls.length).toBe(1)
+  })
+
 })
