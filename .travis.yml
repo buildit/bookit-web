@@ -32,8 +32,8 @@ deploy:
   skip_cleanup: true
   provider: script
   script: ./scripts/build-and-deploy.sh
-  # on:
-  #   branch: master
+  on:
+    branch: better-builds-v2
 
 notifications:
   slack:
