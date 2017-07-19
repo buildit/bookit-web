@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# !!! DEPRECATED !!!
+
 DIR=`dirname $0`
 
 chmod 600 $DIR/ec2/travis

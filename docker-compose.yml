@@ -1,16 +1,20 @@
-version: '2'
+version: '3'
 
 services:
+
   web:
-    build: .
+    container_name: bookit_web
+    image: builditdigital/bookit-web:latest
     ports:
-     - "8080:80"
+     - "80:80"
+    links:
+      - "server:bookitapi"
     environment:
-    - API_BASE_URL=http://localhost:8888
+      - BOOKIT_API_BASE_URL=/api
+    command: /bin/sh -c "envsubst < /opt/app/config.js.template > /opt/app/config.js && nginx -g 'daemon off;'"
+
   server:
-    image: bookit-server:local
-    ports:
-    - "8888:8888"
-    #env_file: .env
-    environment:
-    - MICROSOFT_CLIENT_SECRET=setme_for_real_exchange
+    container_name: bookit_server
+    image: builditdigital/bookit-server:latest
+    expose:
+      - "8888"

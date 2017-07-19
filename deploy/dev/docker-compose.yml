@@ -1,15 +1,19 @@
-version: '2'
+# !!! DEPRECATED !!!
+
+version: '3'
 
 services:
   web:
     image: builditdigital/bookit-web:latest
+    depends_on:
+      - server
     ports:
-     - "80:80"
+      - "80:80"
     environment:
-    - API_BASE_URL=http://bookit.riglet.io:8888
+      - API_BASE_URL=http://bookit.riglet.io:8888
   server:
     image: builditdigital/bookit-server:latest
     ports:
-    - "8888:8888"
+      - "8888:8888"
     environment:
-    - MICROSOFT_CLIENT_SECRET=setme_for_real_exchange
+      - MICROSOFT_CLIENT_SECRET=setme_for_real_exchange

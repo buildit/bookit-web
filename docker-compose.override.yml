@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+  web:
+    image: builditdigital/bookit-web:local
+    build: .
+
+  server:
+    env_file:
+      # POINT THIS TO A VALID BOOKIT-SERVER ENV - OR SPECIFY VIA environments VALUES!
+      - ../bookit-server/.env
