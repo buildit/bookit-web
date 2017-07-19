@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]] then
+if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
   DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
   cd $DIR
 
