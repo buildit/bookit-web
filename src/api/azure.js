@@ -1,5 +1,7 @@
 import url from 'url'
 
+const currentHostname = () => window.location ? window.location.origin : 'http://happyjoyland'
+
 export const signinRequestUrl = () => {
   const tenant = '575c5b98-c069-4475-99d9-cfb32e39d24e'
   const protocol = 'https'
@@ -7,7 +9,7 @@ export const signinRequestUrl = () => {
   const query = {
     client_id: '123999c5-771d-4136-9d87-b5fc03f3266e',
     response_type: 'id_token',
-    redirect_uri: 'http://localhost:3001/openid-complete',
+    redirect_uri: `${currentHostname()}/openid-complete`,
     scope: 'openid',
     response_mode: 'query',
     nonce: '12345',
