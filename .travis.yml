@@ -33,7 +33,7 @@ deploy:
   provider: script
   script: ./scripts/build-and-deploy.sh
   on:
-    branch: better-builds-v2
+    branch: master
 
 notifications:
   slack:
