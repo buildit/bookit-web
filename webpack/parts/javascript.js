@@ -2,6 +2,10 @@ import { optimize } from 'webpack'
 
 import BabiliPlugin from 'babili-webpack-plugin'
 
+import browserslist from 'browserslist'
+
+const targetBrowsers = () => browserslist.readConfig('.browserlistrc').defaults
+
 const babeldev = () => ({
   loader: 'babel-loader',
   options: {
@@ -21,7 +25,7 @@ const babeldev = () => ({
       [
         'env', {
           targets: {
-            browsers: [ '> 5%', 'ie >= 11' ],
+            browsers: targetBrowsers(),
           },
           modules: false,
           useBuiltIns: true,
