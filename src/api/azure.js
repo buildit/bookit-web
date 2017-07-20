@@ -1,6 +1,6 @@
 import url from 'url'
 
-const currentHostname = () => window.location ? window.location.origin : 'http://happyjoyland'
+const currentHostname = () => window.location ? window.location.origin : 'http://localhost:3001'
 
 export const signinRequestUrl = () => {
   const tenant = '575c5b98-c069-4475-99d9-cfb32e39d24e'
