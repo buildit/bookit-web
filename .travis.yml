@@ -23,7 +23,7 @@ env:
 
 script:
   - yarn lint
-  - yarn test:unit
+  - yarn test:unit -- --colors --ci --silent
 
 after_success:
   - ./scripts/run-coveralls.sh

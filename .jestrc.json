@@ -9,12 +9,12 @@
   "testEnvironment": "jsdom",
   "testRegex": "\\.test.js$",
   "collectCoverageFrom": [
-    "**/src/**/*.js"
+    "**/src/**/*.js",
+    "!**/src/functional-tests/**"
   ],
   "coverageReporters": [
-    "text",
-    "lcov",
-    "json"
+    "text-summary",
+    "lcov"
   ],
   "rootDir": ".",
   "globals": {
