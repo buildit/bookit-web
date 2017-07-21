@@ -87,23 +87,27 @@ const app = (state = initialState, action) => {
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
-    const meetings = state.allMeetingIds
-      .map(id => state.meetingsById[id])
-      .filter(meeting => meeting.roomId === action.payload.room.email)
+    const now = moment()
+    const startTime = state.selectedDate.clone().add(action.payload.meeting, 'hours')
+    const meetingCreationIsAllowed = startTime.isAfter(now)
 
-    // const meetings = Object.values(state.meetingsById)
-    //   .filter(meeting => meeting.roomId === action.payload.room.email)
-    const moment2 = state.selectedDate.clone().add(action.payload.meeting, 'hours')
-    const roundedDate = moment2.minutes(Math.floor(state.selectedDate.minutes() / 30) * 30)
-    const validatedSlot = getAvailableTimeSlot(roundedDate, meetings)
+    if (meetingCreationIsAllowed) {
+      const meetings = state.allMeetingIds
+        .map(id => state.meetingsById[id])
+        .filter(meeting => meeting.roomId === action.payload.room.email)
 
-    const meeting = {
-      title: '',
-      start: validatedSlot.start,
-      end: validatedSlot.end,
-      room: action.payload.room,
+      const roundedDate = startTime.minutes(Math.floor(state.selectedDate.minutes() / 30) * 30)
+      const validatedSlot = getAvailableTimeSlot(roundedDate, meetings)
+
+      const meeting = {
+        title: '',
+        start: validatedSlot.start,
+        end: validatedSlot.end,
+        room: action.payload.room,
+      }
+      return { ...state, isCreatingMeeting: true, requestedMeeting: meeting }
     }
-    return { ...state, isCreatingMeeting: true, requestedMeeting: meeting }
+    return state
   }
   case POPULATE_MEETING_EDIT_FORM: {
     const meeting = {
