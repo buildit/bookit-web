@@ -1,3 +1,4 @@
+@import '../../../shared-styles/variables';
 .blocker {
   position: absolute;
   top: 0;
@@ -5,8 +6,9 @@
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, .7);
-  background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg width="147px" height="153px" viewBox="0 0 147 153" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>Spinner</title><desc>Created with Sketch.</desc><defs></defs><g id="UI_production" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop_Create-progress-bar" transform="translate(-108.000000, -286.000000)" fill="#FBFE34"><path d="M166.772106,286 C133.014021,294.408229 108,324.927535 108,361.287961 C108,404.135946 142.736524,438.87247 185.584509,438.87247 C215.963296,438.87247 242.264722,421.411578 255,395.978583 L248.413978,392.671766 C236.968941,416.096567 212.9104,432.231129 185.082676,432.231129 C146.176317,432.231129 114.637676,400.692488 114.637676,361.786129 C114.637676,328.548249 137.655721,300.687597 168.621179,293.274803 L166.772106,286 Z" id="Spinner"></path></g></g></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><circle cx="50" cy="50" fill="none" stroke="#{$veryyellow}" stroke-width="1" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(306 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 5rem;
   z-index: 999;
 }
