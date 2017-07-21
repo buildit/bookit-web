@@ -1,27 +1,39 @@
 language: node_js
 node_js:
-- '7'
+  - '7'
 
-# NOTE: Removed the following from before ./scripts/push-docker-image.sh
-# - ./scripts/run-functional-tests.sh
+sudo: required
 
-script:
-- yarn lint
-- yarn test:unit
-- yarn build
-- ./scripts/push-docker-image.sh
+services:
+  - docker
 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: chmod 600 ./deploy/ec2/travis && ./deploy/deploy.sh
-  on:
-    branch: master
+cache:
+  yarn: true
+  directories:
+    - node_modules
 
 env:
   global:
-  - secure: G7IzlXf11wy/DxBvgNR+ChCKTsUABbiYl8q/nLLY++d5AK86ZfX+fqVMHhUArRad4in4LYuMPyMaoOJOsh38iy52/g8erbHSQmwX6r+JzHpueUlCBee7MP8mMGRbQPKC6Z+ZM4/JiMVleID3/uIfqxDGhNDNsB8abQ76DQN1s4x/dxVNM7WOv9EuNe66wyOATxeQ6VJop2jB8bdhYU8vlxBh0UsDMgU1ItjjdsQaxbB2t1YBBXFEQwjCErYCYzA9phFkk7vcnioDoJpe/ZRB8QCYuQDa9xBi64C9Oy0hS60cseLdZa9xgz5CUIVfuds5Rogs6tMusqhJmuKdvs2erMZybF978BHVqHEoLaLZSYlF0IyNeyo4gaMxRZG6sqLlIPgREYR8OjsFv9ZLvkT/K7Fw23EMYBmRvBOVYQSS+cafBieAiW54HdNcaFH8+SW2/GjHz2wDhvRBckVcWVTKZRMPPttqXwq9ZQwfo5fqxJCChkIiwkMIz2Y2OMUsDtzqay0mQ9Q5PKTn0SPj0evoCyHc4Qoef5x/rOZWJ4SDq8wE/meIOYK7ivoR1H7yVraak6kP+MZ/J09UbEpGIxz442NuFCFCkuSMO7Q0tiLdpbGFnY28som4axNGpEX3Ij08bLmKsLkQ/xL1ct2sdh0xseLS6M849r4oazULAlLFL+8=
-  - secure: MunCbXG6H+pstm/Gf5bVzFXCuICfcdYEcoHfEeGSeVHkBRRFXOrLLbgR66mfqkvaHStbZhEvgVM/VbMobIuJqg5axb8YAwsnn5zoyOw2CAu9Zlemztzmgvk52vhI00xh+r3Ih/8wAFpdP26UUs4zjV4ueeqGaeFtPfLNT9+5rp+ZaRn5fDPtiUJ0zCgBtNU2rDz1oHL3TgeGn7npPUzdGptmUTLycdAnzVwsE4Lk5W7HwLSxqNduHBbX2egZWa5FWrL94inj1bX0LhkTcF9qavSn218bb2Bu3a94HNtofL0Xh97PE+g8gqTR51a3fDStXdMcKaDTPK5bwE+hUR2UI95VE7Kz8Sc7welV5jPye7c9IbDZ88RQR2aLwcJY0t5NvWsuUXAkFzIdafS05aoiKLysZQXYUxWnfW4IFwRTm9RReUjgEj2wjyd0TGZlh+lC+aQOUnGBghWlV0tkts1n5Uh4HL5w9YzR/tIvfK499hSIowGLmUaYLhd5LRyQyPtJivdVB/lWTBIvVym6kQJahG1mb2ZJ8Xps3uMNx6SrB9ud5g03Ivoa8GWCki0JVb0WJzLkScYxGsmdXHppogz6dlMao7l2fcwtLz2z+bIzoUw1pZEsaXMCLq2MA+7DCy14ycODIaD3OCrOBi679e7PB7m2u7+0zQnaDtlWMFVM0jI=
+    - COMMIT_SHA=${TRAVIS_COMMIT::8}
+    - DOCKER_ORG=builditdigital
+    - DOCKER_REPO=bookit-web
+    # Docker Login
+    - secure: G7IzlXf11wy/DxBvgNR+ChCKTsUABbiYl8q/nLLY++d5AK86ZfX+fqVMHhUArRad4in4LYuMPyMaoOJOsh38iy52/g8erbHSQmwX6r+JzHpueUlCBee7MP8mMGRbQPKC6Z+ZM4/JiMVleID3/uIfqxDGhNDNsB8abQ76DQN1s4x/dxVNM7WOv9EuNe66wyOATxeQ6VJop2jB8bdhYU8vlxBh0UsDMgU1ItjjdsQaxbB2t1YBBXFEQwjCErYCYzA9phFkk7vcnioDoJpe/ZRB8QCYuQDa9xBi64C9Oy0hS60cseLdZa9xgz5CUIVfuds5Rogs6tMusqhJmuKdvs2erMZybF978BHVqHEoLaLZSYlF0IyNeyo4gaMxRZG6sqLlIPgREYR8OjsFv9ZLvkT/K7Fw23EMYBmRvBOVYQSS+cafBieAiW54HdNcaFH8+SW2/GjHz2wDhvRBckVcWVTKZRMPPttqXwq9ZQwfo5fqxJCChkIiwkMIz2Y2OMUsDtzqay0mQ9Q5PKTn0SPj0evoCyHc4Qoef5x/rOZWJ4SDq8wE/meIOYK7ivoR1H7yVraak6kP+MZ/J09UbEpGIxz442NuFCFCkuSMO7Q0tiLdpbGFnY28som4axNGpEX3Ij08bLmKsLkQ/xL1ct2sdh0xseLS6M849r4oazULAlLFL+8=
+    - secure: MunCbXG6H+pstm/Gf5bVzFXCuICfcdYEcoHfEeGSeVHkBRRFXOrLLbgR66mfqkvaHStbZhEvgVM/VbMobIuJqg5axb8YAwsnn5zoyOw2CAu9Zlemztzmgvk52vhI00xh+r3Ih/8wAFpdP26UUs4zjV4ueeqGaeFtPfLNT9+5rp+ZaRn5fDPtiUJ0zCgBtNU2rDz1oHL3TgeGn7npPUzdGptmUTLycdAnzVwsE4Lk5W7HwLSxqNduHBbX2egZWa5FWrL94inj1bX0LhkTcF9qavSn218bb2Bu3a94HNtofL0Xh97PE+g8gqTR51a3fDStXdMcKaDTPK5bwE+hUR2UI95VE7Kz8Sc7welV5jPye7c9IbDZ88RQR2aLwcJY0t5NvWsuUXAkFzIdafS05aoiKLysZQXYUxWnfW4IFwRTm9RReUjgEj2wjyd0TGZlh+lC+aQOUnGBghWlV0tkts1n5Uh4HL5w9YzR/tIvfK499hSIowGLmUaYLhd5LRyQyPtJivdVB/lWTBIvVym6kQJahG1mb2ZJ8Xps3uMNx6SrB9ud5g03Ivoa8GWCki0JVb0WJzLkScYxGsmdXHppogz6dlMao7l2fcwtLz2z+bIzoUw1pZEsaXMCLq2MA+7DCy14ycODIaD3OCrOBi679e7PB7m2u7+0zQnaDtlWMFVM0jI=
+
+script:
+  - yarn lint
+  - yarn test:unit
+
+after_success:
+  - ./scripts/run-coveralls.sh
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./scripts/build-and-deploy.sh
+  on:
+    branch: master
 
 notifications:
   slack:
@@ -33,31 +45,3 @@ notifications:
       - ":wrench: <%{build_url}|#%{build_number}>"
       - ":eye: (<%{compare_url}|%{commit}>)"
       - "%{repository_name}@%{branch} by %{author}"
-
-# Docker config
-sudo: required
-services:
-- docker
-
-# Decrypt deployment key
-before_install:
-- openssl aes-256-cbc -K $encrypted_0c4d71dbdba1_key -iv $encrypted_0c4d71dbdba1_iv -in ./deploy/ec2/travis.enc -out ./deploy/ec2/travis -d
-- stty cols 80
-
-# Testcafe config
-addons:
-  apt:
-    sources:
-    - google-chrome
-    packages:
-    - google-chrome-stable fluxbox
-
-before_script:
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
-- sleep 3
-- fluxbox >/dev/null 2>&1 &
-
-after_success:
-- 'yarn test:unit:coverage'
-- 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
