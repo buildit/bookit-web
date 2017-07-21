@@ -40,7 +40,7 @@ export function* createMeeting(action) {
     yield put(meetingCreateSucceeded())
     yield call(fetchMeetings)
   } catch (err) {
-    yield put(meetingCreateFailed(err.response && err.response.body && err.response.body.message))
+    yield put(meetingCreateFailed(err.toString()))
   }
 }
 
