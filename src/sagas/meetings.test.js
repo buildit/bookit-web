@@ -61,7 +61,7 @@ describe('Meetings Sagas', () => {
     const action = { payload: { meeting, room, token } }
     const generator = createMeeting(action)
     const correct = put(meetingCreateFailed(
-      err.response && err.response.body && err.response.body.message
+      err.toString()
     ))
 
     generator.next()
