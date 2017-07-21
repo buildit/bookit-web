@@ -6,7 +6,7 @@ import {
 
 const initialState = false
 
-const ajax = (state = initialState, action) => {
+const ajax = (state = initialState, action = {}) => {
   switch (action.type) {
   case MEETING_CREATE_START: {
     return true
