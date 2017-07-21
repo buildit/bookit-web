@@ -8,6 +8,7 @@ import MeetingForm from '../../components/02-molecules/MeetingForm'
 
 import {
   meetingCreateStart,
+  meetingEditStart,
   openCancellationDialog,
  } from '../../actions/index'
 
@@ -60,6 +61,7 @@ const mapStateToProps = state => ({
   token: state.user.token,
   meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
   room: state.app.requestedMeeting.room,
+  roomId: state.app.requestedMeeting.roomId,
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound'],
@@ -69,6 +71,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
+  handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingFormContainer)

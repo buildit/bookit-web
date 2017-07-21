@@ -12,6 +12,8 @@ import {
   cancelMeetingSucceeded,
   cancelMeetingFailed,
   meetingsFetchStart,
+  meetingEditSucceeded,
+  meetingEditFailed,
 } from '../actions'
 
 import { getUserToken } from '../selectors'
@@ -41,6 +43,21 @@ export function* createMeeting(action) {
     yield call(fetchMeetings)
   } catch (err) {
     yield put(meetingCreateFailed(err.response && err.response.body && err.response.body.message))
+  }
+}
+
+export function* editMeeting(action) {
+  try {
+    const token = yield select(getUserToken)
+    const { payload: { meeting, room } } = action
+    console.log(action)
+    yield call(api.editMeeting, token, meeting, room)
+    yield put(closeMeetingDialog())
+    yield put(destroy('meeting-editor'))
+    yield put(meetingEditSucceeded())
+    yield call(fetchMeetings)
+  } catch (err) {
+    yield put(meetingEditFailed(err.response && err.response.body && err.response.body.message))
   }
 }
 

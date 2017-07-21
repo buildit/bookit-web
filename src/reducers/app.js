@@ -9,6 +9,7 @@ import {
   MEETINGS_FETCH_FAILED,
   CLOSE_MEETING_DIALOG,
   MEETING_CREATE_FAILED,
+  MEETING_EDIT_FAILED,
   SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
@@ -84,6 +85,14 @@ const app = (state = initialState, action) => {
       ...state,
       isCancellingMeeting: false,
       messages: ['Oh no! There was a problem cancelling your meeting.'],
+    }
+  }
+
+  case MEETING_EDIT_FAILED: {
+    return {
+      ...state,
+      isEditingMeeting: false,
+      messages: ['Oh no! There was a problem editing your meeting.'],
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
