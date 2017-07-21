@@ -6,6 +6,11 @@ import * as Azure from './azure'
 
 const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888')
 
+const standardErrorResponseTrap = (err) => {
+  console.log(err)
+  return 'There was a problem communicating with the server.'
+}
+
 const login = code => agent
   .post(`${apiBaseUrl}/authenticate`)
   .send({ code })
@@ -38,6 +43,7 @@ const createMeeting = (token, meeting, room) => agent
     end: meeting.end,
   })
   .then(response => response.body)
+  .catch(standardErrorResponseTrap)
 
 const cancelMeeting = (token, meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)

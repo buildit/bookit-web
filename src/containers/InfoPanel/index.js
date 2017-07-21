@@ -14,6 +14,7 @@ import {
   closeInviteUserDialog,
  } from '../../actions'
 
+import UIBlocker from '../../components/01-atoms/UIBlocker'
 import Calendar from '../../components/01-atoms/Calendar'
 import Messages from '../../components/02-molecules/Messages'
 import ReservationList from '../../components/02-molecules/ReservationList'
@@ -50,6 +51,7 @@ class InfoPanel extends React.Component {
      onInviteCloseClick,
      userToBeRemoved,
      onAbortRemovingUser,
+     ajax,
    } = this.props
 
     let agendaContent =
@@ -94,6 +96,7 @@ class InfoPanel extends React.Component {
           className={ isInvitingUser || isCreatingMeeting || isEditingMeeting ?
             styles.close : styles.invite }
         />
+        { ajax ? <UIBlocker /> : '' }
         { (this.pathName === '' || this.pathName === '/') && agendaContent }
         { (this.pathName === 'admin' || this.pathName === '/admin') && adminContent }
         <Messages key="8" messages={messages} />
@@ -121,6 +124,7 @@ const mapStateToProps = (state) => {
     isInvitingUser: state.app.isInvitingUser,
     users: state.users,
     userToBeRemoved: state.app.userToBeRemoved,
+    ajax: state.ajax,
   })
 }
 
@@ -185,6 +189,6 @@ InfoPanel.propTypes = {
     email: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
-  })
-),
+  })),
+  ajax: PropTypes.bool,
 }

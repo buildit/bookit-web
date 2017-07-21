@@ -6,10 +6,12 @@
   display: flex;
   flex-direction: column;
   padding: 70px 30px 30px 20px;
+  position: relative;
 }
 
 .invite, .close {
   position: absolute;
+  z-index: 1000;
   left: 353px;
   top: 30px;
   color: $blackish;
@@ -39,5 +41,3 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-
-
