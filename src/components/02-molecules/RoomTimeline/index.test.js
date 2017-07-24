@@ -29,6 +29,7 @@ describe('<RoomTimeline />', () => {
       },
     ],
     populateMeetingCreateForm: jest.fn(),
+    meetingFormIsActive: false,
   }
 
   it('renders', () => {
