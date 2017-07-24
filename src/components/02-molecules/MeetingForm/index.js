@@ -10,6 +10,7 @@ import styles from './styles.scss'
 
 
 const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' }
+const isNotEmpty = obj => Object.keys(obj).length > 0
 
 const MeetingForm = ({
   handleSubmit,
@@ -23,8 +24,10 @@ const MeetingForm = ({
   isCreatingMeeting,
   handleDeleteClick,
  }) => {
+  const isSubmitDisabled = invalid && isNotEmpty(validationErrors)
+
   const buttons = isCreatingMeeting
-    ? <Button disabled={invalid} type="submit" content="Bookit" />
+    ? <Button disabled={isSubmitDisabled} type="submit" content="Bookit" />
     : (<div className={styles.buttons}>
       <Button disabled={invalid} onClick={() => handleDeleteClick()} content="Delete" />
       <Button disabled content="Save" />

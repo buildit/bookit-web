@@ -12,8 +12,10 @@ import {
  } from '../../actions/index'
 
 const validate = (values) => {
+  console.log(values)
   const startMom = moment(values.start)
   const endMom = moment(values.end)
+  const now = moment()
 
   const errors = {}
 
@@ -21,7 +23,7 @@ const validate = (values) => {
     errors.end = 'The start time must be before the end time'
   }
 
-  if (startMom.isBefore(moment())) {
+  if (startMom.isBefore(now)) {
     errors.noTimeTravel = 'You can\'t book in the past'
   }
 
@@ -33,7 +35,6 @@ const validate = (values) => {
     errors.title = 'Please set the title'
   }
 
-  // TODO: Add validation here.
   return errors
 }
 
