@@ -74,20 +74,8 @@ const fakeUsers = [
 const users = (state = fakeUsers, action) => {
   switch (action.type) {
   case USER_INVITE_SUCCEEDED: {
-    state.push({
-      name: action.payload.name,
-      // Hard coded for now. No use cases for other locations.
-      // We also need to figure out if we can get a notion of 'location'
-      // back from Azure
-      location: 'New York',
-      email: action.payload.email,
-      // Right now the only directory we can add users from is Wipro.
-      // We may need to change this in the future
-      team: 'WIPRO',
-      // Find out if Azure stores this info
-      dateAdded: moment(),
-    })
-    return state
+    const newUser = action.payload
+    return [...state, newUser]
   }
   case USER_REMOVE_SUCCEEDED: {
     const emailOfRemovedUser = action.payload
