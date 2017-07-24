@@ -10,32 +10,21 @@ const UserForm = ({
   user,
   handleSubmit,
   invalid,
- }) => {
-  const buttons = <Button disabled={invalid} type="submit" content="Invite" />
-
-  const header = <div className={styles.invite}>Invite Users</div>
-
-  return (
-    <div className={styles.form}>
-      { header }
-      <div className={styles.section}>Select a directory</div>
-      {// Right now the only directory we can add users from is Wipro.
-       // We may need to change this in the future
-      }
-      <div className={styles.teamSelector}>Wipro</div>
-      <div className={styles.section}>Enter user information</div>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault()
-          handleSubmit(user)
-        }}
-      >
-        <Field floatingLabelFixed floatingLabelText="E-mail address" name="email" component={TextField} />
-        { buttons }
-      </form>
-    </div>
-  )
-}
+ }) => (
+   <div className={styles.form}>
+     <div className={styles.invite}>Invite Users</div>
+     <div className={styles.section}>Enter user information</div>
+     <form
+       onSubmit={(event) => {
+         event.preventDefault()
+         handleSubmit(user)
+       }}
+     >
+       <Field floatingLabelFixed floatingLabelText="E-mail address" name="email" component={TextField} />
+       <Button disabled={invalid} type="submit" content="Invite" />
+     </form>
+   </div>
+ )
 
 UserForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
