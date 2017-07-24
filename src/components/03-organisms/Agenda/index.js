@@ -11,7 +11,7 @@ import RoomTimeline from '../../02-molecules/RoomTimeline'
 
 import styles from './styles.scss'
 
-export const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) => rooms.map(room => (
+export const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm, meetingFormIsActive) => rooms.map(room => (
   <RoomTimeline
     key={room.name}
     meetings={meetings.filter(meeting => meeting.roomId === room.id)}
@@ -20,17 +20,18 @@ export const renderRoomTimelines = (rooms, meetings, populateMeetingCreateForm) 
       name: room.name,
     }}
     populateMeetingCreateForm={populateMeetingCreateForm}
+    meetingFormIsActive={meetingFormIsActive}
   />
 ))
 
-const Agenda = ({ meetings, rooms, populateMeetingCreateForm }) => (
+const Agenda = ({ meetings, rooms, populateMeetingCreateForm, meetingFormIsActive }) => (
   <div className={styles.agenda}>
     <div className={styles.column}>
       { roomTimelineNames(rooms) }
     </div>
     <div className={[styles.column, styles.timeline].join(' ')} id="timelines">
       { timelineLabelList() }
-      { renderRoomTimelines(rooms, meetings, populateMeetingCreateForm) }
+      { renderRoomTimelines(rooms, meetings, populateMeetingCreateForm, meetingFormIsActive) }
       { currentTimeIndicator() }
     </div>
   </div>
@@ -60,6 +61,7 @@ Agenda.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
+  meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
 export default Agenda

@@ -44,6 +44,7 @@ export class DashboardContainer extends React.Component {
             meetings={meetings}
             rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
+            meetingFormIsActive={this.props.meetingFormIsActive}
           />
         </main>
       </div>
@@ -81,6 +82,8 @@ DashboardContainer.propTypes = {
     }).isRequired
   ).isRequired,
   location: PropTypes.shape({}),
+  isEditingMeeting: PropTypes.bool.isRequired,
+  meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
 
@@ -110,6 +113,8 @@ const mapStateToProps = (state) => {
 
   const rooms = allRoomIds.map(id => roomsById[id])
 
+  const meetingFormIsActive = isEditingMeeting || isCreatingMeeting
+
   return ({
     user: state.user,
     meetings,
@@ -123,6 +128,7 @@ const mapStateToProps = (state) => {
     messages,
     selectedDate,
     requestedMeeting,
+    meetingFormIsActive,
   })
 }
 

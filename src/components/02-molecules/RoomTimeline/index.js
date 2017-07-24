@@ -17,7 +17,9 @@ class RoomTimeline extends React.Component {
   render() {
     const onTimelineClick = (e) => {
       const requestedStartTime = e.nativeEvent.offsetX / HOUR_WIDTH
-      this.props.populateMeetingCreateForm(this.props.room, requestedStartTime)
+      if (!this.props.meetingFormIsActive) {
+        this.props.populateMeetingCreateForm(this.props.room, requestedStartTime)
+      }
     }
 
     return (
@@ -52,6 +54,7 @@ RoomTimeline.propTypes = {
     roomId: PropTypes.string.isRequired,
   })).isRequired,
   populateMeetingCreateForm: PropTypes.func.isRequired,
+  meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
 export default RoomTimeline
