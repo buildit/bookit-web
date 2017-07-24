@@ -5,7 +5,7 @@ import momentPropTypes from 'react-moment-proptypes'
 
 import roomTimelineNames from '../../01-atoms/RoomTimelineNames'
 import timelineLabelList from '../../01-atoms/TimelineLabelList'
-import currentTimeIndicator from '../../01-atoms/CurrentTimeIndicator'
+import CurrentTimeIndicator from '../../01-atoms/CurrentTimeIndicator'
 
 import RoomTimeline from '../../02-molecules/RoomTimeline'
 
@@ -32,7 +32,7 @@ const Agenda = ({ meetings, rooms, populateMeetingCreateForm, meetingFormIsActiv
     <div className={[styles.column, styles.timeline].join(' ')} id="timelines">
       { timelineLabelList() }
       { renderRoomTimelines(rooms, meetings, populateMeetingCreateForm, meetingFormIsActive) }
-      { currentTimeIndicator() }
+      <CurrentTimeIndicator />
     </div>
   </div>
   )
