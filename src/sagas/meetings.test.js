@@ -9,11 +9,13 @@ import {
   closeMeetingDialog,
   meetingsFetchSucceeded,
   meetingsFetchFailed,
+  meetingEditSucceeded,
 } from '../actions'
 
 import {
   fetchMeetings,
   createMeeting,
+  editMeeting,
 } from './meetings'
 
 import { getUserToken } from '../selectors'
@@ -51,6 +53,19 @@ describe('Meetings Sagas', () => {
     expect(generator.next().value).toEqual(put(closeMeetingDialog()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
     expect(generator.next().value).toEqual(put(meetingCreateSucceeded()))
+    expect(generator.next().value).toEqual(call(fetchMeetings))
+    expect(generator.next().done).toBeTruthy()
+  })
+
+  it('edits meetings', () => {
+    const action = { payload: { meeting, room } }
+    const generator = editMeeting(action)
+
+    expect(generator.next().value).toEqual(select(getUserToken))
+    expect(generator.next().value).toEqual(call(api.editMeeting, undefined, meeting, room))
+    expect(generator.next().value).toEqual(put(closeMeetingDialog()))
+    expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
+    expect(generator.next().value).toEqual(put(meetingEditSucceeded()))
     expect(generator.next().value).toEqual(call(fetchMeetings))
     expect(generator.next().done).toBeTruthy()
   })
