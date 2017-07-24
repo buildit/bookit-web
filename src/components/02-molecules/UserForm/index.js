@@ -12,7 +12,7 @@ const UserForm = ({
   invalid,
  }) => (
    <div className={styles.form}>
-     <div className={styles.invite}>Invite Users</div>
+     <div className={styles.invite}>Add Users</div>
      <div className={styles.section}>Enter user information</div>
      <form
        onSubmit={(event) => {
@@ -21,7 +21,7 @@ const UserForm = ({
        }}
      >
        <Field floatingLabelFixed floatingLabelText="E-mail address" name="email" component={TextField} />
-       <Button disabled={invalid} type="submit" content="Invite" />
+       <Button disabled={invalid} type="submit" content="Add user" />
      </form>
    </div>
  )
