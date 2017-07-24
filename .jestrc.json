@@ -13,7 +13,7 @@
     "!**/src/functional-tests/**"
   ],
   "coverageReporters": [
-    "text-summary",
+    "text",
     "lcov"
   ],
   "rootDir": ".",
