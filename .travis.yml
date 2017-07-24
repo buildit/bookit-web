@@ -31,6 +31,12 @@ script:
 
 after_success:
   - ./scripts/run-coveralls.sh
+  - pip install --user awscli
+  - export PATH=$PATH:/$HOME/.local/bin
+  - aws ecr create-repository --repository-name $REPO --region us-east-1
+  - eval $(aws ecr get-login --region us-east-1)
+  - docker tag $REPO:$TRAVIS_BUILD_NUMBER 006393696278.dkr.ecr.us-east-1.amazonaws.com/$REPO:$TRAVIS_BUILD_NUMBER
+  - docker push 006393696278.dkr.ecr.us-east-1.amazonaws.com/$REPO:$TRAVIS_BUILD_NUMBER
 
 deploy:
   skip_cleanup: true
