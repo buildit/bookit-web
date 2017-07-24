@@ -12,6 +12,7 @@ describe('<Agenda />', () => {
     meetings: [],
     rooms: [],
     populateMeetingCreateForm: jest.fn(),
+    meetingFormIsActive: false,
   }
   it('renders', () => {
     const wrapper = shallow(<Agenda {...props} />)
@@ -38,7 +39,8 @@ describe('#renderRoomTimelines()', () => {
       roomId: room.id,
     }
     const populateMeetingCreateForm = jest.fn()
-    const result = renderRoomTimelines([room], [meeting], populateMeetingCreateForm)
+    const meetingFormIsActive = false
+    const result = renderRoomTimelines([room], [meeting], populateMeetingCreateForm, meetingFormIsActive)
     expect(result.length).toBe(1)
     expect(shallow(<div>{result[0]}</div>).find(RoomTimeline)).toBeTruthy()
   })
