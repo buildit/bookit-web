@@ -18,6 +18,7 @@ const normalizeMeetingsResponse = (schedule) => {
 
       roomSchedule[meeting.id] = {
         id: meeting.id,
+        userMeetingId: meeting.userMeetingId,
         title: meeting.title,
         start,
         end,
