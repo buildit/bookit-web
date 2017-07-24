@@ -13,7 +13,7 @@ export class CurrentTimeIndicator extends React.Component {
     super(props)
     this.updateCalculatedStyle = this.updateCalculatedStyle.bind(this)
 
-    this.updateCalculatedStyle()
+    this.state = { calculatedStyle: this.calculatedStyle() }
   }
 
   calculateOffset() {
@@ -22,8 +22,11 @@ export class CurrentTimeIndicator extends React.Component {
     const minutes = now.minutes()
     return WIDTH * (hour + (minutes / 60))
   }
+  calculatedStyle() {
+    return { left: this.calculateOffset() }
+  }
   updateCalculatedStyle() {
-    this.state = { calculatedStyle: { left: this.calculateOffset() } }
+    this.setState({ calculatedStyle: this.calculatedStyle() })
   }
 
   componentDidMount() {
