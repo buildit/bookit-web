@@ -37,8 +37,8 @@ after_success:
   - export REPO=bookit-web-aws-ecr
   - aws ecr create-repository --repository-name $REPO --region us-east-1
   - eval $(aws ecr get-login --region us-east-1)
-  - docker tag $REPO:$TRAVIS_BUILD_NUMBER 006393696278.dkr.ecr.us-east-1.amazonaws.com/$REPO:$TRAVIS_BUILD_NUMBER
-  - docker push 006393696278.dkr.ecr.us-east-1.amazonaws.com/$REPO:$TRAVIS_BUILD_NUMBER
+  - docker build tag $COMMIT_SHA .
+  - docker push $COMMIT_SHA
 
 deploy:
   skip_cleanup: true
