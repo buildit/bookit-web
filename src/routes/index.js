@@ -10,7 +10,7 @@ import Login from '../containers/Login'
 import Forbidden from '../containers/Forbidden'
 import OpenId from '../containers/OpenId'
 
-import { isAuthorizedUser, isAuthorizedAdmin } from '../lib/check-auth'
+import { isAuthorizedUser, isAuthorizedAdmin } from '../utils/check-auth'
 
 import styles from '../containers/App/styles.scss'
 
