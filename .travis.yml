@@ -34,7 +34,7 @@ after_success:
   - pip install --user awscli
   - export AWS_REGION=us-east-1
   - export PATH=$PATH:/$HOME/.local/bin
-  - export REPO=$(aws ecr create-repository --repository-name $REPO --region $AWS_REGION --output text | cut -f 6)
+  - export REPO=$(aws ecr create-repository --repository-name bookit-aws-ecr --region $AWS_REGION --output text | cut -f 6)
   - eval $(aws ecr get-login --region $AWS_REGION)
   - docker build --tag $REPO:$COMMIT_SHA .
   - docker push $REPO:$COMMIT_SHA
