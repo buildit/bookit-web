@@ -20,7 +20,9 @@ const UserForm = ({
          handleSubmit(user)
        }}
      >
-       <Field floatingLabelFixed floatingLabelText="E-mail address" name="email" component={TextField} />
+       <Field floatingLabelFixed
+         validate={value => value && !/@/.test(value) ? 'Invalid email address' : undefined}
+         floatingLabelText="E-mail address" name="email" component={TextField} />
        <Button disabled={invalid} type="submit" content="Add user" />
      </form>
    </div>
