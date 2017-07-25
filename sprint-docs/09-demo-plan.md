@@ -23,8 +23,9 @@ Demo date: Wednesday July 26, 2017
 ### Changing the time in the form
 1) See the agenda view, set to today's date.
 2) Click on the timeline to the right of the yellow time indicator.
-3) Change the start/end time to a time or date in the past.
-4) See a message in the left pane indicating that the booking must be in the future.
+3) See the meeting form in the left pane.
+4) Change the start/end time to a time or date in the past.
+5) See a message in the left pane indicating that the booking must be in the future.
 
 ## 3 - Current time indicator
 1) See the agenda view, set to today's date.
