@@ -37,8 +37,8 @@ after_success:
   - export PATH=$PATH:/$HOME/.local/bin
   - export REPO=$(aws ecr create-repository --repository-name bookit-aws-ecr --region $AWS_REGION --output text | cut -f 6)
   - eval $(aws ecr get-login --region $AWS_REGION)
-  - docker build --tag $REPO:$COMMIT_SHA .
-  - docker push $REPO:$COMMIT_SHA
+  - docker build --tag "$REPO:$COMMIT_SHA" .
+  - docker push "$REPO:$COMMIT_SHA"
 
 deploy:
   skip_cleanup: true
