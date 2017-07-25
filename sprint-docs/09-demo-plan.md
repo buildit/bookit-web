@@ -37,8 +37,8 @@ Demo date: Wednesday July 26, 2017
 1) See the agenda view, set to today's date. See a meeting that I own.
 2) In Bookit, click "Edit."
 3) See the meeting form appear in the left panel.
-  3a) View a meeting tooltip on the agenda view. Note that the "edit" button does not appear, even on bookings that the user owns.
-  3b) The user must close the edit dialog or save their changes before attempting to edit another booking.
+  - 3a) View a meeting tooltip on the agenda view. Note that the "edit" button does not appear, even on bookings that the user owns.
+  - 3b) The user must close the edit dialog or save their changes before attempting to edit another booking.
 4) Change the meeting details (title, start time, or end time).
 5) Click "save."
 6) See:
