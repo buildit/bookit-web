@@ -8,6 +8,7 @@ import MeetingForm from '../../components/02-molecules/MeetingForm'
 
 import {
   meetingCreateStart,
+  meetingEditStart,
   openCancellationDialog,
  } from '../../actions/index'
 
@@ -44,23 +45,31 @@ const MeetingFormContainer = reduxForm({
 })(MeetingForm)
 
 const mapFormValues = values => ({
+  id: values.id,
   title: values.title,
   start: values.start && moment(values.start).toDate(),
   end: values.end && moment(values.end).toDate(),
 })
 
-const getSubmittableMeeting = (form) => {
+const getSubmittableMeeting = (form, meeting) => {
   // FIXME: This is crazy-sauce. What is the right way?
+  // console.log('submittable', meeting)
   if (!form) return { values: {} }
   if (!form['meeting-form']) return { values: {} }
   if (!form['meeting-form'].values) return { values: {} }
-  return form['meeting-form'].values
+  let submittableValues = form['meeting-form'].values
+  submittableValues.id = meeting.id
+  submittableValues.userMeetingId = meeting.userMeetingId
+  // console.log('submittable', submittableValues)
+
+  return submittableValues
 }
 
 const mapStateToProps = state => ({
   token: state.user.token,
-  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting.room),
+  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting),
   room: state.app.requestedMeeting.room,
+  roomId: state.app.requestedMeeting.roomId,
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound'],
@@ -70,6 +79,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
+  handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingFormContainer)

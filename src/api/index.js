@@ -39,6 +39,20 @@ const createMeeting = (token, meeting, room) => agent
   })
   .then(response => response.body)
 
+const editMeeting = (token, meeting, roomEmail) => {
+  console.log('edit meeting', meeting)
+  return agent
+    .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
+    .set('x-access-token', token)
+    .send({
+      userMeetingId: meeting.userMeetingId,
+      title: meeting.title,
+      start: meeting.start,
+      end: meeting.end,
+    })
+    .then(response => response.body)
+}
+
 const cancelMeeting = (token, meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
   .then(message => message)
@@ -58,6 +72,7 @@ const Api = {
   login,
   fetchMeetings,
   createMeeting,
+  editMeeting,
   cancelMeeting,
   addUser,
   getOpenIdUrl,

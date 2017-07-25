@@ -19,10 +19,12 @@ const MeetingForm = ({
   token,
   meeting,
   room,
+  roomId,
   validationErrors = {},
   visibleErrorMessages,
   isCreatingMeeting,
   handleDeleteClick,
+  handleSaveClick,
  }) => {
   const isSubmitDisabled = invalid && isNotEmpty(validationErrors)
 
@@ -30,7 +32,7 @@ const MeetingForm = ({
     ? <Button disabled={isSubmitDisabled} type="submit" content="Bookit" />
     : (<div className={styles.buttons}>
       <Button disabled={invalid} onClick={() => handleDeleteClick()} content="Delete" />
-      <Button disabled content="Save" />
+      <Button disabled={invalid} onClick={() => handleSaveClick(meeting, roomId, token)} content="Save" />
     </div>)
 
   const header = isCreatingMeeting
@@ -72,7 +74,9 @@ MeetingForm.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
   }),
+  roomId: PropTypes.string,
   handleDeleteClick: PropTypes.func.isRequired,
+  handleSaveClick: PropTypes.func.isRequired,
   isCreatingMeeting: PropTypes.bool.isRequired,
 }
 
