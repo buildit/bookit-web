@@ -32,6 +32,7 @@ script:
 after_success:
   - ./scripts/run-coveralls.sh
   - pip install --user awscli
+  - echo "The region is us-east-1"
   - export AWS_REGION=us-east-1
   - export PATH=$PATH:/$HOME/.local/bin
   - export REPO=$(aws ecr create-repository --repository-name bookit-aws-ecr --region $AWS_REGION --output text | cut -f 6)
