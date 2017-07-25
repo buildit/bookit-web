@@ -32,13 +32,12 @@ script:
 after_success:
   - ./scripts/run-coveralls.sh
   - pip install --user awscli
+  - export AWS_REGION=us-east-1
   - export PATH=$PATH:/$HOME/.local/bin
-  - echo REPO = $REPO
-  - export REPO=bookit-web-aws-ecr
-  - aws ecr create-repository --repository-name $REPO --region us-east-1
-  - eval $(aws ecr get-login --region us-east-1)
-  - docker build tag $COMMIT_SHA .
-  - docker push $COMMIT_SHA
+  - export REPO=$(aws ecr create-repository --repository-name $REPO --region $AWS_REGION --output text | cut -f 6)
+  - eval $(aws ecr get-login --region $AWS_REGION)
+  - docker build --tag $REPO:$COMMIT_SHA .
+  - docker push $REPO:$COMMIT_SHA
 
 deploy:
   skip_cleanup: true
