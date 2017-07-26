@@ -104,6 +104,11 @@ Tiani Jones - Buildit (@tianioriginal)
 
 Mat Rosa - Buildit (@matsays)
 
+## Former contributors:
+-Mert Sondac - Designit  
+
+-Roman Safronov - Buildit (@electroma)
+
 ## Configuration
 Bookit was bootstrapped from [React Skellington](https://github.com/buildit/react-skellington).
 
