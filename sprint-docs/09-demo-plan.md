@@ -24,7 +24,7 @@ Additional work completed:
 3) See the meeting form appear in the left panel.
   - 3a) View a meeting tooltip on the agenda view. Note that the "edit" button does not appear, even on bookings that the user owns.
   - 3b) The user must close the edit dialog or save their changes before attempting to edit another booking.
-4) Change the meeting details (title, start time, or end time).
+4) Change the meeting title.
 5) Click "save."
 6) See:
 - The meeting details change in "My Reservations."
@@ -61,14 +61,14 @@ Additional work completed:
 2) Allow time to pass.
 3) See the agenda view. See that the yellow line has advanced to represent the passage of time.
 
-## 6 - Adding/inviting users
+## 6 - Adding/inviting users (Backend changes only)
 1) Navigate to the admin panel and click "+." (Must be logged in as an admin user.)
 2) Enter an email address and click "add user."
   - Note: The form validates that you are submitting a well-formed email address.
 3) See a message indicating that the invitation was successful.
 4) Click to view the "Wipro" directory and see that user was added.
 5) Log in as the invited user. See an invitation email.
-6) Log in as the admin user for builditcontoso. See that the email address has been added to the contact list.
+6) Log in as the admin user for builditcontoso. See that the email address has been added to the contact list. (This will not be user-facing.)
 
 
 
