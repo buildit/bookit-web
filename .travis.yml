@@ -40,7 +40,7 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: ./scripts/build-aws-ecr.sh
+    script: AWS_REGION=us-east-1 ./scripts/build-aws-ecr.sh
     on:
       branch: aws-ecr-push
 
