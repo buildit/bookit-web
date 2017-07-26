@@ -86,7 +86,7 @@ Roughly speaking, this would allow our app to read and modify calendars for Desi
 ## Team members
 Lawrence Lee - Designit
 
-Mert Sondac - Designit
+Eunice Chung - Designit
 
 Chris Ashurst - Buildit (@frostiebot)
 
@@ -94,13 +94,15 @@ Zac Smith - Buildit (@billyzac)
 
 Nicole Tibaldi - Buildit (@ntibaldi92)
 
-Roman Safronov - Buildit (@electroma)
+Krishna Shukla - Buildit (@krishna1027)
 
 Andrew Tuliszewki - Buildit (@defpearlpilot)
 
 Peter Monks - Buildit (@monksp-buildit)
 
 Tiani Jones - Buildit (@tianioriginal)
+
+Mat Rosa - Buildit (@matsays)
 
 ## Configuration
 Bookit was bootstrapped from [React Skellington](https://github.com/buildit/react-skellington).
