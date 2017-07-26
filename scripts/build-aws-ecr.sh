@@ -25,5 +25,6 @@ echo "Preparing to tag, repo:  ${REPO},  sha: ${COMMIT_SHA}"
 
 yarn build
 
-docker build --tag "$REPO:$COMMIT_SHA" .
+docker build -t "$REPO:$COMMIT_SHA" -t "$REPO:latest" .
 docker push "$REPO:$COMMIT_SHA"
+docker push "$REPO:latest"
