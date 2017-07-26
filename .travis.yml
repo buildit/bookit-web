@@ -31,14 +31,18 @@ script:
 
 after_success:
   - ./scripts/run-coveralls.sh
-  - ./scripts/build-aws-ecr.sh
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./scripts/build-and-deploy.sh
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/build-and-deploy.sh
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/build-aws-ecr.sh
+    on:
+      branch: aws-erc-push
 
 notifications:
   slack:
