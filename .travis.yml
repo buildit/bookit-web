@@ -42,7 +42,7 @@ deploy:
     skip_cleanup: true
     script: ./scripts/build-aws-ecr.sh
     on:
-      branch: aws-erc-push
+      branch: aws-ecr-push
 
 notifications:
   slack:
