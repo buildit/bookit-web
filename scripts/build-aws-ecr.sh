@@ -3,7 +3,7 @@
 pip install --user awscli
 PATH=$PATH:/$HOME/.local/bin
 
-REPO_NAME=bookit-aws-ecr
+REPO_NAME=$DOCKER_REPO
 echo "The AWS region is $AWS_REGION"
 
 EXISTING_REPO=$(aws ecr describe-repositories --region $AWS_REGION --repository-names $REPO_NAME --output text 2>/dev/null)
