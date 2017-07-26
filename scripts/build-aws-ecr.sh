@@ -26,9 +26,6 @@ eval $(aws ecr get-login --region $AWS_REGION)
 #eval $(aws ecr get-login --region $AWS_REGION | sed 's/-e none//')
 echo "Preparing to tag, repo:  ${REPO},  sha: ${COMMIT_SHA}"
 
-DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
-cd $DIR
-
 yarn build
 
 docker build --tag "$REPO:$COMMIT_SHA" .
