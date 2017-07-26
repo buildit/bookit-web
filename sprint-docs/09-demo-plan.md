@@ -8,6 +8,7 @@ Demo date: Wednesday July 26, 2017
 3) User notification when booking fails (#7)
 
 Additional work completed:
+
 4) Prevent users from attempting to make bookings in the past (#8)
 5) Current time indicator (yellow line) appears only when viewing today's agenda (#9)
 6) Adding/inviting users to Bookit (#10)
