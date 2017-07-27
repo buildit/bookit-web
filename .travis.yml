@@ -20,6 +20,10 @@ env:
     # Docker Login
     - secure: G7IzlXf11wy/DxBvgNR+ChCKTsUABbiYl8q/nLLY++d5AK86ZfX+fqVMHhUArRad4in4LYuMPyMaoOJOsh38iy52/g8erbHSQmwX6r+JzHpueUlCBee7MP8mMGRbQPKC6Z+ZM4/JiMVleID3/uIfqxDGhNDNsB8abQ76DQN1s4x/dxVNM7WOv9EuNe66wyOATxeQ6VJop2jB8bdhYU8vlxBh0UsDMgU1ItjjdsQaxbB2t1YBBXFEQwjCErYCYzA9phFkk7vcnioDoJpe/ZRB8QCYuQDa9xBi64C9Oy0hS60cseLdZa9xgz5CUIVfuds5Rogs6tMusqhJmuKdvs2erMZybF978BHVqHEoLaLZSYlF0IyNeyo4gaMxRZG6sqLlIPgREYR8OjsFv9ZLvkT/K7Fw23EMYBmRvBOVYQSS+cafBieAiW54HdNcaFH8+SW2/GjHz2wDhvRBckVcWVTKZRMPPttqXwq9ZQwfo5fqxJCChkIiwkMIz2Y2OMUsDtzqay0mQ9Q5PKTn0SPj0evoCyHc4Qoef5x/rOZWJ4SDq8wE/meIOYK7ivoR1H7yVraak6kP+MZ/J09UbEpGIxz442NuFCFCkuSMO7Q0tiLdpbGFnY28som4axNGpEX3Ij08bLmKsLkQ/xL1ct2sdh0xseLS6M849r4oazULAlLFL+8=
     - secure: MunCbXG6H+pstm/Gf5bVzFXCuICfcdYEcoHfEeGSeVHkBRRFXOrLLbgR66mfqkvaHStbZhEvgVM/VbMobIuJqg5axb8YAwsnn5zoyOw2CAu9Zlemztzmgvk52vhI00xh+r3Ih/8wAFpdP26UUs4zjV4ueeqGaeFtPfLNT9+5rp+ZaRn5fDPtiUJ0zCgBtNU2rDz1oHL3TgeGn7npPUzdGptmUTLycdAnzVwsE4Lk5W7HwLSxqNduHBbX2egZWa5FWrL94inj1bX0LhkTcF9qavSn218bb2Bu3a94HNtofL0Xh97PE+g8gqTR51a3fDStXdMcKaDTPK5bwE+hUR2UI95VE7Kz8Sc7welV5jPye7c9IbDZ88RQR2aLwcJY0t5NvWsuUXAkFzIdafS05aoiKLysZQXYUxWnfW4IFwRTm9RReUjgEj2wjyd0TGZlh+lC+aQOUnGBghWlV0tkts1n5Uh4HL5w9YzR/tIvfK499hSIowGLmUaYLhd5LRyQyPtJivdVB/lWTBIvVym6kQJahG1mb2ZJ8Xps3uMNx6SrB9ud5g03Ivoa8GWCki0JVb0WJzLkScYxGsmdXHppogz6dlMao7l2fcwtLz2z+bIzoUw1pZEsaXMCLq2MA+7DCy14ycODIaD3OCrOBi679e7PB7m2u7+0zQnaDtlWMFVM0jI=
+    # AWS_ACCESS_KEY_ID
+    - secure: bTubxyQPM/NJr5zX3TY03e1PEGOADTB5DJsfKKbemI5F6HoFhNip91ZAQOdzjFNejofiC7llXoiQ8t674MAcXyXpLvK8lFZo+oVfkvntJ+onFWdKClC+enXStqhQkelaUHnaCd0xxIK3ZEpRoeyUayFssYAWgmTIF07PgH1J2BEECuw4m9iMJuAFiTRUjAXsI0GXhvV0P0N9JpcgH6g9RVaEF5ghd3Q6dmgh7aDZaVs/ufDYbuUd32zywhSZiV0nFZ5N9PbOkMujU/LeXTjecrVW3NB1Yr/R2KVRlsQp4S0LM4PEzzN3DVYeCRwI6icoB3VuS80yoVlb8cj50O6sOtRlbG6wjVOxSXoKH/KtUKEOYcPcbQiMNZQeWUIsBXZYvepE557Jv7nvRraekdaYUvyWjyaxrLJWzHrheJ2vY3T039n8Yf93DJqVs1Ic8AmuosAK2eKdYUNNTxrd5r9qbBW2pD16J9yBBYL5RjvG98hGdxrGBjW0DoZ5+FgZa9KxECzVuygTep55y2jRvZWThBE3+LQ0nai2QKp5dOa7NBMqpWvqptQTm+Zsd/G6TWhZTA+yEDZMAvdnYxCDPzuphiUE++41xkvOnIw7uVuQvq2nEHw9QBdc1CE+S3tg4WJrLvgffWZickuRkDJZxEt9CPPLU3aRvG+iMToA7KM2AXo=
+    # AWS_SECRET_ACCESS_KEY
+    - secure: N0277TJFhg/6l5Q9bbRH5btNm0WZtfRXsYo97RoZ5DK/g06vSPltceY41z5MNueF5EprtQLqV9qTijBDEXwovDZKahYisthQ6DXukbQxgrAWxeGgr+hhu8iDH2CgHuQMlxotJ4pRwd0SljNXiiWdPM1rdgW4D6yPGBuBpFjrqvILT8M1ubXOcfwvL96TaOky+F1FXIt8DzVVUppvpNyoNBwWqz4Bw+9HjxyILXQJ2IL9X4TnPYu91MGt7XUGEL4BKneMJQfzvqyt2WOHXzv3zCQUUmXMZGAySMhQrTInyY30HnR/NsNgXjCsilPzO6T1J23oS6thI+eKXlNRCpyiGKQHAmrKsAxJjkYC4kBOo86wCONToZQUDluUxJaSr8FbwUclmBEIktIPEWv4neuoGp/SW+zTDz39Ma6n4+FExIIOZzW7uSNarMM1+iUXc6pXywGLh/kTvZGT2l3BhJ3WUs8Y7WiLWdRFblORo0ChV48DgqaEgjfJ/U0WYpO6hLZcCCWX/DvYqFY7BoxgAxoeCtIEsJOIBZyCIDs9UOQUH3uZCUoSxUVxul3P6/8RIE+7Riotcrd9Nue6fURpUOHnVjutXgvRxleqK1FwvtaoRuKJgYje4UOtC5os5/MVXyKJ5mU5gVMB2tlSq9Skiz5KA7eYpy3KYhoUFCCdYAdtAgU=
 
 script:
   - yarn lint
@@ -29,11 +33,16 @@ after_success:
   - ./scripts/run-coveralls.sh
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./scripts/build-and-deploy.sh
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ./scripts/build-and-deploy.sh
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: AWS_REGION=us-east-1 ./scripts/build-aws-ecr.sh
+    on:
+      branch: aws-ecr-push
 
 notifications:
   slack:
