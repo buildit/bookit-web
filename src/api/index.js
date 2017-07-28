@@ -1,72 +1,7 @@
-import agent from 'superagent'
-import moment from 'moment'
-import configParam from './configParam'
-
-import * as Azure from './azure'
-
-const apiBaseUrl = configParam('apiBaseUrl', 'http://localhost:8888')
-
-const login = code => agent
-  .post(`${apiBaseUrl}/authenticate`)
-  .send({ code })
-  .then(response => response.body)
-
-const fetchMeetings = (token, startDate, endDate) => {
-  let start = startDate
-  let end = endDate
-
-  if (!startDate) {
-    start = moment().startOf('day').format('YYYY-MM-DD')
-  }
-
-  if (!endDate) {
-    end = moment(start).add(1, 'day').format('YYYY-MM-DD')
-  }
-
-  return agent
-    .get(`${apiBaseUrl}/rooms/nyc/meetings?start=${start}&end=${end}`)
-    .set('x-access-token', token)
-    .then(response => response.body)
-}
-
-const createMeeting = (token, meeting, room) => agent
-  .post(`${apiBaseUrl}/room/${room.email}/meeting`)
-  .set('x-access-token', token)
-  .send({
-    title: meeting.title,
-    start: meeting.start,
-    end: meeting.end,
-  })
-  .then(response => response.body)
-
-const editMeeting = (token, meeting, roomEmail) => {
-  console.log('edit meeting', meeting)
-  return agent
-    .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
-    .set('x-access-token', token)
-    .send({
-      userMeetingId: meeting.userMeetingId,
-      title: meeting.title,
-      start: meeting.start,
-      end: meeting.end,
-    })
-    .then(response => response.body)
-}
-
-const cancelMeeting = (token, meetingId, roomEmail) => agent
-  .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
-  .then(message => message)
-
-const addUser = (user, token) => agent
-  .post(`${apiBaseUrl}/users`)
-  .set('x-access-token', token)
-  .send(user)
-  .then((response) => {
-    const user = JSON.parse(response.text)
-    return user
-  })
-
-const getOpenIdUrl = () => Azure.signinRequestUrl()
+import { login } from './auth'
+import { fetchMeetings, createMeeting, editMeeting, cancelMeeting } from './meetings'
+import { addUser } from './users'
+import { getOpenIdUrl } from './auth'
 
 const Api = {
   login,
