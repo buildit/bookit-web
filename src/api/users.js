@@ -10,3 +10,11 @@ export const addUser = (user, token) => agent
     const user = JSON.parse(response.text)
     return user
   })
+
+export const listUsers = token => agent
+  .get(`${apiBaseUrl}/users`)
+  .set('x-access-token', token)
+  .then((response) => {
+    const users = JSON.parse(response.text)
+    return users
+  })
