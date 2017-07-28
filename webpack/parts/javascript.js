@@ -84,7 +84,11 @@ export const uglifyJavascript = () => ({
   ],
 })
 
-export const minifyJavascript = () => ({ plugins: [ new BabiliPlugin ] })
+// TODO: For staging/integration, do NOT mangle class and function names!
+// ie. keep below, but for production remove options entirely
+export const minifyJavascript = () => ({ plugins: [
+  new BabiliPlugin({ keepClassName: true, keepFnName: true }),
+]})
 
 export const generateSourceMaps = type => ({
   devtool: type,

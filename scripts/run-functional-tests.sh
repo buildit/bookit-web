@@ -1,9 +1,27 @@
 #!/bin/bash
 
-set -ev
+set -e
 
-docker pull builditdigital/bookit-server:latest
-docker run -d -p 8888:8888 builditdigital/bookit-server:latest
-docker build . -t builditdigital/bookit-web:test
-docker run -d -p 3001:80 -e API_BASE_URL=http://localhost:8888 builditdigital/bookit-web:test
-sleep 10; yarn test:functional
+DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
+cd $DIR
+
+BROWSERS=${1:-"chromium,firefox"}
+BOOKITURI=${2:-"http://localhost:3001"}
+BOOKITUSER=${3:-"z"}
+BOOKITPASSWD=${4:-"z"}
+
+if [[ $BROWSERS == *"chrome"* ]]; then
+  BROWSERS="${BROWSERS//chrome/chromium}"
+fi
+
+docker run \
+  -it \
+  -v $(pwd)/src/functional-tests:/tests \
+  -v $(pwd)/node_modules/testcafe-react-selectors:/opt/testcafe/node_modules/testcafe-react-selectors \
+  -e NODE_PATH=/opt/testcafe/node_modules:/opt \
+  -e BOOKITURI=$BOOKITURI \
+  -e BOOKITUSER=$BOOKITUSER \
+  -e BOOKITPASSWD=$BOOKITPASSWD \
+  --security-opt seccomp:unconfined \
+  testcafe/testcafe \
+  $BROWSERS /tests

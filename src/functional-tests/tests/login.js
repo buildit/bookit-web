@@ -1,27 +1,30 @@
-import LoginPage from '../pages/login'
+import { ClientFunction, Role } from 'testcafe'
+
 import DashboardPage from '../pages/dashboard'
 
-// eslint-disable-next-line no-unused-expressions
-fixture `Login Process`.page `http://localhost:3001`
+const BOOKITURI = process.env.BOOKITURI || 'http://localhost:3001'
+const BOOKITUSER = process.env.BOOKITUSER || 'z'
+const BOOKITPASSWD = process.env.BOOKITPASSWD || 'z'
+
+const regularAccUser = Role(`${BOOKITURI}/login`, async (t) => {
+  await t
+    .typeText('#cred_userid_inputtext', BOOKITUSER)
+    .typeText('#cred_password_inputtext', BOOKITPASSWD)
+    .click('#cred_sign_in_button')
+})
+
+const getLocation = ClientFunction(() => window.location)
+
+fixture `Login Process`
+  .page `${BOOKITURI}`
 
 test('Logging in sends you to the dashboard', async (t) => {
-  // Starting on the homepage sends you to the login page initially.
-  const initialLocation = await t.eval(() => window.location)
-  await t.expect(initialLocation.pathname).eql('/login')
-
-  const loginPage = new LoginPage()
-  await t
-    .typeText(loginPage.emailInput, 'z')
-    .typeText(loginPage.passwordInput, 'z')
-    .click(loginPage.submitButton)
-
-  // Once we've logged in, we should land on the dashboard.
   const dashboardPage = new DashboardPage()
-  const afterLoginLocation = await t.eval(() => window.location)
-  await t.expect(afterLoginLocation.pathname).eql(dashboardPage.pathName)
 
-  // Once logged in, the homepage sends you to the dashboard, as well.
-  await t.navigateTo('/')
-  const finalLocation = await t.eval(() => window.location)
-  await t.expect(finalLocation.pathname).eql(dashboardPage.pathName)
+  await t
+    .useRole(regularAccUser)
+    .navigateTo('/')
+
+  const location = await getLocation()
+  await t.expect(location.pathname).eql(dashboardPage.pathName)
 })
