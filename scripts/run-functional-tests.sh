@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# CALL LIKE:
+#   $ ./scripts/run-functional-tests.sh chrome http://bookit.riglet.io bruce@someemail.tld brucepass
+#
+# To specify multiple browsers, separate them with a comma.
+
 set -e
 
 DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
