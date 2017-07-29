@@ -29,7 +29,7 @@ class SearchableUserTable extends React.Component {
   }
 
   checkFirstLastName(filterTextMatcher, name) {
-    let names = name.split(" ")
+    let names = name ? name.split(" ") : []
     return names.some((x) => {
       return filterTextMatcher.test(x)
     })
@@ -85,10 +85,9 @@ export default SearchableUserTable
 SearchableUserTable.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
       team: PropTypes.string.isRequired,
+      roles: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ),
   onRemoveClick: PropTypes.func.isRequired,

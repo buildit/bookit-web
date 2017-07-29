@@ -186,10 +186,9 @@ InfoPanel.propTypes = {
   ).isRequired,
   pathName: PropTypes.string.isRequired,
   users: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
+    roles: PropTypes.arrayOf(PropTypes.string),
   })),
   ajax: PropTypes.bool,
 }

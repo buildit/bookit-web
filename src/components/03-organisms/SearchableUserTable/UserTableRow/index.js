@@ -16,9 +16,8 @@ export default UserTableRow
 
 UserTableRow.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     email: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
     team: PropTypes.string.isRequired,
   }),
   onRemoveClick: PropTypes.func.isRequired,
