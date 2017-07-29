@@ -1,4 +1,4 @@
-import { put, call } from 'redux-saga/effects'
+import { put, call, select } from 'redux-saga/effects'
 import api from '../api'
 import {
   userInviteSucceeded,
@@ -8,6 +8,8 @@ import {
   userRemoveFailed,
   closeConfirmationDialog,
 } from '../actions'
+
+import { getUserToken } from '../selectors'
 
 /* eslint-disable import/prefer-default-export */
 
@@ -38,4 +40,16 @@ export function* userRemove(action) {
   } catch (err) {
     yield put(userRemoveFailed(err.message))
   }
+}
+
+export function* fetchUsers() {
+  try {
+    const token = yield select(getUserToken)
+    const usersList = yield call(api.listUsers, token)
+    console.log(usersList)
+    // yield put(usersFetchSucceeded(usersList))
+  } catch (err) {
+    console.log(err)
+  }
+
 }
