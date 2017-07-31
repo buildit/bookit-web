@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { fetchMeetings, createMeeting, editMeeting, cancelMeeting } from './meetings'
 import { login, logout } from './auth'
 import selectDate from './selectDate'
-import { userInvite, userRemove } from './users'
+import { userInvite, userRemove, fetchUsers } from './users'
 
 import {
   LOGIN_START,
@@ -14,6 +14,7 @@ import {
   SELECT_DATE,
   USER_INVITE_START,
   USER_REMOVE_START,
+  USERS_FETCH_START,
 } from '../actions/actionTypes'
 
 function* rootSaga() {
@@ -26,6 +27,7 @@ function* rootSaga() {
   yield takeEvery(SELECT_DATE, selectDate)
   yield takeEvery(USER_INVITE_START, userInvite)
   yield takeEvery(USER_REMOVE_START, userRemove)
+  yield takeEvery(USERS_FETCH_START, fetchUsers)
 }
 
 export default rootSaga
