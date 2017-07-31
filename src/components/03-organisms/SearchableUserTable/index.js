@@ -17,7 +17,7 @@ class SearchableUserTable extends React.Component {
     }
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this)
     this.handleSelectTeamChange = this.handleSelectTeamChange.bind(this)
-    this.checkFirstLastName = this.checkFirstLastName.bind(this)
+    this.checkName = this.checkName.bind(this)
   }
 
   handleFilterTextChange(filterText) {
@@ -28,8 +28,8 @@ class SearchableUserTable extends React.Component {
     this.setState({ filterTeam })
   }
 
-  checkFirstLastName(filterTextMatcher, name) {
-    let names = name ? name.split(" ") : []
+  checkName(filterTextMatcher, firstName, lastName) {
+    let names = [firstName, lastName]
     return names.some((x) => {
       return filterTextMatcher.test(x)
     })
@@ -47,7 +47,7 @@ class SearchableUserTable extends React.Component {
         this.state.filterTeam === 'ALL' ||
         user.team === this.state.filterTeam
       ))
-      .filter(user => (filterTextMatcher ? this.checkFirstLastName(filterTextMatcher, user.name) : true))
+      .filter(user => (filterTextMatcher ? this.checkName(filterTextMatcher, user.firstName, user.lastName) : true))
 
     return (
       <div className={styles.userTable}>
