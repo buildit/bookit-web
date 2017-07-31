@@ -22,8 +22,6 @@ export function* userInvite(action) {
   try {
     const apiUser = yield call(api.addUser, user)
     const newUser = {
-      name: apiUser.name,
-      location: 'New York',
       email: apiUser.email,
       team: 'WIPRO',
     }
@@ -53,7 +51,7 @@ export function* fetchUsers() {
     const usersList = yield call(api.listUsers, token)
     const mapToBookitFormat = user => ({
       ...user,
-      dateAdded: moment(user.createdDateTime),
+      dateAdded: user.createdDateTime ? moment(user.createdDateTime) : null,
     })
     yield put(usersFetchSucceeded(usersList.map(mapToBookitFormat)))
   } catch (err) {
