@@ -10,7 +10,7 @@ import styles from './styles.scss'
 
 
 const meetingTitleStyle = { fontSize: '18px', fontWeight: '100' }
-const isNotEmpty = obj => Object.keys(obj).length > 0
+const hasValidationErrors = errors => Object.keys(errors).length > 0
 
 const MeetingForm = ({
   handleSubmit,
@@ -26,9 +26,7 @@ const MeetingForm = ({
   handleDeleteClick,
   handleSaveClick,
  }) => {
-  const isSubmitDisabled = invalid || isNotEmpty(validationErrors)
-  console.log(validationErrors)
-  console.info(invalid, isNotEmpty(validationErrors), isSubmitDisabled)
+  const isSubmitDisabled = invalid || hasValidationErrors(validationErrors)
 
   const buttons = isCreatingMeeting
     ? <Button disabled={isSubmitDisabled} type="submit" content="Bookit" />
