@@ -47,4 +47,5 @@ export const editMeeting = (token, meeting, roomEmail) => {
 
 export const cancelMeeting = (token, meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
+  .set('x-access-token', token)
   .then(message => message)
