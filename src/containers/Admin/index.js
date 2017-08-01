@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
@@ -7,19 +7,31 @@ import Header from '../../components/02-molecules/Header'
 import InfoPanel from '../InfoPanel'
 import SearchableUserTable from '../../components/03-organisms/SearchableUserTable'
 
-import { logout, openRemoveUserDialog } from '../../actions'
+import { logout, openRemoveUserDialog, usersFetchStart } from '../../actions'
 
 import styles from './styles.scss'
 
-export const Admin = ({ user, users = [], onLogoutClick, location, onRemoveClick }) => (
-  <div className={styles.admin}>
-    <InfoPanel pathName={location.pathname} />
-    <main>
-      <Header user={user} logout={onLogoutClick} />
-      <SearchableUserTable users={users} onRemoveClick={onRemoveClick} />
-    </main>
-  </div>
-)
+export class Admin extends Component {
+  componentDidMount() {
+    this.props.fetchUsersList()
+  }
+
+  render() {
+    const { user, users = [], onLogoutClick, location, onRemoveClick } = this.props
+
+    return (
+      <div className={styles.admin}>
+        <InfoPanel pathName={location.pathname} />
+        <main>
+          <Header user={user} logout={onLogoutClick} />
+          <SearchableUserTable users={users} onRemoveClick={onRemoveClick} />
+        </main>
+      </div>
+    )
+  }
+
+}
+
 
 const mapStateToProps = state => ({
   users: state.users,
@@ -33,15 +45,17 @@ const mapDispatchToProps = dispatch => ({
   onRemoveClick: (userEmail) => {
     dispatch(openRemoveUserDialog(userEmail))
   },
+  fetchUsersList: () => {
+    dispatch(usersFetchStart())
+  },
 })
 
 Admin.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
       team: PropTypes.string.isRequired,
+      roles: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ),
   user: PropTypes.shape({
@@ -49,10 +63,10 @@ Admin.propTypes = {
   }),
   onLogoutClick: PropTypes.func.isRequired,
   onRemoveClick: PropTypes.func.isRequired,
+  fetchUsersList: PropTypes.func.isRequired,
   location: PropTypes.shape({}),
 }
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Admin)
 
 export default connected
-
