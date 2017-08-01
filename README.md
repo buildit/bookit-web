@@ -24,13 +24,38 @@ npm run test:unit:watch
 See a terrifying chart that reveals all the untested code 😱
 ```
 npm run test:unit:coverage
-
 ```
 
-Run in-browser tests against Chrome. You need to have the app running locally so these tests have something to test against, so make sure you've `npm start`ed it first.
+## Functional Tests
+There are a couple of ways to run the functional/integration test suites - all of them involve the use of testcafe.
+
+Fundamentally, all functional tests rely on the presence of the following environment variables: `BOOKITURI`, `BOOKITUSER` and `BOOKITPASSWD`
+
+To run functional tests 100% locally, you will need to have bookit-web and bookit-server already running locally. Additionally you will
+require a set of credentials that will work for your local copy of bookit.
+
+For example:
 ```
-npm run test:functional
+$ BOOKITURI=http://localhost:3001 BOOKITUSER=bruce@domain.com BOOKITPASSWD=brucepw npm run test:functional
+- or -
+$ BOOKITURI=http://localhost:3001 BOOKITUSER=bruce@domain.com BOOKITPASSWD=brucepw yarn test:functional
 ```
+
+The second option for running functional tests is to use `scripts/run-functional-tests.sh`.
+
+Invocation of the script (from the bookit-web root directory) is as follows:
+
+```
+$ ./scripts/run-functional-tests.sh chrome http://bookit.riglet.io bruce@domain.com brucepw
+```
+
+The arguments are quite simple - as is the bash script itself - and the order of arguments is `browsers`, `bookit url`, `bookit user` `bookit user password`.
+
+Note that using `run-functional-tests.sh` is mostly intended for use with Travis. The reason why is due to the (apparent) inability of Docker to expose the host machine within the running docker container as localhost.
+
+In practicality, you *can* use `run-functional-tests.sh` locally, just as long as you point the test to run at a resolvable URL.
+
+To summarize: If you are developing locally, it makes more sense to run functional tests via the npm/yarn script, and use of `run-functional-tests.sh` is intended for CI environments or when you want to test an existing deployment of bookit from your local machine.
 
 ## Existing functionality
 
@@ -105,7 +130,7 @@ Tiani Jones - Buildit (@tianioriginal)
 Mat Rosa - Buildit (@matsays)
 
 ## Former contributors:
--Mert Sondac - Designit  
+-Mert Sondac - Designit
 
 -Roman Safronov - Buildit (@electroma)
 
@@ -133,28 +158,28 @@ We are using Travis to manage continuous integration.
 
 - On commits to `master`, Travis creates a new Docker image and pushes it to our repo on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=builditdigital&starCount=0).
 
-- The Dockerfile makes use of the Single-Page-App-friendly nginx config in the `nginx` folder.
+- The Dockerfile consumes the production code from the `build` directory, and adds the `config.js.template` file from the `nginx` directory into the image. Since bookit-web is 100% browser code, the resulting javascript from the build directory is free of any dependencies, thus making the resulting docker image essentially just static files.
 
-- To tell the front-end app where the server is running, set an environment variable called `API_BASE_URL`. For our dev deployment, this is being set in `deploy/dev/docker-compose.yml`. For more sophisticated deployments, this variable can, of course, be set in a more dynamic way.
-
-- The Dockerfile "injects" the `API_BASE_URL` into the client side code. It is then available as `window.__CONFIG`. You can see this being used in `api/configParam`.
-
-- See `.travis.yml`, `Dockerfile`, and `deploy` for details.
-
-To build and run the Docker container locally.
+To build the bookit service as a whole:
 ```
-npm run build && docker build . -t bookit-web:local && docker run --rm -ti -p 8080:80 -e API_BASE_URL=http://localhost:8888 bookit-web:local
+$ yarn build && docker-compose up -d
 ```
-Bookit will be running on http://localhost:8080/.
+Bookit will be running on http://localhost:80/.
 
-To run both the client and server locally.
+Note that `docker-compose` sources `docker-compose.yml` *and* `docker-compose.override.yml` - the final configuration for the container is composed from these two files.
+
+You can inspect the final, composed configuration with the following command:
 ```
-docker-compose up
+$ docker-compose config
 ```
+
+You should not have to modify the contents of `docker-compose.yml`. However, the contents of `docker-compose.override.yml` are intended for developers to apply local overrides to the composed configuration - specifically, the environment that bookit-server requires to run properly.
+
+The default contents of `docker-compose.override.yml` pulls in the `.env` file from a checked-out copy of the bookit-server codebase. If the path specified within the file does not match where you have a checked out copy of bookit-server, you should modify it accordingly before attempting to run docker-compose.
 
 Travis might fly too close to the Sun and fall out of the sky. No worries. You can still perform a build and push:
 ```
-npm run build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
+yarn build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
 ```
 
 The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll see anything there! Or that you'll like what you see! As a dev deployment, it has not necessarily been checked by human eyes, and may change at any time.
