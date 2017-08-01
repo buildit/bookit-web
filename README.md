@@ -83,11 +83,17 @@ Some common booking errors are handled. For example:
 There are two layers of validation at work. Basic form validation (e.g. is startDate before endDate) happens in the `validate` function within `containers/MeetingForm`. Validation related to business rules (e.g. overlapping meetings are disallowed) happens in `utils/getAvailableTimeSlot`.
 
 ### Login/Logout
-You can log in with this example user:
-email: 'bruce@myews.onmicrosoft.com'
-password: 'who da boss?'
+You can retrieve user credentials using the `aws` commandline (or alternatively, logging into the aws dashboard, navigating to the **EC2** Dashboard and selecting **Parameter Store** from the left-hand side menu).
 
-These credentials are [hardcoded into the server, along with a few other sample users](https://github.com/buildit/bookit-server/blob/master/src/service/stub/StubPasswordStore.ts).
+The user parameters are stored under the keys `BUILDIT_REGULAR_USER_NAME` and `BUILDIT_REGULAR_USER_PASSWORD`.
+
+Example using `aws-cli`:
+
+```
+$ aws ssm get-parameters --names BUILDIT_REGULAR_USER_NAME BUILDIT_REGULAR_USER_PASSWORD --with-decryption
+```
+
+(Output removed for obvious reasons)
 
 ## Design assets
 [Designs on Zeplin (must be granted access)](https://app.zeplin.io/project/58d4072283526a2ba8174a28)
