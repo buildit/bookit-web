@@ -1,7 +1,7 @@
 import * as auth from './check-auth'
 
 const user = { email: 'tester@test.com', token: '1a2b3c4d5e' }
-const admin = { email: 'admin@test.com', token: 'a1b2c3d4e5' }
+const admin = { email: 'bruce@builditcontoso.onmicrosoft.com', token: 'a1b2c3d4e5' }
 const notAUser = { email: null, token: null }
 
 const dispatch = jest.fn()
