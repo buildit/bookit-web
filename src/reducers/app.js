@@ -171,7 +171,7 @@ const app = (state = initialState, action) => {
   case USER_INVITE_SUCCEEDED: {
     return {
       ...state,
-      messages: [`Success! ${action.payload.name} has been added.`],
+      messages: [`Success! ${action.payload.email} has been added.`],
     }
   }
   case USER_INVITE_FAILED: {
