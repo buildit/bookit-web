@@ -16,7 +16,6 @@ const user = (state = initialState, action) => {
     return {
       email: action.payload.email,
       name: action.payload.name,
-      id: action.payload.id,
       token: action.payload.token,
     }
   }
