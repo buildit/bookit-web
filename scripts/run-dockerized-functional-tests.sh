@@ -25,7 +25,7 @@ export BOOKITPASSWD=$(awsparam BUILDIT_REGULAR_USER_PASSWORD)
 export CLOUD_CONFIG=$(awsparam CLOUD_CONFIG)
 export BUILDIT_SECRET=$(awsparam BUILDIT_SECRET)
 
-cd $(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
+# cd $(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
 docker-compose -f docker-compose.testcafe.yml -p $DOCKERNAME up -d > /dev/null 2>&1
 
@@ -35,12 +35,12 @@ docker logs bookit_testcafe
 if [ -z ${TEST_EXIT_CODE+x} ] || [ "$TEST_EXIT_CODE" -ne 0 ] ; then
   printf "${RED}tests failed${NC} - exitcode: $TEST_EXIT_CODE\n"
 else
-  printf "${GREEN}tests passed${NC}\n"
+  printf "${GREEN}tests passed${NC} - exitcode: $TEST_EXIT_CODE\n"
 fi
 
 cleanup
 
-cd - > /dev/null 2>&1
+# cd -
 
 exit $TEST_EXIT_CODE
 # fi
