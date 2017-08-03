@@ -32,9 +32,16 @@ docker-compose -f docker-compose.testcafe.yml -p $DOCKERNAME up -d > /dev/null 2
 TEST_EXIT_CODE=`docker wait bookit_testcafe`
 docker logs bookit_testcafe
 
+if [ -z ${TEST_EXIT_CODE+x} ] || [ "$TEST_EXIT_CODE" -ne 0 ] ; then
+  printf "${RED}tests failed${NC} - exitcode: $TEST_EXIT_CODE\n"
+else
+  printf "${GREEN}tests passed${NC}\n"
+fi
+
 cleanup
 
 cd - > /dev/null 2>&1
 
 exit $TEST_EXIT_CODE
 # fi
+
