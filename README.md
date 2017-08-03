@@ -10,6 +10,13 @@ yarn install
 yarn start
 ```
 
+## Requirements
+
+To support various scripts locally, you should have `aws-cli` installed and configured with your secret and access key.
+```
+pip install aws-cli
+```
+
 ## Useful scripts
 Run all validations: unit tests and linting
 ```
@@ -46,10 +53,10 @@ The second option for running functional tests is to use `scripts/run-functional
 Invocation of the script (from the bookit-web root directory) is as follows:
 
 ```
-$ ./scripts/run-functional-tests.sh chrome http://bookit.riglet.io bruce@domain.com brucepw
+$ ./scripts/run-functional-tests.sh chrome http://bookit.riglet.io
 ```
 
-The arguments are quite simple - as is the bash script itself - and the order of arguments is `browsers`, `bookit url`, `bookit user` `bookit user password`.
+The arguments are quite simple - as is the bash script itself - and the order of arguments is `browsers`, `bookit url`.
 
 Note that using `run-functional-tests.sh` is mostly intended for use with Travis. The reason why is due to the (apparent) inability of Docker to expose the host machine within the running docker container as localhost.
 
