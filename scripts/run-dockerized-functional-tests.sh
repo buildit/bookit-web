@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 # if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
 RED='\033[0;31m'
 GREEN='\033[0;32m'
