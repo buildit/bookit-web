@@ -3,14 +3,7 @@
 set -e
 
 if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
-  DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
-  cd $DIR
-
-  # echo "Building production code..."
-
-  # yarn build
-
-  # echo "Building docker image for $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA..."
+  cd $(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
