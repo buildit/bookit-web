@@ -15,7 +15,7 @@ cleanup () {
 }
 
 awsparam () {
-  echo `aws ssm get-parameters --names $1 --with-decryption --output text | cut -f 4`
+  echo `aws ssm get-parameters --region us-east-1 --names $1 --with-decryption --output text | cut -f 4`
 }
 
 trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"' HUP INT QUIT PIPE TERM
