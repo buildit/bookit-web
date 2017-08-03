@@ -25,9 +25,17 @@ env:
     # AWS_SECRET_ACCESS_KEY
     - secure: N0277TJFhg/6l5Q9bbRH5btNm0WZtfRXsYo97RoZ5DK/g06vSPltceY41z5MNueF5EprtQLqV9qTijBDEXwovDZKahYisthQ6DXukbQxgrAWxeGgr+hhu8iDH2CgHuQMlxotJ4pRwd0SljNXiiWdPM1rdgW4D6yPGBuBpFjrqvILT8M1ubXOcfwvL96TaOky+F1FXIt8DzVVUppvpNyoNBwWqz4Bw+9HjxyILXQJ2IL9X4TnPYu91MGt7XUGEL4BKneMJQfzvqyt2WOHXzv3zCQUUmXMZGAySMhQrTInyY30HnR/NsNgXjCsilPzO6T1J23oS6thI+eKXlNRCpyiGKQHAmrKsAxJjkYC4kBOo86wCONToZQUDluUxJaSr8FbwUclmBEIktIPEWv4neuoGp/SW+zTDz39Ma6n4+FExIIOZzW7uSNarMM1+iUXc6pXywGLh/kTvZGT2l3BhJ3WUs8Y7WiLWdRFblORo0ChV48DgqaEgjfJ/U0WYpO6hLZcCCWX/DvYqFY7BoxgAxoeCtIEsJOIBZyCIDs9UOQUH3uZCUoSxUVxul3P6/8RIE+7Riotcrd9Nue6fURpUOHnVjutXgvRxleqK1FwvtaoRuKJgYje4UOtC5os5/MVXyKJ5mU5gVMB2tlSq9Skiz5KA7eYpy3KYhoUFCCdYAdtAgU=
 
+install:
+  - pip install awscli
+
+before_script:
+  # Builds only when branch is master and this is NOT a PR
+  - ./scripts/yarn-and-docker-build.sh
+
 script:
   - yarn lint
   - yarn test:unit -- --colors --ci --silent
+  - ./scripts/run-dockerized-functional-tests.sh
 
 after_success:
   - ./scripts/run-coveralls.sh
@@ -35,7 +43,7 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./scripts/build-and-deploy.sh
+    script: ./scripts/docker-tag-push-deploy.sh
     on:
       branch: master
   - provider: script

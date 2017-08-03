@@ -21,7 +21,7 @@ services:
 
   web:
     container_name: bookit_web
-    image: builditdigital/bookit-web:latest
+    image: "builditdigital/bookit-web:${COMMIT_SHA:-latest}"
     ports:
      - "80:80"
     links:

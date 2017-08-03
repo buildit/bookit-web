@@ -14,7 +14,7 @@ yarn start
 
 To support various scripts locally, you should have `aws-cli` installed and configured with your secret and access key.
 ```
-pip install aws-cli
+pip install awscli
 ```
 
 ## Useful scripts
