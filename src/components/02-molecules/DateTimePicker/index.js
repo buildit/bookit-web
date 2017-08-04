@@ -8,7 +8,7 @@ import styles from './styles.scss'
 
 injectTapEventPlugin()
 
-const DateTimePicker = ({ name, label, error }) => {
+const DateTimePicker = ({ name, label, disabled, error }) => {
   const datePickerStyle = { display: 'inline-block' }
   const datePickerTextFieldStyle = { width: '150px', fontSize: '18px', fontWeight: '100' }
   const timePickerStyle = datePickerStyle
@@ -18,6 +18,7 @@ const DateTimePicker = ({ name, label, error }) => {
     <div className={styles.dateTimePicker} >
       <Field
         name={name}
+        disabled={disabled}
         floatingLabelText={label}
         component={DatePicker}
         autoOk
@@ -28,6 +29,7 @@ const DateTimePicker = ({ name, label, error }) => {
       />
       <Field
         name={name}
+        disabled={disabled}
         autoOk
         component={TimePicker}
         floatingLabelText=" " /* Need this to keep lines aligned :/  */
@@ -41,6 +43,7 @@ const DateTimePicker = ({ name, label, error }) => {
 DateTimePicker.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
+  disabled: PropTypes.bool,
   error: PropTypes.string,
 }
 

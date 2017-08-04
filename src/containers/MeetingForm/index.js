@@ -13,7 +13,6 @@ import {
  } from '../../actions/index'
 
 const validate = (values) => {
-  console.log(values)
   const startMom = moment(values.start)
   const endMom = moment(values.end)
   const now = moment()
@@ -24,7 +23,13 @@ const validate = (values) => {
     errors.end = 'The start time must be before the end time'
   }
 
-  if (startMom.isBefore(now)) {
+  //allow users to edit existing meetings by checking for id
+  if (startMom.isBefore(now) && !values.id) {
+    errors.noTimeTravel = 'You can\'t book in the past'
+  }
+
+  //disallow changing the end time to a time in the past
+  if (values.id && endMom.isBefore(now)) {
     errors.noTimeTravel = 'You can\'t book in the past'
   }
 
@@ -72,8 +77,9 @@ const mapStateToProps = state => ({
   roomId: state.app.requestedMeeting.roomId,
   initialValues: mapFormValues(state.app.requestedMeeting),
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
-  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound'],
+  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
   isCreatingMeeting: state.app.isCreatingMeeting,
+  isEditingMeeting: state.app.isEditingMeeting,
 })
 
 const mapDispatchToProps = dispatch => ({
