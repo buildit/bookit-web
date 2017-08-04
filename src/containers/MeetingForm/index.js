@@ -18,17 +18,17 @@ const validate = (values) => {
   const now = moment()
 
   const errors = {}
-
   if (startMom.isAfter(endMom)) {
     errors.end = 'The start time must be before the end time'
   }
 
-  //allow users to edit existing meetings by checking for id
+  //start time can't be before now if it is a new meeting, but existing
+  //meetings with a start time in the past can be edited
   if (startMom.isBefore(now) && !values.id) {
     errors.noTimeTravel = 'You can\'t book in the past'
   }
 
-  //disallow changing the end time to a time in the past
+  //disallow changing the end time of an existing meeting to a time in the past
   if (values.id && endMom.isBefore(now)) {
     errors.noTimeTravel = 'You can\'t book in the past'
   }
