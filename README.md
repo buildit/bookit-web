@@ -53,7 +53,7 @@ The second option for running functional tests is to use `scripts/run-dockerized
 Invocation of the script (from the bookit-web root directory) is as follows:
 
 ```
-$ TRAVIS_PULL_REQUEST=false TRAVIS_BRANCH=master ./scripts/run-functional-tests.sh
+$ TRAVIS_PULL_REQUEST=false TRAVIS_BRANCH=master ./scripts/run-dockerized-functional-tests.sh
 ```
 
 With the above script, you do not need to pass the `BOOKITURI`, `BOOKITUSER` or `BOOKITPASSWD` variables, as the script will fetch valid values automatically from AWS before running. You also do not need to specify which URL to test against, as the dockerized bookit-web is network-aliased inside the container as bookit.riglet.io (which is the staging URL that's registered for the app on portal.azure.com).
