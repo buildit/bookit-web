@@ -48,21 +48,19 @@ $ BOOKITURI=http://localhost:3001 BOOKITUSER=bruce@domain.com BOOKITPASSWD=bruce
 $ BOOKITURI=http://localhost:3001 BOOKITUSER=bruce@domain.com BOOKITPASSWD=brucepw yarn test:functional
 ```
 
-The second option for running functional tests is to use `scripts/run-functional-tests.sh`.
+The second option for running functional tests is to use `scripts/run-dockerized-functional-tests.sh`.
 
 Invocation of the script (from the bookit-web root directory) is as follows:
 
 ```
-$ ./scripts/run-functional-tests.sh chrome http://bookit.riglet.io
+$ TRAVIS_PULL_REQUEST=false TRAVIS_BRANCH=master ./scripts/run-functional-tests.sh
 ```
 
-The arguments are quite simple - as is the bash script itself - and the order of arguments is `browsers`, `bookit url`.
+With the above script, you do not need to pass the `BOOKITURI`, `BOOKITUSER` or `BOOKITPASSWD` variables, as the script will fetch valid values automatically from AWS before running. You also do not need to specify which URL to test against, as the dockerized bookit-web is network-aliased inside the container as bookit.riglet.io (which is the staging URL that's registered for the app on portal.azure.com).
 
-Note that using `run-functional-tests.sh` is mostly intended for use with Travis. The reason why is due to the (apparent) inability of Docker to expose the host machine within the running docker container as localhost.
+Note that using `run-dockerized-functional-tests.sh` is intended for use with Travis - hence why we have to trick the script into running by passing `TRAVIS_PULL_REQUEST` and `TRAVIS_BRANCH` vars to the script.
 
-In practicality, you *can* use `run-functional-tests.sh` locally, just as long as you point the test to run at a resolvable URL.
-
-To summarize: If you are developing locally, it makes more sense to run functional tests via the npm/yarn script, and use of `run-functional-tests.sh` is intended for CI environments or when you want to test an existing deployment of bookit from your local machine.
+To summarize: If you are developing locally, it makes more sense to run functional tests via the npm/yarn script, and use of `run-dockerized-functional-tests.sh` is intended for CI environments or if you want to possibly debug why a CI build is choking on the script.
 
 ## Existing functionality
 
