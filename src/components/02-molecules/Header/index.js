@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import Link from '../../01-atoms/Link'
 import ConditionalRouteLink from '../ConditionalRouteLink'
 
+import { isAdmin } from '../../../utils/check-auth'
+
 import styles from './styles.scss'
 
 const Header = ({ user, logout }) => (
@@ -12,7 +14,7 @@ const Header = ({ user, logout }) => (
     <span className={styles.name}>
       { user.name }!
     </span>
-    <ConditionalRouteLink path="/" to="/admin" className={styles.link}>Manage Users</ConditionalRouteLink>
+    { isAdmin(user) ? <ConditionalRouteLink path="/" to="/admin" className={styles.link}>Manage Users</ConditionalRouteLink> : '' }
     <ConditionalRouteLink path="/admin" to="/" className={styles.link}>Manage Rooms</ConditionalRouteLink>
     <Link to="/login" className={styles.link} onClick={logout}>Log Out</Link>
   </header>
