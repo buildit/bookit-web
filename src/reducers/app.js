@@ -125,7 +125,6 @@ const app = (state = initialState, action) => {
       end: moment(action.payload.meeting.end),
       roomId: action.payload.meeting.roomId,
       id: action.payload.meeting.id,
-      userMeetingId: action.payload.meeting.userMeetingId,
     }
     return { ...state, isEditingMeeting: true, requestedMeeting: meeting }
   }
