@@ -171,7 +171,6 @@ InfoPanel.propTypes = {
   meetings: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      userMeetingId: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       start: momentPropTypes.momentObj.isRequired,
       end: momentPropTypes.momentObj.isRequired,

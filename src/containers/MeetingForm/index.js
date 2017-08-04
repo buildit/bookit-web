@@ -59,7 +59,6 @@ const getSubmittableMeeting = (form, meeting) => {
   if (!form['meeting-form'].values) return { values: {} }
   let submittableValues = form['meeting-form'].values
   submittableValues.id = meeting.id
-  submittableValues.userMeetingId = meeting.userMeetingId
   // console.log('submittable', submittableValues)
 
   return submittableValues

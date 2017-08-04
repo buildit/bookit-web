@@ -37,7 +37,6 @@ export const editMeeting = (token, meeting, roomEmail) => {
     .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
     .set('x-access-token', token)
     .send({
-      userMeetingId: meeting.userMeetingId,
       title: meeting.title,
       start: meeting.start,
       end: meeting.end,
