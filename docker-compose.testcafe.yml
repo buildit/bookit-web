@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  testcafe:
+    container_name: bookit_testcafe
+    image: testcafe/testcafe
+    environment:
+      - NODE_PATH=/opt/testcafe/node_modules:/opt
+      - BOOKITURI=http://bookit.riglet.io
+      - BOOKITUSER
+      - BOOKITPASSWD
+    volumes:
+      - ./src/functional-tests:/tests
+      - ./node_modules/testcafe-react-selectors:/opt/testcafe/node_modules/testcafe-react-selectors
+    security_opt:
+      - seccomp:unconfined
+    links:
+      - "web:bookit.riglet.io"
+    entrypoint: ["/opt/testcafe/docker/testcafe-docker.sh", "chromium", "/tests"]
+
+  web:
+    container_name: bookit_web
+    image: "builditdigital/bookit-web:${COMMIT_SHA:-latest}"
+    ports:
+     - "80:80"
+    links:
+      - "server:bookitapi"
+    environment:
+      - BOOKIT_API_BASE_URL=/api
+    command: /bin/sh -c "envsubst < /opt/app/config.js.template > /opt/app/config.js && nginx -g 'daemon off;'"
+
+  server:
+    container_name: bookit_server
+    image: builditdigital/bookit-server:latest
+    expose:
+      - "8888"
+    environment:
+      - USE_CLOUD=true
+      - JWT_TOKEN_SECRET="I need to get a grip on Biggus Dickus"
+      - CLOUD_CONFIG
+      - BUILDIT_SECRET

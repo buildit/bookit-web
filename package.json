@@ -63,6 +63,7 @@
     "style-loader": "^0.18.1",
     "stylelint": "^7.10.1",
     "testcafe": "^0.15.0",
+    "testcafe-react-selectors": "^0.0.5",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",

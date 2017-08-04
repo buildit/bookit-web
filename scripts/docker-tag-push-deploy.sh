@@ -3,18 +3,13 @@
 set -e
 
 if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
-  DIR=$(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
-  cd $DIR
-
-  echo "Building production code..."
-
-  yarn build
-
-  echo "Building docker image for $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA..."
+  cd $(dirname "$(cd -P -- "$(dirname -- "$0")" && pwd -P)")
 
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
-  docker build -t $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA .
+  echo "Pushing $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA to dockerhub..."
+
+  # docker build -t $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA .
   docker push $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA
   docker tag $DOCKER_ORG/$DOCKER_REPO:$COMMIT_SHA $DOCKER_ORG/$DOCKER_REPO:latest
   docker push $DOCKER_ORG/$DOCKER_REPO:latest
