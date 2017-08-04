@@ -50,17 +50,15 @@ $ BOOKITURI=http://localhost:3001 BOOKITUSER=bruce@domain.com BOOKITPASSWD=bruce
 
 The second option for running functional tests is to use `scripts/run-dockerized-functional-tests.sh`.
 
-Invocation of the script (from the bookit-web root directory) is as follows:
+Local invocation of the script (from the bookit-web root directory) is as follows:
 
 ```
-$ TRAVIS_PULL_REQUEST=false TRAVIS_BRANCH=master ./scripts/run-dockerized-functional-tests.sh
+$ ./scripts/run-dockerized-functional-tests.sh
 ```
 
 With the above script, you do not need to pass the `BOOKITURI`, `BOOKITUSER` or `BOOKITPASSWD` variables, as the script will fetch valid values automatically from AWS before running. You also do not need to specify which URL to test against, as the dockerized bookit-web is network-aliased inside the container as bookit.riglet.io (which is the staging URL that's registered for the app on portal.azure.com).
 
-Note that using `run-dockerized-functional-tests.sh` is intended for use with Travis - hence why we have to trick the script into running by passing `TRAVIS_PULL_REQUEST` and `TRAVIS_BRANCH` vars to the script.
-
-To summarize: If you are developing locally, it makes more sense to run functional tests via the npm/yarn script, and use of `run-dockerized-functional-tests.sh` is intended for CI environments or if you want to possibly debug why a CI build is choking on the script.
+As a general rule: If you are developing locally, it makes more sense to run functional tests via the npm/yarn script, and use of `run-dockerized-functional-tests.sh` is intended for CI environments or if you want to possibly debug why a CI build is choking on the script.
 
 ## Existing functionality
 
