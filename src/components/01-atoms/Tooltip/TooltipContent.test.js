@@ -9,7 +9,7 @@ describe('<TooltipContent />', () => {
   const props = {
     title: 'A Meeting',
     start: moment(),
-    end: moment(),
+    end: moment().add(1, 'hour'),
     roomName: 'roomy mcroomface',
     owner: {
       name: 'some guy',
@@ -49,10 +49,16 @@ describe('<TooltipContent />', () => {
     expect(wrapper.find('.edit').length).toBe(0)
   })
 
-  it('shows edit when owned by user', () => {
+  it('shows edit when owned by user and end is not in the past', () => {
     const propsCopy = { ...props, isOwnedByUser: true }
     const wrapper = shallow(<TooltipContent {...propsCopy} />)
     expect(wrapper.find('.edit').length).toBe(1)
+  })
+
+  it('does not show edit when the end of the meeting is in the past', () => {
+    const propsCopy = { ...props, isOwnedByUser: true, start: moment().subtract(2, 'hours'), end: moment().subtract(1, 'hour') }
+    const wrapper = shallow(<TooltipContent {...propsCopy} />)
+    expect(wrapper.find('.edit').length).toBe(0)
   })
 
   it('does not show edit when user owns meeting, but is already editing a meeting', () => {

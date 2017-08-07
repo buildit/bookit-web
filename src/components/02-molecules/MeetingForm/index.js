@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import { Field } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
@@ -23,10 +24,15 @@ const MeetingForm = ({
   validationErrors = {},
   visibleErrorMessages,
   isCreatingMeeting,
+  isEditingMeeting,
   handleDeleteClick,
   handleSaveClick,
  }) => {
+  const now = moment()
+  const meetingStart = moment(meeting.start)
+
   const isSubmitDisabled = invalid || hasValidationErrors(validationErrors)
+  const isStartDisabled = isEditingMeeting && meetingStart.isBefore(now)
 
   const buttons = isCreatingMeeting
     ? <Button disabled={isSubmitDisabled} type="submit" content="Bookit" />
@@ -49,7 +55,7 @@ const MeetingForm = ({
         }}
       >
         <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} style={meetingTitleStyle} />
-        <DateTimePicker locale="en-US" name="start" label="Start" />
+        <DateTimePicker name="start" label="Start" disabled={isStartDisabled} />
         <DateTimePicker name="end" label="End" />
         { buttons }
         <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
@@ -78,6 +84,7 @@ MeetingForm.propTypes = {
   handleDeleteClick: PropTypes.func.isRequired,
   handleSaveClick: PropTypes.func.isRequired,
   isCreatingMeeting: PropTypes.bool.isRequired,
+  isEditingMeeting: PropTypes.bool.isRequired,
 }
 
 export default MeetingForm
