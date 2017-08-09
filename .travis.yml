@@ -58,6 +58,11 @@ deploy:
       branch: 33-deploy-to-ecs
   - provider: script
     skip_cleanup: true
+    script: ./scripts/temp-build.sh
+    on:
+      branch: 33-deploy-to-ecs
+  - provider: script
+    skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
       branch: 33-deploy-to-ecs
