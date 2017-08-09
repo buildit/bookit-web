@@ -53,11 +53,6 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: AWS_REGION=us-east-1 ./scripts/build-aws-ecr.sh
-    on:
-      branch: aws-ecr-push
-  - provider: script
-    skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
       branch: 33-deploy-to-ecs
