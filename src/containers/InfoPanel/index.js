@@ -30,7 +30,8 @@ import styles from './styles.scss'
 class InfoPanel extends React.Component {
   constructor(props) {
     super(props)
-    this.pathName = props.pathName
+    // this.pathName = props.pathName
+    this.pathName = props.location.pathname
   }
 
   render() {
@@ -97,8 +98,10 @@ class InfoPanel extends React.Component {
             styles.close : styles.invite }
         />
         { ajax ? <UIBlocker /> : '' }
-        { (this.pathName === '' || this.pathName === '/') && agendaContent }
-        { (this.pathName === 'admin' || this.pathName === '/admin') && adminContent }
+        {/* (this.pathName === '' || this.pathName === '/') && agendaContent */}
+        {/* (this.pathName === 'admin' || this.pathName === '/admin') && adminContent */}
+        { (this.props.location.pathname === '' || this.props.location.pathname === '/') && agendaContent }
+        { (this.props.location.pathname === 'admin' || this.props.location.pathname === '/admin') && adminContent }
         <Messages key="8" messages={messages} />
       </div>
     )
@@ -184,6 +187,9 @@ InfoPanel.propTypes = {
       roomId: PropTypes.string.isRequired,
     })
   ).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
   pathName: PropTypes.string.isRequired,
   users: PropTypes.arrayOf(PropTypes.shape({
     email: PropTypes.string.isRequired,
