@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 const TooltipContent =
   ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, isEditingMeeting }) => {
-    const isEditable = isOwnedByUser && !isEditingMeeting
+    const now = moment()
+    const isEditable = isOwnedByUser && !isEditingMeeting && end.isAfter(now)
     return (
       <div className={styles.content}>
         <div>

@@ -8,8 +8,8 @@ import { setClient } from '../actions'
  * It is entirely possible that I suck at branching logic
  */
 
-const isUser = user => user.email && user.token
-const isAdmin = user => isUser(user) && (user.email === 'bruce@builditcontoso.onmicrosoft.com')
+export const isUser = user => user.email && user.token
+export const isAdmin = user => isUser(user) && (user.email === 'bruce@builditcontoso.onmicrosoft.com')
 
 const checkStoredAuthorization = (dispatch, verifyUser) => {
   const storedUser = localStorage.getItem('user')

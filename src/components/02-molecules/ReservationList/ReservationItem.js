@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import MomentPropTypes from 'react-moment-proptypes'
 
-const ReservationItem = ({ styles, meeting, onClick }) => (
+const ReservationItem = ({ styles, meeting, onClick }) => {
+  const now = moment()
+  const isEditable = meeting.end.isAfter(now)
+  return (
   <div className={styles.meeting}>
     <div className={styles.info}>
       <div className={styles.title}>
@@ -17,9 +21,9 @@ const ReservationItem = ({ styles, meeting, onClick }) => (
       </div>
     </div>
     {/* THIS SHOULD BE A Button COMPONENT! */}
-    <div onClick={onClick} className={styles.button}>Edit</div>
+    {isEditable ? <div onClick={onClick} className={styles.button}>Edit</div> : ''}
   </div>
-)
+  )}
 
 ReservationItem.propTypes = {
   styles: PropTypes.object,
