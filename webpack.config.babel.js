@@ -4,8 +4,6 @@ import merge from 'webpack-merge'
 
 import parts from './webpack/parts'
 
-console.log('LIFECYCLE EVENT:', process.env.npm_lifecycle_event)
-
 if (process.env.WDS_HOST === undefined) process.env.WDS_HOST = 'localhost'
 if (process.env.WDS_PORT === undefined) process.env.WDS_PORT = 3001
 
