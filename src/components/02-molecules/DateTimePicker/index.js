@@ -5,11 +5,12 @@ import styles from './styles.scss'
 import Kronos from 'react-kronos'
 import moment from 'moment'
 
-const DateTimePicker = ({ name, meeting }) => {
+const DateTimePicker = (field) => {
   const dateStyle = {
     width: '245px',
     border: 'none',
     backgroundColor: '#141516',
+    color: 'white',
     borderBottom: '1px solid #fbfe34',
     fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
     borderRadius: '0',
@@ -21,6 +22,7 @@ const DateTimePicker = ({ name, meeting }) => {
     width: '75px',
     border: 'none',
     backgroundColor: '#141516',
+    color: 'white',
     borderBottom: '1px solid #fbfe34',
     fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
     borderRadius: '0',
@@ -31,27 +33,31 @@ const DateTimePicker = ({ name, meeting }) => {
   return (
     <div className={styles.dateTimePicker} >
     <Kronos
-      name={name}
-      date={name === "start" ? moment(meeting.start) : moment(meeting.end) }
+      date={field.input.value}
       format="dddd, MMMM Do, YYYY"
       min={moment()}
-      onChange={this.onChange}
+      onChangeDateTime={result => field.input.onChange(result)}
       preventClickOnDateTimeOutsideRange={true}
       inputStyle={dateStyle}
       hideOutsideDateTimes={true}
+      options={{
+        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+        corners: '0',
+      }}
     />
     <Kronos
       name={name}
-      time={name === "start" ? moment(meeting.start) : moment(meeting.end) }
+      time={field.input.value}
       format="h:mm a"
-      minTime={moment()}
-      onChange={this.onChange}
+      onChangeDateTime={result => field.input.onChange(result)}
       preventClickOnDateTimeOutsideRange={true}
       inputStyle={timeStyle}
       timeStep={15}
       hideOutsideDateTimes={true}
       options={{
         format: {hour: 'h:mm a'},
+        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+        corners: '0',
       }}
     />
     </div>

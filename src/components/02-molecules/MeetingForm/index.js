@@ -50,8 +50,8 @@ const MeetingForm = ({
         }}
       >
         <Field floatingLabelFixed floatingLabelText="Event name" name="title" component={TextField} errorText={errors.title} style={meetingTitleStyle} />
-        <DateTimePicker name="start" meeting={meeting} />
-        <DateTimePicker name="end" meeting={meeting} />
+        <Field name="start" component={DateTimePicker} />
+        <Field name="end" component={DateTimePicker} />
         { buttons }
         <ErrorMessages messages={validationErrors} allowableMessages={visibleErrorMessages} />
       </form>
