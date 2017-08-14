@@ -14,11 +14,13 @@ export class OpenId extends React.Component {
 
   componentDidMount() {
     const params = processQueryParams(this.props.location.hash)
-    const code = params.id_token
+    const code = params.access_token
+    console.log(params)
     if (code) {
       this.props.login(code)
     }
     else if (params.error) {
+      console.log(params)
       // TODO: Figure out where this needs to be called.  Or if it's ever called.
       history.push('/bad')
     }
