@@ -25,13 +25,13 @@ env:
     - ECS_REPO=mthomas-bookit-dev6-web-ecr-repo
     - ECS_CLUSTER=mthomas-bookit-dev6-ECSCluster
     - ECS_SERVICE=mthomas-bookit-dev6-app-BookitWebService-WO45JV48Y50-Service-1REV0R2M2FF9B
-    # AWS_ACCESS_KEY_ID
-    - secure: bTubxyQPM/NJr5zX3TY03e1PEGOADTB5DJsfKKbemI5F6HoFhNip91ZAQOdzjFNejofiC7llXoiQ8t674MAcXyXpLvK8lFZo+oVfkvntJ+onFWdKClC+enXStqhQkelaUHnaCd0xxIK3ZEpRoeyUayFssYAWgmTIF07PgH1J2BEECuw4m9iMJuAFiTRUjAXsI0GXhvV0P0N9JpcgH6g9RVaEF5ghd3Q6dmgh7aDZaVs/ufDYbuUd32zywhSZiV0nFZ5N9PbOkMujU/LeXTjecrVW3NB1Yr/R2KVRlsQp4S0LM4PEzzN3DVYeCRwI6icoB3VuS80yoVlb8cj50O6sOtRlbG6wjVOxSXoKH/KtUKEOYcPcbQiMNZQeWUIsBXZYvepE557Jv7nvRraekdaYUvyWjyaxrLJWzHrheJ2vY3T039n8Yf93DJqVs1Ic8AmuosAK2eKdYUNNTxrd5r9qbBW2pD16J9yBBYL5RjvG98hGdxrGBjW0DoZ5+FgZa9KxECzVuygTep55y2jRvZWThBE3+LQ0nai2QKp5dOa7NBMqpWvqptQTm+Zsd/G6TWhZTA+yEDZMAvdnYxCDPzuphiUE++41xkvOnIw7uVuQvq2nEHw9QBdc1CE+S3tg4WJrLvgffWZickuRkDJZxEt9CPPLU3aRvG+iMToA7KM2AXo=
-    # AWS_SECRET_ACCESS_KEY
-    - secure: N0277TJFhg/6l5Q9bbRH5btNm0WZtfRXsYo97RoZ5DK/g06vSPltceY41z5MNueF5EprtQLqV9qTijBDEXwovDZKahYisthQ6DXukbQxgrAWxeGgr+hhu8iDH2CgHuQMlxotJ4pRwd0SljNXiiWdPM1rdgW4D6yPGBuBpFjrqvILT8M1ubXOcfwvL96TaOky+F1FXIt8DzVVUppvpNyoNBwWqz4Bw+9HjxyILXQJ2IL9X4TnPYu91MGt7XUGEL4BKneMJQfzvqyt2WOHXzv3zCQUUmXMZGAySMhQrTInyY30HnR/NsNgXjCsilPzO6T1J23oS6thI+eKXlNRCpyiGKQHAmrKsAxJjkYC4kBOo86wCONToZQUDluUxJaSr8FbwUclmBEIktIPEWv4neuoGp/SW+zTDz39Ma6n4+FExIIOZzW7uSNarMM1+iUXc6pXywGLh/kTvZGT2l3BhJ3WUs8Y7WiLWdRFblORo0ChV48DgqaEgjfJ/U0WYpO6hLZcCCWX/DvYqFY7BoxgAxoeCtIEsJOIBZyCIDs9UOQUH3uZCUoSxUVxul3P6/8RIE+7Riotcrd9Nue6fURpUOHnVjutXgvRxleqK1FwvtaoRuKJgYje4UOtC5os5/MVXyKJ5mU5gVMB2tlSq9Skiz5KA7eYpy3KYhoUFCCdYAdtAgU=
+    # AWS_ACCESS_KEY_ID (CloudFormation stack IAM account)
+    - secure: UZm5ItNg+LTC4idIadmi4Of/VAlpQpBaKQN8yv4MP5Ve3rAH65Sv3wvDmd1N5ZZd985I4TWdMGVeDis9sWs8x8XFish022v1L6X2maRueFQEZ1SNwX9VxpbIIAsj+6TgDsvOnCm3RIZZAke3JjOrTaaEQluwQnIJT6LVJwNBdxek0hsdWMCv+6DZofRBvDyOb4SHARv/5cWMui5w2vKLDAZy5GywL5usqNxRTmNP+zm8loq6mVBgi/EAAq1bmsVZB7GZno6Hvo8q8afeXT9pS8wkVm6ZdZ3daAQfZS1Pbr4tB8fZXMBNPdlbUosDioMen6Uk9m4wUt5Ts/6JO9N1rJXJMMZ9UJcbaqNvrriWNYdBcBLbDQQ3jmGop95f67CDRhlwVMnGp9GbCru4smF8KTNpjuu8X29NX5NtWX0j6z7lS+/fr81wP5cjr6tzMydCZVW+n9YdmjbXqTWsr4TvnCTPNahpUrnlvfvlqzF9jZdquT9PAns3ocTNCnzf1YBHLyHn2/oxzH1hFXKHbtWtsur/q3yvuFiGXvEut4XOUSoEp6bht2n2hijPPyN05z1rM5kNJb1qwOIpCXGCbpj+TDE7l6sAuliq/1YnFVEtmB8dbVp4xjdK7ZscCzR+UpktTyC06ukq6mQizHsOuhebegRUvGNqQ6Lj6KaVx9QGCsY=
+    # AWS_SECRET_ACCESS_KEY (CloudFormation stack IAM account)
+    - secure: SOoAM45q1zemStp/qWJKmrsMfbgN9ojmSRzb+qXrit2BujA4OCKhTUvgBZaJz/z63QeabeIRLbdrOnN7NYnZaFpOvnVwyaLtFfhRpP4vx5BP1VoZVb6jDpJT9RuYYnikUrnL+dn244kLMuOimoMPcLPj/Vx/Sqdpb2MMS/By/9ywkgP9SwIM73ktsbb06yiCdNK6li+bnYwQ2whtMBy1WDdo8Ut2XPbl3qRefrlht3TeRPEouG+OUUveorjdbGkI12Tkw/fJMZBzZlqj6kB3vY4jyEVQsSo4+b9IEicyvbL2nH2huHj7jHBsBUs6zCnxZC06FypluzWdg8W1HBnwbHSTDEtOU3TIocsFaaWq/vYDcEZ3Ljp7LRj6b3JjtpiAxznQLtiS1xeoOigJS9uxZmk/9D0qoA09vAw9/R67xdHoLwf7d8yxFLP14mHqIWWdt/8g9dAO5drYxh+d9V+9Len/4+jtrlKhi4smHK/F0bjJBB0PjGlaUb2cNIMOIdzmH85JXWVXQ01HKf1WVVmecGBbpt0qA9V/wa+ax9NLliAyCIrFftXe6zTc3TGgqhQG1SG9GVKpIojnOFeK8B9NXRNDNFalWmN++L79mWS8kAdmYVXXvkh4zRt/7c6QnC+44+ou3G04wd2Q0KfQZ1sDa+iCgGWRMdyXVnxCoUwMAMY=
 
 install:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "89-aws-functional-tests" ]]; then pip install awscli; fi
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "75-automate-create-travis-iam-user" ]]; then pip install awscli; fi
 
 before_script:
   # Builds only when branch is master and this is NOT a PR
@@ -56,22 +56,22 @@ deploy:
     skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/temp-build.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
 
 notifications:
   slack:
