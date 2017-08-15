@@ -30,30 +30,38 @@ const DateTimePicker = (field) => {
     marginBottom: '20px',
   }
 
+  const calendarStyle = {
+    backgroundColor: '#2b3947',
+    color: 'white',
+  }
+
+
+
   return (
     <div className={styles.dateTimePicker} >
     <Kronos
       date={field.input.value}
       format="dddd, MMMM Do, YYYY"
-      min={moment()}
+      min={moment().startOf('day')}
       onChangeDateTime={result => field.input.onChange(result)}
-      preventClickOnDateTimeOutsideRange={true}
+      preventClickOnDateTimeOutsideRange
       inputStyle={dateStyle}
-      hideOutsideDateTimes={true}
+      hideOutsideDateTimes
+      calendarStyle={calendarStyle}
       options={{
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
         corners: '0',
       }}
     />
     <Kronos
-      name={name}
       time={field.input.value}
       format="h:mm a"
+      min={moment().startOf('minute')}
       onChangeDateTime={result => field.input.onChange(result)}
-      preventClickOnDateTimeOutsideRange={true}
+      preventClickOnDateTimeOutsideRange
       inputStyle={timeStyle}
       timeStep={15}
-      hideOutsideDateTimes={true}
+      hideOutsideDateTimes
       options={{
         format: {hour: 'h:mm a'},
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
