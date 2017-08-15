@@ -3,7 +3,7 @@ version: '3'
 services:
 
   testcafe:
-    container_name: bookit_testcafe
+    container_name: bookit_testcafe_aws
     image: testcafe/testcafe
     environment:
       - NODE_PATH=/opt/testcafe/node_modules:/opt

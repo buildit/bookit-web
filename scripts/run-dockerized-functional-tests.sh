@@ -26,8 +26,8 @@ if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "
 
   docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p $DOCKERNAME up -d > /dev/null 2>&1
 
-  TEST_EXIT_CODE=`docker wait bookit_testcafe`
-  docker logs bookit_testcafe
+  TEST_EXIT_CODE=`docker wait bookit_testcafe_aws`
+  docker logs bookit_testcafe_aws
 
   if [ -z ${TEST_EXIT_CODE+x} ] || [ "$TEST_EXIT_CODE" -ne 0 ] ; then
     printf "${RED}tests failed${NC} - exitcode: $TEST_EXIT_CODE\n"
