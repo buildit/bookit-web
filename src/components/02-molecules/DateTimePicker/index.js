@@ -32,10 +32,13 @@ const DateTimePicker = (field) => {
 
   const calendarStyle = {
     backgroundColor: '#2b3947',
-    color: 'white',
+    width: '245px',
   }
 
-
+  const dropdownStyle = {
+    backgroundColor: '#2b3947',
+    padding: '0',
+  }
 
   return (
     <div className={styles.dateTimePicker} >
@@ -51,6 +54,7 @@ const DateTimePicker = (field) => {
       options={{
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
         corners: '0',
+        locale: 'en-us',
       }}
     />
     <Kronos
@@ -62,6 +66,7 @@ const DateTimePicker = (field) => {
       inputStyle={timeStyle}
       timeStep={15}
       hideOutsideDateTimes
+      calendarStyle={dropdownStyle}
       options={{
         format: {hour: 'h:mm a'},
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
