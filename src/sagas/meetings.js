@@ -40,7 +40,7 @@ export function* createMeeting(action) {
       start: action.payload.start,
       end: action.payload.end,
     }
-    const room = action.payload.room
+    const room = { email: action.payload.room }
     yield call(api.createMeeting, token, meeting, room)
     yield put(closeMeetingDialog())
     yield put(destroy('meeting-editor'))

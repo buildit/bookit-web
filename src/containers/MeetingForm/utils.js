@@ -5,6 +5,7 @@ export const mapInitialValues = values => ({
   title: values.title,
   start: values.start && moment(values.start).toDate(),
   end: values.end && moment(values.end).toDate(),
+  room: values.room.email,
 })
 
 export const getSubmittableMeeting = (form, meeting) => {

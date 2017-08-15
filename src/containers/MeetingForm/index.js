@@ -17,7 +17,26 @@ import {
 
 injectTapEventPlugin() // Required by Material UI components
 
-const MeetingForm = ({ handleSubmit, submitMeeting }) => {
+const RoomPicker = (field) => {
+  console.log(field.options)
+  return (
+    <select
+      onChange={value => field.input.onChange(value)}
+      value={field.input.value}
+    >
+      {field.options.map(
+        option => (
+          <option
+            key={option.id}
+            value={option.id}
+            >{option.name}</option>
+        )
+      )}
+    </select>
+  )
+}
+
+const MeetingForm = ({ handleSubmit, submitMeeting, rooms }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submitMeeting)}>
@@ -37,6 +56,11 @@ const MeetingForm = ({ handleSubmit, submitMeeting }) => {
           label="End"
           component={DateTimePicker}
         />
+        <Field
+          name="room"
+          component={RoomPicker}
+          options={rooms}
+        />
         <Button type="submit" content="Bookit" />
       </form>
     </div>
@@ -46,6 +70,7 @@ const MeetingForm = ({ handleSubmit, submitMeeting }) => {
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
+  rooms: PropTypes.arrayOf(PropTypes.shape({})),
 }
 
 const mapStateToProps = state => ({
@@ -57,16 +82,11 @@ const mapStateToProps = state => ({
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
   isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
+  rooms: Object.values(state.app.roomsById),
 })
 
 const mapDispatchToProps = dispatch => ({
-  submitMeeting: (meeting) => {
-    dispatch(meetingCreateStart(Object.assign({
-      room: {
-        email: 'black-room@builditcontoso.onmicrosoft.com',
-      },
-    }, meeting)))
-  },
+  submitMeeting: meeting => dispatch(meetingCreateStart(meeting)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
   handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
