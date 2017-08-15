@@ -26,12 +26,12 @@ env:
     - ECS_CLUSTER=mthomas-bookit-dev6-ECSCluster
     - ECS_SERVICE=mthomas-bookit-dev6-app-BookitWebService-WO45JV48Y50-Service-1REV0R2M2FF9B
     # AWS_ACCESS_KEY_ID
-    - secure: bTubxyQPM/NJr5zX3TY03e1PEGOADTB5DJsfKKbemI5F6HoFhNip91ZAQOdzjFNejofiC7llXoiQ8t674MAcXyXpLvK8lFZo+oVfkvntJ+onFWdKClC+enXStqhQkelaUHnaCd0xxIK3ZEpRoeyUayFssYAWgmTIF07PgH1J2BEECuw4m9iMJuAFiTRUjAXsI0GXhvV0P0N9JpcgH6g9RVaEF5ghd3Q6dmgh7aDZaVs/ufDYbuUd32zywhSZiV0nFZ5N9PbOkMujU/LeXTjecrVW3NB1Yr/R2KVRlsQp4S0LM4PEzzN3DVYeCRwI6icoB3VuS80yoVlb8cj50O6sOtRlbG6wjVOxSXoKH/KtUKEOYcPcbQiMNZQeWUIsBXZYvepE557Jv7nvRraekdaYUvyWjyaxrLJWzHrheJ2vY3T039n8Yf93DJqVs1Ic8AmuosAK2eKdYUNNTxrd5r9qbBW2pD16J9yBBYL5RjvG98hGdxrGBjW0DoZ5+FgZa9KxECzVuygTep55y2jRvZWThBE3+LQ0nai2QKp5dOa7NBMqpWvqptQTm+Zsd/G6TWhZTA+yEDZMAvdnYxCDPzuphiUE++41xkvOnIw7uVuQvq2nEHw9QBdc1CE+S3tg4WJrLvgffWZickuRkDJZxEt9CPPLU3aRvG+iMToA7KM2AXo=
+    - secure: LzH/6yoe+XwvRgD2YvraPTDPsPzdY7D9sxp98Mr+hrxwhLsZXvwOl44hwvOv0cu/zEv4gQ8Xbww6VCssSyNIysUI7GrDUYYmmDx3iBBn65X2R0Ky8/qyE0BIRwWV2PKnQQ3ppDZuotXPBaYsC8FQUa924jq9y2AsevCE1N5CgU91AufH83BoAO83ni0uVN+tCteleneVHFx1Medv5PASkM/ga/FGCxI0Sr8spQYlt/WNXXqlXPk7w3Qjj9rMHIKeZw9F/PRbUWRkSRbOEpZRba5gJGtkrue45xeR7DC8Fhc1nR0W2oStExOhCgrWICGB1x/Lu9v2ma45PfneG8LfBY37SI3Rr4141tuu96oRXuxR31bn9HcZov8Pj69QTMpPpKG0zR6ulIZOOcmRw3lhUIXTcZkSI5VXFR+Tq3ah4hxVPLdHN1Gxl8/AXxwW26RcmIRnKGZYjae249Cu8xBfbj0++J31YaprTRbF8PM+UavPwMggXe93PRVjZPn/0vv+QP2ABOoUu8FVXnKJ0Tm+Iu/ZWFcTCJk/BqiftwoC2zVzYMsRMfu81hW2/Bn9fipGT3g4Gv3MU9Qtd0CYmxRlvUCF2t5TbAaM/Be3Oqlrs6kXa6YiSRA0RYnK/FCxpADZefGNz6CU+pRTzQFtYq7tR9bNcCwA0Bo4MxA36s36dUo=
     # AWS_SECRET_ACCESS_KEY
-    - secure: N0277TJFhg/6l5Q9bbRH5btNm0WZtfRXsYo97RoZ5DK/g06vSPltceY41z5MNueF5EprtQLqV9qTijBDEXwovDZKahYisthQ6DXukbQxgrAWxeGgr+hhu8iDH2CgHuQMlxotJ4pRwd0SljNXiiWdPM1rdgW4D6yPGBuBpFjrqvILT8M1ubXOcfwvL96TaOky+F1FXIt8DzVVUppvpNyoNBwWqz4Bw+9HjxyILXQJ2IL9X4TnPYu91MGt7XUGEL4BKneMJQfzvqyt2WOHXzv3zCQUUmXMZGAySMhQrTInyY30HnR/NsNgXjCsilPzO6T1J23oS6thI+eKXlNRCpyiGKQHAmrKsAxJjkYC4kBOo86wCONToZQUDluUxJaSr8FbwUclmBEIktIPEWv4neuoGp/SW+zTDz39Ma6n4+FExIIOZzW7uSNarMM1+iUXc6pXywGLh/kTvZGT2l3BhJ3WUs8Y7WiLWdRFblORo0ChV48DgqaEgjfJ/U0WYpO6hLZcCCWX/DvYqFY7BoxgAxoeCtIEsJOIBZyCIDs9UOQUH3uZCUoSxUVxul3P6/8RIE+7Riotcrd9Nue6fURpUOHnVjutXgvRxleqK1FwvtaoRuKJgYje4UOtC5os5/MVXyKJ5mU5gVMB2tlSq9Skiz5KA7eYpy3KYhoUFCCdYAdtAgU=
+    - secure: Zf3Hts2aLlAtlW8/J5AvYtQxNcVpvDkapZwmQXH6/sZ/TKqRJWFncIAFMTcHOBeBWx6voSnVONNdQEFHgKvuZUkCZrlaKx/+y6y8jd3tP0u5TsfqztgaeVYIxFfpt9JtpR6+C3phaIqhXq981QEqDn82dpDJv93TCY9QzucYbPxLrxj4Na9tVco35rUC6p6IbMmo7lYQCTkW6bLH56q2IHoASIWwgohZQi3XsSkJLGjsgGfqTzvUl2cxp6Gs7/kq9F25CdIVYOBHn6T7KQHp0xvXBLbHMHClPv3EcN3P/DDbX8WjMT8ztuBJqd/Ldbeg9VTZ5mbCH0W1HwVu/Fh/3x9Xl3ge30Z6Si2W6rXrS4z9JFQciTq6KWED+qa/ZfuhvceduLGsp+LMDE4JvMJg/6JiuTLwg/aqHbLRjCK3juR2F0LStHMxLBxRQgDZygyIdi6CO4GZn//g7ig4AmMm8doJjbAzIhmfi4zwFcbMqgxDhwv8p4z/oG06FjVlxokHu9p2zha7W74NuX/lx8v39TsE0VgRU7x19mVourtGk5v9ObegN2c2fKkPaDTptA+swA69s9h+N9wVHgRPF2cO+yx3oDK1EocD1jOX7WrbZZDC21CNb/ydo4rtiYQ+ecOLErcQ6weNVsrEAGvh9CLzaSoEBNsxe0bT09eXM84YQvw=
 
 install:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "89-aws-functional-tests" ]]; then pip install awscli; fi
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "75-automate-create-travis-iam-user " ]]; then pip install awscli; fi
 
 before_script:
   # Builds only when branch is master and this is NOT a PR
@@ -56,22 +56,22 @@ deploy:
     skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/temp-build.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
   - provider: script
     skip_cleanup: true
     script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}
     on:
-      branch: 89-aws-functional-tests
+      branch: 75-automate-create-travis-iam-user
 
 notifications:
   slack:
