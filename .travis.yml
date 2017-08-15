@@ -31,7 +31,7 @@ env:
     - secure: Zf3Hts2aLlAtlW8/J5AvYtQxNcVpvDkapZwmQXH6/sZ/TKqRJWFncIAFMTcHOBeBWx6voSnVONNdQEFHgKvuZUkCZrlaKx/+y6y8jd3tP0u5TsfqztgaeVYIxFfpt9JtpR6+C3phaIqhXq981QEqDn82dpDJv93TCY9QzucYbPxLrxj4Na9tVco35rUC6p6IbMmo7lYQCTkW6bLH56q2IHoASIWwgohZQi3XsSkJLGjsgGfqTzvUl2cxp6Gs7/kq9F25CdIVYOBHn6T7KQHp0xvXBLbHMHClPv3EcN3P/DDbX8WjMT8ztuBJqd/Ldbeg9VTZ5mbCH0W1HwVu/Fh/3x9Xl3ge30Z6Si2W6rXrS4z9JFQciTq6KWED+qa/ZfuhvceduLGsp+LMDE4JvMJg/6JiuTLwg/aqHbLRjCK3juR2F0LStHMxLBxRQgDZygyIdi6CO4GZn//g7ig4AmMm8doJjbAzIhmfi4zwFcbMqgxDhwv8p4z/oG06FjVlxokHu9p2zha7W74NuX/lx8v39TsE0VgRU7x19mVourtGk5v9ObegN2c2fKkPaDTptA+swA69s9h+N9wVHgRPF2cO+yx3oDK1EocD1jOX7WrbZZDC21CNb/ydo4rtiYQ+ecOLErcQ6weNVsrEAGvh9CLzaSoEBNsxe0bT09eXM84YQvw=
 
 install:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "75-automate-create-travis-iam-user " ]]; then pip install awscli; fi
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "75-automate-create-travis-iam-user" ]]; then pip install awscli; fi
 
 before_script:
   # Builds only when branch is master and this is NOT a PR
