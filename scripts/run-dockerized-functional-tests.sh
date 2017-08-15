@@ -24,7 +24,7 @@ if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "
   export CLOUD_CONFIG=$(awsparam CLOUD_CONFIG)
   export BUILDIT_SECRET=$(awsparam BUILDIT_SECRET)
 
-  docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p $DOCKERNAME up -d > /dev/null 2>&1
+  docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p $DOCKERNAME up -d
 
   TEST_EXIT_CODE=`docker wait bookit_testcafe`
   docker logs bookit_testcafe
