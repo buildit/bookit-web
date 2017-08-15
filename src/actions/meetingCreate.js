@@ -6,11 +6,7 @@ import {
   MEETING_CREATE_FAILED,
 } from './actionTypes'
 
-export const meetingCreateStart = createAction(MEETING_CREATE_START, (meeting, room, token) => ({
-  meeting,
-  room,
-  token,
-}))
+export const meetingCreateStart = createAction(MEETING_CREATE_START)
 
 export const meetingCreateSucceeded = createAction(MEETING_CREATE_SUCCEEDED)
 

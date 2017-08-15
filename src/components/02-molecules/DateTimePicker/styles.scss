@@ -1,4 +1,15 @@
 .dateTimePicker {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.dateLabel {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.7rem;
+}
+
+.pickers {
+  display: flex;
 }

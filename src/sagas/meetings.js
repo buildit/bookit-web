@@ -35,7 +35,12 @@ export function* fetchMeetings(action = {}) {
 export function* createMeeting(action) {
   try {
     const token = yield select(getUserToken)
-    const { payload: { meeting, room } } = action
+    const meeting = {
+      title: action.payload.title,
+      start: action.payload.start,
+      end: action.payload.end,
+    }
+    const room = action.payload.room
     yield call(api.createMeeting, token, meeting, room)
     yield put(closeMeetingDialog())
     yield put(destroy('meeting-editor'))

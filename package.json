@@ -76,6 +76,7 @@
     "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-kronos": "^1.6.0",
     "react-redux": "^5.0.5",
     "react-router-redux": "next",
     "react-tap-event-plugin": "^2.0.1",
