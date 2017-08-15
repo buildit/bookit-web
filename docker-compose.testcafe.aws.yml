@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+
+  testcafe:
+    container_name: bookit_testcafe_aws
+    image: testcafe/testcafe
+    environment:
+      - NODE_PATH=/opt/testcafe/node_modules:/opt
+      - BOOKITURI
+      - BOOKITUSER
+      - BOOKITPASSWD
+    volumes:
+      - ./src/functional-tests:/tests
+      - ./node_modules/testcafe-react-selectors:/opt/testcafe/node_modules/testcafe-react-selectors
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: ["/opt/testcafe/docker/testcafe-docker.sh", "chromium", "/tests"]
