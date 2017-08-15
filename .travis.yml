@@ -41,7 +41,7 @@ script:
   - yarn lint
   - yarn test:unit -- --colors --ci --silent
   # Runs functional tests only when branch is master and this is NOT a PR
-  - ./scripts/run-dockerized-functional-tests.sh
+  - ./scripts/run-dockerized-functional-tests.sh docker-compose.testcafe.aws.yml bookit_testcafe_aws
 
 after_success:
   - ./scripts/run-coveralls.sh
