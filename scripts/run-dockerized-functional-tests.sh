@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "74-aws-integrate-web-to-api" ]]; then
+if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "89-aws-functional-tests" ]]; then
   DOCKERNAME=bookit_functional_tests
   DOCKER_COMPOSE_YAML_FILENAME=${0:-docker-compose.testcafe.yml}
 

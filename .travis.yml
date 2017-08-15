@@ -56,22 +56,22 @@ deploy:
     skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
-      branch: 74-aws-integrate-web-to-api
+      branch: 89-aws-functional-tests
   - provider: script
     skip_cleanup: true
     script: ./scripts/temp-build.sh
     on:
-      branch: 74-aws-integrate-web-to-api
+      branch: 89-aws-functional-tests
   - provider: script
     skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
-      branch: 74-aws-integrate-web-to-api
+      branch: 89-aws-functional-tests
   - provider: script
     skip_cleanup: true
     script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}
     on:
-      branch: 74-aws-integrate-web-to-api
+      branch: 89-aws-functional-tests
 
 notifications:
   slack:
