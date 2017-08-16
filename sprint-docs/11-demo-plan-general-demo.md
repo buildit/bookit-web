@@ -1,11 +1,6 @@
 # Bookit Demo
 August 16, 2017
 
-## Auth
-
-- Demonstrate that a Designit user can log in.
-- Demonstrate that a Wipro user can log in.
-
 
 ## Booking
 
