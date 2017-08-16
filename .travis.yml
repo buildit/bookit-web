@@ -27,6 +27,7 @@ env:
 
 install:
   - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then pip install awscli; fi
+  - yarn
 
 before_script:
   # Builds only when branch is master and this is NOT a PR

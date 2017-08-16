@@ -1,50 +1,84 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import Kronos from 'react-kronos'
+import moment from 'moment'
 
-import { Field } from 'redux-form'
-import { DatePicker, TimePicker } from 'redux-form-material-ui'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import styles from './styles.scss'
+// NOTE: See `src/index.ejs` for additional styles that are applied to this component, specifically the datepicker calendar and timepicker dropdown.
+// Global styles are bad -- we know! -- but this seemed to be the only way to override the styles defined by the React-Kronos library.
+// The author of React-Kronos seems to acknowledge this liability: https://github.com/dubert/react-kronos/blob/master/README.md#roadmap
 
-injectTapEventPlugin()
-
-const DateTimePicker = ({ name, label, disabled, error }) => {
-  const datePickerStyle = { display: 'inline-block' }
-  const datePickerTextFieldStyle = { width: '150px', fontSize: '18px', fontWeight: '100' }
-  const timePickerStyle = datePickerStyle
-  const timePickerTextFieldStyle = { width: '68px', fontSize: '18px', fontWeight: '100' }
-
-  return (
-    <div className={styles.dateTimePicker} >
-      <Field
-        name={name}
-        disabled={disabled}
-        floatingLabelText={label}
-        component={DatePicker}
-        autoOk
-        errorText={error}
-        style={datePickerStyle}
-        textFieldStyle={datePickerTextFieldStyle}
-        formatDate={new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }).format}
-      />
-      <Field
-        name={name}
-        disabled={disabled}
-        autoOk
-        component={TimePicker}
-        floatingLabelText=" " /* Need this to keep lines aligned :/  */
-        style={timePickerStyle}
-        textFieldStyle={timePickerTextFieldStyle}
-      />
-    </div>
-  )
+const DateTimePickerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
 }
 
-DateTimePicker.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  error: PropTypes.string,
+const dateStyle = {
+  width: '245px',
+  border: 'none',
+  backgroundColor: '#141516',
+  color: 'white',
+  borderBottom: '1px solid #fbfe34',
+  fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+  borderRadius: '0',
+  padding: '0',
+  marginBottom: '20px',
+  marginLeft: '0',
 }
+
+const timeStyle = {
+  width: '75px',
+  border: 'none',
+  backgroundColor: '#141516',
+  color: 'white',
+  borderBottom: '1px solid #fbfe34',
+  fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+  borderRadius: '0',
+  padding: '0',
+  marginBottom: '20px',
+}
+
+const calendarStyle = {
+  backgroundColor: '#2b3947',
+}
+
+const dropdownStyle = {
+  backgroundColor: '#2b3947',
+  padding: '0',
+}
+
+const DateTimePicker = field => (
+  <div style={DateTimePickerStyle} >
+    <Kronos
+      date={field.input.value}
+      format="dddd, MMMM Do, YYYY"
+      min={moment().startOf('day')}
+      onChangeDateTime={result => field.input.onChange(result)}
+      preventClickOnDateTimeOutsideRange
+      inputStyle={dateStyle}
+      hideOutsideDateTimes
+      calendarStyle={calendarStyle}
+      options={{
+        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+        corners: 0,
+        locale: { lang: 'en-us' },
+      }}
+    />
+    <Kronos
+      time={field.input.value}
+      format="h:mm a"
+      min={moment().startOf('minute')}
+      onChangeDateTime={result => field.input.onChange(result)}
+      preventClickOnDateTimeOutsideRange
+      inputStyle={timeStyle}
+      timeStep={15}
+      hideOutsideDateTimes
+      calendarStyle={dropdownStyle}
+      options={{
+        format: { hour: 'h:mm a' },
+        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+        corners: 0,
+      }}
+    />
+  </div>
+)
 
 export default DateTimePicker

@@ -49,12 +49,12 @@ const MeetingFormContainer = reduxForm({
   validate,
 })(MeetingForm)
 
-const mapFormValues = values => ({
-  id: values.id,
-  title: values.title,
-  start: values.start && moment(values.start).toDate(),
-  end: values.end && moment(values.end).toDate(),
-})
+const mapFormValues = (values) => {
+  return ({id: values.id,
+    title: values.title,
+    start: values.start && moment(values.start).toDate(),
+    end: values.end && moment(values.end).toDate()})
+}
 
 const getSubmittableMeeting = (form, meeting) => {
   // FIXME: This is crazy-sauce. What is the right way?
