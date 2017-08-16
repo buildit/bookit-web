@@ -1,7 +1,7 @@
 import {
-  MEETING_CREATE_START,
-  MEETING_CREATE_FAILED,
-  MEETING_CREATE_SUCCEEDED,
+  MEETING_UPSERT_START,
+  MEETING_UPSERT_FAILED,
+  MEETING_UPSERT_SUCCEEDED,
 } from '../actions/actionTypes'
 
 import ajax from './ajax'
@@ -13,23 +13,24 @@ describe('ajax reducer', () => {
     const newState = ajax()
     expect(newState).toBeFalsy()
   })
+
   it('returns the default state when something irrelevant is used', () => {
     const newState = ajax(initialState, { type: 'foo' })
     expect(newState).toBeFalsy()
   })
 
   it('sets true when starting a meeting creation', () => {
-    const newState = ajax(initialState, { type: MEETING_CREATE_START })
+    const newState = ajax(initialState, { type: MEETING_UPSERT_START })
     expect(newState).toBeTruthy()
   })
 
   it('sets false when successfully creating a meeting', () => {
-    const newState = ajax(initialState, { type: MEETING_CREATE_SUCCEEDED })
+    const newState = ajax(initialState, { type: MEETING_UPSERT_SUCCEEDED })
     expect(newState).toBeFalsy()
   })
 
   it('sets false when not successfully creating a meeting', () => {
-    const newState = ajax(initialState, { type: MEETING_CREATE_FAILED })
+    const newState = ajax(initialState, { type: MEETING_UPSERT_FAILED })
     expect(newState).toBeFalsy()
   })
 })

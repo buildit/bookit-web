@@ -1,18 +1,18 @@
 import {
-  MEETING_CREATE_START,
-  MEETING_CREATE_FAILED,
-  MEETING_CREATE_SUCCEEDED,
+  MEETING_UPSERT_START,
+  MEETING_UPSERT_FAILED,
+  MEETING_UPSERT_SUCCEEDED,
 } from '../actions/actionTypes'
 
 const initialState = false
 
 const ajax = (state = initialState, action = {}) => {
   switch (action.type) {
-  case MEETING_CREATE_START: {
+  case MEETING_UPSERT_START: {
     return true
   }
-  case MEETING_CREATE_FAILED:
-  case MEETING_CREATE_SUCCEEDED: {
+  case MEETING_UPSERT_FAILED:
+  case MEETING_UPSERT_SUCCEEDED: {
     return false
   }
   default: {

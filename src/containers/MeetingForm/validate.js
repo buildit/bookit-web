@@ -1,5 +1,15 @@
-const validate = () => {
-  console.log('create some validations!')
-}
+import moment from 'moment'
 
-export default validate
+export const validate = (values) => {
+  const errors = {}
+
+  if (!values.title) {
+    errors.title = 'Name is required'
+  }
+
+  if (moment(values.start).isSameOrAfter(moment(values.end))) {
+    errors.time = 'Start date must be before end date'
+  }
+
+  return errors
+}
