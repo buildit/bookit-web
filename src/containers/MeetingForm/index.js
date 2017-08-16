@@ -50,7 +50,6 @@ const MeetingFormContainer = reduxForm({
 })(MeetingForm)
 
 const mapFormValues = (values) => {
-  console.log('im in the meeting form container', values)
   return ({id: values.id,
     title: values.title,
     start: values.start && moment(values.start).toDate(),

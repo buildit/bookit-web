@@ -30,9 +30,14 @@ const DateTimePicker = (field) => {
     marginBottom: '20px',
   }
 
+  // NOTE: Other styles are being applied to the datepicker calendar and timepicker dropdown
+  // by overriding the React-Kronos library's styles. This is happening in bookit's index.ejs.
+  // This was the only way to make this component match the designs.
   const calendarStyle = {
     backgroundColor: '#2b3947',
-    width: '245px',
+    // TODO: figure out how to center the calendar when the width is increased
+    // probably via "grid" and "cell" width
+    // width: '245px',
   }
 
   const dropdownStyle = {
