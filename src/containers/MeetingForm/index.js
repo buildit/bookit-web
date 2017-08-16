@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field, getFormMeta, getFormSyncErrors } from 'redux-form'
 import { connect } from 'react-redux'
 
-import { TextField } from 'redux-form-material-ui'
-import Button from '../../components/01-atoms/Button'
-// import DateTimePicker from '../../components/02-molecules/DateTimePicker'
-import KronosPicker from './KronosPicker'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+
+import { TextField } from 'redux-form-material-ui'
+
+import Button from '../../components/01-atoms/Button'
+import DateTimePicker from '../../components/02-molecules/DateTimePicker'
+
 import { mapInitialValues, getSubmittableMeeting } from './utils'
 import { validate, required } from './validate'
 
@@ -43,10 +45,15 @@ const MeetingForm = ({ handleSubmit, submitMeeting, rooms }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submitMeeting)}>
-        <Field name="title" component={TextField} floatingLabelFixed floatingLabelText="Event name" validate={required} />
-
-        <Field name="start" label="Start" component={KronosPicker} />
-        <Field name="end"label="End" component={KronosPicker} />
+        <Field
+          name="title"
+          component={TextField}
+          floatingLabelFixed
+          floatingLabelText="Event name"
+          validate={required}
+        />
+        <Field name="start" component={DateTimePicker} />
+        <Field name="end" component={DateTimePicker} />
         <Field name="room" component={RoomPicker} options={rooms} />
 
         <Button type="submit" content="Bookit" />
