@@ -1,52 +1,52 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
-import styles from './styles.scss'
 import Kronos from 'react-kronos'
 import moment from 'moment'
 
-const DateTimePicker = (field) => {
-  const dateStyle = {
-    width: '245px',
-    border: 'none',
-    backgroundColor: '#141516',
-    color: 'white',
-    borderBottom: '1px solid #fbfe34',
-    fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-    borderRadius: '0',
-    padding: '0',
-    marginBottom: '20px',
-    marginLeft: '0',
-  }
-  const timeStyle = {
-    width: '75px',
-    border: 'none',
-    backgroundColor: '#141516',
-    color: 'white',
-    borderBottom: '1px solid #fbfe34',
-    fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-    borderRadius: '0',
-    padding: '0',
-    marginBottom: '20px',
-  }
+// NOTE: See `src/index.ejs` for additional styles that are applied to this component, specifically the datepicker calendar and timepicker dropdown.
+// Global styles are bad -- we know! -- but this seemed to be the only way to override the styles defined by the React-Kronos library.
+// The author of React-Kronos seems to acknowledge this liability: https://github.com/dubert/react-kronos/blob/master/README.md#roadmap
 
-  // NOTE: Other styles are being applied to the datepicker calendar and timepicker dropdown
-  // by overriding the React-Kronos library's styles. This is happening in bookit's index.ejs.
-  // This was the only way to make this component match the designs.
-  const calendarStyle = {
-    backgroundColor: '#2b3947',
-    // TODO: figure out how to center the calendar when the width is increased
-    // probably via "grid" and "cell" width
-    // width: '245px',
-  }
+const DateTimePickerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+}
 
-  const dropdownStyle = {
-    backgroundColor: '#2b3947',
-    padding: '0',
-  }
+const dateStyle = {
+  width: '245px',
+  border: 'none',
+  backgroundColor: '#141516',
+  color: 'white',
+  borderBottom: '1px solid #fbfe34',
+  fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+  borderRadius: '0',
+  padding: '0',
+  marginBottom: '20px',
+  marginLeft: '0',
+}
 
-  return (
-    <div className={styles.dateTimePicker} >
+const timeStyle = {
+  width: '75px',
+  border: 'none',
+  backgroundColor: '#141516',
+  color: 'white',
+  borderBottom: '1px solid #fbfe34',
+  fontFamily: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+  borderRadius: '0',
+  padding: '0',
+  marginBottom: '20px',
+}
+
+const calendarStyle = {
+  backgroundColor: '#2b3947',
+}
+
+const dropdownStyle = {
+  backgroundColor: '#2b3947',
+  padding: '0',
+}
+
+const DateTimePicker = field => (
+  <div style={DateTimePickerStyle} >
     <Kronos
       date={field.input.value}
       format="dddd, MMMM Do, YYYY"
@@ -58,8 +58,8 @@ const DateTimePicker = (field) => {
       calendarStyle={calendarStyle}
       options={{
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-        corners: '0',
-        locale: 'en-us',
+        corners: 0,
+        locale: { lang: 'en-us' },
       }}
     />
     <Kronos
@@ -73,19 +73,12 @@ const DateTimePicker = (field) => {
       hideOutsideDateTimes
       calendarStyle={dropdownStyle}
       options={{
-        format: {hour: 'h:mm a'},
+        format: { hour: 'h:mm a' },
         font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-        corners: '0',
+        corners: 0,
       }}
     />
-    </div>
-  )
-}
-
-DateTimePicker.propTypes = {
-  name: PropTypes.string,
-  label: PropTypes.string,
-  meeting: PropTypes.shape({}),
-}
+  </div>
+)
 
 export default DateTimePicker
