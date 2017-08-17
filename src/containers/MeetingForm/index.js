@@ -15,6 +15,8 @@ import DateTimePicker from '../../components/02-molecules/DateTimePicker'
 import { mapInitialValues, getSubmittableMeeting } from './utils'
 import { validate, required } from './validate'
 
+import styles from './styles.scss'
+
 import {
   meetingUpsertStart,
   openCancellationDialog,
@@ -29,9 +31,13 @@ const MeetingForm = ({
   isEditingMeeting,
   handleDeleteClick,
   isQuickBooking,
+  roomName,
 }) => {
   return (
     <div>
+      { isEditingMeeting
+        ? <h2 className={styles.room}>Edit Booking</h2>
+        : <h2 className={styles.room}>Book { roomName } Room</h2> }
       <form onSubmit={handleSubmit(submitMeeting)}>
         <Field
           name="title"
@@ -58,12 +64,12 @@ MeetingForm.propTypes = {
   isEditingMeeting: PropTypes.bool.isRequired,
   isQuickBooking: PropTypes.bool.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
+  roomName: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
   meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting),
-  room: state.app.requestedMeeting.room,
-  roomId: state.app.requestedMeeting.roomId,
+  roomName: state.app.requestedMeeting.room.name,
   initialValues: mapInitialValues(state.app.requestedMeeting),
   syncErrors: getFormSyncErrors('meeting-form')(state),
   fields: getFormMeta('meeting-form')(state),
