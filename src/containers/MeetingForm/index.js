@@ -9,6 +9,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import { TextField } from 'redux-form-material-ui'
 
 import Button from '../../components/01-atoms/Button'
+import RoomPicker from '../../components/01-atoms/RoomPicker'
 import DateTimePicker from '../../components/02-molecules/DateTimePicker'
 
 import { mapInitialValues, getSubmittableMeeting } from './utils'
@@ -21,26 +22,14 @@ import {
 
 injectTapEventPlugin() // Required by Material UI components
 
-const RoomPicker = (field) => {
-  console.log(field.options)
-  return (
-    <select
-      onChange={value => field.input.onChange(value)}
-      value={field.input.value}
-    >
-      {field.options.map(
-        option => (
-          <option
-            key={option.id}
-            value={option.id}
-            >{option.name}</option>
-        )
-      )}
-    </select>
-  )
-}
-
-const MeetingForm = ({ handleSubmit, submitMeeting, rooms, isEditingMeeting, handleDeleteClick }) => {
+const MeetingForm = ({
+  handleSubmit,
+  submitMeeting,
+  rooms,
+  isEditingMeeting,
+  handleDeleteClick,
+  isQuickBooking,
+}) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submitMeeting)}>
@@ -53,10 +42,10 @@ const MeetingForm = ({ handleSubmit, submitMeeting, rooms, isEditingMeeting, han
         />
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
-        <Field name="room" component={RoomPicker} options={rooms} />
+        { isQuickBooking ? <Field name="room" component={RoomPicker} options={rooms} /> : null }
 
         <Button type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
-        { isEditingMeeting ? <Button onClick={handleDeleteClick} content="Delete" /> : null}
+        { isEditingMeeting ? <Button onClick={handleDeleteClick} content="Delete" /> : null }
       </form>
     </div>
   )
@@ -67,6 +56,7 @@ MeetingForm.propTypes = {
   submitMeeting: PropTypes.func.isRequired,
   rooms: PropTypes.arrayOf(PropTypes.shape({})),
   isEditingMeeting: PropTypes.bool.isRequired,
+  isQuickBooking: PropTypes.bool.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
 }
 
@@ -80,6 +70,7 @@ const mapStateToProps = state => ({
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
   isEditingMeeting: state.app.isEditingMeeting,
+  isQuickBooking: false, // Replace with real state when Quick Booking is implemented
   rooms: Object.values(state.app.roomsById),
 })
 
