@@ -1,28 +1,30 @@
 import { call, put, select } from 'redux-saga/effects'
 import { destroy } from 'redux-form'
+import moment from 'moment'
 
 import api from '../api'
 
 import {
-  meetingCreateSucceeded,
-  meetingCreateFailed,
   closeMeetingDialog,
+  meetingUpsertSucceeded,
+  meetingUpsertFailed,
   meetingsFetchSucceeded,
   meetingsFetchFailed,
-  meetingEditSucceeded,
 } from '../actions'
 
 import {
   fetchMeetings,
-  createMeeting,
-  editMeeting,
+  upsertMeeting,
 } from './meetings'
 
 import { getUserToken } from '../selectors'
 
 describe('Meetings Sagas', () => {
   const meeting = { room: 'Fuschia' }
-  const room = 'bar'
+  const room = {
+    email: 'blurg@blurg.blurg',
+    name: 'Blurg',
+  }
   const token = '123456abcde'
 
   it('fetches meetings', () => {
@@ -35,6 +37,7 @@ describe('Meetings Sagas', () => {
       .toEqual(put(meetingsFetchSucceeded(meetings)))
     expect(generator.next().done).toBeTruthy()
   })
+
   it('errors properly when fetching meetings fails', () => {
     const err = new Error('what')
     const generator = fetchMeetings()
@@ -45,37 +48,103 @@ describe('Meetings Sagas', () => {
   })
 
   it('creates meetings', () => {
-    const action = { payload: { meeting, room } }
-    const generator = createMeeting(action)
+    /**** Set up the mock Redux action ****/
+    const start = moment()
+    const end = moment().add(1, 'hour')
+    const action = {
+      type: 'MEETING_UPSERT_START',
+      payload: {
+        // Notice the lack of meeting id!
+        title: 'Walk the chinchilla',
+        start,
+        end,
+        room: 'bleep@bloop.com',
+      },
+    }
 
+
+    /**** Definitions of arguments we expect to see in api call  ****/
+    const token = undefined // Why is token undefined?
+    const expectedMeetingArg = {
+      id: undefined,
+      title: 'Walk the chinchilla',
+      start,
+      end,
+    }
+    const expectedRoomArg = { email: 'bleep@bloop.com'}
+
+
+    /**** Declare the expectations ****/
+    const generator = upsertMeeting(action)
     expect(generator.next().value).toEqual(select(getUserToken))
-    expect(generator.next().value).toEqual(call(api.createMeeting, undefined, meeting, room))
+    expect(generator.next().value).toEqual(
+      call(api.createMeeting, token, expectedMeetingArg, expectedRoomArg))
     expect(generator.next().value).toEqual(put(closeMeetingDialog()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
-    expect(generator.next().value).toEqual(put(meetingCreateSucceeded()))
+    expect(generator.next().value).toEqual(put(meetingUpsertSucceeded()))
     expect(generator.next().value).toEqual(call(fetchMeetings))
     expect(generator.next().done).toBeTruthy()
   })
 
   it('edits meetings', () => {
-    const action = { payload: { meeting, room } }
-    const generator = editMeeting(action)
+    /**** Set up the mock Redux action ****/
+    const start = moment()
+    const end = moment().add(1, 'hour')
+    const action = {
+      type: 'MEETING_UPSERT_START',
+      payload: {
+        id: 'meeting-007',
+        title: 'Simmer down',
+        start,
+        end,
+        room: 'bleep@bloop.com',
+      },
+    }
 
+
+    /**** Definitions of arguments we expect to see in api call  ****/
+    const token = undefined // Why is token undefined?
+    const expectedMeetingArg = {
+      id: 'meeting-007',
+      title: 'Simmer down',
+      start,
+      end,
+    }
+    const expectedRoomArg = { email: 'bleep@bloop.com'}
+
+
+    /**** Declare the expectations ****/
+    const generator = upsertMeeting(action)
     expect(generator.next().value).toEqual(select(getUserToken))
-    expect(generator.next().value).toEqual(call(api.editMeeting, undefined, meeting, room))
+    expect(generator.next().value).toEqual(
+      call(api.editMeeting, token, expectedMeetingArg, expectedRoomArg))
     expect(generator.next().value).toEqual(put(closeMeetingDialog()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
-    expect(generator.next().value).toEqual(put(meetingEditSucceeded()))
+    expect(generator.next().value).toEqual(put(meetingUpsertSucceeded()))
     expect(generator.next().value).toEqual(call(fetchMeetings))
     expect(generator.next().done).toBeTruthy()
   })
+
   it('errors properly when creating a meeting fails', () => {
     const err = new Error({
       response: { body: { message: 'Foo' } },
     })
-    const action = { payload: { meeting, room, token } }
-    const generator = createMeeting(action)
-    const correct = put(meetingCreateFailed(
+
+    /**** Set up the mock Redux action ****/
+    const start = moment()
+    const end = moment().add(1, 'hour')
+    const action = {
+      type: 'MEETING_UPSERT_START',
+      payload: {
+        id: undefined,
+        title: 'Sleep on, sleepy',
+        start,
+        end,
+        room: 'bleep@bloop.com',
+      },
+    }
+    const generator = upsertMeeting(action)
+    const correct = put(meetingUpsertFailed(
       err.toString()
     ))
 
