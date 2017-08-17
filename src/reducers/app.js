@@ -120,11 +120,14 @@ const app = (state = initialState, action) => {
   }
   case POPULATE_MEETING_EDIT_FORM: {
     const meeting = {
+      id: action.payload.meeting.id,
       title: action.payload.meeting.title,
       start: moment(action.payload.meeting.start),
       end: moment(action.payload.meeting.end),
-      roomId: action.payload.meeting.roomId,
-      id: action.payload.meeting.id,
+      room: {
+        email: action.payload.meeting.roomId,
+        name: action.payload.meeting.roomName,
+      },
     }
     return { ...state, isEditingMeeting: true, requestedMeeting: meeting }
   }
