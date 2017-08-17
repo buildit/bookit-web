@@ -11,9 +11,10 @@ import { TextField } from 'redux-form-material-ui'
 import Button from '../../components/01-atoms/Button'
 import RoomPicker from '../../components/01-atoms/RoomPicker'
 import DateTimePicker from '../../components/02-molecules/DateTimePicker'
+import ErrorMessages from '../../components/02-molecules/ErrorMessages'
 
 import { mapInitialValues, getSubmittableMeeting } from './utils'
-import { validate, required } from './validate'
+import { validate } from './validate'
 
 import styles from './styles.scss'
 
@@ -32,6 +33,8 @@ const MeetingForm = ({
   handleDeleteClick,
   isQuickBooking,
   roomName,
+  errors,
+  isFormTouched,
 }) => {
   return (
     <div>
@@ -44,7 +47,6 @@ const MeetingForm = ({
           component={TextField}
           floatingLabelFixed
           floatingLabelText="Event name"
-          validate={required}
         />
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
@@ -53,6 +55,7 @@ const MeetingForm = ({
         <Button type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
         { isEditingMeeting ? <Button onClick={handleDeleteClick} content="Delete" /> : null }
       </form>
+      { isFormTouched ? <ErrorMessages errors={errors} /> : null }
     </div>
   )
 }
@@ -65,6 +68,8 @@ MeetingForm.propTypes = {
   isQuickBooking: PropTypes.bool.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   roomName: PropTypes.string.isRequired,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  isFormTouched: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -72,12 +77,13 @@ const mapStateToProps = state => ({
   roomName: state.app.requestedMeeting.room.name,
   initialValues: mapInitialValues(state.app.requestedMeeting),
   syncErrors: getFormSyncErrors('meeting-form')(state),
-  fields: getFormMeta('meeting-form')(state),
+  isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: false, // Replace with real state when Quick Booking is implemented
   rooms: Object.values(state.app.roomsById),
+  errors: getFormSyncErrors('meeting-form')(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -85,6 +91,5 @@ const mapDispatchToProps = dispatch => ({
   handleDeleteClick: () => dispatch(openCancellationDialog()),
 })
 
-const formed = reduxForm({ form: 'meeting-form', validate })(MeetingForm)
-
-export default connect(mapStateToProps, mapDispatchToProps)(formed)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({ form: 'meeting-form', validate })(MeetingForm))
