@@ -21,7 +21,6 @@ export function* login(action) {
     localStorage.setItem('user', JSON.stringify(user))
     history.push('/')
   } catch (error) {
-    console.log(error)
     // TODO: Catch meaningful errors from above
     // and pass them to `loginFailure`
     const sameErrorMessageForAllFailures = 'Oops! Login failed. Please try again.'
