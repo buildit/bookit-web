@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { reduxForm, Field, getFormMeta, getFormSyncErrors } from 'redux-form'
+import { reduxForm, Field, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
 import { connect } from 'react-redux'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -35,6 +35,7 @@ const MeetingForm = ({
   roomName,
   errors,
   isFormTouched,
+  invalid,
 }) => {
   return (
     <div>
@@ -50,12 +51,23 @@ const MeetingForm = ({
         />
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
-        { isQuickBooking ? <Field name="room" component={RoomPicker} options={rooms} /> : null }
 
-        <Button type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
-        { isEditingMeeting ? <Button onClick={handleDeleteClick} content="Delete" /> : null }
+        { isQuickBooking
+          ? <Field name="room" component={RoomPicker} options={rooms} />
+          : null }
+
+        <Button
+          disabled={!isFormTouched || invalid}
+          type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
+
+        { isEditingMeeting
+          ? <Button onClick={handleDeleteClick} content="Delete" />
+          : null }
       </form>
-      { isFormTouched ? <ErrorMessages errors={errors} /> : null }
+
+      { isFormTouched
+        ? <ErrorMessages errors={errors} />
+        : null }
     </div>
   )
 }
@@ -68,8 +80,9 @@ MeetingForm.propTypes = {
   isQuickBooking: PropTypes.bool.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   roomName: PropTypes.string.isRequired,
-  errors: PropTypes.arrayOf(PropTypes.string),
+  errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -84,6 +97,7 @@ const mapStateToProps = state => ({
   isQuickBooking: false, // Replace with real state when Quick Booking is implemented
   rooms: Object.values(state.app.roomsById),
   errors: getFormSyncErrors('meeting-form')(state),
+  invalid: isInvalid('myForm')(state),
 })
 
 const mapDispatchToProps = dispatch => ({
