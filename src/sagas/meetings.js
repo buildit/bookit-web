@@ -6,14 +6,12 @@ import api from '../api'
 import {
   meetingsFetchSucceeded,
   meetingsFetchFailed,
-  meetingCreateFailed,
   closeMeetingDialog,
-  meetingCreateSucceeded,
   cancelMeetingSucceeded,
   cancelMeetingFailed,
   meetingsFetchStart,
-  meetingEditSucceeded,
-  meetingEditFailed,
+  meetingUpsertSucceeded,
+  meetingUpsertFailed,
 } from '../actions'
 
 import { getUserToken } from '../selectors'
@@ -32,38 +30,73 @@ export function* fetchMeetings(action = {}) {
   }
 }
 
-export function* createMeeting(action) {
+export function* upsertMeeting(action) {
+  // TODO: conditionally create or edit based on presence of meeting id
   try {
-    const token = yield select(getUserToken)
     const meeting = {
+      id: action.payload.id,
       title: action.payload.title,
       start: action.payload.start,
       end: action.payload.end,
     }
     const room = { email: action.payload.room }
-    yield call(api.createMeeting, token, meeting, room)
-    yield put(closeMeetingDialog())
-    yield put(destroy('meeting-editor'))
-    yield put(meetingCreateSucceeded())
-    yield call(fetchMeetings)
+    const token = yield select(getUserToken)
+
+    const mode = meeting.id ? 'update' : 'insert'
+
+    if (mode === 'insert') {
+      yield call(api.createMeeting, token, meeting, room)
+      yield put(closeMeetingDialog())
+      yield put(destroy('meeting-editor'))
+      yield put(meetingUpsertSucceeded())
+      yield call(fetchMeetings)
+    }
+
+    if (mode === 'update') {
+      yield call(api.editMeeting, token, meeting, room.email)
+      yield put(closeMeetingDialog())
+      yield put(destroy('meeting-editor'))
+      yield put(meetingUpsertSucceeded())
+      yield call(fetchMeetings)
+    }
+
   } catch (err) {
-    yield put(meetingCreateFailed(err.toString()))
+    yield put(meetingUpsertFailed(err.toString()))
   }
 }
 
-export function* editMeeting(action) {
-  try {
-    const token = yield select(getUserToken)
-    const { payload: { meeting, room } } = action
-    yield call(api.editMeeting, token, meeting, room)
-    yield put(closeMeetingDialog())
-    yield put(destroy('meeting-editor'))
-    yield put(meetingEditSucceeded())
-    yield call(fetchMeetings)
-  } catch (err) {
-    yield put(meetingEditFailed(err.response && err.response.body && err.response.body.message))
-  }
-}
+// export function* createMeeting(action) {
+//   try {
+//     const token = yield select(getUserToken)
+//     const meeting = {
+//       title: action.payload.title,
+//       start: action.payload.start,
+//       end: action.payload.end,
+//     }
+//     const room = { email: action.payload.room }
+//     yield call(api.createMeeting, token, meeting, room)
+//     yield put(closeMeetingDialog())
+//     yield put(destroy('meeting-editor'))
+//     yield put(meetingCreateSucceeded())
+//     yield call(fetchMeetings)
+//   } catch (err) {
+//     yield put(meetingCreateFailed(err.toString()))
+//   }
+// }
+//
+// export function* editMeeting(action) {
+//   try {
+//     const token = yield select(getUserToken)
+//     const { payload: { meeting, room } } = action
+//     yield call(api.editMeeting, token, meeting, room)
+//     yield put(closeMeetingDialog())
+//     yield put(destroy('meeting-editor'))
+//     yield put(meetingEditSucceeded())
+//     yield call(fetchMeetings)
+//   } catch (err) {
+//     yield put(meetingEditFailed(err.response && err.response.body && err.response.body.message))
+//   }
+// }
 
 export function* cancelMeeting(action) {
   try {

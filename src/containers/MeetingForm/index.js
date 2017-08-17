@@ -15,8 +15,7 @@ import { mapInitialValues, getSubmittableMeeting } from './utils'
 import { validate, required } from './validate'
 
 import {
-  meetingCreateStart,
-  meetingEditStart,
+  meetingUpsertStart,
   openCancellationDialog,
  } from '../../actions/index'
 
@@ -41,7 +40,7 @@ const RoomPicker = (field) => {
   )
 }
 
-const MeetingForm = ({ handleSubmit, submitMeeting, rooms }) => {
+const MeetingForm = ({ handleSubmit, submitMeeting, rooms, isEditingMeeting, handleDeleteClick }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submitMeeting)}>
@@ -56,7 +55,8 @@ const MeetingForm = ({ handleSubmit, submitMeeting, rooms }) => {
         <Field name="end" component={DateTimePicker} />
         <Field name="room" component={RoomPicker} options={rooms} />
 
-        <Button type="submit" content="Bookit" />
+        <Button type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
+        { isEditingMeeting ? <Button onClick={handleDeleteClick} content="Delete" /> : null}
       </form>
     </div>
   )
@@ -66,8 +66,8 @@ MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
   rooms: PropTypes.arrayOf(PropTypes.shape({})),
-  fields: PropTypes.shape({}),
-  syncErrors: PropTypes.shape({}),
+  isEditingMeeting: PropTypes.bool.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -79,15 +79,13 @@ const mapStateToProps = state => ({
   fields: getFormMeta('meeting-form')(state),
   validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
   visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
-  isCreatingMeeting: state.app.isCreatingMeeting,
   isEditingMeeting: state.app.isEditingMeeting,
   rooms: Object.values(state.app.roomsById),
 })
 
 const mapDispatchToProps = dispatch => ({
-  submitMeeting: meeting => dispatch(meetingCreateStart(meeting)),
+  submitMeeting: meeting => dispatch(meetingUpsertStart(meeting)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
-  handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
 
 const formed = reduxForm({ form: 'meeting-form', validate })(MeetingForm)
