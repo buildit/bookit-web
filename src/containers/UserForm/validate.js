@@ -8,7 +8,7 @@ export const validate = (values) => {
   }
 
   if (values.email && !isemail.validate(values.email)) {
-    errors.email = "Email is invalid"
+    errors.email = 'Email is invalid'
   }
 
   return errors

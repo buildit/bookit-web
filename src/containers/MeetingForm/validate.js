@@ -8,7 +8,7 @@ export const validate = (values) => {
   }
 
   if (moment(values.start).isSameOrAfter(moment(values.end))) {
-    errors.end = 'Start date must be before end date'
+    errors.time = 'Start date must be before end date'
   }
 
   return errors

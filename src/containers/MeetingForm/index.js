@@ -25,7 +25,7 @@ import {
 
 injectTapEventPlugin() // Required by Material UI components
 
-const MeetingForm = ({
+export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
   rooms,

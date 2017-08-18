@@ -20,14 +20,9 @@ import {
 import { getUserToken } from '../selectors'
 
 describe('Meetings Sagas', () => {
-  const meeting = { room: 'Fuschia' }
-  const room = {
-    email: 'blurg@blurg.blurg',
-    name: 'Blurg',
-  }
-  const token = '123456abcde'
 
   it('fetches meetings', () => {
+    const meeting = { room: 'Fuschia' }
     const meetings = [meeting]
     const generator = fetchMeetings()
 
