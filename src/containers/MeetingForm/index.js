@@ -94,7 +94,7 @@ const mapStateToProps = state => ({
   isQuickBooking: false, // Replace with real state when Quick Booking is implemented
   rooms: Object.values(state.app.roomsById), // Should be filtered by what's available
   errors: getFormSyncErrors('meeting-form')(state),
-  invalid: isInvalid('myForm')(state),
+  invalid: isInvalid('meeting-form')(state),
 })
 
 const mapDispatchToProps = dispatch => ({

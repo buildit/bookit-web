@@ -3,7 +3,7 @@ import moment from 'moment'
 export const validate = (values) => {
   const errors = {}
 
-  if (values.title === '') {
+  if (!values.title) {
     errors.title = 'Name is required'
   }
 

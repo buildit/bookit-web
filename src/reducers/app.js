@@ -99,7 +99,7 @@ const app = (state = initialState, action) => {
       const validatedSlot = getAvailableTimeSlot(roundedDate, meetings)
 
       const meeting = {
-        title: '',
+        title: undefined,
         start: validatedSlot.start,
         end: validatedSlot.end,
         room: action.payload.room,
