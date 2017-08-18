@@ -13,7 +13,7 @@ import RoomPicker from '../../components/01-atoms/RoomPicker'
 import DateTimePicker from '../../components/02-molecules/DateTimePicker'
 import ErrorMessages from '../../components/02-molecules/ErrorMessages'
 
-import { mapInitialValues, getSubmittableMeeting } from './utils'
+import { mapInitialValues } from './utils'
 import { validate } from './validate'
 
 import styles from './styles.scss'
@@ -55,14 +55,15 @@ const MeetingForm = ({
         { isQuickBooking
           ? <Field name="room" component={RoomPicker} options={rooms} />
           : null }
+        <div className={styles.buttons}>
+          <Button
+            disabled={!isFormTouched || invalid}
+            type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
 
-        <Button
-          disabled={!isFormTouched || invalid}
-          type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
-
-        { isEditingMeeting
-          ? <Button onClick={handleDeleteClick} content="Delete" />
-          : null }
+          { isEditingMeeting
+            ? <Button onClick={handleDeleteClick} content="Delete" />
+            : null }
+        </div>
       </form>
 
       { isFormTouched
@@ -86,16 +87,12 @@ MeetingForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting),
   roomName: state.app.requestedMeeting.room.name,
   initialValues: mapInitialValues(state.app.requestedMeeting),
-  syncErrors: getFormSyncErrors('meeting-form')(state),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
-  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: false, // Replace with real state when Quick Booking is implemented
-  rooms: Object.values(state.app.roomsById),
+  rooms: Object.values(state.app.roomsById), // Should be filtered by what's available
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('myForm')(state),
 })
