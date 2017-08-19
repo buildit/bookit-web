@@ -32,6 +32,7 @@ Tooltip.propTypes = {
   roomName: PropTypes.string.isRequired,
   owner: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
   }),
   isOwnedByUser: PropTypes.bool.isRequired,
   tooltipRef: PropTypes.func.isRequired,

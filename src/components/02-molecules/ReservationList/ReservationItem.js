@@ -7,6 +7,7 @@ import MomentPropTypes from 'react-moment-proptypes'
 const ReservationItem = ({ styles, meeting, onClick }) => {
   const now = moment()
   const isEditable = meeting.end.isAfter(now)
+  console.log("isAdmin", meeting)
   return (
   <div className={styles.meeting}>
     <div className={styles.info}>
