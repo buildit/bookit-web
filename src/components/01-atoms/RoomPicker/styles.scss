@@ -1,11 +1,12 @@
 .radio-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between
+  justify-content: space-around;
 }
 
 .radio-container {
   flex: 0 1 120px;
+  margin-top: 10px;
 
   & > label {
     display: block;
