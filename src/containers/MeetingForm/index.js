@@ -1,90 +1,106 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import { reduxForm, Field, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
 import { connect } from 'react-redux'
 
-import { reduxForm } from 'redux-form'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import moment from 'moment'
+import { TextField } from 'redux-form-material-ui'
 
-import MeetingForm from '../../components/02-molecules/MeetingForm'
+import Button from '../../components/01-atoms/Button'
+import RoomPicker from '../../components/01-atoms/RoomPicker'
+import DateTimePicker from '../../components/02-molecules/DateTimePicker'
+import ErrorMessages from '../../components/02-molecules/ErrorMessages'
+
+import { mapInitialValues } from './utils'
+import { validate } from './validate'
+
+import styles from './styles.scss'
 
 import {
-  meetingCreateStart,
-  meetingEditStart,
+  meetingUpsertStart,
   openCancellationDialog,
  } from '../../actions/index'
 
-const validate = (values) => {
-  const startMom = moment(values.start)
-  const endMom = moment(values.end)
-  const now = moment()
+injectTapEventPlugin() // Required by Material UI components
 
-  const errors = {}
-  if (startMom.isAfter(endMom)) {
-    errors.end = 'The start time must be before the end time'
-  }
+export const MeetingForm = ({
+  handleSubmit,
+  submitMeeting,
+  rooms,
+  isEditingMeeting,
+  handleDeleteClick,
+  isQuickBooking,
+  roomName,
+  errors,
+  isFormTouched,
+  invalid,
+}) => {
+  return (
+    <div>
+      { isEditingMeeting
+        ? <h2 className={styles.room}>Edit Booking</h2>
+        : <h2 className={styles.room}>Book { roomName } Room</h2> }
+      <form onSubmit={handleSubmit(submitMeeting)}>
+        <Field
+          name="title"
+          component={TextField}
+          floatingLabelFixed
+          floatingLabelText="Event name"
+        />
+        <Field name="start" component={DateTimePicker} />
+        <Field name="end" component={DateTimePicker} />
 
-  //start time can't be before now if it is a new meeting, but existing
-  //meetings with a start time in the past can be edited
-  if (startMom.isBefore(now) && !values.id) {
-    errors.noTimeTravel = 'You can\'t book in the past'
-  }
+        { isQuickBooking
+          ? <Field name="room" component={RoomPicker} options={rooms} />
+          : null }
+        <div className={styles.buttons}>
+          <Button
+            disabled={!isFormTouched || invalid}
+            type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
 
-  //disallow changing the end time of an existing meeting to a time in the past
-  if (values.id && endMom.isBefore(now)) {
-    errors.noTimeTravel = 'You can\'t book in the past'
-  }
+          { isEditingMeeting
+            ? <Button onClick={handleDeleteClick} content="Delete" />
+            : null }
+        </div>
+      </form>
 
-  if (startMom.isAfter(moment().add(1, 'year'))) {
-    errors.upperBound = 'You can only book up to one year in advance'
-  }
-
-  if (!values.title) {
-    errors.title = 'Please set the title'
-  }
-
-  return errors
+      { isFormTouched
+        ? <ErrorMessages errors={errors} />
+        : null }
+    </div>
+  )
 }
 
-const MeetingFormContainer = reduxForm({
-  form: 'meeting-form', // a unique name for this form
-  validate,
-})(MeetingForm)
-
-const mapFormValues = (values) => {
-  return ({id: values.id,
-    title: values.title,
-    start: values.start && moment(values.start).toDate(),
-    end: values.end && moment(values.end).toDate()})
-}
-
-const getSubmittableMeeting = (form, meeting) => {
-  // FIXME: This is crazy-sauce. What is the right way?
-  // console.log('submittable', meeting)
-  if (!form) return { values: {} }
-  if (!form['meeting-form']) return { values: {} }
-  if (!form['meeting-form'].values) return { values: {} }
-  let submittableValues = form['meeting-form'].values
-  submittableValues.id = meeting.id
-  // console.log('submittable', submittableValues)
-
-  return submittableValues
+MeetingForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitMeeting: PropTypes.func.isRequired,
+  rooms: PropTypes.arrayOf(PropTypes.shape({})),
+  isEditingMeeting: PropTypes.bool.isRequired,
+  isQuickBooking: PropTypes.bool.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  roomName: PropTypes.string.isRequired,
+  errors: PropTypes.shape({}),
+  isFormTouched: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
-  token: state.user.token,
-  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting),
-  room: state.app.requestedMeeting.room,
-  roomId: state.app.requestedMeeting.roomId,
-  initialValues: mapFormValues(state.app.requestedMeeting),
-  validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
-  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
-  isCreatingMeeting: state.app.isCreatingMeeting,
+  roomName: state.app.requestedMeeting.room.name,
+  initialValues: mapInitialValues(state.app.requestedMeeting),
+  isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   isEditingMeeting: state.app.isEditingMeeting,
+  isQuickBooking: false, // Replace with real state when Quick Booking is implemented
+  rooms: Object.values(state.app.roomsById), // Should be filtered by what's available
+  errors: getFormSyncErrors('meeting-form')(state),
+  invalid: isInvalid('meeting-form')(state),
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
+  submitMeeting: meeting => dispatch(meetingUpsertStart(meeting)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
-  handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingFormContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({ form: 'meeting-form', validate })(MeetingForm))
