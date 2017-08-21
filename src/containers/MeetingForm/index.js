@@ -39,7 +39,6 @@ export const MeetingForm = ({
     <div>
       <h2 className={styles.room}>Edit Booking</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
       <form onSubmit={handleSubmit(submitMeeting)}>
-        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
         <Field
           name="title"
           component={TextField}
@@ -49,6 +48,9 @@ export const MeetingForm = ({
 
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
+
+        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
+        { !isQuickBooking && <Field name="room" component="input" type="hidden" /> }
 
         <div className={styles.buttons}>
           <Button
@@ -80,7 +82,7 @@ MeetingForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : {},
+  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : { room: 'black-room@builditcontoso.onmicrosoft.com' },
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented

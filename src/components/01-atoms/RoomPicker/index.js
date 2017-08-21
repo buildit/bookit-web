@@ -1,30 +1,47 @@
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import styles from './styles.scss'
 
 import { getRooms } from '../../../selectors'
 
-const RoomSelectField = ({ input: { value }, rooms }) => (
-  <SelectField
-    floatingLabelText="Meeting Room"
-    value={value}>
-    { rooms.map(room => <MenuItem key={room.id} value={room.id} primaryText={room.name} />) }
-  </SelectField>
+const radioButtonGenerator = ({ input, rooms }) => (
+  <div className={styles.radioGrid}>
+    { rooms.map(room =>
+        <div key={`field-${room.id}`} className={styles.radioContainer}>
+          <label key={room.id} className={styles.radio}>
+            <input
+              className={styles.radioDot}
+              type="radio"
+              {...input}
+              value={room.id}
+              checked={room.id === input.value}
+            />
+            <span className={styles.radioLabel}>
+              {room.name}
+            </span>
+          </label>
+        </div>
+      )
+    }
+  </div>
 )
 
-RoomSelectField.propTypes = {
-  input: PropTypes.shape({
-    value: PropTypes.string,
-  }),
+radioButtonGenerator.propTypes = {
+  input: PropTypes.shape(),
   rooms: PropTypes.array,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string,
+  }),
 }
 
 const mapStateToProps = state => ({
   rooms: getRooms(state),
 })
 
-export default connect(mapStateToProps)(RoomSelectField)
+export default connect(mapStateToProps)(radioButtonGenerator)

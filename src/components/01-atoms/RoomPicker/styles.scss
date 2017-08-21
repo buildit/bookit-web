@@ -1,0 +1,34 @@
+.radio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between
+}
+
+.radio-container {
+  flex: 0 1 120px;
+
+  & > label {
+    display: block;
+    width: 100%;
+  }
+}
+
+.radio {}
+
+.radio-dot {
+  display: none;
+
+  &:checked ~ .radio-label {
+    color: #fbfe34;
+    border-color: #fbfe34;
+  }
+}
+
+.radio-label {
+  border: 2px solid gray;
+  border-radius: 1px;
+  color: gray;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
