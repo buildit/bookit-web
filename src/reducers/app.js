@@ -167,24 +167,21 @@ const app = (state = initialState, action) => {
     }
   }
   case USER_INVITE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
   }
   case USER_REMOVE_SUCCEEDED: {
-    const userEmail = action.payload
     return {
       ...state,
-      messages: [`Fare thee well, ${userEmail}!`],
+      messages: [`Fare thee well, ${action.payload}!`],
     }
   }
   case USER_REMOVE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
   }
   case MEETINGS_FETCH_FAILED: {
