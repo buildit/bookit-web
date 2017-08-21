@@ -9,12 +9,10 @@ import { connect } from 'react-redux'
 
 import {
   initMeetingForm,
-  cancelMeetingRequest,
+  abortUserAction,
   populateMeetingEditForm,
   userRemoveStart,
   openInviteUserDialog,
-  closeConfirmationDialog,
-  closeInviteUserDialog,
  } from '../../actions'
 
 import UIBlocker from '../../components/01-atoms/UIBlocker'
@@ -44,13 +42,11 @@ class InfoPanel extends React.Component {
      handleReservationEditClick,
      userAction,
      users,
-     onMeetingCloseClick,
+     onAbortUserAction,
      handleInitMeetingForm,
      onRemoveUserClick,
      onInviteClick,
-     onInviteCloseClick,
      userToBeRemoved,
-     onAbortRemovingUser,
      ajax,
    } = this.props
     userAction.match(/^(editing|creating|quickBooking)$/) ? console.log('yay') : console.log('ugh')
@@ -78,7 +74,7 @@ class InfoPanel extends React.Component {
           key="5"
           message="Are you sure you want to remove this user?"
           onClickYes={() => onRemoveUserClick(userToBeRemoved)}
-          onClickNo={onAbortRemovingUser}
+          onClickNo={onAbortUserAction}
         />
     }
     if (userAction === 'inviting') {
@@ -91,13 +87,13 @@ class InfoPanel extends React.Component {
 
         <Route exact path="/" render={() => (
           <div
-            onClick={() => (userAction.match(/^(editing|creating|quickBooking)$/)) ? onMeetingCloseClick() : handleInitMeetingForm()}
+            onClick={() => (userAction.match(/^(editing|creating|quickBooking)$/)) ? onAbortUserAction() : handleInitMeetingForm()}
             className={(userAction.match(/^(editing|creating|quickBooking)$/)) ? styles.close : styles.invite}
           />
         )} />
         <Route exact path="/admin" render={() => (
           <div
-            onClick={() => userAction === 'inviting' ? onInviteCloseClick() : onInviteClick()}
+            onClick={() => userAction === 'inviting' ? onAbortUserAction() : onInviteClick()}
             className={userAction === 'inviting' ? styles.close : styles.invite}
           />
         )} />
@@ -136,20 +132,14 @@ const mapDispatchToProps = dispatch => ({
   onRemoveUserClick: (userEmail) => {
     dispatch(userRemoveStart(userEmail))
   },
-  onAbortRemovingUser: () => {
-    dispatch(closeConfirmationDialog())
+  onAbortUserAction: () => {
+    dispatch(abortUserAction())
   },
   onInviteClick: () => {
     dispatch(openInviteUserDialog())
   },
   handleInitMeetingForm: () => {
     dispatch(initMeetingForm('quick'))
-  },
-  onInviteCloseClick: () => {
-    dispatch(closeInviteUserDialog())
-  },
-  onMeetingCloseClick: () => {
-    dispatch(cancelMeetingRequest())
   },
 })
 
@@ -162,12 +152,10 @@ InfoPanel.propTypes = {
   userAction: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
-  onAbortRemovingUser: PropTypes.func.isRequired,
-  handleInitMeetingForm: PropTypes.func,
-  onMeetingCloseClick: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,
+  onAbortUserAction: PropTypes.func.isRequired,
   onInviteClick: PropTypes.func.isRequired,
-  onInviteCloseClick: PropTypes.func.isRequired,
+  handleInitMeetingForm: PropTypes.func,
   userToBeRemoved: PropTypes.string,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({

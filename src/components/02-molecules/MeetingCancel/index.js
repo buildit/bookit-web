@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import Button from '../../01-atoms/Button'
 
-import { closeCancellationDialog, cancelMeetingStart } from '../../../actions'
+import { cancelMeetingStart, abortUserAction } from '../../../actions'
 
 import styles from './styles.scss'
 
@@ -25,7 +25,7 @@ export class MeetingCancel extends React.Component {
       name: PropTypes.string,
       email: PropTypes.string,
     }),
-    closeCancellationDialog: PropTypes.func.isRequired,
+    abortUserAction: PropTypes.func.isRequired,
     cancelMeeting: PropTypes.func.isRequired,
   }
 
@@ -41,7 +41,7 @@ export class MeetingCancel extends React.Component {
   }
 
   onCancelCancel() {
-    this.props.closeCancellationDialog()
+    this.props.abortUserAction()
   }
 
   render() {
@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  closeCancellationDialog: () => dispatch(closeCancellationDialog()),
+  closeCancellationDialog: () => dispatch(abortUserAction()),
   cancelMeeting: (meeting, room) => dispatch(cancelMeetingStart(meeting, room)),
 })
 

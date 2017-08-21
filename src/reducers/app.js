@@ -1,24 +1,20 @@
 import moment from 'moment'
 import {
-  INIT_MEETING_FORM,
   RESET_UI,
+  ABORT_USER_ACTION,
+  INIT_MEETING_FORM,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
-  CLOSE_CANCELLATION_DIALOG,
-  CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
-  CLOSE_MEETING_DIALOG,
   SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
   OPEN_INVITE_USER_DIALOG,
-  CLOSE_INVITE_USER_DIALOG,
-  OPEN_REMOVE_USER_DIALOG,
-  CLOSE_CONFIRMATION_DIALOG,
   USER_INVITE_SUCCEEDED,
   USER_INVITE_FAILED,
+  OPEN_REMOVE_USER_DIALOG,
   USER_REMOVE_SUCCEEDED,
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
@@ -128,14 +124,13 @@ const app = (state = initialState, action) => {
       requestedMeeting: meeting,
     }
   }
-  case CLOSE_CANCELLATION_DIALOG:
-  case CREATE_MEETING_CANCEL:
-  case CLOSE_MEETING_DIALOG: {
+  case ABORT_USER_ACTION: {
     return {
       ...state,
       userAction: '',
       messages: [],
       requestedMeeting: {},
+      userToBeRemoved: '',
     }
   }
   case OPEN_INVITE_USER_DIALOG: {
@@ -144,25 +139,12 @@ const app = (state = initialState, action) => {
       userAction: 'inviting',
     }
   }
-  case CLOSE_INVITE_USER_DIALOG: {
-    return {
-      ...state,
-      userAction: '',
-    }
-  }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
       userAction: 'removing',
       userToBeRemoved,
-    }
-  }
-  case CLOSE_CONFIRMATION_DIALOG: {
-    return {
-      ...state,
-      userAction: '',
-      userToBeRemoved: '',
     }
   }
   case USER_INVITE_SUCCEEDED: {
