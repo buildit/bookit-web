@@ -20,7 +20,7 @@ const Tooltip = props => (
       isOwnedByUser={props.isOwnedByUser}
       styles={props.styles}
       onEditClick={props.onEditClick}
-      isEditingMeeting={props.isEditingMeeting}
+      userAction={props.userAction}
     />
   </div>
 )
@@ -41,7 +41,7 @@ Tooltip.propTypes = {
     tooltip: PropTypes.string.isRequired,
   }).isRequired,
   onEditClick: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
+  userAction: PropTypes.string.isRequired,
 }
 
 export default Tooltip

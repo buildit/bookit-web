@@ -11,7 +11,7 @@ describe('<MeetingForm />', () => {
     handleSubmit: jest.fn(),
     submitMeeting: jest.fn(),
     rooms: [{ email: 'flurg-room@blurg.com' }],
-    isEditingMeeting: false,
+    userAction: '',
     isQuickBooking: false,
     handleDeleteClick: jest.fn(),
     roomName: 'Flurg',
@@ -39,7 +39,7 @@ describe('<MeetingForm />', () => {
   })
 
   it('displays the proper title when editing a meeting', () => {
-    props.isEditingMeeting = true
+    props.userAction = 'editing'
     const wrapper = shallow(<MeetingForm {...props} />)
     const title = wrapper.find('.room')
     expect(title.text()).toBe('Edit Booking')

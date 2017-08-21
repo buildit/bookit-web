@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 const TooltipContent =
-  ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, isEditingMeeting }) => {
+  ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, userAction }) => {
     const now = moment()
-    const isEditable = isOwnedByUser && !isEditingMeeting && end.isAfter(now)
+    console.log(userAction)
+    const isEditable = isOwnedByUser && end.isAfter(now) && !userAction.match(/^(editing|creating)$/)
     return (
       <div className={styles.content}>
         <div>
@@ -33,7 +34,7 @@ TooltipContent.propTypes = {
   isOwnedByUser: PropTypes.bool.isRequired,
   styles: PropTypes.shape({}),
   onEditClick: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
+  userAction: PropTypes.string.isRequired,
 }
 
 export default TooltipContent

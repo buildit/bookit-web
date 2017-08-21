@@ -35,12 +35,7 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
-  isQuickCreatingMeeting: false,
-  isCreatingMeeting: false,
-  isEditingMeeting: false,
-  isCancellingMeeting: false,
-  isInvitingUser: false,
-  isRemovingUser: false,
+  userAction: '',
   userToBeRemoved: '',
   inviteUserForm: {
     email: '',
@@ -64,21 +59,20 @@ const app = (state = initialState, action) => {
   case OPEN_CANCELLATION_DIALOG: {
     return {
       ...state,
-      isEditingMeeting: false,
-      isCancellingMeeting: true,
+      userAction: 'cancelling',
     }
   }
   case CANCEL_MEETING_SUCCEEDED: {
     return {
       ...state,
-      isCancellingMeeting: false,
+      userAction: '',
       messages: ['Your meeting was successfully cancelled.'],
     }
   }
   case CANCEL_MEETING_FAILED: {
     return {
       ...state,
-      isCancellingMeeting: false,
+      userAction: '',
       messages: ['Oh no! There was a problem cancelling your meeting.'],
     }
   }
@@ -87,8 +81,7 @@ const app = (state = initialState, action) => {
     // const isCreatingMeeting = ['quick', 'full'].indexOf(action.payload.type) > -1
     return {
       ...state,
-      isQuickCreatingMeeting: isQuickMeeting,
-      isCreatingMeeting: isQuickMeeting,
+      userAction: isQuickMeeting ? 'quickBooking' : 'creating',
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
@@ -110,7 +103,11 @@ const app = (state = initialState, action) => {
         end: validatedSlot.end,
         room: action.payload.room,
       }
-      return { ...state, isCreatingMeeting: true, requestedMeeting: meeting }
+      return {
+        ...state,
+        userAction: 'creating',
+        requestedMeeting: meeting,
+      }
     }
     return state
   }
@@ -125,17 +122,18 @@ const app = (state = initialState, action) => {
         name: action.payload.meeting.roomName,
       },
     }
-    return { ...state, isEditingMeeting: true, requestedMeeting: meeting }
+    return {
+      ...state,
+      userAction: 'editing',
+      requestedMeeting: meeting,
+    }
   }
   case CLOSE_CANCELLATION_DIALOG:
   case CREATE_MEETING_CANCEL:
   case CLOSE_MEETING_DIALOG: {
     return {
       ...state,
-      isQuickCreatingMeeting: false,
-      isCreatingMeeting: false,
-      isEditingMeeting: false,
-      isCancellingMeeting: false,
+      userAction: '',
       messages: [],
       requestedMeeting: {},
     }
@@ -143,27 +141,27 @@ const app = (state = initialState, action) => {
   case OPEN_INVITE_USER_DIALOG: {
     return {
       ...state,
-      isInvitingUser: true,
+      userAction: 'inviting',
     }
   }
   case CLOSE_INVITE_USER_DIALOG: {
     return {
       ...state,
-      isInvitingUser: false,
+      userAction: '',
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
-      isRemovingUser: true,
+      userAction: 'removing',
       userToBeRemoved,
     }
   }
   case CLOSE_CONFIRMATION_DIALOG: {
     return {
       ...state,
-      isRemovingUser: false,
+      userAction: '',
       userToBeRemoved: '',
     }
   }

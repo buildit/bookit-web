@@ -28,9 +28,8 @@ injectTapEventPlugin() // Required by Material UI components
 export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
-  isEditingMeeting,
+  userAction,
   handleDeleteClick,
-  isQuickBooking,
   errors,
   isFormTouched,
   invalid,
@@ -39,7 +38,8 @@ export const MeetingForm = ({
     <div>
       <h2 className={styles.room}>Edit Booking</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
       <form onSubmit={handleSubmit(submitMeeting)}>
-        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
+        { userAction === 'quickBooking' && <Field name="room" component={RoomPicker} /> }
+        { userAction.match(/^(editing|creating)$/) && <Field name="room" component="input" type="hidden" /> }
         <Field
           name="title"
           component={TextField}
@@ -53,9 +53,9 @@ export const MeetingForm = ({
         <div className={styles.buttons}>
           <Button
             disabled={!isFormTouched || invalid}
-            type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
+            type="submit" content={userAction === 'editing' ? "Save" : "Bookit" } />
 
-          { isEditingMeeting
+          { userAction === 'editing'
             ? <Button onClick={handleDeleteClick} content="Delete" />
             : null }
         </div>
@@ -71,8 +71,7 @@ export const MeetingForm = ({
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
-  isQuickBooking: PropTypes.bool.isRequired,
+  userAction: PropTypes.string.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
@@ -80,10 +79,9 @@ MeetingForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : {},
+  initialValues: state.app.userAction.match(/^(editing|creating)$/) ? mapInitialValues(state.app.requestedMeeting) : {},
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  isEditingMeeting: state.app.isEditingMeeting,
-  isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented
+  userAction: state.app.userAction,
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
 })

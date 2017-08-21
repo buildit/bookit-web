@@ -17,7 +17,7 @@ describe('<Tooltip />', () => {
       name: 'some guy',
     },
     isOwnedByUser: true,
-    isEditingMeeting: false,
+    userAction: '',
     tooltipRef: () => true,
     anchorContainerRef: () => true,
     anchorRef: () => true,

@@ -42,11 +42,7 @@ class InfoPanel extends React.Component {
      meetings,
      user,
      handleReservationEditClick,
-     isEditingMeeting,
-     isCancellingMeeting,
-     isCreatingMeeting,
-     isRemovingUser,
-     isInvitingUser,
+     userAction,
      users,
      onMeetingCloseClick,
      handleInitMeetingForm,
@@ -57,7 +53,7 @@ class InfoPanel extends React.Component {
      onAbortRemovingUser,
      ajax,
    } = this.props
-
+    userAction.match(/^(editing|creating|quickBooking)$/) ? console.log('yay') : console.log('ugh')
     let agendaContent =
       <div>
         <Calendar key="0" />
@@ -68,15 +64,15 @@ class InfoPanel extends React.Component {
           handleEditClick={handleReservationEditClick}
         />
       </div>
-    if (isEditingMeeting || isCreatingMeeting) {
+    if (userAction.match(/^(editing|creating|quickBooking)$/)) {
       agendaContent = <MeetingForm key="2" />
     }
-    if (isCancellingMeeting) {
+    if (userAction === 'cancelling') {
       agendaContent = <MeetingCancel key="3" />
     }
 
     let adminContent = <RecentlyAddedUsersTable key="4" users={users} />
-    if (isRemovingUser) {
+    if (userAction === 'removing') {
       adminContent =
         <ConfirmationDialog
           key="5"
@@ -85,7 +81,7 @@ class InfoPanel extends React.Component {
           onClickNo={onAbortRemovingUser}
         />
     }
-    if (isInvitingUser) {
+    if (userAction === 'inviting') {
       adminContent = <UserForm key="6"/>
     }
 
@@ -95,14 +91,14 @@ class InfoPanel extends React.Component {
 
         <Route exact path="/" render={() => (
           <div
-            onClick={() => (isCreatingMeeting || isEditingMeeting) ? onMeetingCloseClick() : handleInitMeetingForm()}
-            className={(isCreatingMeeting || isEditingMeeting) ? styles.close : styles.invite}
+            onClick={() => (userAction.match(/^(editing|creating|quickBooking)$/)) ? onMeetingCloseClick() : handleInitMeetingForm()}
+            className={(userAction.match(/^(editing|creating|quickBooking)$/)) ? styles.close : styles.invite}
           />
         )} />
         <Route exact path="/admin" render={() => (
           <div
-            onClick={() => isInvitingUser ? onInviteCloseClick() : onInviteClick()}
-            className={isInvitingUser ? styles.close : styles.invite}
+            onClick={() => userAction === 'inviting' ? onInviteCloseClick() : onInviteClick()}
+            className={userAction === 'inviting' ? styles.close : styles.invite}
           />
         )} />
         { ajax ? <UIBlocker /> : '' }
@@ -126,11 +122,7 @@ const mapStateToProps = (state) => {
     messages: state.app.messages,
     meetings,
     user: state.app.user,
-    isEditingMeeting: state.app.isEditingMeeting,
-    isCancellingMeeting: state.app.isCancellingMeeting,
-    isCreatingMeeting: state.app.isCreatingMeeting,
-    isRemovingUser: state.app.isRemovingUser,
-    isInvitingUser: state.app.isInvitingUser,
+    userAction: state.app.userAction,
     users: state.users,
     userToBeRemoved: state.app.userToBeRemoved,
     ajax: state.ajax,
@@ -167,11 +159,7 @@ InfoPanel.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  isEditingMeeting: PropTypes.bool.isRequired,
-  isCreatingMeeting: PropTypes.bool.isRequired,
-  isCancellingMeeting: PropTypes.bool.isRequired,
-  isInvitingUser: PropTypes.bool.isRequired,
-  isRemovingUser: PropTypes.bool.isRequired,
+  userAction: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
   onAbortRemovingUser: PropTypes.func.isRequired,

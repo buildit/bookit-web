@@ -27,7 +27,7 @@ describe('<Meeting />', () => {
       isOwnedByUser: true,
     },
     onEditClick: jest.fn(),
-    isEditingMeeting: false,
+    userAction: '',
     requestedMeetingId: 'xyz-123',
   }
 
