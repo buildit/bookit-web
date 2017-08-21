@@ -41,7 +41,6 @@ export function isAuthorizedUser(user, dispatch) {
 }
 
 export function isAuthorizedAdmin(user, dispatch) {
-  console.log('Is Authorized admin', user)
   if (!isUser(user))
     return checkStoredAuthorization(dispatch, isAdmin)
   return isAdmin(user)

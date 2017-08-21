@@ -32,7 +32,6 @@ export const fetchMeetings = (token, startDate, endDate) => {
 }
 
 export const editMeeting = (token, meeting, roomEmail) => {
-  console.log('edit meeting', meeting)
   return agent
     .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
     .set('x-access-token', token)

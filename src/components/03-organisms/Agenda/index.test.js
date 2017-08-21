@@ -23,6 +23,7 @@ describe('<Agenda />', () => {
 // This is so laaaaaaaaaaaaaaaame.
 describe('#renderRoomTimelines()', () => {
   it('returns an array of <RoomTimeline /> components', () => {
+    const user = { name: 'some guy', isAdmin:false }
     const room = { name: 'puce', id: 'puce-room-xyz' }
     const meeting = {
       id: 'xyz-321',
@@ -35,12 +36,16 @@ describe('#renderRoomTimelines()', () => {
         name: 'some guy',
         email: 'someguy@some.com',
       },
+      user: {
+        name: 'some other guy',
+        isAdmin: false,
+      },
       roomName: room.name,
       roomId: room.id,
     }
     const populateMeetingCreateForm = jest.fn()
     const meetingFormIsActive = false
-    const result = renderRoomTimelines([room], [meeting], populateMeetingCreateForm, meetingFormIsActive)
+    const result = renderRoomTimelines([room], [meeting], user, populateMeetingCreateForm, meetingFormIsActive)
     expect(result.length).toBe(1)
     expect(shallow(<div>{result[0]}</div>).find(RoomTimeline)).toBeTruthy()
   })

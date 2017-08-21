@@ -50,7 +50,6 @@ export function* editMeeting(action) {
   try {
     const token = yield select(getUserToken)
     const { payload: { meeting, room } } = action
-    console.log(action)
     yield call(api.editMeeting, token, meeting, room)
     yield put(closeMeetingDialog())
     yield put(destroy('meeting-editor'))

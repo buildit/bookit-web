@@ -14,6 +14,7 @@ describe('<TooltipContent />', () => {
     owner: {
       name: 'some guy',
     },
+    isUserAdmin: false,
     isOwnedByUser: true,
     isEditingMeeting: false,
     styles: {
