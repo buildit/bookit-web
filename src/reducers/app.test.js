@@ -22,8 +22,6 @@ import {
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
 
-import getAvailableTimeSlot from '../utils/getAvailableTimeSlot'
-
 const initialState = {
   messages: [],
   requestedMeeting: {},
@@ -50,7 +48,6 @@ const initialState = {
 
 import app from './app'
 
-
 describe('app reducer', () => {
   it('returns an empty arrays when reset', () => {
     const newState = app(initialState, { type: RESET_UI })
@@ -59,10 +56,8 @@ describe('app reducer', () => {
   })
 
   it('sets the approprate state when fetching a meeting', () => {
-    const newState = app(initialState, { type: MEETINGS_FETCH_SUCCEEDED, payload: {meetingsById:  'meetingsById',
-                                                                                   allMeetingIds: 'allMeetingIds',
-                                                                                   roomsById:     'roomsById',
-                                                                                   allRoomIds:    'allRoomIds'}})
+    const newState = app(initialState, { type: MEETINGS_FETCH_SUCCEEDED, payload:
+      {meetingsById: 'meetingsById', allMeetingIds: 'allMeetingIds', roomsById: 'roomsById',allRoomIds: 'allRoomIds'}})
     expect(newState.meetingsById).toEqual('meetingsById')
     expect(newState.allMeetingIds).toEqual('allMeetingIds')
     expect(newState.roomsById).toEqual('roomsById')
@@ -89,27 +84,23 @@ describe('app reducer', () => {
 
   it('sets the approprate state when creating a default meeting', () => {
     const now = moment()
-    const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload: {meeting:  now.hours() + 1,
-                                                                                       room: {email: 'room@rooms.com'}}})
+    const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload:
+      {meeting:  now.hours() + 1, room: {email: 'room@rooms.com'}}})
     expect(newState.isCreatingMeeting).toBeTruthy()
     expect(newState.requestedMeeting).toBeDefined()
   })
 
   it('sets the approprate state when creating a default meeting in the past', () => {
     const now = moment()
-    const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload: {meeting:  now.hours() -2,
-                                                                                       room: {email: 'room@rooms.com'}}})
+    const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload:
+      {meeting:  now.hours() -2, room: {email: 'room@rooms.com'}}})
     expect(newState.isCreatingMeeting).toBeFalsy()
   })
 
   it('sets the approprate state when filling out meeting data', () => {
     const now = moment()
-    const newState = app(initialState, { type: POPULATE_MEETING_EDIT_FORM, payload: {meeting: {id: 'ID',
-                                                                                               title: 'TITLE',
-                                                                                               start: now.add(1).format(),
-                                                                                               end: now.add(2).format(),
-                                                                                               roomId: 'room@room.com',
-                                                                                               roomName: 'Gray'}}})
+    const newState = app(initialState, { type: POPULATE_MEETING_EDIT_FORM, payload:
+      {meeting: {id: 'ID', title: 'TITLE', start: now.add(1).format(), end: now.add(2).format(), roomId: 'room@room.com', roomName: 'Gray'}}})
     expect(newState.isEditingMeeting).toBeTruthy()
     expect(newState.requestedMeeting).toBeDefined()
   })
