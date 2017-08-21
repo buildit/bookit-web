@@ -13,12 +13,14 @@ const processQueryParams = params => queryString.parse(params)
 export class OpenId extends React.Component {
 
   componentDidMount() {
-    const params = processQueryParams(this.props.location.search)
-    const code = params.id_token
+    const params = processQueryParams(this.props.location.hash)
+    const code = params.access_token
+    console.log(params)
     if (code) {
       this.props.login(code)
     }
     else if (params.error) {
+      console.log(params)
       // TODO: Figure out where this needs to be called.  Or if it's ever called.
       history.push('/bad')
     }
@@ -32,7 +34,7 @@ export class OpenId extends React.Component {
 
 OpenId.propTypes = {
   location: PropTypes.shape({
-    search: PropTypes.string,
+    hash: PropTypes.string,
   }).isRequired,
   login: PropTypes.func,
 }
