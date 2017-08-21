@@ -70,9 +70,12 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "animated": "^0.2.0",
     "history": "^4.6.1",
+    "immutable": "^3.8.1",
     "material-ui": "^0.18.1",
     "moment": "^2.18.1",
+    "normalizr": "^3.2.3",
     "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -80,11 +83,14 @@
     "react-redux": "^5.0.5",
     "react-router-redux": "next",
     "react-tap-event-plugin": "^2.0.1",
+    "react-transition-group": "^2.2.0",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.3",
     "redux-form": "^6.7.0",
     "redux-form-material-ui": "^4.2.0",
     "redux-saga": "^0.15.3",
+    "reselect": "^3.0.1",
+    "reselect-immutable-helpers": "^1.2.2",
     "superagent": "^3.5.2"
   },
   "repository": {

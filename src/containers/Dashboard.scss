@@ -1,0 +1,29 @@
+@import '../shared-styles/mixins/media';
+
+.Dashboard {
+  align-content: stretch;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+
+  @include desktop {
+    flex-direction: row;
+  }
+}
+
+.Dashboard__main {
+  background-color: #2b3947;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+}
+
+.Dashboard__sidebar {
+  background-color: #141516;
+  order: -1;
+
+  @include desktop {
+    flex: 0 0 375px;
+  }
+}

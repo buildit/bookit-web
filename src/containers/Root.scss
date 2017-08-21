@@ -1,0 +1,23 @@
+@import '../shared-styles/fonts';
+
+html, body, :global(#root), :global([data-reactroot]) {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  color: #fff;
+  font-family: HelveticaNeue, Roboto, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a, a:visited {
+  color: #959ca3;
+  text-decoration: none;
+  transition: color .218s;
+
+  &:hover {
+    color: #fbfe34;
+  }
+}

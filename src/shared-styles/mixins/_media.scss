@@ -1,0 +1,7 @@
+$screen-sm-min: 768px;
+
+@mixin desktop {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}

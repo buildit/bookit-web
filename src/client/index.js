@@ -5,7 +5,7 @@ import { AppContainer } from 'react-hot-loader'
 
 import configureStore from '../configureStore'
 
-import Root from './Root'
+import Root from '../containers/Root'
 
 const store = configureStore({})
 
@@ -14,10 +14,10 @@ const mount = (Component) => {
     <AppContainer>
       <Component store={store} />
     </AppContainer>,
-    document.querySelector('#root')
+    document.getElementById('root')
   )
 }
 
 mount(Root)
 
-if (module.hot) module.hot.accept('./Root', () => mount(Root))
+if (module.hot) module.hot.accept('../containers/Root', () => mount(Root))

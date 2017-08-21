@@ -1,0 +1,46 @@
+@import '../shared-styles/mixins/media';
+
+main {
+  flex: 1 1 100%;
+  overflow-y: auto;
+  background-color: olive;
+}
+
+nav {
+  // background-color: #eee;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  // align-self: flex-end;
+
+  @include desktop {
+    order: -1;
+  }
+
+  font-weight: 400;
+
+  & > div {
+    color: #fbfe34;
+    display: block;
+    padding: 1em;
+  }
+
+  span {
+    color: #fff;
+    font-weight: 100;
+  }
+
+  a {
+    color: #959ca3;
+    cursor: pointer;
+
+    text-decoration: none;
+
+    &:hover {
+      color: #fbfe34;
+    }
+  }
+  // flex-direction: row;
+  // align-self: flex-end;
+}

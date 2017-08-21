@@ -32,7 +32,8 @@
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "never"
-    }]
+    }],
+    "react/no-children-prop": 0
   },
   "parserOptions": {
     "ecmaVersion": 6,
