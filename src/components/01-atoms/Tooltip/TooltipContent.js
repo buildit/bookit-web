@@ -5,7 +5,6 @@ import moment from 'moment'
 const TooltipContent =
   ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, userAction }) => {
     const now = moment()
-    console.log(userAction)
     const isEditable = isOwnedByUser && end.isAfter(now) && !userAction.match(/^(editing|creating)$/)
     return (
       <div className={styles.content}>

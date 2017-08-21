@@ -49,7 +49,6 @@ class InfoPanel extends React.Component {
      userToBeRemoved,
      ajax,
    } = this.props
-    userAction.match(/^(editing|creating|quickBooking)$/) ? console.log('yay') : console.log('ugh')
     let agendaContent =
       <div>
         <Calendar key="0" />
