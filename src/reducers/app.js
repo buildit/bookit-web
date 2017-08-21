@@ -1,5 +1,6 @@
 import moment from 'moment'
 import {
+  INIT_MEETING_FORM,
   RESET_UI,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
@@ -34,17 +35,13 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
+  isQuickCreatingMeeting: false,
   isCreatingMeeting: false,
   isEditingMeeting: false,
   isCancellingMeeting: false,
   isInvitingUser: false,
   isRemovingUser: false,
   userToBeRemoved: '',
-  meetingEditForm: {
-    title: '',
-    startTime: moment(),
-    endTime: moment(),
-  },
   inviteUserForm: {
     email: '',
   },
@@ -83,6 +80,15 @@ const app = (state = initialState, action) => {
       ...state,
       isCancellingMeeting: false,
       messages: ['Oh no! There was a problem cancelling your meeting.'],
+    }
+  }
+  case INIT_MEETING_FORM: {
+    const isQuickMeeting = action.payload.type === 'quick'
+    // const isCreatingMeeting = ['quick', 'full'].indexOf(action.payload.type) > -1
+    return {
+      ...state,
+      isQuickCreatingMeeting: isQuickMeeting,
+      isCreatingMeeting: isQuickMeeting,
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
@@ -126,6 +132,7 @@ const app = (state = initialState, action) => {
   case CLOSE_MEETING_DIALOG: {
     return {
       ...state,
+      isQuickCreatingMeeting: false,
       isCreatingMeeting: false,
       isEditingMeeting: false,
       isCancellingMeeting: false,

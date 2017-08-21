@@ -14,7 +14,6 @@ import styles from './styles.scss'
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
-  populateMeetingEditForm,
   logout,
  } from '../../actions'
 
@@ -99,7 +98,6 @@ const mapStateToProps = (state) => {
     isCancellingMeeting,
     isInvitingUser,
     inviteUserForm,
-    meetingEditForm,
     messages,
     requestedMeeting,
   } = state.app
@@ -124,7 +122,6 @@ const mapStateToProps = (state) => {
     isCancellingMeeting,
     isInvitingUser,
     inviteUserForm,
-    meetingEditForm,
     messages,
     selectedDate,
     requestedMeeting,
@@ -140,9 +137,6 @@ const mapDispatchToProps = dispatch => ({
   },
   populateMeetingCreateForm: (room, meeting) => {
     dispatch(populateMeetingCreateForm(room, meeting))
-  },
-  populateMeetingEditForm: (meeting) => {
-    dispatch(populateMeetingEditForm(meeting))
   },
   onLogoutClick: () => {
     dispatch(logout())

@@ -3,9 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import momentPropTypes from 'react-moment-proptypes'
 
+import { Route } from 'react-router'
+
 import { connect } from 'react-redux'
 
 import {
+  initMeetingForm,
   cancelMeetingRequest,
   populateMeetingEditForm,
   userRemoveStart,
@@ -46,6 +49,7 @@ class InfoPanel extends React.Component {
      isInvitingUser,
      users,
      onMeetingCloseClick,
+     handleInitMeetingForm,
      onRemoveUserClick,
      onInviteClick,
      onInviteCloseClick,
@@ -88,14 +92,19 @@ class InfoPanel extends React.Component {
 
     return (
       <div className={styles.infoPanel}>
-        <div
-          key="7"
-          onClick={() => isInvitingUser ?
-            onInviteCloseClick() : isCreatingMeeting || isEditingMeeting ?
-            onMeetingCloseClick() : onInviteClick() }
-          className={ isInvitingUser || isCreatingMeeting || isEditingMeeting ?
-            styles.close : styles.invite }
-        />
+
+        <Route exact path="/" render={() => (
+          <div
+            onClick={() => (isCreatingMeeting || isEditingMeeting) ? onMeetingCloseClick() : handleInitMeetingForm()}
+            className={(isCreatingMeeting || isEditingMeeting) ? styles.close : styles.invite}
+          />
+        )} />
+        <Route exact path="/admin" render={() => (
+          <div
+            onClick={() => isInvitingUser ? onInviteCloseClick() : onInviteClick()}
+            className={isInvitingUser ? styles.close : styles.invite}
+          />
+        )} />
         { ajax ? <UIBlocker /> : '' }
         { (this.pathName === '' || this.pathName === '/') && agendaContent }
         { (this.pathName === 'admin' || this.pathName === '/admin') && adminContent }
@@ -141,6 +150,9 @@ const mapDispatchToProps = dispatch => ({
   onInviteClick: () => {
     dispatch(openInviteUserDialog())
   },
+  handleInitMeetingForm: () => {
+    dispatch(initMeetingForm('quick'))
+  },
   onInviteCloseClick: () => {
     dispatch(closeInviteUserDialog())
   },
@@ -163,6 +175,7 @@ InfoPanel.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
   onAbortRemovingUser: PropTypes.func.isRequired,
+  handleInitMeetingForm: PropTypes.func,
   onMeetingCloseClick: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,
   onInviteClick: PropTypes.func.isRequired,

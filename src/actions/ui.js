@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions'
 
 import {
+  INIT_MEETING_FORM,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
   CREATE_MEETING_CANCEL,
@@ -15,6 +16,11 @@ import {
   OPEN_REMOVE_USER_DIALOG,
   CLOSE_CONFIRMATION_DIALOG,
 } from './actionTypes'
+
+export const initMeetingForm = createAction(
+  INIT_MEETING_FORM,
+  (type, meetingId, roomId) => ({ type, meetingId, roomId })
+)
 
 export const populateMeetingCreateForm =
   createAction(POPULATE_MEETING_CREATE_FORM, (room, meeting) => ({
