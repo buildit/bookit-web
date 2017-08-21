@@ -9,7 +9,7 @@ import { setClient } from '../actions'
  */
 
 export const isUser = user => user.email && user.token
-export const isAdmin = user => isUser(user) && (user.email === 'bruce@builditcontoso.onmicrosoft.com')
+export const isAdmin = user => isUser(user) && user.isAdmin
 
 const checkStoredAuthorization = (dispatch, verifyUser) => {
   const storedUser = localStorage.getItem('user')
@@ -41,6 +41,7 @@ export function isAuthorizedUser(user, dispatch) {
 }
 
 export function isAuthorizedAdmin(user, dispatch) {
+  console.log('Is Authorized admin', user)
   if (!isUser(user))
     return checkStoredAuthorization(dispatch, isAdmin)
   return isAdmin(user)

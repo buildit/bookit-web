@@ -8,6 +8,7 @@ const initialState = {
   name: null,
   id: null,
   token: null,
+  isAdmin: false,
 }
 
 const user = (state = initialState, action) => {
@@ -17,6 +18,7 @@ const user = (state = initialState, action) => {
       email: action.payload.email,
       name: action.payload.name,
       token: action.payload.token,
+      isAdmin: action.payload.isAdmin,
     }
   }
   case RESET_USER: {
@@ -25,6 +27,7 @@ const user = (state = initialState, action) => {
       name: null,
       id: null,
       token: null,
+      isAdmin: false,
     }
   }
   default: {
