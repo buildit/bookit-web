@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import Kronos from 'react-kronos'
+
 import moment from 'moment'
 
 // NOTE: See `src/index.ejs` for additional styles that are applied to this component, specifically the datepicker calendar and timepicker dropdown.
@@ -45,40 +48,117 @@ const dropdownStyle = {
   padding: '0',
 }
 
-const DateTimePicker = field => (
-  <div style={DateTimePickerStyle} >
-    <Kronos
-      date={field.input.value}
-      format="dddd, MMMM Do, YYYY"
-      min={moment().startOf('day')}
-      onChangeDateTime={result => field.input.onChange(result)}
-      preventClickOnDateTimeOutsideRange
-      inputStyle={dateStyle}
-      hideOutsideDateTimes
-      calendarStyle={calendarStyle}
-      options={{
-        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-        corners: 0,
-        locale: { lang: 'en-us' },
-      }}
-    />
-    <Kronos
-      time={field.input.value}
-      format="h:mm a"
-      min={moment().startOf('minute')}
-      onChangeDateTime={result => field.input.onChange(result)}
-      preventClickOnDateTimeOutsideRange
-      inputStyle={timeStyle}
-      timeStep={15}
-      hideOutsideDateTimes
-      calendarStyle={dropdownStyle}
-      options={{
-        format: { hour: 'h:mm a' },
-        font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
-        corners: 0,
-      }}
-    />
-  </div>
-)
+class DateTimePicker extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onChangeControlled = this.onChangeControlled.bind(this)
+    this.setVisibility = this.setVisibility.bind(this)
+    this.onBlur = this.onBlur.bind(this)
+    this.onFocus = this.onFocus.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.onSelect = this.onSelect.bind(this)
+
+    this.state = {
+      visible: false,
+    }
+  }
+
+  static propTypes = {
+    input: PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.date,
+      onChange: PropTypes.func,
+      onFocus: PropTypes.func,
+      onBlur: PropTypes.func,
+    }),
+    meta: PropTypes.shape({
+      touched: PropTypes.bool,
+      error: PropTypes.string,
+      warning: PropTypes.string,
+    }),
+  }
+
+  setVisibility(visible) {
+    this.setState({ visible })
+  }
+
+  onChangeControlled(datetime) {
+    this.props.input.onChange(datetime)
+  }
+
+  onClick() {
+    if (!this.state.visible) this.setState({ visible: true })
+  }
+
+  onFocus() {
+    this.props.input.onFocus(event)
+    if (!this.state.visible) this.setState({ visible: true })
+  }
+
+  onBlur() {
+    this.props.input.onBlur(this.props.input.value)
+    if (this.state.visible) this.setState({ visible: false })
+  }
+
+  onSelect(datetime, visible, shouldClose) {
+    if (shouldClose) this.setState({ visible: false })
+  }
+
+  render() {
+    const { input: { value }, meta: { touched, error, warning } } = this.props
+
+    const minDate = moment().startOf('day')
+    const minTime = moment().startOf('minute')
+
+    return (
+      <div>
+        <div style={DateTimePickerStyle}>
+          <Kronos
+            date={value}
+            min={minDate}
+            format="dddd, MMMM Do, YYYY"
+            controlVisibility
+            visible={this.state.visible}
+            onChangeDateTime={this.onChangeControlled}
+            onClick={this.onClick}
+            onBlur={this.onBlur}
+            setVisibility={this.setVisibility}
+            preventClickOnDateTimeOutsideRange
+            hideOutsideDateTimes
+            inputStyle={dateStyle}
+            calendarStyle={calendarStyle}
+            options={{
+              font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+              corners: 0,
+              locale: { lang: 'en-us' },
+            }}
+          />
+          <Kronos
+            time={value}
+            timeStep={15}
+            min={minTime}
+            format="h:mm a"
+            controlVisibility
+            visible={this.state.visible}
+            onChangeDateTime={this.onChangeControlled}
+            onClick={this.onClick}
+            onBlur={this.onBlur}
+            preventClickOnDateTimeOutsideRange
+            hideOutsideDateTimes
+            inputStyle={timeStyle}
+            calendarStyle={dropdownStyle}
+            options={{
+              format: { hour: 'h:mm a' },
+              font: 'HelveticaNeue, Roboto, Helvetica, sans-serif',
+              corners: 0,
+            }}
+          />
+        </div>
+        {touched && ((error && <div>{error}</div>) || (warning && <div>{warning}</div>))}
+      </div>
+    )
+  }
+}
 
 export default DateTimePicker

@@ -8,8 +8,6 @@ import {
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
   CLOSE_MEETING_DIALOG,
-  MEETING_CREATE_FAILED,
-  MEETING_EDIT_FAILED,
   SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
@@ -87,14 +85,6 @@ const app = (state = initialState, action) => {
       messages: ['Oh no! There was a problem cancelling your meeting.'],
     }
   }
-
-  case MEETING_EDIT_FAILED: {
-    return {
-      ...state,
-      isEditingMeeting: false,
-      messages: ['Oh no! There was a problem editing your meeting.'],
-    }
-  }
   case POPULATE_MEETING_CREATE_FORM: {
     const now = moment()
     const startTime = state.selectedDate.clone().add(action.payload.meeting, 'hours')
@@ -109,7 +99,7 @@ const app = (state = initialState, action) => {
       const validatedSlot = getAvailableTimeSlot(roundedDate, meetings)
 
       const meeting = {
-        title: '',
+        title: undefined,
         start: validatedSlot.start,
         end: validatedSlot.end,
         room: action.payload.room,
@@ -120,11 +110,14 @@ const app = (state = initialState, action) => {
   }
   case POPULATE_MEETING_EDIT_FORM: {
     const meeting = {
+      id: action.payload.meeting.id,
       title: action.payload.meeting.title,
       start: moment(action.payload.meeting.start),
       end: moment(action.payload.meeting.end),
-      roomId: action.payload.meeting.roomId,
-      id: action.payload.meeting.id,
+      room: {
+        email: action.payload.meeting.roomId,
+        name: action.payload.meeting.roomName,
+      },
     }
     return { ...state, isEditingMeeting: true, requestedMeeting: meeting }
   }
@@ -174,28 +167,22 @@ const app = (state = initialState, action) => {
     }
   }
   case USER_INVITE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
   }
   case USER_REMOVE_SUCCEEDED: {
-    const userEmail = action.payload
     return {
       ...state,
-      messages: [`Fare thee well, ${userEmail}!`],
+      messages: [`Fare thee well, ${action.payload}!`],
     }
   }
   case USER_REMOVE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
-  }
-  case MEETING_CREATE_FAILED: {
-    return { ...state, messages: [action.payload.message] }
   }
   case MEETINGS_FETCH_FAILED: {
     return { ...state, messages: ['There was a problem fetching the meetings.'] }

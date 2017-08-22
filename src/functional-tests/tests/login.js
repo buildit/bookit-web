@@ -8,9 +8,9 @@ const BOOKITPASSWD = process.env.BOOKITPASSWD || 'z'
 
 const regularAccUser = Role(`${BOOKITURI}/login`, async (t) => {
   await t
-    .typeText('#cred_userid_inputtext', BOOKITUSER)
-    .typeText('#cred_password_inputtext', BOOKITPASSWD)
-    .click('#cred_sign_in_button')
+    .typeText('#cred-userid-inputtext', BOOKITUSER)
+    .typeText('#cred-password-inputtext', BOOKITPASSWD)
+    .click('#submit-button')
 })
 
 const getLocation = ClientFunction(() => window.location)
