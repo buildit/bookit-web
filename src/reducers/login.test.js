@@ -32,5 +32,4 @@ describe('login reducer', () => {
     expect(newState.successful).toBeFalsy()
     expect(newState.message).toContain('XXX')
   })
-
 })
