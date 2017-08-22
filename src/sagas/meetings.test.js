@@ -5,7 +5,7 @@ import moment from 'moment'
 import api from '../api'
 
 import {
-  closeMeetingDialog,
+  abortUserAction,
   meetingUpsertSucceeded,
   meetingUpsertFailed,
   meetingsFetchSucceeded,
@@ -74,7 +74,7 @@ describe('Meetings Sagas', () => {
     expect(generator.next().value).toEqual(select(getUserToken))
     expect(generator.next().value).toEqual(
       call(api.createMeeting, token, expectedMeetingArg, expectedRoomArg))
-    expect(generator.next().value).toEqual(put(closeMeetingDialog()))
+    expect(generator.next().value).toEqual(put(abortUserAction()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
     expect(generator.next().value).toEqual(put(meetingUpsertSucceeded()))
     expect(generator.next().value).toEqual(call(fetchMeetings))
@@ -113,7 +113,7 @@ describe('Meetings Sagas', () => {
     expect(generator.next().value).toEqual(select(getUserToken))
     expect(generator.next().value).toEqual(
       call(api.editMeeting, token, expectedMeetingArg, expectedRoomArg))
-    expect(generator.next().value).toEqual(put(closeMeetingDialog()))
+    expect(generator.next().value).toEqual(put(abortUserAction()))
     expect(generator.next().value).toEqual(put(destroy('meeting-editor')))
     expect(generator.next().value).toEqual(put(meetingUpsertSucceeded()))
     expect(generator.next().value).toEqual(call(fetchMeetings))
