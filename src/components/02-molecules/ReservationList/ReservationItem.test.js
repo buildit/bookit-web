@@ -56,4 +56,5 @@ describe('<ReservationItem />', () => {
     const wrapper = shallow(<ReservationItem {...props} />)
     expect(wrapper.find('.button').length).toBe(1)
   })
+
 })

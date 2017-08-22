@@ -14,6 +14,10 @@ import TooltipContent from '../../01-atoms/Tooltip/TooltipContent'
 
 describe('<Meeting />', () => {
   const props = {
+    user: {
+      name: 'some other user',
+      isAdmin: false,
+    },
     meeting: {
       id: 'xyz-321',
       title: 'A Meeting',

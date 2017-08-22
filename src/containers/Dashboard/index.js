@@ -9,6 +9,8 @@ import InfoPanel from '../InfoPanel'
 
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
+import USER_SHAPE from '../../models/user'
+
 import styles from './styles.scss'
 
 import {
@@ -42,6 +44,7 @@ export class DashboardContainer extends React.Component {
           <Header user={user} logout={onLogoutClick} />
           <Agenda
             meetings={meetings}
+            user={user}
             rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
             meetingFormIsActive={this.props.meetingFormIsActive}
@@ -53,9 +56,7 @@ export class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
+  user: USER_SHAPE,
   requestRooms: PropTypes.func,
   populateMeetingCreateForm: PropTypes.func.isRequired,
   onLogoutClick: PropTypes.func.isRequired,

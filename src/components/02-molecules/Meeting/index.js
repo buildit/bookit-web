@@ -10,6 +10,8 @@ import { populateMeetingEditForm } from '../../../actions'
 import calculateWidth from '../../../utils/calculateWidth'
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset'
 
+import USER_SHAPE from '../../../models/user'
+
 import styles from './styles.scss'
 
 export const TIMELINE_WIDTH = 1968
@@ -100,7 +102,7 @@ export class Meeting extends React.Component {
   }
 
   render() {
-    const { meeting, onEditClick, requestedMeetingId } = this.props
+    const { meeting, onEditClick, requestedMeetingId, user } = this.props
     const isSelected = meeting.id === requestedMeetingId
     const classNames = [styles.meeting]
 
@@ -123,6 +125,7 @@ export class Meeting extends React.Component {
       >
         <Tooltip
           {...meeting}
+          user={user}
           tooltipRef={(el) => { this.$tooltip = el }}
           anchorContainerRef={(el) => { this.$anchorContainer = el }}
           anchorRef={(el) => { this.$anchor = el }}
@@ -138,6 +141,7 @@ export class Meeting extends React.Component {
 }
 
 Meeting.propTypes = {
+  user: USER_SHAPE,
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
   requestedMeetingId: PropTypes.string,
