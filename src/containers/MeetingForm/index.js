@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { reduxForm, Field, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
+import { reduxForm, Field, formValueSelector, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
 import { connect } from 'react-redux'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -15,6 +15,8 @@ import ErrorMessages from '../../components/02-molecules/ErrorMessages'
 
 import { mapInitialValues } from './utils'
 import { validate } from './validate'
+
+import { getRoomName } from '../../selectors'
 
 import styles from './styles.scss'
 
@@ -34,10 +36,11 @@ export const MeetingForm = ({
   errors,
   isFormTouched,
   invalid,
+  roomName,
 }) => {
   return (
     <div>
-      <h2 className={styles.room}>Edit Booking</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
+      <h2 className={styles.room}>Book { roomName || 'a' } Room</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
       <form onSubmit={handleSubmit(submitMeeting)}>
         <Field
           name="title"
@@ -79,15 +82,19 @@ MeetingForm.propTypes = {
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
+  roomName: PropTypes.string,
 }
 
+const valueSelector = formValueSelector('meeting-form')
+
 const mapStateToProps = state => ({
-  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : { room: 'black-room@builditcontoso.onmicrosoft.com' },
+  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : {},
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
+  roomName: getRoomName(state, valueSelector(state, 'room')),
 })
 
 const mapDispatchToProps = dispatch => ({

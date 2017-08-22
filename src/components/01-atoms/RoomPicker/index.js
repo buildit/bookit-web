@@ -9,24 +9,27 @@ import styles from './styles.scss'
 import { getRooms } from '../../../selectors'
 
 const radioButtonGenerator = ({ input, rooms }) => (
-  <div className={styles.radioGrid}>
-    { rooms.map(room =>
-        <div key={`field-${room.id}`} className={styles.radioContainer}>
-          <label key={room.id} className={styles.radio}>
-            <input
-              className={styles.radioDot}
-              type="radio"
-              {...input}
-              value={room.id}
-              checked={room.id === input.value}
-            />
-            <span className={styles.radioLabel}>
-              {room.name}
-            </span>
-          </label>
-        </div>
-      )
-    }
+  <div>
+    <label className={styles.radioFieldLabel}>Available Rooms</label>
+    <div className={styles.radioGrid}>
+      { rooms.map(room =>
+          <div key={`field-${room.id}`} className={styles.radioContainer}>
+            <label key={room.id} className={styles.radio}>
+              <input
+                className={styles.radioDot}
+                type="radio"
+                {...input}
+                value={room.id}
+                checked={room.id === input.value}
+              />
+              <span className={styles.radioLabel}>
+                {room.name}
+              </span>
+            </label>
+          </div>
+        )
+      }
+    </div>
   </div>
 )
 
