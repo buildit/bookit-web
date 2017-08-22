@@ -47,6 +47,7 @@ export const MeetingForm = ({
           component={TextField}
           floatingLabelFixed
           floatingLabelText="Event name"
+          style={{width: '324px', fontWeight: '100'}}
         />
 
         <Field name="start" component={DateTimePicker} />
@@ -88,7 +89,7 @@ MeetingForm.propTypes = {
 const valueSelector = formValueSelector('meeting-form')
 
 const mapStateToProps = state => ({
-  initialValues: !state.app.isQuickCreatingMeeting ? mapInitialValues(state.app.requestedMeeting) : {},
+  initialValues: mapInitialValues(state.app.requestedMeeting, state.app.isQuickCreatingMeeting),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented

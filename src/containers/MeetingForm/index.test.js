@@ -1,8 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import moment from 'moment'
-
 import { MeetingForm } from '.'
 
 describe('<MeetingForm />', () => {
@@ -18,13 +16,6 @@ describe('<MeetingForm />', () => {
     errors: {},
     isFormTouched: false,
     invalid: false,
-    initialValues: {
-      id: 123456,
-      title: 'Blurgity Blurg',
-      start: moment().toDate(),
-      end: moment().add(1,'hour').toDate(),
-      room: 'flurg-room@blurg.com',
-    },
   }
 
   it('renders', () => {
@@ -32,17 +23,25 @@ describe('<MeetingForm />', () => {
     expect(wrapper).toBeTruthy()
   })
 
-  it('displays the proper title when creating a meeting', () => {
+  it('displays the proper title (with room name) when creating a meeting', () => {
     const wrapper = shallow(<MeetingForm {...props} />)
     const title = wrapper.find('.room')
     expect(title.text()).toBe('Book Flurg Room')
   })
 
-  it('displays the proper title when editing a meeting', () => {
+  it('displays the proper title (with room name) when editing a meeting', () => {
     props.isEditingMeeting = true
     const wrapper = shallow(<MeetingForm {...props} />)
     const title = wrapper.find('.room')
-    expect(title.text()).toBe('Edit Booking')
+    expect(title.text()).toBe('Book Flurg Room')
   })
+
+  it('displays the proper title when initially opening quickbook (no room selected)', () => {
+    props.roomName = null
+    const wrapper = shallow(<MeetingForm {...props} />)
+    const title = wrapper.find('.room')
+    expect(title.text()).toBe('Book a Room')
+  })
+
 
 })

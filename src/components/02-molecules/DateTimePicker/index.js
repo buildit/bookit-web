@@ -23,7 +23,7 @@ const labelStyle = {
 }
 
 const dateStyle = {
-  width: '245px',
+  width: '235px',
   border: 'none',
   backgroundColor: '#141516',
   color: 'white',
