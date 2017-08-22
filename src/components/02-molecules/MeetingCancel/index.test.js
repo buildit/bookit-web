@@ -25,7 +25,7 @@ describe('<MeetingCancel />', () => {
       name: 'puce',
       email: 'puce-room@some.com',
     },
-    abortUserAction: jest.fn(),
+    abortUiAction: jest.fn(),
     cancelMeeting: jest.fn(),
   }
 
@@ -43,6 +43,6 @@ describe('<MeetingCancel />', () => {
     expect(props.cancelMeeting.mock.calls.length).toBe(1)
 
     noButton.simulate('click')
-    expect(props.abortUserAction.mock.calls.length).toBe(1)
+    expect(props.abortUiAction.mock.calls.length).toBe(1)
   })
 })

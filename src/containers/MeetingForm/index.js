@@ -28,7 +28,7 @@ injectTapEventPlugin() // Required by Material UI components
 export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
-  userAction,
+  uiAction,
   handleDeleteClick,
   errors,
   isFormTouched,
@@ -38,8 +38,8 @@ export const MeetingForm = ({
     <div>
       <h2 className={styles.room}>Edit Booking</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
       <form onSubmit={handleSubmit(submitMeeting)}>
-        { userAction === 'quickBooking' && <Field name="room" component={RoomPicker} /> }
-        { userAction.match(/^(editing|creating)$/) && <Field name="room" component="input" type="hidden" /> }
+        { uiAction === 'quickBooking' && <Field name="room" component={RoomPicker} /> }
+        { uiAction.match(/^(editing|creating)$/) && <Field name="room" component="input" type="hidden" /> }
         <Field
           name="title"
           component={TextField}
@@ -53,9 +53,9 @@ export const MeetingForm = ({
         <div className={styles.buttons}>
           <Button
             disabled={!isFormTouched || invalid}
-            type="submit" content={userAction === 'editing' ? "Save" : "Bookit" } />
+            type="submit" content={uiAction === 'editing' ? "Save" : "Bookit" } />
 
-          { userAction === 'editing'
+          { uiAction === 'editing'
             ? <Button onClick={handleDeleteClick} content="Delete" />
             : null }
         </div>
@@ -71,7 +71,7 @@ export const MeetingForm = ({
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
-  userAction: PropTypes.string.isRequired,
+  uiAction: PropTypes.string.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
@@ -79,9 +79,9 @@ MeetingForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  initialValues: state.app.userAction.match(/^(editing|creating)$/) ? mapInitialValues(state.app.requestedMeeting) : {},
+  initialValues: state.app.uiAction.match(/^(editing|creating)$/) ? mapInitialValues(state.app.requestedMeeting) : {},
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  userAction: state.app.userAction,
+  uiAction: state.app.uiAction,
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
 })

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import {
   RESET_UI,
-  ABORT_USER_ACTION,
+  ABORT_UI_ACTION,
   INIT_MEETING_FORM,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
@@ -31,7 +31,7 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
-  userAction: '',
+  uiAction: '',
   userToBeRemoved: '',
   inviteUserForm: {
     email: '',
@@ -55,20 +55,20 @@ const app = (state = initialState, action) => {
   case OPEN_CANCELLATION_DIALOG: {
     return {
       ...state,
-      userAction: 'cancelling',
+      uiAction: 'cancelling',
     }
   }
   case CANCEL_MEETING_SUCCEEDED: {
     return {
       ...state,
-      userAction: '',
+      uiAction: '',
       messages: ['Your meeting was successfully cancelled.'],
     }
   }
   case CANCEL_MEETING_FAILED: {
     return {
       ...state,
-      userAction: '',
+      uiAction: '',
       messages: ['Oh no! There was a problem cancelling your meeting.'],
     }
   }
@@ -77,7 +77,7 @@ const app = (state = initialState, action) => {
     // const isCreatingMeeting = ['quick', 'full'].indexOf(action.payload.type) > -1
     return {
       ...state,
-      userAction: isQuickMeeting ? 'quickBooking' : 'creating',
+      uiAction: isQuickMeeting ? 'quickBooking' : 'creating',
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
@@ -101,7 +101,7 @@ const app = (state = initialState, action) => {
       }
       return {
         ...state,
-        userAction: 'creating',
+        uiAction: 'creating',
         requestedMeeting: meeting,
       }
     }
@@ -120,14 +120,14 @@ const app = (state = initialState, action) => {
     }
     return {
       ...state,
-      userAction: 'editing',
+      uiAction: 'editing',
       requestedMeeting: meeting,
     }
   }
-  case ABORT_USER_ACTION: {
+  case ABORT_UI_ACTION: {
     return {
       ...state,
-      userAction: '',
+      uiAction: '',
       messages: [],
       requestedMeeting: {},
       userToBeRemoved: '',
@@ -136,14 +136,14 @@ const app = (state = initialState, action) => {
   case OPEN_INVITE_USER_DIALOG: {
     return {
       ...state,
-      userAction: 'inviting',
+      uiAction: 'inviting',
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
-      userAction: 'removing',
+      uiAction: 'removing',
       userToBeRemoved,
     }
   }

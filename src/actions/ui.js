@@ -4,7 +4,7 @@ import {
   INIT_MEETING_FORM,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
-  ABORT_USER_ACTION,
+  ABORT_UI_ACTION,
   RESET_UI,
   SELECT_DATE,
   SELECT_DATE_SUCCEEDED,
@@ -31,7 +31,7 @@ export const populateMeetingCreateForm =
 export const populateMeetingEditForm =
   createAction(POPULATE_MEETING_EDIT_FORM, meeting => ({ meeting }))
 
-export const abortUserAction = createAction(ABORT_USER_ACTION)
+export const abortUiAction = createAction(ABORT_UI_ACTION)
 
 export const resetUi = createAction(RESET_UI)
 

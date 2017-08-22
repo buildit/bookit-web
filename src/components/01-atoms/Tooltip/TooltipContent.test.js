@@ -15,7 +15,7 @@ describe('<TooltipContent />', () => {
       name: 'some guy',
     },
     isOwnedByUser: true,
-    userAction: '',
+    uiAction: '',
     styles: {
       content: 'content',
       title: 'title',
@@ -62,7 +62,7 @@ describe('<TooltipContent />', () => {
   })
 
   it('does not show edit when user owns meeting, but is already editing a meeting', () => {
-    const propsCopy = { ...props, isOwnedByUser: true, userAction: 'editing' }
+    const propsCopy = { ...props, isOwnedByUser: true, uiAction: 'editing' }
     const wrapper = shallow(<TooltipContent {...propsCopy} />)
     expect(wrapper.find('.edit').length).toBe(0)
   })
