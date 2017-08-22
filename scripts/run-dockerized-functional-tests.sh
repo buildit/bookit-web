@@ -4,7 +4,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "75-automate-create-travis-iam-user" ]]; then
+if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "33-deploy-to-ecs" ]]; then
   DOCKERNAME=bookit_functional_tests
   DOCKER_COMPOSE_YAML_FILENAME=${1:-docker-compose.testcafe.yml}
   DOCKER_CONTAINER_NAME=${2:-bookit_testcafe}

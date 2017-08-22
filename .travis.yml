@@ -31,7 +31,7 @@ env:
     - secure: SOoAM45q1zemStp/qWJKmrsMfbgN9ojmSRzb+qXrit2BujA4OCKhTUvgBZaJz/z63QeabeIRLbdrOnN7NYnZaFpOvnVwyaLtFfhRpP4vx5BP1VoZVb6jDpJT9RuYYnikUrnL+dn244kLMuOimoMPcLPj/Vx/Sqdpb2MMS/By/9ywkgP9SwIM73ktsbb06yiCdNK6li+bnYwQ2whtMBy1WDdo8Ut2XPbl3qRefrlht3TeRPEouG+OUUveorjdbGkI12Tkw/fJMZBzZlqj6kB3vY4jyEVQsSo4+b9IEicyvbL2nH2huHj7jHBsBUs6zCnxZC06FypluzWdg8W1HBnwbHSTDEtOU3TIocsFaaWq/vYDcEZ3Ljp7LRj6b3JjtpiAxznQLtiS1xeoOigJS9uxZmk/9D0qoA09vAw9/R67xdHoLwf7d8yxFLP14mHqIWWdt/8g9dAO5drYxh+d9V+9Len/4+jtrlKhi4smHK/F0bjJBB0PjGlaUb2cNIMOIdzmH85JXWVXQ01HKf1WVVmecGBbpt0qA9V/wa+ax9NLliAyCIrFftXe6zTc3TGgqhQG1SG9GVKpIojnOFeK8B9NXRNDNFalWmN++L79mWS8kAdmYVXXvkh4zRt/7c6QnC+44+ou3G04wd2Q0KfQZ1sDa+iCgGWRMdyXVnxCoUwMAMY=
 
 install:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "75-automate-create-travis-iam-user" ]]; then pip install awscli; fi
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "33-deploy-to-ecs" ]]; then pip install awscli; fi
 
 before_script:
   # Builds only when branch is master and this is NOT a PR
@@ -56,22 +56,22 @@ deploy:
     skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
-      branch: 75-automate-create-travis-iam-user
+      branch: 33-deploy-to-ecs
   - provider: script
     skip_cleanup: true
     script: ./scripts/temp-build.sh
     on:
-      branch: 75-automate-create-travis-iam-user
+      branch: 33-deploy-to-ecs
   - provider: script
     skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
-      branch: 75-automate-create-travis-iam-user
+      branch: 33-deploy-to-ecs
   - provider: script
     skip_cleanup: true
     script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}
     on:
-      branch: 75-automate-create-travis-iam-user
+      branch: 33-deploy-to-ecs
 
 notifications:
   slack:
