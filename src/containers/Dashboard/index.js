@@ -11,6 +11,8 @@ import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
 import styles from './styles.scss'
 
+import { isBooking } from '../../selectors'
+
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
@@ -81,7 +83,6 @@ DashboardContainer.propTypes = {
     }).isRequired
   ).isRequired,
   location: PropTypes.shape({}),
-  uiAction: PropTypes.string.isRequired,
   meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
@@ -93,7 +94,6 @@ const mapStateToProps = (state) => {
     allRoomIds,
     roomsById,
     selectedDate,
-    uiAction,
     inviteUserForm,
     messages,
     requestedMeeting,
@@ -107,14 +107,12 @@ const mapStateToProps = (state) => {
       isOwnedByUser: meeting.owner.email === state.user.email }))
 
   const rooms = allRoomIds.map(id => roomsById[id])
-
-  const meetingFormIsActive = (uiAction === ('creating' || 'editing'))
+  const meetingFormIsActive = isBooking(state)
 
   return ({
     user: state.user,
     meetings,
     rooms,
-    uiAction,
     inviteUserForm,
     messages,
     selectedDate,

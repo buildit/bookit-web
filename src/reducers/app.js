@@ -73,11 +73,16 @@ const app = (state = initialState, action) => {
     }
   }
   case INIT_MEETING_FORM: {
-    const isQuickMeeting = action.payload.type === 'quick'
-    // const isCreatingMeeting = ['quick', 'full'].indexOf(action.payload.type) > -1
+    // TODO: Both POPULATE_MEETING_CREATE_FORM and POPULATE_MEETING_EDIT_FORM
+    // can be removed in favour of this action with the appropriate type
+    // set.
+    //
+    // const isQuickMeeting = action.payload.type === 'quickBooking'
+    // const isCreatingMeeting = action.payload.type === 'creating'
+    // const isEditingMeeting = action.payload.type === 'editing'
     return {
       ...state,
-      uiAction: isQuickMeeting ? 'quickBooking' : 'creating',
+      uiAction: action.payload.type,
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {

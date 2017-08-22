@@ -26,6 +26,8 @@ import MeetingForm from '../MeetingForm'
 import UserForm from '../UserForm'
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
+import { isBooking, isInvitingUser, isRemovingUser, isCancellingBooking } from '../../selectors'
+
 import styles from './styles.scss'
 
 class InfoPanel extends React.Component {
@@ -40,7 +42,10 @@ class InfoPanel extends React.Component {
      meetings,
      user,
      handleReservationEditClick,
-     uiAction,
+     isBooking,
+     isInvitingUser,
+     isRemovingUser,
+     isCancellingBooking,
      users,
      onAbortUiAction,
      handleInitMeetingForm,
@@ -59,15 +64,15 @@ class InfoPanel extends React.Component {
           handleEditClick={handleReservationEditClick}
         />
       </div>
-    if (uiAction.match(/^(editing|creating|quickBooking)$/)) {
+    if (isBooking) {
       agendaContent = <MeetingForm key="2" />
     }
-    if (uiAction === 'cancelling') {
+    if (isCancellingBooking) {
       agendaContent = <MeetingCancel key="3" />
     }
 
     let adminContent = <RecentlyAddedUsersTable key="4" users={users} />
-    if (uiAction === 'removing') {
+    if (isRemovingUser) {
       adminContent =
         <ConfirmationDialog
           key="5"
@@ -76,7 +81,7 @@ class InfoPanel extends React.Component {
           onClickNo={onAbortUiAction}
         />
     }
-    if (uiAction === 'inviting') {
+    if (isInvitingUser) {
       adminContent = <UserForm key="6"/>
     }
 
@@ -86,14 +91,14 @@ class InfoPanel extends React.Component {
 
         <Route exact path="/" render={() => (
           <div
-            onClick={() => (uiAction.match(/^(editing|creating|quickBooking)$/)) ? onAbortUiAction() : handleInitMeetingForm()}
-            className={(uiAction.match(/^(editing|creating|quickBooking)$/)) ? styles.close : styles.invite}
+            onClick={() => isBooking ? onAbortUiAction() : handleInitMeetingForm()}
+            className={isBooking ? styles.close : styles.invite}
           />
         )} />
         <Route exact path="/admin" render={() => (
           <div
-            onClick={() => uiAction === 'inviting' ? onAbortUiAction() : onInviteClick()}
-            className={uiAction === 'inviting' ? styles.close : styles.invite}
+            onClick={() => isInvitingUser ? onAbortUiAction() : onInviteClick()}
+            className={isInvitingUser ? styles.close : styles.invite}
           />
         )} />
         { ajax ? <UIBlocker /> : '' }
@@ -117,7 +122,10 @@ const mapStateToProps = (state) => {
     messages: state.app.messages,
     meetings,
     user: state.app.user,
-    uiAction: state.app.uiAction,
+    isBooking: isBooking(state),
+    isInvitingUser: isInvitingUser(state),
+    isRemovingUser: isRemovingUser(state),
+    isCancellingBooking: isCancellingBooking(state),
     users: state.users,
     userToBeRemoved: state.app.userToBeRemoved,
     ajax: state.ajax,
@@ -138,7 +146,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(openInviteUserDialog())
   },
   handleInitMeetingForm: () => {
-    dispatch(initMeetingForm('quick'))
+    dispatch(initMeetingForm('quickBooking'))
   },
 })
 
@@ -148,7 +156,10 @@ InfoPanel.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  uiAction: PropTypes.string.isRequired,
+  isBooking: PropTypes.bool,
+  isInvitingUser: PropTypes.bool,
+  isRemovingUser: PropTypes.bool,
+  isCancellingBooking: PropTypes.bool,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,

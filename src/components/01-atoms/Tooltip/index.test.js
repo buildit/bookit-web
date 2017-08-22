@@ -17,7 +17,7 @@ describe('<Tooltip />', () => {
       name: 'some guy',
     },
     isOwnedByUser: true,
-    uiAction: '',
+    isBooking: false,
     tooltipRef: () => true,
     anchorContainerRef: () => true,
     anchorRef: () => true,

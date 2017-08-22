@@ -1,15 +1,16 @@
 import moment from 'moment'
 
-export const mapInitialValues = (state) => {
-  const { app: { requestedMeeting, isQuickCreatingMeeting } } = state
-  const values = { ...requestedMeeting }
+import { isQuickBooking } from '../../selectors'
 
-  if (isQuickCreatingMeeting) {
+export const mapInitialValues = (state) => {
+  if (isQuickBooking(state)) {
     return {
       start: moment(),
       end: moment().add(1, 'hour'),
     }
   }
+
+  const values = { ...state.app.requestedMeeting }
 
   return {
     id: values.id,

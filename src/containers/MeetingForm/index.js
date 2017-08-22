@@ -16,7 +16,7 @@ import ErrorMessages from '../../components/02-molecules/ErrorMessages'
 import { mapInitialValues } from './utils'
 import { validate } from './validate'
 
-import { getRoomName } from '../../selectors'
+import { getRoomName, isQuickBooking, isEditingBooking } from '../../selectors'
 
 import styles from './styles.scss'
 
@@ -30,7 +30,8 @@ injectTapEventPlugin() // Required by Material UI components
 export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
-  uiAction,
+  isQuickBooking,
+  isEditingBooking,
   handleDeleteClick,
   errors,
   isFormTouched,
@@ -52,23 +53,21 @@ export const MeetingForm = ({
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
 
-        { uiAction === 'quickBooking' && <Field name="room" component={RoomPicker} /> }
-        { uiAction.match(/^(editing|creating)$/) && <Field name="room" component="input" type="hidden" /> }
+        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
+        { !isQuickBooking && <Field name="room" component="input" type="hidden" /> }
 
         <div className={styles.buttons}>
           <Button
-            disabled={!isFormTouched || invalid}
-            type="submit" content={uiAction === 'editing' ? "Save" : "Bookit" } />
+            type="submit"
+            disabled={ !isFormTouched || invalid }
+            content={isEditingBooking ? "Save" : "Bookit" }
+          />
 
-          { uiAction === 'editing'
-            ? <Button onClick={handleDeleteClick} content="Delete" />
-            : null }
+          { isEditingBooking && <Button onClick={handleDeleteClick} content="Delete" /> }
         </div>
       </form>
 
-      { isFormTouched
-        ? <ErrorMessages errors={errors} />
-        : null }
+      { isFormTouched && <ErrorMessages errors={errors} /> }
     </div>
   )
 }
@@ -76,7 +75,8 @@ export const MeetingForm = ({
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
-  uiAction: PropTypes.string.isRequired,
+  isEditingBooking: PropTypes.bool,
+  isQuickBooking: PropTypes.bool,
   handleDeleteClick: PropTypes.func.isRequired,
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
@@ -89,7 +89,8 @@ const valueSelector = formValueSelector('meeting-form')
 const mapStateToProps = state => ({
   initialValues: mapInitialValues(state),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  uiAction: state.app.uiAction,
+  isQuickBooking: isQuickBooking(state),
+  isEditingBooking: isEditingBooking(state),
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
   roomName: getRoomName(state, valueSelector(state, 'room')),

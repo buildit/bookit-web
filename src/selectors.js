@@ -7,3 +7,13 @@ export const getRoomName = (state, id) => {
   if (state.app.roomsById.hasOwnProperty(id)) return state.app.roomsById[id].name
   return null
 }
+
+export const getUiAction = state => state.app.uiAction
+export const isQuickBooking = state => getUiAction(state) === 'quickBooking'
+export const isCreatingBooking = state => getUiAction(state) === 'creating'
+export const isEditingBooking = state => getUiAction(state) === 'editing'
+export const isInvitingUser = state => getUiAction(state) === 'inviting'
+export const isRemovingUser = state => getUiAction(state) === 'removing'
+export const isCancellingBooking = state => getUiAction(state) === 'cancelling'
+
+export const isBooking = state => (isQuickBooking(state) || isCreatingBooking(state) || isEditingBooking(state))
