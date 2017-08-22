@@ -8,7 +8,7 @@ import styles from './styles.scss'
 
 import { getRooms } from '../../../selectors'
 
-const radioButtonGenerator = ({ input, rooms }) => (
+const radioButtonGenerator = ({ input, rooms, meta: { touched, error } }) => (
   <div>
     <label className={styles.radioFieldLabel}>Available Rooms</label>
     <div className={styles.radioGrid}>
@@ -30,6 +30,7 @@ const radioButtonGenerator = ({ input, rooms }) => (
         )
       }
     </div>
+    { touched && error && <div className={styles.radioError}>{ error }</div> }
   </div>
 )
 

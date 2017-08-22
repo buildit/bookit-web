@@ -89,7 +89,7 @@ MeetingForm.propTypes = {
 const valueSelector = formValueSelector('meeting-form')
 
 const mapStateToProps = state => ({
-  initialValues: mapInitialValues(state.app.requestedMeeting, state.app.isQuickCreatingMeeting),
+  initialValues: mapInitialValues(state),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
   isEditingMeeting: state.app.isEditingMeeting,
   isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented
