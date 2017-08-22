@@ -11,28 +11,19 @@ import {
   getMeetingRoomName,
 } from '../selectors'
 
-export default () => (WrappedComponent) => {
-  // class BaseMeeting extends Component {
-  //   constructor(props) {
-  //     super(props)
-  //   }
-  //   render() {
-  //     return <WrappedComponent {...this.props} />
-  //   }
-  // }
+export default (WrappedComponent) => {
+  const withMeeting = connect(
+    createPropsSelector({
+      title: getMeetingTitle,
+      start: getMeetingStart,
+      end: getMeetingEnd,
+      room: getMeetingRoomName,
+    })
+  )(WrappedComponent)
 
-  const mapStateToProps = createPropsSelector({
-    title: getMeetingTitle,
-    start: getMeetingStart,
-    end: getMeetingEnd,
-    room: getMeetingRoomName,
-  })
-
-  const WithMeeting = connect(mapStateToProps)(WrappedComponent)
-
-  WithMeeting.propTypes = {
-    meetingId: PropTypes.string.isRequired,
+  withMeeting.propTypes = {
+    id: PropTypes.string.isRequired,
   }
 
-  return WithMeeting
+  return withMeeting
 }

@@ -50,9 +50,8 @@ function* fetchMeetingsSaga() {
     yield take(FETCH_MEETINGS)
     try {
       const date = yield select(getSelectedDate)
-      const { entities } = yield call(apiFetchMeetings, date)
-      console.log('HELLO?', entities)
-      yield put({ type: RECEIVE_MEETINGS, entities })
+      const data = yield call(apiFetchMeetings, date)
+      yield put({ type: RECEIVE_MEETINGS, data })
     } catch (error) {
       // Should probably do something in here
       console.log('PISS SHIT', error)

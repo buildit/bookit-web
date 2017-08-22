@@ -1,41 +1,27 @@
 import { createSelector } from 'reselect'
 
 import { createGetSelector } from 'reselect-immutable-helpers'
-// import { createGetSelector, createPropsSelector } from 'reselect-immutable-helpers'
 
 import moment from 'moment'
 
-export const getUser = state => state.user
-export const getUserToken = state => getUser(state).token
-// export const getMeetingsByDate = state => state.meetingsByDate
+// export const getCurrentUser = () => ({ email: 'bruce@builditcontoso.onmicrosoft.com', name: 'Bruce Springsteen', token: '1234abc' })
+export const getCurrentUser = state => state.user
+export const getUserToken = state => getCurrentUser(state).token
 
-// Strings _are_ immutable, stupidhead!
 export const getSelectedDate = state => state.selectedDate
 
-// NOTE - No use for these two as yet (although getEntities should be used
-// to be "fully reselect")
-//
-// const getEntities = state => state.meetings.get('entities').toJS()
-const getEntities = state => state.entities
+export const getRoomIds = state => state.data.get('roomIds').toArray()
+export const getMeetingIds = state => state.data.get('meetingIds').toArray()
 
-const getRooms = state => getEntities(state).get('rooms')
+export const getEntities = state => state.data.get('entities')
+
+export const getRooms = state => getEntities(state).get('rooms')
 export const getMeetings = state => getEntities(state).get('meetings')
 
-// NOTE - We don't have any use for the collected `user` entities as yet
-//
-// const getUsersMap = state => state.meetings.getIn(['entities', 'users'])
+export const getRoom = (state, props) => getRooms(state).get(props.id)
+export const getMeeting = (state, props) => getMeetings(state).get(props.id)
 
-// const getRoom = (state, props) => getRooms(state).get(props.roomId)
-const getMeeting = (state, props) => getMeetings(state).get(props.meetingId)
-
-export const getCurrentUser = state => state.user
-
-
-// export const getRoomName = createGetSelector(getRoom, 'name')
-
-// export const getRoomMeetings = createGetSelector(getRoom, 'meetings', List())
-
-const getSortedMeetings = createSelector(
+export const getSortedMeetings = createSelector(
   getMeetings,
   meetings => meetings.sort(
     (a, b) => moment(a.get('start')) - moment(b.get('start'))
@@ -47,13 +33,14 @@ const getMeetingRoom = createSelector(
   (meeting, rooms) => rooms.get(meeting.get('room'))
 )
 
-export const getMeetingsForCurrentUser = createSelector(
-  [ getSortedMeetings, getCurrentUser ],
-  (meetings, user) => [
-    ...meetings.filter(
-      meeting => meeting.get('owner') === user.email
-    ).keys(),
-  ]
+export const getMeetingIdsForCurrentUser = createSelector(
+  [ getMeetingIds, getMeetings, getCurrentUser ],
+  (meetingIds, meetings, user) => meetingIds.filter(id => meetings.getIn([id, 'owner']) === user.email)
+)
+
+export const getMeetingIdsForRoom = createSelector(
+  [ getMeetingIds, getMeetings, getRoom ],
+  (meetingIds, meetings, room) => meetingIds.filter(id => meetings.getIn(id, 'room') === room)
 )
 
 export const getMeetingTitle = createGetSelector(getMeeting, 'title')

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import { getMeetings, getSelectedDate } from '../selectors'
+import { getMeetingIds, getRoomIds, getSelectedDate } from '../selectors'
 
 import { fetchMeetingsIfNeeded, selectDate } from '../actions'
 
@@ -11,14 +11,14 @@ import BaseMeetingItem from './MeetingItem'
 
 import withMeeting from './with-meeting'
 
-const MeetingItem = withMeeting()(BaseMeetingItem)
+const MeetingItem = withMeeting(BaseMeetingItem)
 
 class MeetingsContainer extends Component {
   static propTypes = {
     fetchMeetingsIfNeeded: PropTypes.func,
     selectDate: PropTypes.func,
     selectedDate: PropTypes.string.isRequired,
-    meetings: PropTypes.array.isRequired,
+    meetingIds: PropTypes.array.isRequired,
   }
 
   componentDidMount() {
@@ -30,14 +30,12 @@ class MeetingsContainer extends Component {
   }
 
   render() {
-    const { selectedDate, meetings } = this.props
+    const { selectedDate, meetingIds } = this.props
     return (
       <div>
         <h1>SELECTED DATE: {selectedDate}</h1>
-        {!meetings.count() &&
-          <h2>NO MEETINGS</h2>
-        }
-        { meetings.keySeq().map(id => (<MeetingItem key={id} meetingId={id} />)) }
+        {!meetingIds.length && <h2>NO MEETINGS</h2>}
+        { meetingIds.map(id => (<MeetingItem key={id} id={id} />)) }
       </div>
     )
   }
@@ -57,11 +55,11 @@ class MeetingsContainer extends Component {
 
 const mapStateToProps = state => ({
   selectedDate: getSelectedDate(state),
-  meetings: getMeetings(state),
+  meetingIds: getMeetingIds(state),
+  roomIds: getRoomIds(state),
 })
 
 export default connect(
-  mapStateToProps, {
-    fetchMeetingsIfNeeded,
-    selectDate,
-  })(MeetingsContainer)
+  mapStateToProps,
+  { fetchMeetingsIfNeeded, selectDate }
+)(MeetingsContainer)
