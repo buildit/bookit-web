@@ -56,4 +56,11 @@ describe('<ReservationItem />', () => {
     const wrapper = shallow(<ReservationItem {...props} />)
     expect(wrapper.find('.button').length).toBe(1)
   })
+
+  it('allows an admin user to edit the meeting', () => {
+    const propsCopy = { ...props, isOwnedByUser: false, user: { name: 'admin', isAdmin: true } }
+    const wrapper = shallow(<ReservationItem {...propsCopy} />)
+    expect(wrapper.find('.button').length).toBe(1)
+  })
+
 })
