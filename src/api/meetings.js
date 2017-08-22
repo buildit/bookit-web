@@ -31,17 +31,15 @@ export const fetchMeetings = (token, startDate, endDate) => {
     .then(response => response.body)
 }
 
-export const editMeeting = (token, meeting, roomEmail) => {
-  return agent
-    .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
-    .set('x-access-token', token)
-    .send({
-      title: meeting.title,
-      start: meeting.start,
-      end: meeting.end,
-    })
-    .then(response => response.body)
-}
+export const editMeeting = (token, meeting, room) => agent
+  .put(`${apiBaseUrl}/room/${room.email}/meeting/${meeting.id}`)
+  .set('x-access-token', token)
+  .send({
+    title: meeting.title,
+    start: meeting.start,
+    end: meeting.end,
+  })
+  .then(response => response.body)
 
 export const cancelMeeting = (token, meetingId, roomEmail) => agent
   .delete(`${apiBaseUrl}/room/${roomEmail}/meeting/${meetingId}`)
