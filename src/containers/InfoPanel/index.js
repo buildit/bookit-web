@@ -9,12 +9,10 @@ import { connect } from 'react-redux'
 
 import {
   initMeetingForm,
-  cancelMeetingRequest,
+  abortUiAction,
   populateMeetingEditForm,
   userRemoveStart,
   openInviteUserDialog,
-  closeConfirmationDialog,
-  closeInviteUserDialog,
  } from '../../actions'
 
 import UIBlocker from '../../components/01-atoms/UIBlocker'
@@ -42,22 +40,15 @@ class InfoPanel extends React.Component {
      meetings,
      user,
      handleReservationEditClick,
-     isEditingMeeting,
-     isCancellingMeeting,
-     isCreatingMeeting,
-     isRemovingUser,
-     isInvitingUser,
+     uiAction,
      users,
-     onMeetingCloseClick,
+     onAbortUiAction,
      handleInitMeetingForm,
      onRemoveUserClick,
      onInviteClick,
-     onInviteCloseClick,
      userToBeRemoved,
-     onAbortRemovingUser,
      ajax,
    } = this.props
-
     let agendaContent =
       <div>
         <Calendar key="0" />
@@ -68,24 +59,24 @@ class InfoPanel extends React.Component {
           handleEditClick={handleReservationEditClick}
         />
       </div>
-    if (isEditingMeeting || isCreatingMeeting) {
+    if (uiAction.match(/^(editing|creating|quickBooking)$/)) {
       agendaContent = <MeetingForm key="2" />
     }
-    if (isCancellingMeeting) {
+    if (uiAction === 'cancelling') {
       agendaContent = <MeetingCancel key="3" />
     }
 
     let adminContent = <RecentlyAddedUsersTable key="4" users={users} />
-    if (isRemovingUser) {
+    if (uiAction === 'removing') {
       adminContent =
         <ConfirmationDialog
           key="5"
           message="Are you sure you want to remove this user?"
           onClickYes={() => onRemoveUserClick(userToBeRemoved)}
-          onClickNo={onAbortRemovingUser}
+          onClickNo={onAbortUiAction}
         />
     }
-    if (isInvitingUser) {
+    if (uiAction === 'inviting') {
       adminContent = <UserForm key="6"/>
     }
 
@@ -95,14 +86,14 @@ class InfoPanel extends React.Component {
 
         <Route exact path="/" render={() => (
           <div
-            onClick={() => (isCreatingMeeting || isEditingMeeting) ? onMeetingCloseClick() : handleInitMeetingForm()}
-            className={(isCreatingMeeting || isEditingMeeting) ? styles.close : styles.invite}
+            onClick={() => (uiAction.match(/^(editing|creating|quickBooking)$/)) ? onAbortUiAction() : handleInitMeetingForm()}
+            className={(uiAction.match(/^(editing|creating|quickBooking)$/)) ? styles.close : styles.invite}
           />
         )} />
         <Route exact path="/admin" render={() => (
           <div
-            onClick={() => isInvitingUser ? onInviteCloseClick() : onInviteClick()}
-            className={isInvitingUser ? styles.close : styles.invite}
+            onClick={() => uiAction === 'inviting' ? onAbortUiAction() : onInviteClick()}
+            className={uiAction === 'inviting' ? styles.close : styles.invite}
           />
         )} />
         { ajax ? <UIBlocker /> : '' }
@@ -126,11 +117,7 @@ const mapStateToProps = (state) => {
     messages: state.app.messages,
     meetings,
     user: state.app.user,
-    isEditingMeeting: state.app.isEditingMeeting,
-    isCancellingMeeting: state.app.isCancellingMeeting,
-    isCreatingMeeting: state.app.isCreatingMeeting,
-    isRemovingUser: state.app.isRemovingUser,
-    isInvitingUser: state.app.isInvitingUser,
+    uiAction: state.app.uiAction,
     users: state.users,
     userToBeRemoved: state.app.userToBeRemoved,
     ajax: state.ajax,
@@ -144,20 +131,14 @@ const mapDispatchToProps = dispatch => ({
   onRemoveUserClick: (userEmail) => {
     dispatch(userRemoveStart(userEmail))
   },
-  onAbortRemovingUser: () => {
-    dispatch(closeConfirmationDialog())
+  onAbortUiAction: () => {
+    dispatch(abortUiAction())
   },
   onInviteClick: () => {
     dispatch(openInviteUserDialog())
   },
   handleInitMeetingForm: () => {
     dispatch(initMeetingForm('quick'))
-  },
-  onInviteCloseClick: () => {
-    dispatch(closeInviteUserDialog())
-  },
-  onMeetingCloseClick: () => {
-    dispatch(cancelMeetingRequest())
   },
 })
 
@@ -167,19 +148,13 @@ InfoPanel.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
-  isEditingMeeting: PropTypes.bool.isRequired,
-  isCreatingMeeting: PropTypes.bool.isRequired,
-  isCancellingMeeting: PropTypes.bool.isRequired,
-  isInvitingUser: PropTypes.bool.isRequired,
-  isRemovingUser: PropTypes.bool.isRequired,
+  uiAction: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string),
   handleReservationEditClick: PropTypes.func.isRequired,
-  onAbortRemovingUser: PropTypes.func.isRequired,
-  handleInitMeetingForm: PropTypes.func,
-  onMeetingCloseClick: PropTypes.func.isRequired,
   onRemoveUserClick: PropTypes.func.isRequired,
+  onAbortUiAction: PropTypes.func.isRequired,
   onInviteClick: PropTypes.func.isRequired,
-  onInviteCloseClick: PropTypes.func.isRequired,
+  handleInitMeetingForm: PropTypes.func,
   userToBeRemoved: PropTypes.string,
   meetings: PropTypes.arrayOf(
     PropTypes.shape({

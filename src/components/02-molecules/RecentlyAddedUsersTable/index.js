@@ -24,7 +24,6 @@ const RecentlyAddedUsersTable = ({ users = [] }) => (
         .map(user => (
           <tr key={user.email}>
             <td>{user.email}</td>
-            <td className={styles.team}>{user.team.toLowerCase()}</td>
           </tr>
         ))
       }

@@ -81,7 +81,7 @@ DashboardContainer.propTypes = {
     }).isRequired
   ).isRequired,
   location: PropTypes.shape({}),
-  isEditingMeeting: PropTypes.bool.isRequired,
+  uiAction: PropTypes.string.isRequired,
   meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
@@ -93,10 +93,7 @@ const mapStateToProps = (state) => {
     allRoomIds,
     roomsById,
     selectedDate,
-    isCreatingMeeting,
-    isEditingMeeting,
-    isCancellingMeeting,
-    isInvitingUser,
+    uiAction,
     inviteUserForm,
     messages,
     requestedMeeting,
@@ -111,16 +108,13 @@ const mapStateToProps = (state) => {
 
   const rooms = allRoomIds.map(id => roomsById[id])
 
-  const meetingFormIsActive = isEditingMeeting || isCreatingMeeting
+  const meetingFormIsActive = (uiAction === ('creating' || 'editing'))
 
   return ({
     user: state.user,
     meetings,
     rooms,
-    isCreatingMeeting,
-    isEditingMeeting,
-    isCancellingMeeting,
-    isInvitingUser,
+    uiAction,
     inviteUserForm,
     messages,
     selectedDate,

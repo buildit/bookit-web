@@ -30,9 +30,8 @@ injectTapEventPlugin() // Required by Material UI components
 export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
-  isEditingMeeting,
+  uiAction,
   handleDeleteClick,
-  isQuickBooking,
   errors,
   isFormTouched,
   invalid,
@@ -53,15 +52,15 @@ export const MeetingForm = ({
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
 
-        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
-        { !isQuickBooking && <Field name="room" component="input" type="hidden" /> }
+        { uiAction === 'quickBooking' && <Field name="room" component={RoomPicker} /> }
+        { uiAction.match(/^(editing|creating)$/) && <Field name="room" component="input" type="hidden" /> }
 
         <div className={styles.buttons}>
           <Button
             disabled={!isFormTouched || invalid}
-            type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
+            type="submit" content={uiAction === 'editing' ? "Save" : "Bookit" } />
 
-          { isEditingMeeting
+          { uiAction === 'editing'
             ? <Button onClick={handleDeleteClick} content="Delete" />
             : null }
         </div>
@@ -77,8 +76,7 @@ export const MeetingForm = ({
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
-  isQuickBooking: PropTypes.bool.isRequired,
+  uiAction: PropTypes.string.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
@@ -91,8 +89,7 @@ const valueSelector = formValueSelector('meeting-form')
 const mapStateToProps = state => ({
   initialValues: mapInitialValues(state),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  isEditingMeeting: state.app.isEditingMeeting,
-  isQuickBooking: state.app.isQuickCreatingMeeting, // Replace with real state when Quick Booking is implemented
+  uiAction: state.app.uiAction,
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
   roomName: getRoomName(state, valueSelector(state, 'room')),
