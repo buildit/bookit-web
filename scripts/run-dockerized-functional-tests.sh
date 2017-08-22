@@ -15,15 +15,15 @@ if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "
   }
 
   awsparam () {
-    echo `aws ssm get-parameters --region us-east-1 --names $1 --with-decryption --output text | cut -f 4`
+    echo `aws ssm get-parameters --region ${AWS_DEFAULT_REGION} --names $1 --with-decryption --output text | cut -f 4`
   }
 
   trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"' HUP INT QUIT PIPE TERM
 
   export BOOKITUSER=$(awsparam BUILDIT_REGULAR_USER_NAME)
   export BOOKITPASSWD=$(awsparam BUILDIT_REGULAR_USER_PASSWORD)
-  export CLOUD_CONFIG=$(awsparam CLOUD_CONFIG)
-  export BUILDIT_SECRET=$(awsparam BUILDIT_SECRET)
+  export CLOUD_CONFIG=$(awsparam /bookit/${ENVIRONMENT}/CLOUD_CONFIG)
+  export BUILDIT_SECRET=$(awsparam /bookit/${ENVIRONMENT}/BUILDIT_SECRET)
 
   docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p ${DOCKERNAME} up -d > /dev/null 2>&1
 

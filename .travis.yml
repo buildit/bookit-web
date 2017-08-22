@@ -22,6 +22,8 @@ env:
     - secure: MunCbXG6H+pstm/Gf5bVzFXCuICfcdYEcoHfEeGSeVHkBRRFXOrLLbgR66mfqkvaHStbZhEvgVM/VbMobIuJqg5axb8YAwsnn5zoyOw2CAu9Zlemztzmgvk52vhI00xh+r3Ih/8wAFpdP26UUs4zjV4ueeqGaeFtPfLNT9+5rp+ZaRn5fDPtiUJ0zCgBtNU2rDz1oHL3TgeGn7npPUzdGptmUTLycdAnzVwsE4Lk5W7HwLSxqNduHBbX2egZWa5FWrL94inj1bX0LhkTcF9qavSn218bb2Bu3a94HNtofL0Xh97PE+g8gqTR51a3fDStXdMcKaDTPK5bwE+hUR2UI95VE7Kz8Sc7welV5jPye7c9IbDZ88RQR2aLwcJY0t5NvWsuUXAkFzIdafS05aoiKLysZQXYUxWnfW4IFwRTm9RReUjgEj2wjyd0TGZlh+lC+aQOUnGBghWlV0tkts1n5Uh4HL5w9YzR/tIvfK499hSIowGLmUaYLhd5LRyQyPtJivdVB/lWTBIvVym6kQJahG1mb2ZJ8Xps3uMNx6SrB9ud5g03Ivoa8GWCki0JVb0WJzLkScYxGsmdXHppogz6dlMao7l2fcwtLz2z+bIzoUw1pZEsaXMCLq2MA+7DCy14ycODIaD3OCrOBi679e7PB7m2u7+0zQnaDtlWMFVM0jI=
     - AWS_DEFAULT_REGION=us-east-1
     - BOOKITURI=http://hap-dev-bookit-web.riglet.io
+    # This identifies what namespace to pull configuration from
+    - ENVIRONMENT=hap-dev
     - ECS_REPO=hap-bookit-hap-dev-web-ecr-repo
     - ECS_CLUSTER=hap-bookit-hap-dev-ECSCluster
     - ECS_SERVICE=hap-bookit-hap-dev-app-BookitWebService-1QDE9NNVJXXQO-Service-1HAQRE5CSOJWF
