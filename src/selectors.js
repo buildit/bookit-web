@@ -2,51 +2,61 @@ import { createSelector } from 'reselect'
 
 import { createGetSelector } from 'reselect-immutable-helpers'
 
-import moment from 'moment'
-
 // export const getCurrentUser = () => ({ email: 'bruce@builditcontoso.onmicrosoft.com', name: 'Bruce Springsteen', token: '1234abc' })
 export const getCurrentUser = state => state.user
 export const getUserToken = state => getCurrentUser(state).token
 
 export const getSelectedDate = state => state.selectedDate
 
-export const getRoomIds = state => state.data.get('roomIds').toArray()
-export const getMeetingIds = state => state.data.get('meetingIds').toArray()
+export const getRooms = state => state.rooms
+export const getMeetings = state => state.meetings
+export const getParticipants = state => state.participants
 
-export const getEntities = state => state.data.get('entities')
+export const getRoomIds = state => getRooms(state).get('result').toArray()
+export const getMeetingIds = state => getMeetings(state).get('result').toArray()
+export const getParticipantIds = state => getParticipants(state).get('result').toArray()
 
-export const getRooms = state => getEntities(state).get('rooms')
-export const getMeetings = state => getEntities(state).get('meetings')
+export const getRoomEntities = state => getRooms(state).get('entities')
+export const getMeetingEntities = state => getMeetings(state).get('entities')
+export const getParticipantEntities = state => getParticipants(state).get('entities')
 
-export const getRoom = (state, props) => getRooms(state).get(props.id)
-export const getMeeting = (state, props) => getMeetings(state).get(props.id)
+export const getRoomEntity = (state, props) => getRoomEntities(state).get(props.id)
+export const getMeetingEntity = (state, props) => getMeetingEntities(state).get(props.id)
+export const getParticipantEntity = (state, props) => getParticipantEntities(state).get(props.id)
 
-export const getSortedMeetings = createSelector(
-  getMeetings,
-  meetings => meetings.sort(
-    (a, b) => moment(a.get('start')) - moment(b.get('start'))
-  )
+// Meetings are now sorted at normalizr level.
+// Probably for the best.
+// export const getSortedMeetings = createSelector(
+//   getMeetings,
+//   meetings => meetings.sort(
+//     (a, b) => moment(a.get('start')) - moment(b.get('start'))
+//   )
+// )
+
+export const hasMeetings = createSelector(
+  getMeetingIds,
+  meetingIds => meetingIds.length > 0
 )
 
-const getMeetingRoom = createSelector(
-  [ getMeeting, getRooms ],
+const getMeetingRoomEntity = createSelector(
+  [ getMeetingEntity, getRoomEntities ],
   (meeting, rooms) => rooms.get(meeting.get('room'))
 )
 
 export const getMeetingIdsForCurrentUser = createSelector(
-  [ getMeetingIds, getMeetings, getCurrentUser ],
+  [ getMeetingIds, getMeetingEntities, getCurrentUser ],
   (meetingIds, meetings, user) => meetingIds.filter(id => meetings.getIn([id, 'owner']) === user.email)
 )
 
 export const getMeetingIdsForRoom = createSelector(
-  [ getMeetingIds, getMeetings, getRoom ],
+  [ getMeetingIds, getMeetingEntities, getRoomEntities ],
   (meetingIds, meetings, room) => meetingIds.filter(id => meetings.getIn(id, 'room') === room)
 )
 
-export const getMeetingTitle = createGetSelector(getMeeting, 'title')
-export const getMeetingStart = createGetSelector(getMeeting, 'start')
-export const getMeetingEnd = createGetSelector(getMeeting, 'end')
-export const getMeetingRoomName = createGetSelector(getMeetingRoom, 'name')
+export const getMeetingTitle = createGetSelector(getMeetingEntity, 'title')
+export const getMeetingStart = createGetSelector(getMeetingEntity, 'start')
+export const getMeetingEnd = createGetSelector(getMeetingEntity, 'end')
+export const getMeetingRoomName = createGetSelector(getMeetingRoomEntity, 'name')
 // NOTE - We never appear to care about meeting owner or participants, but
 // someday we might
 //

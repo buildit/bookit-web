@@ -11,11 +11,11 @@ const style = {
   padding: '20px',
 }
 
-export const MeetingItem = ({ title, start, end, room }) => (
+export const MeetingItem = ({ title, start, end, roomName }) => (
   <div style={style}>
     <h2>{ title }</h2>
     <p>{ formatDate(start) } - { formatDate(end) }</p>
-    <p>{ room } Room</p>
+    <p>{ roomName } Room</p>
   </div>
 )
 
@@ -23,7 +23,7 @@ MeetingItem.propTypes = {
   title: PropTypes.string,
   start: PropTypes.string,
   end: PropTypes.string,
-  room: PropTypes.string,
+  roomName: PropTypes.string,
 }
 
 export default MeetingItem

@@ -1,11 +1,12 @@
 // import agent from 'superagent'
 
 // import moment from 'moment'
+import normalizeData from './schema'
 
 export const FETCH_MEETINGS = 'FETCH_MEETINGS'
 
 export const REQUEST_MEETINGS = 'REQUEST_MEETINGS'
-export const RECEIVE_MEETINGS = 'RECEIVE_MEETINGS'
+export const RECEIVE_DATA = 'RECEIVE_DATA'
 
 export const SELECT_DATE = 'SELECT_DATE'
 export const INVALIDATE_DATE = 'INVALIDATE_DATE'
@@ -25,9 +26,9 @@ export const requestMeetings = date => ({
   date,
 })
 
-export const receiveMeetings = (date, entities) => ({
-  type: RECEIVE_MEETINGS,
-  entities,
+export const receiveData = data => ({
+  type: RECEIVE_DATA,
+  data: normalizeData(data),
 })
 
 // const fetchMeetings = date => (dispatch) => {

@@ -17,7 +17,7 @@ export default (WrappedComponent) => {
       title: getMeetingTitle,
       start: getMeetingStart,
       end: getMeetingEnd,
-      room: getMeetingRoomName,
+      roomName: getMeetingRoomName,
     })
   )(WrappedComponent)
 
