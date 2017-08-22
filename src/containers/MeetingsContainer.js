@@ -33,9 +33,9 @@ class MeetingsContainer extends Component {
     const { selectedDate, meetingIds } = this.props
     return (
       <div>
-        <h1>SELECTED DATE: {selectedDate}</h1>
-        {!meetingIds.length && <h2>NO MEETINGS</h2>}
-        { meetingIds.map(id => (<MeetingItem key={id} id={id} />)) }
+        { !meetingIds.length && <h1>LOADING...</h1> }
+        { meetingIds.length && <h1>SELECTED DATE: {selectedDate}</h1> }
+        { meetingIds.length && meetingIds.map(id => (<MeetingItem key={id} id={id} />)) }
       </div>
     )
   }
