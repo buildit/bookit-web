@@ -36,7 +36,7 @@ services:
     expose:
       - "8888"
     environment:
-      - USE_CLOUD=true
+      - USE_AZURE=true
       - JWT_TOKEN_SECRET="I need to get a grip on Biggus Dickus"
       - CLOUD_CONFIG
       - BUILDIT_SECRET
