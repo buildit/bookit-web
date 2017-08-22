@@ -42,8 +42,6 @@ before_script:
 script:
   - yarn lint
   - yarn test:unit -- --colors --ci --silent
-  # Runs functional tests only when branch is master and this is NOT a PR
-  - ./scripts/run-dockerized-functional-tests.sh docker-compose.testcafe.aws.yml bookit_testcafe_aws
 
 after_success:
   - ./scripts/run-coveralls.sh
@@ -74,6 +72,10 @@ deploy:
     script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}
     on:
       branch: 33-deploy-to-ecs
+
+after_deploy:
+  # Runs functional tests only when branch is master and this is NOT a PR
+  - ./scripts/run-dockerized-functional-tests.sh docker-compose.testcafe.aws.yml bookit_testcafe_aws
 
 notifications:
   slack:
