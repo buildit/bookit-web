@@ -6,7 +6,6 @@ import {
 const initialState = {
   email: null,
   name: null,
-  id: null,
   token: null,
   isAdmin: false,
 }
@@ -25,7 +24,6 @@ const user = (state = initialState, action) => {
     return {
       email: null,
       name: null,
-      id: null,
       token: null,
       isAdmin: false,
     }

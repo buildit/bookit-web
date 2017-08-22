@@ -3,8 +3,8 @@ import moment from 'moment'
 
 import { apiBaseUrl } from './utils'
 
-export const createMeeting = (token, meeting, room) => agent
-  .post(`${apiBaseUrl}/room/${room.email}/meeting`)
+export const createMeeting = (token, meeting, roomEmail) => agent
+  .post(`${apiBaseUrl}/room/${roomEmail}/meeting`)
   .set('x-access-token', token)
   .send({
     title: meeting.title,
@@ -32,6 +32,7 @@ export const fetchMeetings = (token, startDate, endDate) => {
 }
 
 export const editMeeting = (token, meeting, roomEmail) => {
+
   return agent
     .put(`${apiBaseUrl}/room/${roomEmail}/meeting/${meeting.id}`)
     .set('x-access-token', token)

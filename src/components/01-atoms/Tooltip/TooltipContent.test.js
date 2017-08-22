@@ -68,7 +68,7 @@ describe('<TooltipContent />', () => {
     expect(wrapper.find('.edit').length).toBe(0)
   })
 
-  it('shows edit when user does not own meeting, but is an admin', () => {
+  it('edit button is visible to admin users, even if they do not own the meeting', () => {
     const propsCopy = { ...props, isOwnedByUser: false, user: { name: 'admin', isUserAdmin: true } }
     const wrapper = shallow(<TooltipContent {...propsCopy} />)
     expect(wrapper.find('.edit').length).toBe(0)

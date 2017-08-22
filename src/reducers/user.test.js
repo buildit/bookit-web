@@ -6,8 +6,8 @@ import {
 const initialState = {
   email: null,
   name: null,
-  id: null,
   token: null,
+  isAdmin: false,
 }
 
 import user from './user'
@@ -15,19 +15,23 @@ import user from './user'
 describe('user reducer', () => {
 
   it('set a user', () => {
-    const newState = user(initialState, { type: SET_USER , payload:
-      {email:  '', name: '', id: '', token: ''}})
-    expect(newState.email).not.toBeNull()
-    expect(newState.name).not.toBeNull()
-    expect(newState.id).not.toBeNull()
-    expect(newState.token).not.toBeNull()
+    const newUser = {
+      email: 'boo@foo.com',
+      name: 'Boo Foo',
+      token: 'blurg',
+      isAdmin: false,
+    }
+    const action = {
+      type: SET_USER,
+      payload: newUser,
+    }
+    const newState = user(initialState, action)
+
+    expect(newState).toEqual(newUser)
   })
 
   it('reset a user', () => {
     const newState = user(initialState, { type: RESET_USER })
-    expect(newState.email).toBeNull()
-    expect(newState.name).toBeNull()
-    expect(newState.id).toBeNull()
-    expect(newState.token).toBeNull()
+    expect(newState).toEqual(initialState)
   })
 })

@@ -66,7 +66,7 @@ describe('Meetings Sagas', () => {
       start,
       end,
     }
-    const expectedRoomArg = { email: 'bleep@bloop.com'}
+    const expectedRoomArg = 'bleep@bloop.com'
 
 
     /**** Declare the expectations ****/
@@ -105,7 +105,7 @@ describe('Meetings Sagas', () => {
       start,
       end,
     }
-    const expectedRoomArg = { email: 'bleep@bloop.com'}
+    const expectedRoomArg = 'bleep@bloop.com'
 
 
     /**** Declare the expectations ****/
