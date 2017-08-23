@@ -8,9 +8,10 @@ import { isBooking } from '../../../selectors'
 import moment from 'moment'
 
 export const TooltipContent =
-  ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, isBooking }) => {
+  ({ title, start, end, roomName, owner, isUserAdmin, isOwnedByUser, styles, onEditClick, isBooking }) => {
     const now = moment()
-    const isEditable = isOwnedByUser && end.isAfter(now) && !isBooking
+    const isEditable = (isOwnedByUser || isUserAdmin) && !isBooking && end.isAfter(now) 
+
     return (
       <div className={styles.content}>
         <div>
@@ -35,6 +36,7 @@ TooltipContent.propTypes = {
   owner: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
+  isUserAdmin: PropTypes.bool.isRequired,
   isOwnedByUser: PropTypes.bool.isRequired,
   styles: PropTypes.shape({}),
   onEditClick: PropTypes.func.isRequired,

@@ -38,13 +38,13 @@ export function* upsertMeeting(action) {
       start: action.payload.start,
       end: action.payload.end,
     }
-    const room = { email: action.payload.room }
+    const roomEmail = action.payload.room
     const token = yield select(getUserToken)
 
     const mode = meeting.id ? 'update' : 'insert'
 
     if (mode === 'insert') {
-      yield call(api.createMeeting, token, meeting, room)
+      yield call(api.createMeeting, token, meeting, roomEmail)
       yield put(abortUiAction())
       yield put(destroy('meeting-editor'))
       yield put(meetingUpsertSucceeded())
@@ -52,7 +52,7 @@ export function* upsertMeeting(action) {
     }
 
     if (mode === 'update') {
-      yield call(api.editMeeting, token, meeting, room)
+      yield call(api.editMeeting, token, meeting, roomEmail)
       yield put(abortUiAction())
       yield put(destroy('meeting-editor'))
       yield put(meetingUpsertSucceeded())

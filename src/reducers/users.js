@@ -12,7 +12,7 @@ const users = (state = [], action) => {
   }
   case USERS_FETCH_SUCCEEDED: {
     const users = action.payload
-    return users 
+    return users
   }
   default: {
     return state

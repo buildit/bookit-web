@@ -7,6 +7,8 @@ import { HOUR_WIDTH } from '../../../utils/calculateMeetingOffset'
 
 import Meeting from '../Meeting'
 
+import USER_SHAPE from '../../../models/user'
+
 import styles from './styles.scss'
 
 class RoomTimeline extends React.Component {
@@ -26,7 +28,7 @@ class RoomTimeline extends React.Component {
       <div className={styles.room}>
         <div className={styles.timeline}>
           <div className={styles.meetings} onClick={onTimelineClick}>
-            { this.props.meetings.map(meeting => <Meeting key={meeting.id} meeting={meeting} />)}
+            { this.props.meetings.map(meeting => <Meeting key={meeting.id} meeting={meeting} user={this.props.user}/>)}
           </div>
         </div>
       </div>
@@ -35,6 +37,7 @@ class RoomTimeline extends React.Component {
 }
 
 RoomTimeline.propTypes = {
+  user: USER_SHAPE,
   room: PropTypes.shape({
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
