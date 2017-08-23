@@ -12,10 +12,7 @@ const UserTableRow = ({ user, onRemoveClick }) => (
     <td>{formatName(user)}</td>
     <td>{user.location}</td>
     <td>{user.email}</td>
-    {
-      (user.team !== 'DESIGNIT') &&
-      <td className={styles.remove} onClick={() => onRemoveClick(user.email)}>Remove</td>
-    }
+    <td className={styles.remove} onClick={() => onRemoveClick(user.email)}>Remove</td>
   </tr>
 )
 
