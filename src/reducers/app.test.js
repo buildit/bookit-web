@@ -3,19 +3,15 @@ import {
   RESET_UI,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
-  CLOSE_CANCELLATION_DIALOG,
-  CREATE_MEETING_CANCEL,
+  ABORT_UI_ACTION,
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
-  CLOSE_MEETING_DIALOG,
   SELECT_DATE_SUCCEEDED,
   OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
   OPEN_INVITE_USER_DIALOG,
-  CLOSE_INVITE_USER_DIALOG,
   OPEN_REMOVE_USER_DIALOG,
-  CLOSE_CONFIRMATION_DIALOG,
   USER_INVITE_SUCCEEDED,
   USER_INVITE_FAILED,
   USER_REMOVE_SUCCEEDED,
@@ -30,11 +26,7 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
-  isCreatingMeeting: false,
-  isEditingMeeting: false,
-  isCancellingMeeting: false,
-  isInvitingUser: false,
-  isRemovingUser: false,
+  uiAction: '',
   userToBeRemoved: '',
   meetingEditForm: {
     title: '',
@@ -66,19 +58,18 @@ describe('app reducer', () => {
 
   it('sets the approprate state on a Cancel', () => {
     const newState = app(initialState, { type: OPEN_CANCELLATION_DIALOG })
-    expect(newState.isEditingMeeting).toBeFalsy()
-    expect(newState.isCancellingMeeting).toBeTruthy()
+    expect(newState.uiAction).toBe('cancelling')
   })
 
   it('sets the approprate state when the meeting is cancelled', () => {
     const newState = app(initialState, { type: CANCEL_MEETING_SUCCEEDED })
-    expect(newState.isCancellingMeeting).toBeFalsy()
+    expect(newState.uiAction).toBe('')
     expect(newState.messages[0]).toContain('successfully')
   })
 
   it('sets the approprate state when the meeting was not cancelled', () => {
     const newState = app(initialState, { type: CANCEL_MEETING_FAILED })
-    expect(newState.isCancellingMeeting).toBeFalsy()
+    expect(newState.uiAction).toBe('')
     expect(newState.messages[0]).toContain('problem')
   })
 
@@ -86,7 +77,7 @@ describe('app reducer', () => {
     const now = moment()
     const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload:
       {meeting:  now.hours() + 1, room: {email: 'room@rooms.com'}}})
-    expect(newState.isCreatingMeeting).toBeTruthy()
+    expect(newState.uiAction).toBe('creating')
     expect(newState.requestedMeeting).toBeDefined()
   })
 
@@ -94,60 +85,31 @@ describe('app reducer', () => {
     const now = moment()
     const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload:
       {meeting:  now.hours() -2, room: {email: 'room@rooms.com'}}})
-    expect(newState.isCreatingMeeting).toBeFalsy()
+    expect(newState.uiAction).toBe('')
   })
 
   it('sets the approprate state when filling out meeting data', () => {
     const now = moment()
     const newState = app(initialState, { type: POPULATE_MEETING_EDIT_FORM, payload:
       {meeting: {id: 'ID', title: 'TITLE', start: now.add(1).format(), end: now.add(2).format(), roomId: 'room@room.com', roomName: 'Gray'}}})
-    expect(newState.isEditingMeeting).toBeTruthy()
+    expect(newState.uiAction).toBe('editing')
     expect(newState.requestedMeeting).toBeDefined()
   })
 
-  it('sets the approprate state when closing a dialog', () => {
-    const newState = app(initialState, { type: CLOSE_CANCELLATION_DIALOG })
-    expect(newState.isCreatingMeeting).toBeFalsy()
-    expect(newState.isEditingMeeting).toBeFalsy()
-    expect(newState.isCancellingMeeting).toBeFalsy()
-    expect(newState.messages).toHaveLength(0)
-  })
-
-  it('sets the approprate state when closing a dialog', () => {
-    const newState = app(initialState, { type: CREATE_MEETING_CANCEL })
-    expect(newState.isCreatingMeeting).toBeFalsy()
-    expect(newState.isEditingMeeting).toBeFalsy()
-    expect(newState.isCancellingMeeting).toBeFalsy()
-    expect(newState.messages).toHaveLength(0)
-  })
-
-  it('sets the approprate state when closing a dialog', () => {
-    const newState = app(initialState, { type: CLOSE_MEETING_DIALOG })
-    expect(newState.isCreatingMeeting).toBeFalsy()
-    expect(newState.isEditingMeeting).toBeFalsy()
-    expect(newState.isCancellingMeeting).toBeFalsy()
+  it('sets the approprate state when closing any info panel dialog', () => {
+    const newState = app(initialState, { type: ABORT_UI_ACTION })
+    expect(newState.uiAction).toBe('')
     expect(newState.messages).toHaveLength(0)
   })
 
   it('sets the approprate state when opening the invite dialog', () => {
     const newState = app(initialState, { type: OPEN_INVITE_USER_DIALOG })
-    expect(newState.isInvitingUser).toBeTruthy()
-  })
-
-  it('sets the approprate state when closing the invite dialog', () => {
-    const newState = app(initialState, { type: CLOSE_INVITE_USER_DIALOG })
-    expect(newState.isInvitingUser).toBeFalsy()
+    expect(newState.uiAction).toBe('inviting')
   })
 
   it('sets the approprate state when opening the remove dialog', () => {
     const newState = app(initialState, { type: OPEN_REMOVE_USER_DIALOG })
-    expect(newState.isRemovingUser).toBeTruthy()
-  })
-
-  it('sets the approprate state when closing the confirm dialog', () => {
-    const newState = app(initialState, { type: CLOSE_CONFIRMATION_DIALOG })
-    expect(newState.isRemovingUser).toBeFalsy()
-    expect(newState.userToBeRemoved).toHaveLength(0)
+    expect(newState.uiAction).toBe('removing')
   })
 
   it('sets the approprate state when inviting a user', () => {
