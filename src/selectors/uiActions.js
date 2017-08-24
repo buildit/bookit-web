@@ -7,7 +7,7 @@ import {
   REMOVING_USER,
 } from '../constants/uiActions'
 
-export const getUiAction = state => state.app.uiAction
+export const getUiAction = state => state.uiAction
 export const isCreatingBooking = state => getUiAction(state) === CREATING_MEETING
 export const isEditingBooking = state => getUiAction(state) === EDITING_MEETING
 export const isCancellingBooking = state => getUiAction(state) === CANCELLING_MEETING

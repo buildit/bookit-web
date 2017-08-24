@@ -3,6 +3,7 @@ import app from './app'
 import user from './user'
 import users from './users'
 import ajax from './ajax'
+import uiAction from './uiAction'
 
 export default {
   user,
@@ -10,4 +11,5 @@ export default {
   login,
   app,
   ajax,
+  uiAction,
 }

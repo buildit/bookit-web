@@ -2,30 +2,19 @@ import moment from 'moment'
 import {
   RESET_UI,
   ABORT_UI_ACTION,
-  INIT_MEETING_FORM,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
   SELECT_DATE_SUCCEEDED,
-  OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
-  OPEN_INVITE_USER_DIALOG,
   USER_INVITE_SUCCEEDED,
   USER_INVITE_FAILED,
   OPEN_REMOVE_USER_DIALOG,
   USER_REMOVE_SUCCEEDED,
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
-
-import {
-  CREATING_MEETING,
-  EDITING_MEETING,
-  CANCELLING_MEETING,
-  INVITING_USER,
-  REMOVING_USER,
-} from '../constants/uiActions'
 
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot'
 
@@ -39,7 +28,6 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
-  uiAction: '',
   userToBeRemoved: '',
   inviteUserForm: {
     email: '',
@@ -60,37 +48,22 @@ const app = (state = initialState, action) => {
       allRoomIds: action.payload.allRoomIds,
     }
   }
-  case OPEN_CANCELLATION_DIALOG: {
+  case MEETINGS_FETCH_FAILED: {
     return {
       ...state,
-      uiAction: CANCELLING_MEETING,
+      messages: ['There was a problem fetching the meetings.'],
     }
   }
   case CANCEL_MEETING_SUCCEEDED: {
     return {
       ...state,
-      uiAction: '',
       messages: ['Your meeting was successfully cancelled.'],
     }
   }
   case CANCEL_MEETING_FAILED: {
     return {
       ...state,
-      uiAction: '',
       messages: ['Oh no! There was a problem cancelling your meeting.'],
-    }
-  }
-  case INIT_MEETING_FORM: {
-    // TODO: Both POPULATE_MEETING_CREATE_FORM and POPULATE_MEETING_EDIT_FORM
-    // can be removed in favour of this action with the appropriate type
-    // set.
-    //
-    // const isQuickMeeting = action.payload.type === 'quickBooking'
-    // const isCreatingMeeting = action.payload.type === 'creating'
-    // const isEditingMeeting = action.payload.type === 'editing'
-    return {
-      ...state,
-      uiAction: action.payload.type,
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
@@ -114,7 +87,6 @@ const app = (state = initialState, action) => {
       }
       return {
         ...state,
-        uiAction: CREATING_MEETING,
         requestedMeeting: meeting,
       }
     }
@@ -133,30 +105,21 @@ const app = (state = initialState, action) => {
     }
     return {
       ...state,
-      uiAction: EDITING_MEETING,
       requestedMeeting: meeting,
     }
   }
   case ABORT_UI_ACTION: {
     return {
       ...state,
-      uiAction: '',
       messages: [],
       requestedMeeting: {},
       userToBeRemoved: '',
-    }
-  }
-  case OPEN_INVITE_USER_DIALOG: {
-    return {
-      ...state,
-      uiAction: INVITING_USER,
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
-      uiAction: REMOVING_USER,
       userToBeRemoved,
     }
   }
@@ -184,11 +147,10 @@ const app = (state = initialState, action) => {
       messages: [`${action.payload}`],
     }
   }
-  case MEETINGS_FETCH_FAILED: {
-    return { ...state, messages: ['There was a problem fetching the meetings.'] }
-  }
   case SELECT_DATE_SUCCEEDED: {
-    return { ...state, selectedDate: action.payload.date }
+    return { ...state,
+      selectedDate: action.payload.date,
+    }
   }
   default: {
     return state
