@@ -19,6 +19,14 @@ import {
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
 
+import {
+  CREATING_MEETING,
+  EDITING_MEETING,
+  CANCELLING_MEETING,
+  INVITING_USER,
+  REMOVING_USER,
+} from '../constants/uiActions'
+
 import getAvailableTimeSlot from '../utils/getAvailableTimeSlot'
 
 // TODO: flatten!
@@ -55,7 +63,7 @@ const app = (state = initialState, action) => {
   case OPEN_CANCELLATION_DIALOG: {
     return {
       ...state,
-      uiAction: 'cancelling',
+      uiAction: CANCELLING_MEETING,
     }
   }
   case CANCEL_MEETING_SUCCEEDED: {
@@ -106,7 +114,7 @@ const app = (state = initialState, action) => {
       }
       return {
         ...state,
-        uiAction: 'creating',
+        uiAction: CREATING_MEETING,
         requestedMeeting: meeting,
       }
     }
@@ -125,7 +133,7 @@ const app = (state = initialState, action) => {
     }
     return {
       ...state,
-      uiAction: 'editing',
+      uiAction: EDITING_MEETING,
       requestedMeeting: meeting,
     }
   }
@@ -141,14 +149,14 @@ const app = (state = initialState, action) => {
   case OPEN_INVITE_USER_DIALOG: {
     return {
       ...state,
-      uiAction: 'inviting',
+      uiAction: INVITING_USER,
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
-      uiAction: 'removing',
+      uiAction: REMOVING_USER,
       userToBeRemoved,
     }
   }

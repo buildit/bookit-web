@@ -8,7 +8,7 @@ import styles from './styles.scss'
 
 import { getRooms } from '../../../selectors'
 
-const radioButtonGenerator = ({ input, rooms, meta: { touched, error } }) => (
+const RoomPicker = ({ input, rooms, meta: { touched, error } }) => (
   <div>
     <label className={styles.radioFieldLabel}>Available Rooms</label>
     <div className={styles.radioGrid}>
@@ -34,7 +34,7 @@ const radioButtonGenerator = ({ input, rooms, meta: { touched, error } }) => (
   </div>
 )
 
-radioButtonGenerator.propTypes = {
+RoomPicker.propTypes = {
   input: PropTypes.shape(),
   rooms: PropTypes.array,
   meta: PropTypes.shape({
@@ -48,4 +48,4 @@ const mapStateToProps = state => ({
   rooms: getRooms(state),
 })
 
-export default connect(mapStateToProps)(radioButtonGenerator)
+export default connect(mapStateToProps)(RoomPicker)

@@ -15,6 +15,10 @@ import {
   openInviteUserDialog,
  } from '../../actions'
 
+import {
+  QUICK_BOOKING_MEETING,
+} from '../../constants/uiActions'
+
 import UIBlocker from '../../components/01-atoms/UIBlocker'
 import Calendar from '../../components/01-atoms/Calendar'
 import Messages from '../../components/02-molecules/Messages'
@@ -146,7 +150,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(openInviteUserDialog())
   },
   handleInitMeetingForm: () => {
-    dispatch(initMeetingForm('quickBooking'))
+    dispatch(initMeetingForm(QUICK_BOOKING_MEETING))
   },
 })
 

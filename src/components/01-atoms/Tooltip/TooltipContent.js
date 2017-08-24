@@ -10,7 +10,7 @@ import moment from 'moment'
 export const TooltipContent =
   ({ title, start, end, roomName, owner, isUserAdmin, isOwnedByUser, styles, onEditClick, isBooking }) => {
     const now = moment()
-    const isEditable = (isOwnedByUser || isUserAdmin) && !isBooking && end.isAfter(now) 
+    const isEditable = (isOwnedByUser || isUserAdmin) && !isBooking && end.isAfter(now)
 
     return (
       <div className={styles.content}>
@@ -43,8 +43,8 @@ TooltipContent.propTypes = {
   isBooking: PropTypes.bool,
 }
 
-
-
-export default connect(state => ({
+const mapStateToProps = state => ({
   isBooking: isBooking(state),
-}))(TooltipContent)
+})
+
+export default connect(mapStateToProps)(TooltipContent)

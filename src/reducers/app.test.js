@@ -18,6 +18,14 @@ import {
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
 
+import {
+  CREATING_MEETING,
+  EDITING_MEETING,
+  CANCELLING_MEETING,
+  INVITING_USER,
+  REMOVING_USER,
+} from '../constants/uiActions'
+
 const initialState = {
   messages: [],
   requestedMeeting: {},
@@ -58,7 +66,7 @@ describe('app reducer', () => {
 
   it('sets the approprate state on a Cancel', () => {
     const newState = app(initialState, { type: OPEN_CANCELLATION_DIALOG })
-    expect(newState.uiAction).toBe('cancelling')
+    expect(newState.uiAction).toBe(CANCELLING_MEETING)
   })
 
   it('sets the approprate state when the meeting is cancelled', () => {
@@ -77,7 +85,7 @@ describe('app reducer', () => {
     const now = moment()
     const newState = app(initialState, { type: POPULATE_MEETING_CREATE_FORM, payload:
       {meeting:  now.hours() + 1, room: {email: 'room@rooms.com'}}})
-    expect(newState.uiAction).toBe('creating')
+    expect(newState.uiAction).toBe(CREATING_MEETING)
     expect(newState.requestedMeeting).toBeDefined()
   })
 
@@ -92,7 +100,7 @@ describe('app reducer', () => {
     const now = moment()
     const newState = app(initialState, { type: POPULATE_MEETING_EDIT_FORM, payload:
       {meeting: {id: 'ID', title: 'TITLE', start: now.add(1).format(), end: now.add(2).format(), roomId: 'room@room.com', roomName: 'Gray'}}})
-    expect(newState.uiAction).toBe('editing')
+    expect(newState.uiAction).toBe(EDITING_MEETING)
     expect(newState.requestedMeeting).toBeDefined()
   })
 
@@ -104,12 +112,12 @@ describe('app reducer', () => {
 
   it('sets the approprate state when opening the invite dialog', () => {
     const newState = app(initialState, { type: OPEN_INVITE_USER_DIALOG })
-    expect(newState.uiAction).toBe('inviting')
+    expect(newState.uiAction).toBe(INVITING_USER)
   })
 
   it('sets the approprate state when opening the remove dialog', () => {
     const newState = app(initialState, { type: OPEN_REMOVE_USER_DIALOG })
-    expect(newState.uiAction).toBe('removing')
+    expect(newState.uiAction).toBe(REMOVING_USER)
   })
 
   it('sets the approprate state when inviting a user', () => {
