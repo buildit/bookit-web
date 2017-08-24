@@ -26,7 +26,7 @@ env:
     - ENVIRONMENT=dev
     - ECS_REPO=benaychh-bookit-dev-server-ecr-repo
     - ECS_CLUSTER=benaychh-bookit-dev-ECSCluster
-    - ECS_SERVICE=benaychh-bookit-dev-app-BookitServerService-FL53YOOW3SR3-Service-EXZTM07RQDVZ
+    - ECS_SERVICE=benaychh-bookit-dev-app-BookitWebService-DDHNLFOXYZMH-Service-1ETMKTGXL0AJ1
     # AWS_ACCESS_KEY_ID (CloudFormation stack IAM account)
     - secure: e6TDa4l925c4ieEfIYwMin0wD9XMmYKtR0POh2hLqzIO+ornHYu+mya6ogZaPHbGiSts6Y7NxJnAgdmUKe4Y+SN0JlsTDXUvnx6rlXltePaXGeREE4pI4TZHm6FUHHVti2qHCJfIouP1Bg41h/9JU7ROpag7r/+0E/TjTj+PUdfY7O1hTz+EBrJpU5kcWhtTzO1AmJmkifGG45sMYLUDFcjD2IgjH+IcscwAcR03UxdSg/6kLw9lzGT1X4EMBVVCRVK9Rmu9hsHJv35aslpGg1trjW0MDRFQCCO3eioP8BoZxhjDOQu8mTZX1FVGEUqe5Tu6jCE38qJxK2xLi+0MvRmCmSslYfV/nSpxzM1+P/G4tl4gu+Tw/h3tLUJV7atrdlKLj9bINdBDBoTtvHpwahAoRmxtAVSJHaZ1z4X23R1hft5dElzDNFwvZsWkhJjABlomJCFX6a31LpPXWZsIzkp82qWofgLJRVxWj9SibGqOtnQeQLJmZO7DGKkJknwa+yMPECCxw/dGHWD9WcFr19IDDua83oGJ96vTX+xeN59Pk5QGj/bZVqMkzuxgWKAayXTRVRkCECvoLgdJi/nHOBTu1dqH+E1ZTkxOzdLl1xCOWNA0SJJYBhTaEcjS70AIkqb1m53pqNFRU8bp7VG9jL7ai838fncq3Fw9x5LldQ0=
     # AWS_SECRET_ACCESS_KEY (CloudFormation stack IAM account)
