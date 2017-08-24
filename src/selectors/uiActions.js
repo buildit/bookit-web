@@ -7,16 +7,6 @@ import {
   REMOVING_USER,
 } from '../constants/uiActions'
 
-export const getUser = state => state.user
-
-export const getUserToken = state => getUser(state).token
-
-export const getRooms = state => state.app.allRoomIds.map(roomId => state.app.roomsById[roomId])
-export const getRoomName = (state, id) => {
-  if (state.app.roomsById.hasOwnProperty(id)) return state.app.roomsById[id].name
-  return null
-}
-
 export const getUiAction = state => state.app.uiAction
 export const isCreatingBooking = state => getUiAction(state) === CREATING_MEETING
 export const isEditingBooking = state => getUiAction(state) === EDITING_MEETING
