@@ -24,7 +24,7 @@ env:
     - BOOKITURI=http://dev-bookit-server.riglet.io
     # This identifies what namespace to pull configuration from
     - ENVIRONMENT=dev
-    - ECS_REPO=benaychh-bookit-dev-server-ecr-repo
+    - ECS_REPO=benaychh-bookit-dev-web-ecr-repo
     - ECS_CLUSTER=benaychh-bookit-dev-ECSCluster
     - ECS_SERVICE=benaychh-bookit-dev-app-BookitWebService-DDHNLFOXYZMH-Service-1ETMKTGXL0AJ1
     # AWS_ACCESS_KEY_ID (CloudFormation stack IAM account)
