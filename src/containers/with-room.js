@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createPropsSelector } from 'reselect-immutable-helpers'
 
-import { getRoomMeetings } from '../selectors'
+import { getMeetingsForRoom } from '../selectors'
 
 import {
   getRoomName,
@@ -14,7 +14,7 @@ import {
 export default (WrappedComponent) => {
   const withRoom = connect(
     createPropsSelector({
-      meetings: getRoomMeetings,
+      meetings: getMeetingsForRoom,
       name: getRoomName,
       email: getRoomEmail,
     })

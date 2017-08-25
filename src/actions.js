@@ -1,35 +1,29 @@
-// import agent from 'superagent'
+import { createAction } from 'redux-actions'
 
-// import moment from 'moment'
 import normalizeData from './schema'
 
-export const FETCH_MEETINGS = 'FETCH_MEETINGS'
+export const SET_USER = 'SET_USER'
+
+export const SELECT_MEETING = 'SELECT_MEETING'
+export const SELECT_DATE = 'SELECT_DATE'
 
 export const REQUEST_MEETINGS = 'REQUEST_MEETINGS'
-export const RECEIVE_DATA = 'RECEIVE_DATA'
+export const FETCH_MEETINGS = 'FETCH_MEETINGS'
+export const RECEIVE_MEETINGS = 'RECEIVE_MEETINGS'
 
-export const SELECT_DATE = 'SELECT_DATE'
-export const INVALIDATE_DATE = 'INVALIDATE_DATE'
+export const setUser = createAction(SET_USER)
 
-export const selectDate = date => ({
-  type: SELECT_DATE,
-  date,
-})
+export const selectMeeting = createAction(SELECT_MEETING)
+export const selectDate = createAction(SELECT_DATE)
 
-export const invalidateDate = date => ({
-  type: INVALIDATE_DATE,
-  date,
-})
+export const requestMeetings = createAction(REQUEST_MEETINGS)
+export const fetchMeetings = createAction(FETCH_MEETINGS)
+export const receiveMeetings = createAction(RECEIVE_MEETINGS, data => normalizeData(data))
 
-export const requestMeetings = date => ({
-  type: REQUEST_MEETINGS,
-  date,
-})
-
-export const receiveData = data => ({
-  type: RECEIVE_DATA,
-  data: normalizeData(data),
-})
+// export const selectDate = date => ({ type: SELECT_DATE, date })
+// export const requestMeetings = date => ({ type: REQUEST_MEETINGS, date })
+// export const fetchMeetingsIfNeeded = () => ({ type: FETCH_MEETINGS })
+// export const receiveData = data => ({type: RECEIVE_DATA, data: normalizeData(data) })
 
 // const fetchMeetings = date => (dispatch) => {
 //   dispatch(requestMeetings(date))
@@ -54,7 +48,6 @@ export const receiveData = data => ({
 //   return meetings.didInvalidate
 // }
 
-export const fetchMeetingsIfNeeded = () => ({ type: FETCH_MEETINGS })
 // export const fetchMeetingsIfNeeded = date => (dispatch, getState) => {
 //   if (shouldFetchMeetings(getState(), date)) {
 //     return dispatch(fetchMeetings(date))

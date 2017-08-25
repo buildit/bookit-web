@@ -1,28 +1,21 @@
-import { call, put, select, take } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
 import agent from 'superagent'
 import moment from 'moment'
 
 import {
-  REQUEST_MEETINGS,
   FETCH_MEETINGS,
-  receiveData,
+  receiveMeetings,
 } from '../actions'
 
-import { getSelectedDate } from '../selectors'
+const Api = {
+  fetchMeetings: (date) => {
+    const end = moment(date).add(1, 'day').format('YYYY-MM-DD')
 
-
-const agentFetchData = (date) => {
-  const end = moment(date).add(1, 'day').format('YYYY-MM-DD')
-
-  return agent
-    .get(`http://localhost:8888/rooms/nyc/meetings?start=${date}&end=${end}`)
-    .then(response => response.body)
-}
-
-function* apiFetchData(date) {
-  yield put({ type: REQUEST_MEETINGS, date })
-  return yield call(agentFetchData, date)
+    return agent
+      .get(`http://localhost:8888/rooms/nyc/meetings?start=${date}&end=${end}`)
+      .then(response => response.body)
+  },
 }
 
 // const shouldFetchMeetings = (state, date) => {
@@ -42,22 +35,20 @@ function* apiFetchData(date) {
 //   }
 // }
 
-function* fetchDataSaga() {
-  while (true) {  // eslint-disable-line no-constant-condition
-    yield take(FETCH_MEETINGS)
-    try {
-      const date = yield select(getSelectedDate)
-      const data = yield call(apiFetchData, date)
-      yield put(receiveData(data))
-    } catch (error) {
-      // Should probably do something in here
-      console.log('PISS SHIT', error)
-    }
+function* fetchMeetingsSaga(action) {
+  const { payload: date } = action
+
+  try {
+    const json = yield call(Api.fetchMeetings, date)
+    yield put(receiveMeetings(json))
+  } catch (error) {
+    // Should probably do something in here
+    console.log('PISS SHIT', error)
   }
 }
 
 function* rootSaga() {
-  yield call(fetchDataSaga)
+  yield takeEvery(FETCH_MEETINGS, fetchMeetingsSaga)
 }
 
 export default rootSaga

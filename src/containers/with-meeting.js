@@ -9,17 +9,28 @@ import {
   getMeetingStart,
   getMeetingEnd,
   getMeetingRoomName,
+  isMeetingOwner,
 } from '../selectors'
 
+import { selectMeeting } from '../actions'
+
 export default (WrappedComponent) => {
-  const withMeeting = connect(
-    createPropsSelector({
-      title: getMeetingTitle,
-      start: getMeetingStart,
-      end: getMeetingEnd,
-      roomName: getMeetingRoomName,
-    })
-  )(WrappedComponent)
+  const mapStateToProps = createPropsSelector({
+    title: getMeetingTitle,
+    start: getMeetingStart,
+    end: getMeetingEnd,
+    roomName: getMeetingRoomName,
+    isMeetingOwner: isMeetingOwner,
+  })
+
+  // Object.assign({}, ownProps, stateProps, dispatchProps)
+  const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+    ...ownProps,
+    ...stateProps,
+    selectMeeting: () => dispatchProps.selectMeeting(ownProps.id),
+  })
+
+  const withMeeting = connect(mapStateToProps, { selectMeeting }, mergeProps)(WrappedComponent)
 
   withMeeting.propTypes = {
     id: PropTypes.string.isRequired,

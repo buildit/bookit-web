@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import { hasMeetings, getMeetingIds, getRoomIds, getSelectedDate } from '../selectors'
+import Moment from 'moment'
 
-import { fetchMeetingsIfNeeded, selectDate } from '../actions'
+import { hasMeetings, getMeetingIdsForSelectedDate, getRoomIds, getSelectedDate } from '../selectors'
+
+import { fetchMeetings, selectDate } from '../actions'
 
 import BaseMeetingItem from './MeetingItem'
 import BaseRoomItem from './RoomItem'
@@ -18,7 +20,7 @@ const RoomItem = withRoom(BaseRoomItem)
 
 class MeetingsContainer extends Component {
   static propTypes = {
-    fetchMeetingsIfNeeded: PropTypes.func,
+    fetchMeetings: PropTypes.func,
     selectDate: PropTypes.func,
     selectedDate: PropTypes.string.isRequired,
     hasMeetings: PropTypes.bool,
@@ -27,7 +29,7 @@ class MeetingsContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchMeetingsIfNeeded()
+    this.props.fetchMeetings(this.props.selectedDate)
   }
 
   handleChange = (nextDate) => {
@@ -35,9 +37,18 @@ class MeetingsContainer extends Component {
   }
 
   render() {
-    const { selectedDate, meetingIds, roomIds, hasMeetings } = this.props
+    const { selectedDate, selectDate, meetingIds, roomIds, hasMeetings } = this.props
+    const mutateDate = change => Moment(selectedDate).add(change, 'day').format('YYYY-MM-DD')
+
     return (
       <div>
+        <button onClick={() => selectDate(mutateDate(-1))}>
+          Previous Day
+        </button>
+        { '|' }
+        <button onClick={() => selectDate(mutateDate(1))}>
+          Next Day
+        </button>
         { !hasMeetings && <h1>LOADING...</h1> }
         { hasMeetings && <h1>SELECTED DATE: {selectedDate}</h1> }
         { roomIds.map(id => (<RoomItem key={id} id={id} />)) }
@@ -62,11 +73,11 @@ class MeetingsContainer extends Component {
 const mapStateToProps = state => ({
   selectedDate: getSelectedDate(state),
   hasMeetings: hasMeetings(state),
-  meetingIds: getMeetingIds(state),
+  meetingIds: getMeetingIdsForSelectedDate(state),
   roomIds: getRoomIds(state),
 })
 
 export default connect(
   mapStateToProps,
-  { fetchMeetingsIfNeeded, selectDate }
+  { fetchMeetings, selectDate }
 )(MeetingsContainer)

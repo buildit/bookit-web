@@ -26,4 +26,7 @@ MeetingItem.propTypes = {
   roomName: PropTypes.string,
 }
 
+// -> { id, title, start, end, room, owner } => { isMeetingInPast, isMeetingInFuture, isHappeningNow, isUserMeetingOwner, isUserAdmin }
+// * isMeetingEditable => { (isMeetingInFuture || isHappeningNow) && (isUserMeetingOwner || isUserAdmin) }
+
 export default MeetingItem
