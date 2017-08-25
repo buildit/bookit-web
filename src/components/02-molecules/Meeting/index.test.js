@@ -1,10 +1,10 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 
 import moment from 'moment'
 
 import { Meeting, TIMELINE_WIDTH } from '.'
-import TooltipContent from '../../01-atoms/Tooltip/TooltipContent'
+// import { TooltipContent } from '../../01-atoms/Tooltip/TooltipContent'
 
 // !THIS NEEDS MORE TESTS FOR MEANINGFUL COVERAGE!
 //
@@ -31,16 +31,12 @@ describe('<Meeting />', () => {
       isOwnedByUser: true,
     },
     onEditClick: jest.fn(),
-    isEditingMeeting: false,
     requestedMeetingId: 'xyz-123',
   }
 
   it('renders itself and its child <Tooltip /> using already in-place props', () => {
-    const wrapper = mount(<Meeting {...props} />)
+    const wrapper = shallow(<Meeting {...props} />)
     expect(wrapper).toBeTruthy()
-    expect(props.onEditClick.mock.calls.length).toBe(0)
-    wrapper.find(TooltipContent).first().find('.edit').first().simulate('click')
-    expect(props.onEditClick.mock.calls.length).toBe(1)
   })
 
   it('ensures its width is adjusted down when over `TIMELINE_WIDTH`', () => {

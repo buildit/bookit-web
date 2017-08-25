@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import moment from 'moment'
 
-import TooltipContent from './TooltipContent'
+import { TooltipContent } from './TooltipContent'
 
 describe('<TooltipContent />', () => {
   const props = {
@@ -16,7 +16,7 @@ describe('<TooltipContent />', () => {
     },
     isUserAdmin: false,
     isOwnedByUser: true,
-    isEditingMeeting: false,
+    isBooking: false,
     styles: {
       content: 'content',
       title: 'title',
@@ -63,7 +63,7 @@ describe('<TooltipContent />', () => {
   })
 
   it('does not show edit when user owns meeting, but is already editing a meeting', () => {
-    const propsCopy = { ...props, isOwnedByUser: true, isEditingMeeting: true }
+    const propsCopy = { ...props, isOwnedByUser: true, isBooking: true }
     const wrapper = shallow(<TooltipContent {...propsCopy} />)
     expect(wrapper.find('.edit').length).toBe(0)
   })

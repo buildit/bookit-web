@@ -6,7 +6,7 @@ import api from '../api'
 import {
   meetingsFetchSucceeded,
   meetingsFetchFailed,
-  closeMeetingDialog,
+  abortUiAction,
   cancelMeetingSucceeded,
   cancelMeetingFailed,
   meetingsFetchStart,
@@ -45,7 +45,7 @@ export function* upsertMeeting(action) {
 
     if (mode === 'insert') {
       yield call(api.createMeeting, token, meeting, roomEmail)
-      yield put(closeMeetingDialog())
+      yield put(abortUiAction())
       yield put(destroy('meeting-editor'))
       yield put(meetingUpsertSucceeded())
       yield call(fetchMeetings)
@@ -53,7 +53,7 @@ export function* upsertMeeting(action) {
 
     if (mode === 'update') {
       yield call(api.editMeeting, token, meeting, roomEmail)
-      yield put(closeMeetingDialog())
+      yield put(abortUiAction())
       yield put(destroy('meeting-editor'))
       yield put(meetingUpsertSucceeded())
       yield call(fetchMeetings)

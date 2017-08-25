@@ -130,10 +130,7 @@ export class Meeting extends React.Component {
           anchorContainerRef={(el) => { this.$anchorContainer = el }}
           anchorRef={(el) => { this.$anchor = el }}
           styles={styles}
-          isEditingMeeting={this.props.isEditingMeeting}
-          onEditClick={() => {
-            onEditClick(meeting)
-          }}
+          onEditClick={() => onEditClick(meeting)}
         />
       </div>
     )
@@ -145,7 +142,6 @@ Meeting.propTypes = {
   meeting: PropTypes.shape({ isOwnedByUser: PropTypes.bool }).isRequired,
   onEditClick: PropTypes.func.isRequired,
   requestedMeetingId: PropTypes.string,
-  isEditingMeeting: PropTypes.bool.isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -153,7 +149,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  isEditingMeeting: state.app.isEditingMeeting,
   requestedMeetingId: state.app.requestedMeeting.id,
 })
 

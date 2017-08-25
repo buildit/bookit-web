@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { reduxForm, Field, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
+import { reduxForm, Field, formValueSelector, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
 import { connect } from 'react-redux'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -16,6 +16,8 @@ import ErrorMessages from '../../components/02-molecules/ErrorMessages'
 import { mapInitialValues } from './utils'
 import { validate } from './validate'
 
+import { getRoomName, isQuickBooking, isEditingBooking } from '../../selectors'
+
 import styles from './styles.scss'
 
 import {
@@ -28,47 +30,44 @@ injectTapEventPlugin() // Required by Material UI components
 export const MeetingForm = ({
   handleSubmit,
   submitMeeting,
-  rooms,
-  isEditingMeeting,
-  handleDeleteClick,
   isQuickBooking,
-  roomName,
+  isEditingBooking,
+  handleDeleteClick,
   errors,
   isFormTouched,
   invalid,
+  roomName,
 }) => {
   return (
     <div>
-      { isEditingMeeting
-        ? <h2 className={styles.room}>Edit Booking</h2>
-        : <h2 className={styles.room}>Book { roomName } Room</h2> }
+      <h2 className={styles.room}>Book { roomName || 'a' } Room</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
       <form onSubmit={handleSubmit(submitMeeting)}>
         <Field
           name="title"
           component={TextField}
           floatingLabelFixed
           floatingLabelText="Event name"
+          style={{width: '324px', fontWeight: '100'}}
         />
+
         <Field name="start" component={DateTimePicker} />
         <Field name="end" component={DateTimePicker} />
 
-        { isQuickBooking
-          ? <Field name="room" component={RoomPicker} options={rooms} />
-          : null }
+        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
+        { !isQuickBooking && <Field name="room" component="input" type="hidden" /> }
+
         <div className={styles.buttons}>
           <Button
-            disabled={!isFormTouched || invalid}
-            type="submit" content={isEditingMeeting ? "Save" : "Bookit" } />
+            type="submit"
+            disabled={ !isFormTouched || invalid }
+            content={isEditingBooking ? "Save" : "Bookit" }
+          />
 
-          { isEditingMeeting
-            ? <Button onClick={handleDeleteClick} content="Delete" />
-            : null }
+          { isEditingBooking && <Button onClick={handleDeleteClick} content="Delete" /> }
         </div>
       </form>
 
-      { isFormTouched
-        ? <ErrorMessages errors={errors} />
-        : null }
+      { isFormTouched && <ErrorMessages errors={errors} /> }
     </div>
   )
 }
@@ -76,25 +75,25 @@ export const MeetingForm = ({
 MeetingForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitMeeting: PropTypes.func.isRequired,
-  rooms: PropTypes.arrayOf(PropTypes.shape({})),
-  isEditingMeeting: PropTypes.bool.isRequired,
-  isQuickBooking: PropTypes.bool.isRequired,
+  isEditingBooking: PropTypes.bool,
+  isQuickBooking: PropTypes.bool,
   handleDeleteClick: PropTypes.func.isRequired,
-  roomName: PropTypes.string.isRequired,
   errors: PropTypes.shape({}),
   isFormTouched: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
+  roomName: PropTypes.string,
 }
 
+const valueSelector = formValueSelector('meeting-form')
+
 const mapStateToProps = state => ({
-  roomName: state.app.requestedMeeting.room.name,
-  initialValues: mapInitialValues(state.app.requestedMeeting),
+  initialValues: mapInitialValues(state),
   isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
-  isEditingMeeting: state.app.isEditingMeeting,
-  isQuickBooking: false, // Replace with real state when Quick Booking is implemented
-  rooms: Object.values(state.app.roomsById), // Should be filtered by what's available
+  isQuickBooking: isQuickBooking(state),
+  isEditingBooking: isEditingBooking(state),
   errors: getFormSyncErrors('meeting-form')(state),
   invalid: isInvalid('meeting-form')(state),
+  roomName: getRoomName(state, valueSelector(state, 'room')),
 })
 
 const mapDispatchToProps = dispatch => ({

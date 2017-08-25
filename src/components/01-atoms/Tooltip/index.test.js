@@ -21,7 +21,7 @@ describe('<Tooltip />', () => {
       isAdmin: false,
     },
     isOwnedByUser: true,
-    isEditingMeeting: false,
+    isBooking: false,
     tooltipRef: () => true,
     anchorContainerRef: () => true,
     anchorRef: () => true,

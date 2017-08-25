@@ -14,8 +14,16 @@ const DateTimePickerStyle = {
   justifyContent: 'space-between',
 }
 
+const labelStyle = {
+  color: 'rgba(255, 255, 255, 0.3)',
+  display: 'inline-block',
+  textTransform: 'capitalize',
+  fontSize: '0.7em',
+  margin: '12px 0',
+}
+
 const dateStyle = {
-  width: '245px',
+  width: '235px',
   border: 'none',
   backgroundColor: '#141516',
   color: 'white',
@@ -106,13 +114,14 @@ class DateTimePicker extends Component {
   }
 
   render() {
-    const { input: { value }, meta: { touched, error, warning } } = this.props
+    const { input: { name, value }, meta: { touched, error, warning } } = this.props
 
     const minDate = moment().startOf('day')
     const minTime = moment().startOf('minute')
 
     return (
       <div>
+        <label style={labelStyle}>{ name }</label>
         <div style={DateTimePickerStyle}>
           <Kronos
             date={value}
