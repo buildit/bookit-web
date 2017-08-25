@@ -15,37 +15,29 @@ import {
   CANCELLING_MEETING,
   INVITING_USER,
   REMOVING_USER,
+  NO_ACTION,
 } from '../constants/uiActions'
 
-const initialState = ''
+const initialState = NO_ACTION
 
 const uiAction = (state = initialState, action) => {
   switch (action.type) {
-  case INIT_MEETING_FORM: {
+  case INIT_MEETING_FORM:
     return  action.payload.type
-  }
-  case POPULATE_MEETING_CREATE_FORM: {
+  case POPULATE_MEETING_CREATE_FORM:
     return CREATING_MEETING
-  }
-  case POPULATE_MEETING_EDIT_FORM: {
+  case POPULATE_MEETING_EDIT_FORM:
     return EDITING_MEETING
-  }
-  case OPEN_CANCELLATION_DIALOG: {
+  case OPEN_CANCELLATION_DIALOG:
     return CANCELLING_MEETING
-  }
-  case OPEN_INVITE_USER_DIALOG: {
+  case OPEN_INVITE_USER_DIALOG:
     return INVITING_USER
-  }
-  case OPEN_REMOVE_USER_DIALOG: {
+  case OPEN_REMOVE_USER_DIALOG:
     return REMOVING_USER
+  case ABORT_UI_ACTION:
+    return NO_ACTION
   }
-  case ABORT_UI_ACTION: {
-    return ''
-  }
-  default: {
-    return state
-  }
-  }
+  return state
 }
 
 export default uiAction
