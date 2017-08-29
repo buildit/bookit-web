@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 
 import moment from 'moment'
 
-import TooltipContent from './TooltipContent'
+import { TooltipContent } from './TooltipContent'
 
 describe('<TooltipContent />', () => {
   const props = {
@@ -14,8 +14,9 @@ describe('<TooltipContent />', () => {
     owner: {
       name: 'some guy',
     },
+    isUserAdmin: false,
     isOwnedByUser: true,
-    isEditingMeeting: false,
+    isBooking: false,
     styles: {
       content: 'content',
       title: 'title',
@@ -62,7 +63,13 @@ describe('<TooltipContent />', () => {
   })
 
   it('does not show edit when user owns meeting, but is already editing a meeting', () => {
-    const propsCopy = { ...props, isOwnedByUser: true, isEditingMeeting: true }
+    const propsCopy = { ...props, isOwnedByUser: true, isBooking: true }
+    const wrapper = shallow(<TooltipContent {...propsCopy} />)
+    expect(wrapper.find('.edit').length).toBe(0)
+  })
+
+  it('edit button is visible to admin users, even if they do not own the meeting', () => {
+    const propsCopy = { ...props, isOwnedByUser: false, user: { name: 'admin', isUserAdmin: true } }
     const wrapper = shallow(<TooltipContent {...propsCopy} />)
     expect(wrapper.find('.edit').length).toBe(0)
   })

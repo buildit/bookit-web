@@ -9,12 +9,15 @@ import InfoPanel from '../InfoPanel'
 
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
+import USER_SHAPE from '../../models/user'
+
 import styles from './styles.scss'
+
+import { isBooking } from '../../selectors'
 
 import {
   meetingsFetchStart,
   populateMeetingCreateForm,
-  populateMeetingEditForm,
   logout,
  } from '../../actions'
 
@@ -42,6 +45,7 @@ export class DashboardContainer extends React.Component {
           <Header user={user} logout={onLogoutClick} />
           <Agenda
             meetings={meetings}
+            user={user}
             rooms={rooms}
             populateMeetingCreateForm={this.props.populateMeetingCreateForm}
             meetingFormIsActive={this.props.meetingFormIsActive}
@@ -53,9 +57,7 @@ export class DashboardContainer extends React.Component {
 }
 
 DashboardContainer.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
+  user: USER_SHAPE,
   requestRooms: PropTypes.func,
   populateMeetingCreateForm: PropTypes.func.isRequired,
   onLogoutClick: PropTypes.func.isRequired,
@@ -82,7 +84,6 @@ DashboardContainer.propTypes = {
     }).isRequired
   ).isRequired,
   location: PropTypes.shape({}),
-  isEditingMeeting: PropTypes.bool.isRequired,
   meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
@@ -94,12 +95,7 @@ const mapStateToProps = (state) => {
     allRoomIds,
     roomsById,
     selectedDate,
-    isCreatingMeeting,
-    isEditingMeeting,
-    isCancellingMeeting,
-    isInvitingUser,
     inviteUserForm,
-    meetingEditForm,
     messages,
     requestedMeeting,
   } = state.app
@@ -112,19 +108,13 @@ const mapStateToProps = (state) => {
       isOwnedByUser: meeting.owner.email === state.user.email }))
 
   const rooms = allRoomIds.map(id => roomsById[id])
-
-  const meetingFormIsActive = isEditingMeeting || isCreatingMeeting
+  const meetingFormIsActive = isBooking(state)
 
   return ({
     user: state.user,
     meetings,
     rooms,
-    isCreatingMeeting,
-    isEditingMeeting,
-    isCancellingMeeting,
-    isInvitingUser,
     inviteUserForm,
-    meetingEditForm,
     messages,
     selectedDate,
     requestedMeeting,
@@ -140,9 +130,6 @@ const mapDispatchToProps = dispatch => ({
   },
   populateMeetingCreateForm: (room, meeting) => {
     dispatch(populateMeetingCreateForm(room, meeting))
-  },
-  populateMeetingEditForm: (meeting) => {
-    dispatch(populateMeetingEditForm(meeting))
   },
   onLogoutClick: () => {
     dispatch(logout())

@@ -16,8 +16,12 @@ describe('<Tooltip />', () => {
     owner: {
       name: 'some guy',
     },
+    user: {
+      name: "admin",
+      isAdmin: false,
+    },
     isOwnedByUser: true,
-    isEditingMeeting: false,
+    isBooking: false,
     tooltipRef: () => true,
     anchorContainerRef: () => true,
     anchorRef: () => true,

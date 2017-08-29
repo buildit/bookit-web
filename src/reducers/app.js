@@ -1,25 +1,17 @@
 import moment from 'moment'
 import {
   RESET_UI,
+  ABORT_UI_ACTION,
   POPULATE_MEETING_CREATE_FORM,
   POPULATE_MEETING_EDIT_FORM,
-  CLOSE_CANCELLATION_DIALOG,
-  CREATE_MEETING_CANCEL,
   MEETINGS_FETCH_SUCCEEDED,
   MEETINGS_FETCH_FAILED,
-  CLOSE_MEETING_DIALOG,
-  MEETING_CREATE_FAILED,
-  MEETING_EDIT_FAILED,
   SELECT_DATE_SUCCEEDED,
-  OPEN_CANCELLATION_DIALOG,
   CANCEL_MEETING_SUCCEEDED,
   CANCEL_MEETING_FAILED,
-  OPEN_INVITE_USER_DIALOG,
-  CLOSE_INVITE_USER_DIALOG,
-  OPEN_REMOVE_USER_DIALOG,
-  CLOSE_CONFIRMATION_DIALOG,
   USER_INVITE_SUCCEEDED,
   USER_INVITE_FAILED,
+  OPEN_REMOVE_USER_DIALOG,
   USER_REMOVE_SUCCEEDED,
   USER_REMOVE_FAILED,
 } from '../actions/actionTypes'
@@ -36,17 +28,7 @@ const initialState = {
   allMeetingIds: [],
   roomsById: {},
   allRoomIds: [],
-  isCreatingMeeting: false,
-  isEditingMeeting: false,
-  isCancellingMeeting: false,
-  isInvitingUser: false,
-  isRemovingUser: false,
   userToBeRemoved: '',
-  meetingEditForm: {
-    title: '',
-    startTime: moment(),
-    endTime: moment(),
-  },
   inviteUserForm: {
     email: '',
   },
@@ -66,33 +48,22 @@ const app = (state = initialState, action) => {
       allRoomIds: action.payload.allRoomIds,
     }
   }
-  case OPEN_CANCELLATION_DIALOG: {
+  case MEETINGS_FETCH_FAILED: {
     return {
       ...state,
-      isEditingMeeting: false,
-      isCancellingMeeting: true,
+      messages: ['There was a problem fetching the meetings.'],
     }
   }
   case CANCEL_MEETING_SUCCEEDED: {
     return {
       ...state,
-      isCancellingMeeting: false,
       messages: ['Your meeting was successfully cancelled.'],
     }
   }
   case CANCEL_MEETING_FAILED: {
     return {
       ...state,
-      isCancellingMeeting: false,
       messages: ['Oh no! There was a problem cancelling your meeting.'],
-    }
-  }
-
-  case MEETING_EDIT_FAILED: {
-    return {
-      ...state,
-      isEditingMeeting: false,
-      messages: ['Oh no! There was a problem editing your meeting.'],
     }
   }
   case POPULATE_MEETING_CREATE_FORM: {
@@ -109,62 +80,47 @@ const app = (state = initialState, action) => {
       const validatedSlot = getAvailableTimeSlot(roundedDate, meetings)
 
       const meeting = {
-        title: '',
+        title: undefined,
         start: validatedSlot.start,
         end: validatedSlot.end,
         room: action.payload.room,
       }
-      return { ...state, isCreatingMeeting: true, requestedMeeting: meeting }
+      return {
+        ...state,
+        requestedMeeting: meeting,
+      }
     }
     return state
   }
   case POPULATE_MEETING_EDIT_FORM: {
     const meeting = {
+      id: action.payload.meeting.id,
       title: action.payload.meeting.title,
       start: moment(action.payload.meeting.start),
       end: moment(action.payload.meeting.end),
-      roomId: action.payload.meeting.roomId,
-      id: action.payload.meeting.id,
+      room: {
+        email: action.payload.meeting.roomId,
+        name: action.payload.meeting.roomName,
+      },
     }
-    return { ...state, isEditingMeeting: true, requestedMeeting: meeting }
-  }
-  case CLOSE_CANCELLATION_DIALOG:
-  case CREATE_MEETING_CANCEL:
-  case CLOSE_MEETING_DIALOG: {
     return {
       ...state,
-      isCreatingMeeting: false,
-      isEditingMeeting: false,
-      isCancellingMeeting: false,
+      requestedMeeting: meeting,
+    }
+  }
+  case ABORT_UI_ACTION: {
+    return {
+      ...state,
       messages: [],
       requestedMeeting: {},
-    }
-  }
-  case OPEN_INVITE_USER_DIALOG: {
-    return {
-      ...state,
-      isInvitingUser: true,
-    }
-  }
-  case CLOSE_INVITE_USER_DIALOG: {
-    return {
-      ...state,
-      isInvitingUser: false,
+      userToBeRemoved: '',
     }
   }
   case OPEN_REMOVE_USER_DIALOG: {
     const userToBeRemoved = action.payload
     return {
       ...state,
-      isRemovingUser: true,
       userToBeRemoved,
-    }
-  }
-  case CLOSE_CONFIRMATION_DIALOG: {
-    return {
-      ...state,
-      isRemovingUser: false,
-      userToBeRemoved: '',
     }
   }
   case USER_INVITE_SUCCEEDED: {
@@ -174,34 +130,27 @@ const app = (state = initialState, action) => {
     }
   }
   case USER_INVITE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
   }
   case USER_REMOVE_SUCCEEDED: {
-    const userEmail = action.payload
     return {
       ...state,
-      messages: [`Fare thee well, ${userEmail}!`],
+      messages: [`Fare thee well, ${action.payload}!`],
     }
   }
   case USER_REMOVE_FAILED: {
-    const message = action.payload
     return {
       ...state,
-      messages: [message],
+      messages: [`${action.payload}`],
     }
   }
-  case MEETING_CREATE_FAILED: {
-    return { ...state, messages: [action.payload.message] }
-  }
-  case MEETINGS_FETCH_FAILED: {
-    return { ...state, messages: ['There was a problem fetching the meetings.'] }
-  }
   case SELECT_DATE_SUCCEEDED: {
-    return { ...state, selectedDate: action.payload.date }
+    return { ...state,
+      selectedDate: action.payload.date,
+    }
   }
   default: {
     return state

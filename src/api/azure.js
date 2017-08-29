@@ -2,18 +2,20 @@ import url from 'url'
 
 const currentHostname = () => window.location ? window.location.origin : 'http://localhost:3001'
 
+// const builditclientId = '1be035ba-835c-498a-b1d3-786e4cfd77bc'
+const peter_client_id = '9a8b8181-afb1-48f8-a839-a895d39f9db0'
+
+const clientId = peter_client_id
+
 export const signinRequestUrl = () => {
-  const tenant = '37fcf0e4-ceb8-4866-8e26-293bab1e26a8'
   const protocol = 'https'
-  const host = `login.microsoftonline.com/${tenant}/oauth2/authorize`
+  const host = 'login.microsoftonline.com/common/oauth2/v2.0/authorize'
   const query = {
-    client_id: '1be035ba-835c-498a-b1d3-786e4cfd77bc',
-    response_type: 'id_token',
-    redirect_uri: `${currentHostname()}/openid-complete`,
-    scope: 'openid',
-    response_mode: 'query',
+    client_id: clientId,
+    scope: 'openid offline_access profile https://graph.microsoft.com/calendars.read https://graph.microsoft.com/calendars.readwrite https://graph.microsoft.com/user.read',
+    response_type: 'token',
     nonce: '12345',
-    prompt: 'login',
+    redirect_uri: `${currentHostname()}/openid-complete`,
   }
 
   return url.format({

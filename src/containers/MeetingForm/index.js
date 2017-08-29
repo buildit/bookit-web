@@ -1,90 +1,105 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import { reduxForm, Field, formValueSelector, getFormMeta, getFormSyncErrors, isInvalid } from 'redux-form'
 import { connect } from 'react-redux'
 
-import { reduxForm } from 'redux-form'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import moment from 'moment'
+import { TextField } from 'redux-form-material-ui'
 
-import MeetingForm from '../../components/02-molecules/MeetingForm'
+import Button from '../../components/01-atoms/Button'
+import RoomPicker from '../../components/01-atoms/RoomPicker'
+import DateTimePicker from '../../components/02-molecules/DateTimePicker'
+import ErrorMessages from '../../components/02-molecules/ErrorMessages'
+
+import { mapInitialValues } from './utils'
+import { validate } from './validate'
+
+import { getRoomName, isQuickBooking, isEditingBooking } from '../../selectors'
+
+import styles from './styles.scss'
 
 import {
-  meetingCreateStart,
-  meetingEditStart,
+  meetingUpsertStart,
   openCancellationDialog,
  } from '../../actions/index'
 
-const validate = (values) => {
-  const startMom = moment(values.start)
-  const endMom = moment(values.end)
-  const now = moment()
+injectTapEventPlugin() // Required by Material UI components
 
-  const errors = {}
-  if (startMom.isAfter(endMom)) {
-    errors.end = 'The start time must be before the end time'
-  }
+export const MeetingForm = ({
+  handleSubmit,
+  submitMeeting,
+  isQuickBooking,
+  isEditingBooking,
+  handleDeleteClick,
+  errors,
+  isFormTouched,
+  invalid,
+  roomName,
+}) => {
+  return (
+    <div>
+      <h2 className={styles.room}>Book { roomName || 'a' } Room</h2> {/*  Switch between 'Quick' and 'Create' and 'Edit' - No Room Name, idiots */}
+      <form onSubmit={handleSubmit(submitMeeting)}>
+        <Field
+          name="title"
+          component={TextField}
+          floatingLabelFixed
+          floatingLabelText="Event name"
+          style={{width: '324px', fontWeight: '100'}}
+        />
 
-  //start time can't be before now if it is a new meeting, but existing
-  //meetings with a start time in the past can be edited
-  if (startMom.isBefore(now) && !values.id) {
-    errors.noTimeTravel = 'You can\'t book in the past'
-  }
+        <Field name="start" component={DateTimePicker} />
+        <Field name="end" component={DateTimePicker} />
 
-  //disallow changing the end time of an existing meeting to a time in the past
-  if (values.id && endMom.isBefore(now)) {
-    errors.noTimeTravel = 'You can\'t book in the past'
-  }
+        { isQuickBooking && <Field name="room" component={RoomPicker} /> }
+        { !isQuickBooking && <Field name="room" component="input" type="hidden" /> }
 
-  if (startMom.isAfter(moment().add(1, 'year'))) {
-    errors.upperBound = 'You can only book up to one year in advance'
-  }
+        <div className={styles.buttons}>
+          <Button
+            type="submit"
+            disabled={ !isFormTouched || invalid }
+            content={isEditingBooking ? "Save" : "Bookit" }
+          />
 
-  if (!values.title) {
-    errors.title = 'Please set the title'
-  }
+          { isEditingBooking && <Button onClick={handleDeleteClick} content="Delete" /> }
+        </div>
+      </form>
 
-  return errors
+      { isFormTouched && <ErrorMessages errors={errors} /> }
+    </div>
+  )
 }
 
-const MeetingFormContainer = reduxForm({
-  form: 'meeting-form', // a unique name for this form
-  validate,
-})(MeetingForm)
-
-const mapFormValues = values => ({
-  id: values.id,
-  title: values.title,
-  start: values.start && moment(values.start).toDate(),
-  end: values.end && moment(values.end).toDate(),
-})
-
-const getSubmittableMeeting = (form, meeting) => {
-  // FIXME: This is crazy-sauce. What is the right way?
-  // console.log('submittable', meeting)
-  if (!form) return { values: {} }
-  if (!form['meeting-form']) return { values: {} }
-  if (!form['meeting-form'].values) return { values: {} }
-  let submittableValues = form['meeting-form'].values
-  submittableValues.id = meeting.id
-  // console.log('submittable', submittableValues)
-
-  return submittableValues
+MeetingForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitMeeting: PropTypes.func.isRequired,
+  isEditingBooking: PropTypes.bool,
+  isQuickBooking: PropTypes.bool,
+  handleDeleteClick: PropTypes.func.isRequired,
+  errors: PropTypes.shape({}),
+  isFormTouched: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  roomName: PropTypes.string,
 }
+
+const valueSelector = formValueSelector('meeting-form')
 
 const mapStateToProps = state => ({
-  token: state.user.token,
-  meeting: getSubmittableMeeting(state.form, state.app.requestedMeeting),
-  room: state.app.requestedMeeting.room,
-  roomId: state.app.requestedMeeting.roomId,
-  initialValues: mapFormValues(state.app.requestedMeeting),
-  validationErrors: state.form && state.form['meeting-form'] && state.form['meeting-form'].syncErrors,
-  visibleErrorMessages: ['noTimeTravel', 'end', 'upperBound', 'title'],
-  isCreatingMeeting: state.app.isCreatingMeeting,
-  isEditingMeeting: state.app.isEditingMeeting,
+  initialValues: mapInitialValues(state),
+  isFormTouched: getFormMeta('meeting-form')(state) ? true : false,
+  isQuickBooking: isQuickBooking(state),
+  isEditingBooking: isEditingBooking(state),
+  errors: getFormSyncErrors('meeting-form')(state),
+  invalid: isInvalid('meeting-form')(state),
+  roomName: getRoomName(state, valueSelector(state, 'room')),
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: (meeting, room, token) => dispatch(meetingCreateStart(meeting, room, token)),
+  submitMeeting: meeting => dispatch(meetingUpsertStart(meeting)),
   handleDeleteClick: () => dispatch(openCancellationDialog()),
-  handleSaveClick: (meeting, roomId, token) => dispatch(meetingEditStart(meeting, roomId, token)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingFormContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({ form: 'meeting-form', validate })(MeetingForm))

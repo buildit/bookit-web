@@ -5,10 +5,9 @@ import api from '../api'
 import {
   userInviteSucceeded,
   userInviteFailed,
-  closeInviteUserDialog,
+  abortUiAction,
   // userRemoveSucceeded,
   userRemoveFailed,
-  closeConfirmationDialog,
   usersFetchSucceeded,
 } from '../actions'
 
@@ -26,7 +25,7 @@ export function* userInvite(action) {
       team: 'WIPRO',
     }
     yield put(userInviteSucceeded(newUser))
-    yield put(closeInviteUserDialog())
+    yield put(abortUiAction())
   } catch (err) {
     yield put(userInviteFailed(err.message))
   }
@@ -34,7 +33,7 @@ export function* userInvite(action) {
 
 export function* userRemove() {
   yield put(userRemoveFailed('Removing users has not yet been implemented. The user was not actually removed.'))
-  yield put(closeConfirmationDialog())
+  yield put(abortUiAction())
   // try {
   //   const userEmail = action.payload
   //   // Make api call here.

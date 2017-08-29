@@ -1,11 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import { connect } from 'react-redux'
+
+import { isBooking } from '../../../selectors'
+
 import moment from 'moment'
 
-const TooltipContent =
-  ({ title, start, end, roomName, owner, isOwnedByUser, styles, onEditClick, isEditingMeeting }) => {
+export const TooltipContent =
+  ({ title, start, end, roomName, owner, isUserAdmin, isOwnedByUser, styles, onEditClick, isBooking }) => {
     const now = moment()
-    const isEditable = isOwnedByUser && !isEditingMeeting && end.isAfter(now)
+    const isEditable = (isOwnedByUser || isUserAdmin) && !isBooking && end.isAfter(now)
+
     return (
       <div className={styles.content}>
         <div>
@@ -17,7 +23,7 @@ const TooltipContent =
             <strong className={styles.roomTitle}>{ roomName } Room</strong>
             <p className="owner-name">by { isOwnedByUser ? 'me' : owner.name }</p>
           </div>
-          {isEditable ? <div onClick={onEditClick} className={styles.edit}>Edit</div> : '' }
+          { isEditable && <div onClick={onEditClick} className={styles.edit}>Edit</div> }
         </div>
       </div>
     )}
@@ -30,10 +36,15 @@ TooltipContent.propTypes = {
   owner: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
+  isUserAdmin: PropTypes.bool.isRequired,
   isOwnedByUser: PropTypes.bool.isRequired,
   styles: PropTypes.shape({}),
   onEditClick: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
+  isBooking: PropTypes.bool,
 }
 
-export default TooltipContent
+const mapStateToProps = state => ({
+  isBooking: isBooking(state),
+})
+
+export default connect(mapStateToProps)(TooltipContent)

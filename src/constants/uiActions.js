@@ -1,0 +1,7 @@
+export const CREATING_MEETING = 'creating_meeting'
+export const EDITING_MEETING = 'editing_meeting'
+export const CANCELLING_MEETING = 'cancelling_meeting'
+export const QUICK_BOOKING_MEETING = 'quick_booking_meeting'
+export const INVITING_USER = 'inviting_user'
+export const REMOVING_USER = 'removing_user'
+export const NO_ACTION = ''

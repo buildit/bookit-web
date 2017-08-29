@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import TooltipAnchor from './TooltipAnchor'
 import TooltipContent from './TooltipContent'
+import USER_SHAPE from '../../../models/user'
 
 const Tooltip = props => (
   <div className={props.styles.tooltip} ref={props.tooltipRef}>
@@ -17,10 +18,10 @@ const Tooltip = props => (
       end={props.end}
       roomName={props.roomName}
       owner={props.owner}
+      isUserAdmin={props.user.isAdmin}
       isOwnedByUser={props.isOwnedByUser}
       styles={props.styles}
       onEditClick={props.onEditClick}
-      isEditingMeeting={props.isEditingMeeting}
     />
   </div>
 )
@@ -30,6 +31,7 @@ Tooltip.propTypes = {
   start: PropTypes.shape({}).isRequired,
   end: PropTypes.shape({}).isRequired,
   roomName: PropTypes.string.isRequired,
+  user: USER_SHAPE,
   owner: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
@@ -41,7 +43,6 @@ Tooltip.propTypes = {
     tooltip: PropTypes.string.isRequired,
   }).isRequired,
   onEditClick: PropTypes.func.isRequired,
-  isEditingMeeting: PropTypes.bool.isRequired,
 }
 
 export default Tooltip
