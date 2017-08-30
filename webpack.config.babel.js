@@ -73,21 +73,7 @@ const productionConfig = merge([
     },
   }),
 
-  // TODO: figure out why this is breaking safari in production
-  // Errors being generated in safari devtools:
-  // manifest.js: [Error] TypeError: undefined is not an object (evaluating 'a[b].call')
-	// __webpack_require__ (manifest.5fdd3492.js:1:119)
-	// ./client/index.js (app.9cb2ee90.js:1:23085)
-	// __webpack_require__ (manifest.5fdd3492.js:1:124)
-	// (anonymous function) (app.9cb2ee90.js:1:108304)
-	// __webpack_require__ (manifest.5fdd3492.js:1:124)
-	// webpackJsonpCallback (manifest.5fdd3492.js:1:495)
-	// Global Code (app.9cb2ee90.js:1)
-  //
-  // [Error] SyntaxError: Cannot declare a let variable twice: 'o'.
-	// (anonymous function) (vendor.48ba2004.js:6)
-  //
-  // parts.minifyJavascript(),
+  parts.minifyJavascript(),
 
   parts.extractStyles(),
   parts.extractJavascript([
