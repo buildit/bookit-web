@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 
 import { Route, Redirect } from 'react-router'
 
+import { getUser } from '../selectors'
+
 export const ProtectedRoute = ({ component: Component, authTest, user, dispatch, failTo, ...rest }) => (
   <Route {...rest} render={props => (
     authTest(user, dispatch) ? (
@@ -28,6 +30,6 @@ ProtectedRoute.propTypes = {
   location: PropTypes.object,
 }
 
-const mapStateToProps = state => ({ user: state.user })
+const mapStateToProps = state => ({ user: getUser(state) })
 
 export default connect(mapStateToProps)(ProtectedRoute)

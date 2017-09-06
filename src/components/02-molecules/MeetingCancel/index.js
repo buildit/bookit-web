@@ -7,6 +7,8 @@ import Button from '../../01-atoms/Button'
 
 import { cancelMeetingStart, abortUiAction } from '../../../actions'
 
+import { getRequestedMeeting, getRequestedMeetingRoom } from '../../../selectors'
+
 import styles from './styles.scss'
 
 export class MeetingCancel extends React.Component {
@@ -58,8 +60,8 @@ export class MeetingCancel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  meeting: state.app.requestedMeeting,
-  room: state.app.requestedMeeting.room,
+  meeting: getRequestedMeeting(state),
+  room: getRequestedMeetingRoom(state),
 })
 
 const mapDispatchToProps = dispatch => ({

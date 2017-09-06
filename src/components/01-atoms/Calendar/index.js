@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
+import { getSelectedDate } from '../../../selectors'
+
 import momentPropTypes from 'react-moment-proptypes'
 import Week from './Week'
 import DateDisplay from './DateDisplay'
@@ -40,7 +42,7 @@ Calendar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  selectedDate: state.app.selectedDate,
+  selectedDate: getSelectedDate(state),
 })
 
 const mapDispatchToProps = dispatch => ({

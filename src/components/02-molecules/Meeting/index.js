@@ -7,6 +7,8 @@ import Tooltip from '../../01-atoms/Tooltip'
 
 import { populateMeetingEditForm } from '../../../actions'
 
+import { getRequestedMeetingId } from '../../../selectors'
+
 import calculateWidth from '../../../utils/calculateWidth'
 import { calculateMeetingOffset } from '../../../utils/calculateMeetingOffset'
 
@@ -149,7 +151,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  requestedMeetingId: state.app.requestedMeeting.id,
+  requestedMeetingId: getRequestedMeetingId(state),
 })
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Meeting)

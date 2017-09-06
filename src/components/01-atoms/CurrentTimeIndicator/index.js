@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import momentPropTypes from 'react-moment-proptypes'
 
+import { getSelectedDate } from '../../../selectors'
+
 import moment from 'moment'
 
 import styles from './styles.scss'
@@ -58,7 +60,7 @@ CurrentTimeIndicator.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  selectedDate: state.app.selectedDate,
+  selectedDate: getSelectedDate(state),
 })
 
 
