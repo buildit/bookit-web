@@ -24,16 +24,18 @@ env:
     - BOOKITURI=https://int-bookit-web.buildit.tools
     # This identifies what namespace to pull configuration from
     - ENVIRONMENT=int
-    - ECS_REPO=buildit-bookit-int-web-ecr-repo
-    - ECS_CLUSTER=buildit-bookit-int-ECSCluster
-    - ECS_SERVICE=buildit-bookit-int-app-BookitWebService-11KBRU3RSXKFS-Service-1Q911MZZ84ZBT
+    - ECS_REPO=hap-bookit-web-ecr-repo
+    - INT_ECS_CLUSTER=hap-bookit-hap-dev-ECSCluster
+    - INT_ECS_SERVICE=hap-bookit-hap-dev-app-BookitWebService-PI2N9RRTJCO6-Service-1GPLXK5S3DSID
+    - STG_ECS_CLUSTER=hap-bookit-hap-stg-ECSCluster
+    - STG_ECS_SERVICE=hap-bookit-hap-stg-app-BookitWebService-A8H80ACLFE52-Service-145ONXI505FFA
     # AWS_ACCESS_KEY_ID (CloudFormation stack IAM account)
-    - secure: ngn5//jn+C7z4JsfEYQvV530u/3qRvLlaZo5cfPDsjyefvEh3RAaBUCu3pQOsHHJCv9OewYYfcjdL2+pPS+Mebbr1LsMumwrN5NOMFSXiwIc5lonlI797yI6divfbvoSpW5/vxTFDV5ZLood3+pNEwJMmr3ZTphsovohKhJIEjD7P71aPbESlJ/24BG8IQp9+qizvs1zBojoVXdaJAZARu/mPVQSFz0iX7CKQ4loABD1uFEOK0RQnGd+a+L8UGdTv0JkdQ1giwXkV5BsP38QrP+FKJWaRlaGI/Xx+CSTgNpfdy/c7n8ZoPIp4auiIwPQXgvZyt69DOXp1G9vhWvlau0xuStfbgUFPCDNqI5i/cI6cUgHlgY6tHUTRLNbXPCymVPo55nynjKfXPXysmMSlHV4QlRm5GM5NPZaFqJI7tvV0gHZ5Db9ydwbxG6xnHVNMYya7d+gW0pvvqbkYssC29klXYL+CAuiRSp/Ivx22rWOZFG4D0Ov4EW57RcVV29Kmtuxh7h2wAxRbJMOnhZ106Q0hOVfOKHlA1Ncvq32YOSweQYtU39yUvod0KxyYLU46yAE68qkVOuyUNhrvX8MzGSPQgUcMsmkMuRg/wrrePAdtB0fUEHmVfSRCOkbV0MsVdtIB7mv2W1oeBOR9i5FFs10nR496n2E6nwtSz3Rp5E=
+    - secure: QWjIjRpXhKq3hqO+Wfqe7wdJEZvduRD+g7OgF4b0ICbkC3Ff9NcQse+nV49PfQ1pC9qFYigXNAh5hB+LjSFW72jTj2WmJa2L/kHIuOtWS6ZN9PPgWiy50rvnHRGFE64dXKdNWmfEtEb41Dw3Kum6XucUbAnOnD0evm4D+lEaL42WzFu5qUDzaDLSgs5esVcEqKT7yPshj4ZVI14bxe4A90YSy9YAqc58W6+6kDspwFC5nqfnCV44phKjUylIYf0ufM97Pr/DjNleTjrRZqdDTwiZB+uYo/AjUKAloeVQPsNRT26QAs50kCVymxt73vqwc6wDAeyf5Ac3m4CE6cNtrTqgeiZ8JbjgEq0gYw3zyiGd5weyCDburTBAleGxhXuAexIUxbdA8kZitbcZzNp6fAIu5UYfWO2GQ6G8hdK5cGpPEfz6xD/wHoS9KeKCANIg4lbVBNm59gy7BwGKal0yeFu6DA55BF37p8i4nkJ6zXijeq8MQL1eLrLm0IvYBvKSVtbAPfbTrM7UX8/+d/XK+Mb+S6kTAg6VxMEpqQkvwIx4Zn8LWSLl55ZB6gz4DWsm/CAfhObQA79l7Bn3zQY5qKUROuQmIZjmpKY/lMbFq5rguSmrw54M7dpI8ArQJmlAGrzWlw7P2rsWNq71goM/XNQsf6bRKwj1Yh7P76iIntg=
     # AWS_SECRET_ACCESS_KEY (CloudFormation stack IAM account)
-    - secure: VRkl1kc0RMkQHgILu98vhYDFKvSKTKL1h5ZaS+7xnmhUzbphpCNnLvEDMguas4E7xpOXA9nT6xlKlNhZduB07wNMBspsxBoC5yGNh/HtD8WnABwcajmn5FYnPEI1tXJ//+o+fynYx0pg+l4dHX5Kf/GfHaDI+qwU94MwMs0rpwld4r251jSGmD5+/12m1h6RPjyAliRUF2WZmk6NHFy2cOVVKwtApQ4xKDtOWzsG5wyP6XTV9kvWXdhff7lEXib5qPkFgJg+I+jQjSZaPrFxhxEwNUrLn97P8TZYmLsF/7CVy4cMBcCwON6f64w/zB28yv6FQRUdP1i/SNEHNU9gfP7sERQph5QPVjweqJRZ1uyoj2afXAxbtyZKrf8uAwrITHbIoaYGSpUkmBQ9i0QbGRuB1DwQddYDOEyNlttl2IE5K6G9Jvpusmd+NBAWvSBS4Cjq4GyrK3LBlOj10mOtOToV6QAfzNuixjYtq/dKaE/JlLyEOEzt35HDz6sHtrid/NGamyC1xaRPCwOivFQhoaQvWbNhjdoShPuy+lMoqHtmt28EjHF7827Ai0/jlix5pVkXYujzT8uepIpmTZgKsz71lwU2Yk3fS9/21Dt6+7XhWRaavnLzuogtbKah/cmc69bflfaoD2RMNM0ukNNPKILQ3BnWY8mtxBqrqsTpxzY=
+    - secure: M3lQktYdvKuhJHLZTeygc2f0bBIc5hx+wefAKMOHcXbAIrR10buXzp9uqxrR1n1NOJnqaXsO34YIj+ec/N8R6sfwxpXXOzmiC6zjngzcT8pE5SuhANLPUwM2hMdmrN/igofq/QBT2n5DdUAazsIKwo6i7Ha1LAp4+LeCbzm0B1jUgN8B0g5S4eH63NBQQNlL09LyBze3NEK0mgzJxC0zWsbMloXuGpY9DIfGgvdmkrJUbOhPmRP4wrVOQpmozwkDYfwJPVfSFvmF2ctwIQ33Jk6M2WzL571QgQm2wUYUx5CVGtktsUvqth8fnN+dABpeBRIm8E7LO3g/zX595qKqsAH+DJtWo8Qj8SAPgFnpGX4vbj1nf26nnyWhgz0B3VeCsH6B8mn+iZfeoYrh38mOcTCEFgpkbO4fwIF3F9i3qHKf6+p+Wysvm8E/Z1fVWwRnrvbjC02l7bjfNAuBgXzy0W99ZCbouZuniGoF8BxmhF5LrLk3sWRFprWGBDq1D9U7XGIC5v+QvzKIdgzG1HLWclllvdhWSuzeEmbhbw39qeYzyyoBGZUwB8Ol5MOxeP4zwxqzEGkiHVGUP1Il3xajTIZqDEDcPchmmimOTTX3iVwlvN3nglPvwn9wWX8vUqoV1qXcNp8+4fU0QikQ7RaA297WiM8pYfWnJ2rq7sRX+7M=
 
 install:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then pip install awscli; fi
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "72-bookit-web-deploy-to_staging" ]]; then pip install awscli; fi
   - yarn
 
 before_script:
@@ -43,8 +45,6 @@ before_script:
 script:
   - yarn lint
   - yarn test:unit -- --colors --ci --silent
-  # Runs functional tests only when branch is master and this is NOT a PR
-  # - ./scripts/run-dockerized-functional-tests.sh
 
 after_success:
   - ./scripts/run-coveralls.sh
@@ -59,26 +59,27 @@ deploy:
     skip_cleanup: true
     script: ./scripts/get-deployment-scripts.sh
     on:
-      branch: master
+      branch: 72-bookit-web-deploy-to_staging
   - provider: script
     skip_cleanup: true
     script: ./scripts/temp-build.sh
     on:
-      branch: master
+      branch: 72-bookit-web-deploy-to_staging
   - provider: script
     skip_cleanup: true
     script: ./scripts/push-to-ecr.sh
     on:
-      branch: master
+      branch: 72-bookit-web-deploy-to_staging
   - provider: script
     skip_cleanup: true
-    script: ./scripts/ecs-deploy.sh -c ${ECS_CLUSTER} -n ${ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}:${COMMIT_SHA}
+    script: ./scripts/ecs-deploy.sh -c ${iNT_ECS_CLUSTER} -n ${INT_ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}:${COMMIT_SHA}
     on:
-      branch: master
+      branch: 72-bookit-web-deploy-to_staging
 
 after_deploy:
   # Runs functional tests only when branch is master and this is NOT a PR
   - ./scripts/run-dockerized-functional-tests.sh docker-compose.testcafe.aws.yml bookit_testcafe_aws
+  - ./scripts/ecs-deploy.sh -c ${STG_ECS_CLUSTER} -n ${STG_ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}:${COMMIT_SHA}
 
 notifications:
   slack:
