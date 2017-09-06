@@ -4,41 +4,38 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "master" ]]; then
-  DOCKERNAME=bookit_functional_tests
-  DOCKER_COMPOSE_YAML_FILENAME=${1:-docker-compose.testcafe.yml}
-  DOCKER_CONTAINER_NAME=${2:-bookit_testcafe}
 
-  cleanup () {
-    docker-compose -p $DOCKERNAME kill > /dev/null 2>&1
-    docker-compose -p $DOCKERNAME rm -f > /dev/null 2>&1
-  }
+DOCKERNAME=bookit_functional_tests
+DOCKER_COMPOSE_YAML_FILENAME=${1:-docker-compose.testcafe.yml}
+DOCKER_CONTAINER_NAME=${2:-bookit_testcafe}
 
-  awsparam () {
-    echo `aws ssm get-parameters --region ${AWS_DEFAULT_REGION} --names $1 --with-decryption --output text | cut -f 4`
-  }
+cleanup () {
+  docker-compose -p $DOCKERNAME kill > /dev/null 2>&1
+  docker-compose -p $DOCKERNAME rm -f > /dev/null 2>&1
+}
 
-  trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"' HUP INT QUIT PIPE TERM
+awsparam () {
+  echo `aws ssm get-parameters --region ${AWS_DEFAULT_REGION} --names $1 --with-decryption --output text | cut -f 4`
+}
 
-  export BOOKITUSER=$(awsparam BUILDIT_REGULAR_USER_NAME)
-  export BOOKITPASSWD=$(awsparam BUILDIT_REGULAR_USER_PASSWORD)
-  export CLOUD_CONFIG=$(awsparam /bookit/${ENVIRONMENT}/CLOUD_CONFIG)
-  export BUILDIT_SECRET=$(awsparam /bookit/${ENVIRONMENT}/BUILDIT_SECRET)
+trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"' HUP INT QUIT PIPE TERM
 
-  docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p ${DOCKERNAME} up -d > /dev/null 2>&1
+export BOOKITUSER=$(awsparam BUILDIT_REGULAR_USER_NAME)
+export BOOKITPASSWD=$(awsparam BUILDIT_REGULAR_USER_PASSWORD)
+export CLOUD_CONFIG=$(awsparam /bookit/${ENVIRONMENT}/CLOUD_CONFIG)
+export BUILDIT_SECRET=$(awsparam /bookit/${ENVIRONMENT}/BUILDIT_SECRET)
 
-  TEST_EXIT_CODE=$(docker wait ${DOCKER_CONTAINER_NAME})
-  docker logs ${DOCKER_CONTAINER_NAME}
+docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p ${DOCKERNAME} up -d > /dev/null 2>&1
 
-  if [ -z ${TEST_EXIT_CODE+x} ] || [ "$TEST_EXIT_CODE" -ne 0 ] ; then
-    printf "${RED}tests failed${NC} - exitcode: $TEST_EXIT_CODE\n"
-  else
-    printf "${GREEN}tests passed${NC} - exitcode: $TEST_EXIT_CODE\n"
-  fi
+TEST_EXIT_CODE=$(docker wait ${DOCKER_CONTAINER_NAME})
+docker logs ${DOCKER_CONTAINER_NAME}
 
-  cleanup
-
-  exit $TEST_EXIT_CODE
+if [ -z ${TEST_EXIT_CODE+x} ] || [ "$TEST_EXIT_CODE" -ne 0 ] ; then
+  printf "${RED}tests failed${NC} - exitcode: $TEST_EXIT_CODE\n"
 else
-  printf "${GREEN}skipping functional tests${NC}\n"
+  printf "${GREEN}tests passed${NC} - exitcode: $TEST_EXIT_CODE\n"
 fi
+
+cleanup
+
+exit $TEST_EXIT_CODE
