@@ -1,5 +1,5 @@
 export const getRequestedMeeting = state => state.app.requestedMeeting
 
-export const getRequestedMeetingRoom = state => state.app.requestedMeeting.room
+export const getRequestedMeetingRoom = state => getRequestedMeeting(state).room
 
-export const getRequestedMeetingId = state => state.app.requestedMeeting.id
+export const getRequestedMeetingId = state => getRequestedMeeting(state).id
