@@ -38,48 +38,16 @@ install:
   - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "72-bookit-web-deploy-to-staging" ]]; then pip install awscli; fi
   - yarn
 
-before_script:
-  # Builds only when branch is master and this is NOT a PR
-  - ./scripts/yarn-and-docker-build.sh
-
 script:
   - yarn lint
+  - yarn build
   - yarn test:unit -- --colors --ci --silent
+  - ./scripts/get-deployment-scripts.sh
+  - ./scripts/push-to-ecr.sh
+  - ./scripts/run-ci-cd.sh
 
 after_success:
   - ./scripts/run-coveralls.sh
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ./scripts/docker-tag-push-deploy.sh
-    on:
-      branch: master
-  - provider: script
-    skip_cleanup: true
-    script: ./scripts/get-deployment-scripts.sh
-    on:
-      branch: 72-bookit-web-deploy-to-staging
-  - provider: script
-    skip_cleanup: true
-    script: ./scripts/temp-build.sh
-    on:
-      branch: 72-bookit-web-deploy-to-staging
-  - provider: script
-    skip_cleanup: true
-    script: ./scripts/push-to-ecr.sh
-    on:
-      branch: 72-bookit-web-deploy-to-staging
-  - provider: script
-    skip_cleanup: true
-    script: ./scripts/ecs-deploy.sh -c ${INT_ECS_CLUSTER} -n ${INT_ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}:${COMMIT_SHA}
-    on:
-      branch: 72-bookit-web-deploy-to-staging
-
-after_deploy:
-  # Runs functional tests only when branch is master and this is NOT a PR
-  # - ./scripts/run-dockerized-functional-tests.sh docker-compose.testcafe.aws.yml bookit_testcafe_aws
-  - ./scripts/ecs-deploy.sh -c ${STG_ECS_CLUSTER} -n ${STG_ECS_SERVICE} -i 006393696278.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECS_REPO}:${COMMIT_SHA}
 
 notifications:
   slack:
