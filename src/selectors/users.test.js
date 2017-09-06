@@ -1,6 +1,7 @@
 import {
   getUser,
   getUserToken,
+  getUsers,
 } from './users'
 
 describe('users selectors', () => {
@@ -18,6 +19,26 @@ describe('users selectors', () => {
       requestedMeeeting: {},
     },
     uiAction: '',
+    users: [
+      {
+        email: 'chris@buildit.com',
+        team: 'BUILDIT',
+        roles: [],
+        createdDateTime: '',
+        firstName: 'Chris',
+        lastName: 'Ashurst',
+        dateAdded: null,
+      },
+      {
+        email: 'peter@buildit.com',
+        team: 'BUILDIT',
+        roles: [],
+        createdDateTime: '',
+        firstName: 'Peter',
+        lastName: 'Monks',
+        dateAdded: null,
+      },
+    ],
   }
 
   it('gets the user from state', () => {
@@ -32,6 +53,30 @@ describe('users selectors', () => {
   it('gets the user token from state', () => {
     const userToken = getUserToken(state)
     expect(userToken).toBe(1234)
+  })
+
+  it('retrieves the user list from state', () => {
+    const userList = getUsers(state)
+    expect(userList).toMatchObject([
+      {
+        email: 'chris@buildit.com',
+        team: 'BUILDIT',
+        roles: [],
+        createdDateTime: '',
+        firstName: 'Chris',
+        lastName: 'Ashurst',
+        dateAdded: null,
+      },
+      {
+        email: 'peter@buildit.com',
+        team: 'BUILDIT',
+        roles: [],
+        createdDateTime: '',
+        firstName: 'Peter',
+        lastName: 'Monks',
+        dateAdded: null,
+      },
+    ])
   })
 
 })
