@@ -8,6 +8,7 @@ import InfoPanel from '../InfoPanel'
 import SearchableUserTable from '../../components/03-organisms/SearchableUserTable'
 
 import { logout, openRemoveUserDialog, usersFetchStart } from '../../actions'
+import { getUser, getUsers } from '../../selectors'
 
 import styles from './styles.scss'
 
@@ -34,8 +35,8 @@ export class Admin extends Component {
 
 
 const mapStateToProps = state => ({
-  users: state.users,
-  user: state.user,
+  users: getUsers(state),
+  user: getUser(state),
 })
 
 const mapDispatchToProps = dispatch => ({
