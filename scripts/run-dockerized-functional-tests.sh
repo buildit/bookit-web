@@ -22,8 +22,8 @@ trap 'cleanup ; printf "${RED}Tests Failed For Unexpected Reasons${NC}\n"' HUP I
 
 export BOOKITUSER=$(awsparam BUILDIT_REGULAR_USER_NAME)
 export BOOKITPASSWD=$(awsparam BUILDIT_REGULAR_USER_PASSWORD)
-export CLOUD_CONFIG=$(awsparam /bookit/${ENVIRONMENT}/CLOUD_CONFIG)
-export BUILDIT_SECRET=$(awsparam /bookit/${ENVIRONMENT}/BUILDIT_SECRET)
+export CLOUD_CONFIG=$(awsparam /bookit/${INT_ENV_NAME}/CLOUD_CONFIG)
+export BUILDIT_SECRET=$(awsparam /bookit/${INT_ENV_NAME}/BUILDIT_SECRET)
 
 docker-compose -f ${DOCKER_COMPOSE_YAML_FILENAME} -p ${DOCKERNAME} up -d > /dev/null 2>&1
 
