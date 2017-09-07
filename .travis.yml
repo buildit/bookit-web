@@ -41,6 +41,7 @@ install:
 script:
   - yarn lint
   - yarn test:unit -- --colors --ci --silent
+  - npm rebuild node-sass
   - if [[ -z "$TRAVIS_PULL_REQUEST" || $TRAVIS_PULL_REQUEST == "false" ]] && [[ -z "$TRAVIS_BRANCH" || $TRAVIS_BRANCH == "72-bookit-web-deploy-to-staging" ]]; then ./scripts/run-ci-cd.sh; fi
 
 after_success:
