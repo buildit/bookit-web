@@ -7,13 +7,18 @@ import Agenda from '../../components/03-organisms/Agenda'
 import Header from '../../components/02-molecules/Header'
 import InfoPanel from '../InfoPanel'
 
-import isMeetingOnDate from '../../utils/isMeetingOnDate'
-
 import USER_SHAPE from '../../models/user'
 
 import styles from './styles.scss'
 
-import { isBooking } from '../../selectors'
+import {
+  isBooking,
+  getMeetings,
+  getRooms,
+  getRequestedMeeting,
+  getSelectedDate,
+  getUser,
+} from '../../selectors'
 
 import {
   meetingsFetchStart,
@@ -87,40 +92,15 @@ DashboardContainer.propTypes = {
   meetingFormIsActive: PropTypes.bool.isRequired,
 }
 
+const mapStateToProps = state => ({
+  user: getUser(state),
+  meetings: getMeetings(state),
+  rooms: getRooms(state),
+  selectedDate: getSelectedDate(state),
+  requestedMeeting: getRequestedMeeting(state),
+  meetingFormIsActive: isBooking(state),
+})
 
-const mapStateToProps = (state) => {
-  const {
-    allMeetingIds,
-    meetingsById,
-    allRoomIds,
-    roomsById,
-    selectedDate,
-    inviteUserForm,
-    messages,
-    requestedMeeting,
-  } = state.app
-
-  const meetings = allMeetingIds
-    .map(id => meetingsById[id])
-    .filter(meeting => isMeetingOnDate(meeting, selectedDate))
-    .map(meeting => ({
-      ...meeting,
-      isOwnedByUser: meeting.owner.email === state.user.email }))
-
-  const rooms = allRoomIds.map(id => roomsById[id])
-  const meetingFormIsActive = isBooking(state)
-
-  return ({
-    user: state.user,
-    meetings,
-    rooms,
-    inviteUserForm,
-    messages,
-    selectedDate,
-    requestedMeeting,
-    meetingFormIsActive,
-  })
-}
 
 const mapDispatchToProps = dispatch => ({
   requestRooms: () => {

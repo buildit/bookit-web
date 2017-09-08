@@ -30,7 +30,18 @@ import MeetingForm from '../MeetingForm'
 import UserForm from '../UserForm'
 import isMeetingOnDate from '../../utils/isMeetingOnDate'
 
-import { isBooking, isInvitingUser, isRemovingUser, isCancellingBooking } from '../../selectors'
+import {
+  getAjax,
+  getMessages,
+  getUser,
+  getUsers,
+  getUserToBeRemoved,
+  isBooking,
+  isInvitingUser,
+  isRemovingUser,
+  isCancellingBooking,
+  getMeetings,
+} from '../../selectors'
 
 import styles from './styles.scss'
 
@@ -114,27 +125,18 @@ class InfoPanel extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { allMeetingIds, meetingsById, selectedDate } = state.app
-
-  const meetings = allMeetingIds
-    .map(id => meetingsById[id])
-    .filter(meeting => isMeetingOnDate(meeting, selectedDate))
-    .filter(meeting => meeting.owner.email === state.user.email)
-
-  return ({
-    messages: state.app.messages,
-    meetings,
-    user: state.app.user,
-    isBooking: isBooking(state),
-    isInvitingUser: isInvitingUser(state),
-    isRemovingUser: isRemovingUser(state),
-    isCancellingBooking: isCancellingBooking(state),
-    users: state.users,
-    userToBeRemoved: state.app.userToBeRemoved,
-    ajax: state.ajax,
-  })
-}
+const mapStateToProps = state => ({
+  messages: getMessages(state),
+  meetings: getMeetings(state),
+  user: getUser(state),
+  isBooking: isBooking(state),
+  isInvitingUser: isInvitingUser(state),
+  isRemovingUser: isRemovingUser(state),
+  isCancellingBooking: isCancellingBooking(state),
+  users: getUsers(state),
+  userToBeRemoved: getUserToBeRemoved(state),
+  ajax: getAjax(state),
+})
 
 const mapDispatchToProps = dispatch => ({
   handleReservationEditClick: (meeting) => {
