@@ -161,37 +161,19 @@ webpack.config.babel.js
 Changes to `.babelrc` are NOT recommended (except for the addition/removal of plugins). Babel configuration should be modified through `webpack/parts/javascript.js`
 
 ## CI & Deployment
-We are using Travis to manage continuous integration.
+We are using Travis to manage continuous integration and continuous deployment to staging.
 
 - Travis runs validations and then creates a production build. Nothing too crazy there.
 
-- On commits to `master`, Travis creates a new Docker image and pushes it to our repo on [Docker Hub](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=builditdigital&starCount=0).
+- On commits to `master`, if all unit tests pass, Travis creates a new Docker image and pushes it to an AWS ECR repo. After a successful push to ECR, the app is deployed to the integration environment. Then Integration tests are run. Only if the integration tests run successfully, does Travis then deploy the app to the staging environment.
 
 - The Dockerfile consumes the production code from the `build` directory, and adds the `config.js.template` file from the `nginx` directory into the image. Since bookit-web is 100% browser code, the resulting javascript from the build directory is free of any dependencies, thus making the resulting docker image essentially just static files.
 
-To build the bookit service as a whole:
-```
-$ yarn build && docker-compose up -d
-```
-Bookit will be running on http://localhost:80/.
+## Bookit integration
+Integration deployments are [here](https://int-bookit-web.buildit.tools).
 
-Note that `docker-compose` sources `docker-compose.yml` *and* `docker-compose.override.yml` - the final configuration for the container is composed from these two files.
-
-You can inspect the final, composed configuration with the following command:
-```
-$ docker-compose config
-```
-
-You should not have to modify the contents of `docker-compose.yml`. However, the contents of `docker-compose.override.yml` are intended for developers to apply local overrides to the composed configuration - specifically, the environment that bookit-server requires to run properly.
-
-The default contents of `docker-compose.override.yml` pulls in the `.env` file from a checked-out copy of the bookit-server codebase. If the path specified within the file does not match where you have a checked out copy of bookit-server, you should modify it accordingly before attempting to run docker-compose.
-
-Travis might fly too close to the Sun and fall out of the sky. No worries. You can still perform a build and push:
-```
-yarn build && docker build . -t builditdigital/bookit-web:latest && docker push builditdigital/bookit-web:latest
-```
-
-The dev deployment lives at http://bookit.riglet.io/. No guarantees that you'll see anything there! Or that you'll like what you see! As a dev deployment, it has not necessarily been checked by human eyes, and may change at any time.
+## Bookit staging
+Staging deployments are [here](https://stg-bookit-web.buildit.tools).
 
 ## Bookit server
 Check it out [here](https://github.com/buildit/bookit-server).
