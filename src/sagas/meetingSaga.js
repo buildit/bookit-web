@@ -29,6 +29,9 @@ export function* getMeetings(date) {
   try {
     yield call(getRooms)
 
+    // TODO: Getting the authz token isn't enough... we need to get it
+    // via a call, which will then verify if it's still valid - if not
+    // we'll silently obtain a new authz token and carry on.
     const token = yield select(selectors.getAuthorizationToken)
     const json = yield call(Api.fetchMeetings, token, date)
 
