@@ -1,7 +1,11 @@
-import meetings from './meetings'
+import ui from './ui'
+import tokens from './tokens'
 import user from './user'
+import meetings from './meetings'
 
 export default {
-  ...meetings,
+  ...ui,
+  ...tokens,
   ...user,
+  ...meetings,
 }

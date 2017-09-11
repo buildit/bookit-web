@@ -7,7 +7,7 @@ import configureStore from '../configureStore'
 
 import Root from '../containers/Root'
 
-const store = configureStore({})
+const store = configureStore()
 
 const mount = (Component) => {
   render(

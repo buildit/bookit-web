@@ -12,8 +12,6 @@ import {
   isMeetingOwner,
 } from '../selectors'
 
-import { selectMeeting } from '../actions'
-
 export default (WrappedComponent) => {
   const mapStateToProps = createPropsSelector({
     title: getMeetingTitle,
@@ -27,10 +25,9 @@ export default (WrappedComponent) => {
   const mergeProps = (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
     ...stateProps,
-    selectMeeting: () => dispatchProps.selectMeeting(ownProps.id),
   })
 
-  const withMeeting = connect(mapStateToProps, { selectMeeting }, mergeProps)(WrappedComponent)
+  const withMeeting = connect(mapStateToProps, {}, mergeProps)(WrappedComponent)
 
   withMeeting.propTypes = {
     id: PropTypes.string.isRequired,

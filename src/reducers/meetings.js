@@ -1,30 +1,26 @@
 import { fromJS } from 'immutable'
 
-import moment from 'moment'
+import Moment from 'moment'
 
-import * as actions from '../actions'
+import * as constants from '../constants'
 
-const selectedMeeting = (state = null, action) => {
+const mutateDate = (date, amount = 0, type = 'days') => Moment(date).add(amount, type).format('YYYY-MM-DD')
+
+const selectedDate = (state = Moment().format('YYYY-MM-DD'), action) => {
   switch(action.type) {
-  case actions.SELECT_MEETING:
-    return action.payload
-  case actions.SELECT_DATE:
-    return null
-  }
-  return state
-}
-
-const selectedDate = (state = moment().format('YYYY-MM-DD'), action) => {
-  switch(action.type) {
-  case actions.SELECT_DATE:
-    return action.payload
+  case constants.SELECT_DATE:
+    return mutateDate(action.payload)
+  case constants.INCREMENT_DATE:
+    return mutateDate(state, 1)
+  case constants.DECREMENT_DATE:
+    return mutateDate(state, -1)
   }
   return state
 }
 
 const meetings = (state = fromJS({ entities: {}, result: [] }), action) => {
   switch(action.type) {
-  case actions.RECEIVE_MEETINGS:
+  case constants.RECEIVE_MEETINGS:
     return state.mergeDeep(action.payload.meetings)
   }
   return state
@@ -32,7 +28,7 @@ const meetings = (state = fromJS({ entities: {}, result: [] }), action) => {
 
 const participants = (state = fromJS({ entities: {}, result: [] }), action) => {
   switch(action.type) {
-  case actions.RECEIVE_MEETINGS:
+  case constants.RECEIVE_MEETINGS:
     return state.mergeDeep(action.payload.participants)
   }
   return state
@@ -40,14 +36,13 @@ const participants = (state = fromJS({ entities: {}, result: [] }), action) => {
 
 const rooms = (state = fromJS({ entities: {}, result: [] }), action) => {
   switch(action.type) {
-  case actions.RECEIVE_MEETINGS:
+  case constants.RECEIVE_ROOMS:
     return state.mergeDeep(action.payload.rooms)
   }
   return state
 }
 
 export default {
-  selectedMeeting,
   selectedDate,
   meetings,
   rooms,

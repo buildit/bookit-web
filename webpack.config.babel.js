@@ -46,6 +46,12 @@ const developmentConfig = merge([
     output: { pathinfo: true },
   },
 
+  parts.definePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('development'),
+    },
+  }),
+
   parts.loadStyles({ include: PATHS.sources, exclude: PATHS.exclude }),
 
   parts.devServer({ host: 'localhost', port: 3001 }),

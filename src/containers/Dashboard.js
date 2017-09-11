@@ -1,6 +1,7 @@
 import React from 'react'
 
 import MeetingsContainer from './MeetingsContainer'
+import Navbar from './Navbar'
 
 import styles from './Dashboard.scss'
 
@@ -9,10 +10,12 @@ import './DashboardMisc.scss'
 const Dashboard = () => (
   <div className={styles.dashboard}>
     <div className={styles.dashboardMain}>
+
       <main>
         <MeetingsContainer />
       </main>
-      <nav><div>Hello <span>Bruce Springsteen!</span></div><div><a href="#">Log out</a></div></nav>
+      <Navbar />
+
     </div>
     <div className={styles.dashboardSidebar}>
       <p>Sidebar</p>

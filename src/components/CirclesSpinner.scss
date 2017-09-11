@@ -1,0 +1,67 @@
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  background-color: rgba(43, 57, 71, 1.0);
+  // background-color: #2b3947;
+}
+
+.loading-overlay > svg {
+  transform: translate(-50%, -50%);
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+}
+
+@-webkit-keyframes three-sixty {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(180deg); }
+  50% { transform: rotate(180deg); }
+  70% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes fade {
+  from { opacity: 1; transform: scale(1, 1) translate(-50%, -50%); }
+  to { opacity: 0; transform: scale(2, 2) translate(-50%, -50%); }
+}
+
+.loading-circles {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 60px;
+  height: 60px;
+}
+
+.loading-circles > .circle {
+  position: absolute;
+  transform-origin: 0 0;
+  transform: scale(1, 1) translate(-50%, -50%);
+  animation: fade 1s linear infinite;
+  content: " ";
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  /*background: #2b3947;*/
+  background: #141516;
+  opacity: 1;
+}
+
+.circle.hold {
+  animation: none;
+}
+
+.circle.first + .circle {
+  animation-delay: .33s;
+}
+
+.circle.first + .circle + .circle {
+  animation-delay: .66s;
+}

@@ -1,23 +1,21 @@
 import { fromJS } from 'immutable'
 
-import * as actions from '../actions'
+import * as constants from '../constants'
 
-// { id: 3, email: 'bobby@builditcontoso.onmicrosoft.com', name: 'Bruce Springsteen', token: '12345' }
-
-const initialState = fromJS({
-  id: null,
+const initialUserState = fromJS({
   email: '',
   name: '',
-  token: null,
+  isAdmin: false,
 })
 
-const user = (state = initialState, action) => {
+const user = (state = initialUserState, action) => {
   switch(action.type) {
-  case actions.SET_USER:
+  case constants.SET_USER:
     return state.merge(action.payload)
-  default:
-    return state
+  case constants.CLEAR_USER:
+    return initialUserState
   }
+  return state
 }
 
 export default {

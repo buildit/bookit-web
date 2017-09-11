@@ -1,24 +1,64 @@
 import url from 'url'
+import { v4 as uuid } from 'uuid'
 
-const currentHostname = () => window.location ? window.location.origin : 'http://localhost:3001'
+let W = global.window
+if (!W) W = { location: { origin: 'http://localhost:3001' } }
 
-export const signinRequestUrl = () => {
-  const tenant = '37fcf0e4-ceb8-4866-8e26-293bab1e26a8'
-  const protocol = 'https'
-  const host = `login.microsoftonline.com/${tenant}/oauth2/authorize`
-  const query = {
-    client_id: '1be035ba-835c-498a-b1d3-786e4cfd77bc',
-    response_type: 'id_token',
-    redirect_uri: `${currentHostname()}/openid-complete`,
-    scope: 'openid',
-    response_mode: 'query',
-    nonce: '12345',
-    prompt: 'login',
+const currentHostname = () => W.location.origin
+
+export const authenticationRedirectUrl = () => `${currentHostname()}/openid-complete`
+
+// Required Parameters (Static)
+
+const tenant = 'common'  // can be 'common', 'organizations', 'consumers' or an actual tenantId
+const client_id = '9a8b8181-afb1-48f8-a839-a895d39f9db0'
+const response_type = 'token'  // 'id_token token'
+const scope = [
+  'openid',
+  'profile',
+  'offline_access',
+  'https://graph.microsoft.com/calendars.read',
+  'https://graph.microsoft.com/calendars.readwrite',
+  'https://graph.microsoft.com/user.read',
+].join(' ')
+const nonce = uuid()
+
+// Recommended Parameters
+
+const redirect_uri = authenticationRedirectUrl()
+const response_mode = 'fragment'
+// const state = uuid()  // must be unique per-request
+
+// Optional Parameters
+
+// const prompt = 'login'
+// const login_hint = 'someguy@somedomain.com'
+// const domain_hint = 'consumers'  // can be either 'consumers' or 'organizations'
+
+const protocol = 'https'
+const host = `login.microsoftonline.com/${tenant}/oauth2/v2.0/authorize`
+
+export const signinRequestUrl = (prompt = 'login', login_hint, domain_hint) => {
+  const state = uuid()
+
+  let query = {
+    client_id,
+    scope,
+    response_type,
+    nonce,
+    redirect_uri,
+    response_mode,
+    state,
+    prompt,
   }
 
-  return url.format({
-    protocol,
-    host,
-    query,
-  })
+  if (login_hint) query = { ...query, login_hint }
+  if (domain_hint) query = { ...query, domain_hint }
+
+  return url.format({ protocol, host, query })
 }
+
+export const refreshRequestUrl = (login_hint, domain_hint) => {
+  return signinRequestUrl('none', login_hint, domain_hint)
+}
+

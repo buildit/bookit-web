@@ -25,8 +25,10 @@ const storeEnhancers = []
 const middlewareEnhancer = applyMiddleware(...middlewares)
 storeEnhancers.unshift(middlewareEnhancer)
 
-export default (initialState) => {
-  const composer = (window ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : compose)
+export default (initialState = {}) => {
+  let composer = (window ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : compose)
+  if (process.env.NODE_ENV === 'production') composer = compose
+
 
   const store = createStore(
     makeRootReducer(reducers),

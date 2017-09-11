@@ -7,15 +7,31 @@ import Moment from 'moment'
 // User state selectors
 // export const getUser = () => ({ id: 3, email: 'bobby@builditcontoso.onmicrosoft.com', name: 'Bruce Springsteen', token: '12345' })
 export const getUser = state => state.user
+export const getTokens = state => state.tokens
+export const getUi = state => state.ui
 
-export const getUserToken = createGetSelector(getUser, 'token', null)
 export const getUserName = createGetSelector(getUser, 'name', null)
 export const getUserEmail = createGetSelector(getUser, 'email', null)
 export const getUserId = createGetSelector(getUser, 'id', null)
+export const isUserAdmin = createGetSelector(getUser, 'isAdmin', false)
 
-export const isAuthenticated = state => Boolean(getUserToken(state))
-export const isAnonymous = state => !isAuthenticated(state)
-export const isAdmin = state => isAuthenticated(state) && (getUserId(state) === 3 || getUserEmail(state) === 'rasmus@designit.com')
+export const getAuthenticationToken = createGetSelector(getTokens, 'authn', null)
+export const getAuthorizationToken = createGetSelector(getTokens, 'authz', null)
+
+export const isLoggedIn = createSelector(
+  [ getUi ],
+  ui => ui.loggedIn
+)
+
+export const hasAuthenticationToken = createSelector(
+  [ getAuthenticationToken ],
+  authn => Boolean(authn)
+)
+
+export const hasAuthorizationToken = createSelector(
+  [ getAuthorizationToken ],
+  authz => Boolean(authz)
+)
 
 // Application-wide selectedX state
 
@@ -42,24 +58,36 @@ export const getParticipantEntity = (state, { id }) => getParticipantEntities(st
 
 // Composed selectors
 
+export const getSelectedDateMoment = createSelector(
+  [ getSelectedDate ],
+  selectedDate => Moment(selectedDate)
+)
+
 export const getSelectedMeetingEntity = createSelector(
   [ getSelectedMeeting, getMeetingEntities ],
   (selectedMeeting, meetings) => meetings.get(selectedMeeting)
 )
 
-
-// Returns true if there are meetings in the store
-export const hasMeetings = createSelector(getMeetingIds, meetingIds => meetingIds.length > 0)
-
 // Returns meetingIds for the currently selected date
 export const getMeetingIdsForSelectedDate = createSelector(
-  [ getSelectedDate, getMeetingIds, getMeetingEntities ],
-  (selectedDate, meetingIds, meetings) => {
-    const selectedMoment = Moment(selectedDate)
+  [ getSelectedDateMoment, getMeetingIds, getMeetingEntities ],
+  (selectedDateMoment, meetingIds, meetings) => {
     return meetingIds.filter(
-      id => Moment(meetings.getIn([id, 'start'])).isSame(selectedMoment, 'day')
+      id => Moment(meetings.getIn([id, 'start'])).isSame(selectedDateMoment, 'day')
     )
   }
+)
+
+// Returns true if there are meetings in the store (regardless of selected date)
+export const hasMeetings = createSelector(
+  [ getMeetingIds ],
+  meetingIds => meetingIds.length > 0
+)
+
+// Returns true if there are meetings in the store for the selected date
+export const hasMeetingsForSelectedDate = createSelector(
+  [ getMeetingIdsForSelectedDate ],
+  meetingIds => meetingIds.length > 0
 )
 
 // Returns a List of meeting ids for the given room
@@ -115,53 +143,3 @@ export const getRoomEmail = createGetSelector(getRoomEntity, 'email')
 
 export const getParticipantName = createGetSelector(getParticipantEntity, 'name')
 export const getParticipantEmail = createGetSelector(getParticipantEntity, 'email')
-
-
-// const makeMeetingEntitySelectorById = (id) => {
-//   const getMeetingId = () => id
-//   return createSelector(
-//     [ getMeetingId, getMeetingEntities ],
-//     (meetingId, meetings) => meetings.get(meetingId)
-//   )
-// }
-
-// const makeMeetingEntityListItemMapState = (state, ownProps) => {
-//   const getMeetingEntityForThisComponent = makeMeetingEntitySelectorById(ownProps.id)
-//   const actualMapState = (state, ownProps) => {
-//     const meeting = getMeetingEntityForThisComponent(state)
-//     return { meeting }
-//   }
-// }
-// NOTE - We never appear to care about meeting owner or participants, but
-// someday we might
-//
-// export const getMeetingOwner
-// export const getMeetingParticipants
-
-/* mapStateToProps Factories */
-
-// export const makeRoomIdsStateToProps = () => createPropsSelector({
-//   roomIds: getRoomResult,
-// })
-
-// export const makeCurrentUserMeetingIdsStateToProps = () => createPropsSelector({
-//   meetingIds: getMeetingsForCurrentUser,
-// })
-
-// export const makeRoomMeetingIdsStateToProps = () => createPropsSelector({
-//   meetingIds: getMeetingsForRoom,
-// })
-
-// export const makeMeetingStateToProps = () => createPropsSelector({
-//   title: getMeetingTitle,
-//   start: getMeetingStart,
-//   end: getMeetingEnd,
-//   room: getMeetingRoomName,
-// })
-
-// export const makeRoomNameStateToProps = () => createPropsSelector({
-//   name: getRoomName,
-// })
-
-/* User-related selectors */
-

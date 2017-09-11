@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 import moment from 'moment'
 
-const formatDate = dateString => moment(dateString).format('h:mma')
+const formatTime = dateString => moment(dateString).format('h:mma')
+const formatDate = dateString => moment(dateString).format('MM/DD/YYYY')
 
 const style = {
   backgroundColor: 'goldenrod',
@@ -14,7 +15,7 @@ const style = {
 export const MeetingItem = ({ title, start, end, roomName }) => (
   <div style={style}>
     <h2>{ title }</h2>
-    <p>{ formatDate(start) } - { formatDate(end) }</p>
+    <p>{ formatDate(start) } - { formatTime(start) } - { formatTime(end) }</p>
     <p>{ roomName } Room</p>
   </div>
 )

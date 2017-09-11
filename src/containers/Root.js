@@ -5,14 +5,16 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 
 import history from '../history'
-import routes from '../routes'
+// import routes from '../routes'
+
+import App from './App'
 
 import './Root.scss'
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      { routes(store) }
+      <App />
     </ConnectedRouter>
   </Provider>
 )
