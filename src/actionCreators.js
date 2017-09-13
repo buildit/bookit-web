@@ -7,13 +7,8 @@ import { normalizeRooms, normalizeMeetings } from './schema'
 import * as constants from './constants'
 
 const extractIdentityFromLocationHash = (hash) => {
-  const {
-    access_token: accessToken,
-    expires_in: expiresIn,
-  } = queryString.parse(hash)
-
-  // expires: Moment().add(expires_in, 'seconds').format(),
-  return { accessToken, expiresIn }
+  const { access_token: accessToken } = queryString.parse(hash)
+  return accessToken
 }
 
 export const setAuthentication = createAction(constants.SET_AUTHENTICATION)
@@ -33,7 +28,7 @@ export const logoutSuccess = createAction(constants.LOGOUT_SUCCESS)
 
 // EVERYTHING BELOW IS MOSTLY SUSPECT
 
-export const authorizeRequest = createAction(constants.AUTHORIZE_REQUEST, data => extractIdentityFromLocationHash(data))
+export const authorizeRequest = createAction(constants.AUTHORIZE_REQUEST)
 export const authorizeSuccess = createAction(constants.AUTHORIZE_SUCCESS)
 export const authorizeError = createAction(constants.AUTHORIZE_ERROR)
 

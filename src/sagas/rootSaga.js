@@ -1,12 +1,12 @@
 import { fork } from 'redux-saga/effects'
 
-import authSaga from './authSaga'
-import meetingSaga from './meetingSaga'
+import authenticateAndAuthorize from './authSaga'
+import watchForFetches from './fetchSaga'
 
 export function* rootSaga() {
   console.log('rootSaga')
-  yield fork(authSaga)
-  yield fork(meetingSaga)
+  yield fork(authenticateAndAuthorize)
+  yield fork(watchForFetches)
 }
 
 export default rootSaga

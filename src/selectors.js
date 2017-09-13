@@ -10,6 +10,8 @@ export const getUser = state => state.user
 export const getTokens = state => state.tokens
 export const getUi = state => state.ui
 
+export const getRouter = state => state.router
+
 export const getUserName = createGetSelector(getUser, 'name', null)
 export const getUserEmail = createGetSelector(getUser, 'email', null)
 export const getUserId = createGetSelector(getUser, 'id', null)
@@ -17,6 +19,11 @@ export const isUserAdmin = createGetSelector(getUser, 'isAdmin', false)
 
 export const getAuthenticationToken = createGetSelector(getTokens, 'authn', null)
 export const getAuthorizationToken = createGetSelector(getTokens, 'authz', null)
+
+export const getRouterLocation = createSelector(
+  [ getRouter ],
+  router => router.location
+)
 
 export const isLoggedIn = createSelector(
   [ getUi ],
