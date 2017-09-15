@@ -4,6 +4,8 @@ import * as constants from '../constants'
 import * as actions from '../actionCreators'
 import * as selectors from '../selectors'
 
+import { normalizeRooms, normalizeMeetings } from '../schema'
+
 // TODO: Try to avoid cross-contamination...
 // The problem is that if we instead rely on `put` to signal authSaga
 // that something needs to happen, then things just fall apart due to
@@ -13,31 +15,29 @@ import { authorize, validateToken } from './authSaga'
 
 import Api from '../api2'
 
-export function* fetchRooms() {
-  console.log('fetchRooms')
+export function* getRooms() {
   try {
     const json = yield call(Api.fetchRooms)
-    yield put(actions.receiveRooms(json))
+    const normalized = yield call(normalizeRooms, json)
+    yield put(actions.receiveRooms(normalized))
   } catch (error) {
-    console.log('GETROOMS ERROR', error)
+    yield call(console.log, 'GETROOMS ERROR', error)
   }
 }
 
-export function* getRooms() {
-  console.log('getRooms')
+export function* getRoomsIfNeeded() {
   const roomIds = yield select(selectors.getRoomIds)
   if (!roomIds.length) {
-    yield call(fetchRooms)
+    yield call(getRooms)
   }
 }
 
 export function* getAuthorization() {
-  console.log('getAuthorization')
   let authzToken = yield select(selectors.getAuthorizationToken)
 
-  const isValidAuthorization = yield call(validateAuthorization, authzToken)
+  const isValidAuthorizationToken = yield call(validateToken, authzToken)
 
-  if (!isValidAuthorization) {
+  if (!isValidAuthorizationToken) {
     yield call(authorize)
     authzToken = yield select(selectors.getAuthorizationToken)
   }
@@ -45,30 +45,24 @@ export function* getAuthorization() {
   return authzToken
 }
 
-export function* validateAuthorization(token) {
-  console.log('validateAuthorization')
-  return yield call(validateToken, token)
-}
-
 export function* getMeetings(date) {
-  console.log('getMeetings')
   try {
-    yield call(getRooms)
+    yield call(getRoomsIfNeeded)
 
     const token = yield call(getAuthorization)
     const json = yield call(Api.fetchMeetings, token, date)
+    const normalized = yield call(normalizeMeetings, json)
 
-    yield put(actions.receiveMeetings(json))
+    yield put(actions.receiveMeetings(normalized))
   } catch (error) {
-    console.log('GETMEETINGS ERROR', error)
+    yield call(console.log, 'GETMEETINGS ERROR', error)
   }
 }
 
 export function* watchForFetches() {
-  console.log('watchForFetches')
   while (true) {  // eslint-disable-line
-    const { payload: date } = yield take(constants.FETCH_MEETINGS)
-    yield call(getMeetings, date)
+    const { payload } = yield take(constants.FETCH_MEETINGS)
+    yield call(getMeetings, payload)
   }
 }
 

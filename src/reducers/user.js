@@ -1,22 +1,16 @@
 import { fromJS } from 'immutable'
 
+import { createReducer } from './reducer-utilities'
+
 import * as constants from '../constants'
 
-const initialUserState = fromJS({
-  email: '',
-  name: '',
-  isAdmin: false,
-})
+const setUser = (state, action) => state.merge(action.payload)
+const clearUser = state => state.clear()
 
-const user = (state = initialUserState, action) => {
-  switch(action.type) {
-  case constants.SET_USER:
-    return state.merge(action.payload)
-  case constants.CLEAR_USER:
-    return initialUserState
-  }
-  return state
-}
+const user = createReducer(fromJS({}), {
+  [constants.SET_USER]: setUser,
+  [constants.CLEAR_USER]: clearUser,
+})
 
 export default {
   user,

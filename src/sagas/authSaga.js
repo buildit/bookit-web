@@ -1,5 +1,7 @@
 import { all, call, put, select, take } from 'redux-saga/effects'
 
+import queryString from 'query-string'
+
 import history from '../history'
 
 import * as constants from '../constants'
@@ -10,15 +12,15 @@ import { decodeJWT } from '../utils/jwt-decode'
 
 import Api from '../api2'
 
+export function* extractIdentityFromLocationHash(query) {
+  const { access_token: accessToken } = queryString.parse(query)
+  return yield accessToken
+}
+
 export function* logout() {
-  console.log('logout')
-
   yield take(constants.LOGOUT_REQUEST)
-
   yield call(clearAllAuth)
-
   yield put(actions.logoutSuccess())
-
   // Restart the authorization flow
   yield call(resolveAuthentication)
 }
@@ -32,12 +34,10 @@ export function* clearAllAuth() {
 }
 
 export function* getPersistedAuthentication() {
-  console.log('getPersistedAuthentication')
-
   const authnToken = yield call(Api.getAuthentication)
-  const isValidAuthentication = yield call(validateAuthentication, authnToken)
+  const isValidAuthenticationToken = yield call(validateToken, authnToken)
 
-  if (!isValidAuthentication) {
+  if (!isValidAuthenticationToken) {
     yield call(clearAllAuth)
     return null
   }
@@ -46,7 +46,6 @@ export function* getPersistedAuthentication() {
 }
 
 export function* validateToken(token) {
-  console.log('validateToken')
   if (!token) {
     console.log('NO TOKEN AT ALL')
     return false
@@ -65,36 +64,21 @@ export function* validateToken(token) {
   return true
 }
 
-export function* validateAuthentication(token) {
-  console.log('validateAuthentication')
-  return yield call(validateToken, token)
-}
-
-export function* persistAuthentication(token) {
-  console.log('persistAuthentication')
-
-  yield call(Api.storeAuthentication, token)
-}
-
 export function* setAuthenticated(token) {
-  console.log('setAuthenticated')
-
-  yield call(persistAuthentication, token)
+  yield call(Api.storeAuthentication, token)
   yield put(actions.setAuthentication(token))
 }
 
 export function* authenticate() {
-  console.log('authenticate')
-
   yield call(history.replace, '/login')  // URGHHHHHHHHHHHHHH HATE SELF.
 
   const { payload } = yield take(constants.LOGIN_REQUEST)
-  return payload
+  const identity = yield call(extractIdentityFromLocationHash, payload)
+
+  return identity
 }
 
 export function* authorize() {
-  console.log('authorize')
-
   const authnToken = yield select(selectors.getAuthenticationToken)
   const { token, ...user } = yield call(Api.authorize, authnToken)
 
@@ -105,8 +89,6 @@ export function* authorize() {
 }
 
 export function* resolveAuthentication() {
-  console.log('resolveAuthentication')
-
   let authnToken = yield call(getPersistedAuthentication)
 
   if (!authnToken) {
@@ -119,8 +101,6 @@ export function* resolveAuthentication() {
 }
 
 export function* authenticateAndAuthorize() {
-  console.log('authenticateAndAuthorize')
-
   // TODO: This is kinda janky and needs reviewing to see if it's
   // worth replacing location state purely for the sake of displaying
   // loading spinner/throbbers

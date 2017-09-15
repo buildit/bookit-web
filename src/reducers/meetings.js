@@ -1,49 +1,35 @@
 import { fromJS } from 'immutable'
 
-import Moment from 'moment'
+import { createReducer } from './reducer-utilities'
 
 import * as constants from '../constants'
 
-const mutateDate = (date, amount = 0, type = 'days') => Moment(date).add(amount, type).format('YYYY-MM-DD')
+const entityStateFactory = () => fromJS({ entities: {}, result: [] })
 
-const selectedDate = (state = Moment().format('YYYY-MM-DD'), action) => {
-  switch(action.type) {
-  case constants.SELECT_DATE:
-    return mutateDate(action.payload)
-  case constants.INCREMENT_DATE:
-    return mutateDate(state, 1)
-  case constants.DECREMENT_DATE:
-    return mutateDate(state, -1)
+const createEntityReducer = handlers => createReducer(entityStateFactory(), handlers)
+
+const entityUpdateFactory = (entity) => {
+  return (state, action) => {
+    const { entities, result } = action.payload[entity]
+    return state
+    .update('entities', map => map.mergeDeep(entities))
+    .update('result', list => list.toOrderedSet().concat(result).toList())
   }
-  return state
 }
 
-const meetings = (state = fromJS({ entities: {}, result: [] }), action) => {
-  switch(action.type) {
-  case constants.RECEIVE_MEETINGS:
-    return state.mergeDeep(action.payload.meetings)
-  }
-  return state
-}
+const meetings = createEntityReducer({
+  [constants.RECEIVE_MEETINGS]: entityUpdateFactory('meetings'),
+})
 
-const participants = (state = fromJS({ entities: {}, result: [] }), action) => {
-  switch(action.type) {
-  case constants.RECEIVE_MEETINGS:
-    return state.mergeDeep(action.payload.participants)
-  }
-  return state
-}
+const rooms = createEntityReducer({
+  [constants.RECEIVE_ROOMS]: entityUpdateFactory('rooms'),
+})
 
-const rooms = (state = fromJS({ entities: {}, result: [] }), action) => {
-  switch(action.type) {
-  case constants.RECEIVE_ROOMS:
-    return state.mergeDeep(action.payload.rooms)
-  }
-  return state
-}
+const participants = createEntityReducer({
+  [constants.RECEIVE_MEETINGS]: entityUpdateFactory('participants'),
+})
 
 export default {
-  selectedDate,
   meetings,
   rooms,
   participants,

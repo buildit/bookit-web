@@ -9,3 +9,4 @@ export default {
   ...user,
   ...meetings,
 }
+

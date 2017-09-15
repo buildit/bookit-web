@@ -9,7 +9,7 @@ import {
   getMeetingStart,
   getMeetingEnd,
   getMeetingRoomName,
-  isMeetingOwner,
+  isUserMeetingOwner,
 } from '../selectors'
 
 export default (WrappedComponent) => {
@@ -18,7 +18,7 @@ export default (WrappedComponent) => {
     start: getMeetingStart,
     end: getMeetingEnd,
     roomName: getMeetingRoomName,
-    isMeetingOwner: isMeetingOwner,
+    isUserMeetingOwner: isUserMeetingOwner,
   })
 
   // Object.assign({}, ownProps, stateProps, dispatchProps)

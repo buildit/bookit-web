@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-import { createGetSelector } from 'reselect-immutable-helpers'
+import { createGetSelector, createHasSelector } from 'reselect-immutable-helpers'
 
 import Moment from 'moment'
 
@@ -9,7 +9,10 @@ import Moment from 'moment'
 export const getUser = state => state.user
 export const getTokens = state => state.tokens
 export const getUi = state => state.ui
-
+export const getRooms = state => state.rooms
+export const getMeetings = state => state.meetings
+export const getParticipants = state => state.participants
+export const getSelectedDate = state => state.selectedDate
 export const getRouter = state => state.router
 
 export const getUserName = createGetSelector(getUser, 'name', null)
@@ -17,39 +20,33 @@ export const getUserEmail = createGetSelector(getUser, 'email', null)
 export const getUserId = createGetSelector(getUser, 'id', null)
 export const isUserAdmin = createGetSelector(getUser, 'isAdmin', false)
 
+export const hasAuthenticationToken = createHasSelector(getTokens, 'authn')
+export const hasAuthorizationToken = createHasSelector(getTokens, 'authz')
+
 export const getAuthenticationToken = createGetSelector(getTokens, 'authn', null)
 export const getAuthorizationToken = createGetSelector(getTokens, 'authz', null)
+
+// export const hasAuthenticationToken = createSelector(
+//   [ getAuthenticationToken ],
+//   authn => Boolean(authn)
+// )
+
+// export const hasAuthorizationToken = createSelector(
+//   [ getAuthorizationToken ],
+//   authz => Boolean(authz)
+// )
+
+export const isLoggedIn = createSelector(
+  [ hasAuthorizationToken, hasAuthenticationToken ],
+  (hasAuthorization, hasAuthentication) => hasAuthorization && hasAuthentication
+)
 
 export const getRouterLocation = createSelector(
   [ getRouter ],
   router => router.location
 )
 
-export const isLoggedIn = createSelector(
-  [ getUi ],
-  ui => ui.loggedIn
-)
-
-export const hasAuthenticationToken = createSelector(
-  [ getAuthenticationToken ],
-  authn => Boolean(authn)
-)
-
-export const hasAuthorizationToken = createSelector(
-  [ getAuthorizationToken ],
-  authz => Boolean(authz)
-)
-
-// Application-wide selectedX state
-
-export const getSelectedMeeting = state => state.selectedMeeting
-export const getSelectedDate = state => state.selectedDate
-
 // Entity selectors
-
-export const getRooms = state => state.rooms
-export const getMeetings = state => state.meetings
-export const getParticipants = state => state.participants
 
 export const getRoomIds = state => getRooms(state).get('result').toArray()
 export const getMeetingIds = state => getMeetings(state).get('result').toArray()
@@ -59,20 +56,29 @@ export const getRoomEntities = state => getRooms(state).get('entities')
 export const getMeetingEntities = state => getMeetings(state).get('entities')
 export const getParticipantEntities = state => getParticipants(state).get('entities')
 
-export const getRoomEntity = (state, { id }) => getRoomEntities(state).get(id)
-export const getMeetingEntity = (state, { id }) => getMeetingEntities(state).get(id)
-export const getParticipantEntity = (state, { id }) => getParticipantEntities(state).get(id)
+export const getRoomEntity = (state, props) => getRoomEntities(state).get(props.id)
+export const getMeetingEntity = (state, props) => getMeetingEntities(state).get(props.id)
+export const getParticipantEntity = (state, props) => getParticipantEntities(state).get(props.id)
+
+// Get Selectors for use with createPropsSelector
+
+export const getMeetingTitle = createGetSelector(getMeetingEntity, 'title', null)
+export const getMeetingStart = createGetSelector(getMeetingEntity, 'start', null)
+export const getMeetingEnd = createGetSelector(getMeetingEntity, 'end', null)
+export const getMeetingOwner = createGetSelector(getMeetingEntity, 'owner', null)
+export const getMeetingRoom = createGetSelector(getMeetingEntity, 'room', null)
+
+export const getRoomName = createGetSelector(getRoomEntity, 'name', null)
+export const getRoomEmail = createGetSelector(getRoomEntity, 'email', null)
+
+export const getParticipantName = createGetSelector(getParticipantEntity, 'name', null)
+export const getParticipantEmail = createGetSelector(getParticipantEntity, 'email', null)
 
 // Composed selectors
 
 export const getSelectedDateMoment = createSelector(
   [ getSelectedDate ],
   selectedDate => Moment(selectedDate)
-)
-
-export const getSelectedMeetingEntity = createSelector(
-  [ getSelectedMeeting, getMeetingEntities ],
-  (selectedMeeting, meetings) => meetings.get(selectedMeeting)
 )
 
 // Returns meetingIds for the currently selected date
@@ -105,8 +111,9 @@ export const getMeetingsForRoom = createSelector(
 
 // Returns a list of meeting ids that the current user is the owner of
 export const getMeetingsForUser = createSelector(
-  [ getMeetingIds, getMeetingEntities, getUser ],
-  (meetingIds, meetings, user) => meetingIds.filter(id => meetings.getIn([id, 'owner']) === user.email)
+  [ getMeetingIds, getMeetingEntities, getUserEmail ],
+  // (meetingIds, meetings, userEmail) => meetingIds.filter(id => getMeetingOwner(state, id) === userEmail)
+  (meetingIds, meetings, userEmail) => meetingIds.filter(id => meetings.getIn([id, 'owner']) === userEmail)
 )
 
 // Returns the room entity for the given meeting
@@ -115,7 +122,7 @@ export const getMeetingsForUser = createSelector(
 // selected set of meeting entity properties
 const getMeetingRoomEntity = createSelector(
   [ getMeetingEntity, getRoomEntities ],
-  (meeting, rooms) => rooms.get(meeting.get('room'))
+  (meeting, rooms) => rooms.get(meeting.get('room', null), null)
 )
 
 // Returns the participant entity for the given meeting
@@ -124,29 +131,20 @@ const getMeetingRoomEntity = createSelector(
 // selected set of meeting entity properties
 const getMeetingOwnerEntity = createSelector(
   [ getMeetingEntity, getParticipantEntities ],
-  (meeting, participants) => participants.get(meeting.get('owner'))
+  (meeting, participants) => participants.get(meeting.get('owner', null), null)
 )
 
-export const isMeetingOwner = createSelector(
-  [ getMeetingEntity, getUser ],
-  (meeting, user) => meeting.get('owner') === user.email
+export const getMeetingRoomName = createGetSelector(getMeetingRoomEntity, 'name', null)
+export const getMeetingOwnerName = createGetSelector(getMeetingOwnerEntity, 'name', null)
+
+
+// Extensions for specific entity selectors
+
+export const isUserMeetingOwner = createSelector(
+  [ getUserEmail, getMeetingOwner ],
+  (email, meetingOwner) => meetingOwner === email
 )
-
-// Get Selectors for use with createPropsSelector
-
-export const getMeetingTitle = createGetSelector(getMeetingEntity, 'title')
-export const getMeetingStart = createGetSelector(getMeetingEntity, 'start')
-export const getMeetingEnd = createGetSelector(getMeetingEntity, 'end')
-export const getMeetingRoomName = createGetSelector(getMeetingRoomEntity, 'name')
-export const getMeetingOwner = createGetSelector(getMeetingOwnerEntity, 'name')
 
 // export const isMeetingInPast = state => 'bollocks'
 // export const isMeetingInFuture = state => 'bollocks'
 // export const isHappeningNow = state => 'bollocks'
-// export const isUserMeetingOwner = state => 'bollocks'
-
-export const getRoomName = createGetSelector(getRoomEntity, 'name')
-export const getRoomEmail = createGetSelector(getRoomEntity, 'email')
-
-export const getParticipantName = createGetSelector(getParticipantEntity, 'name')
-export const getParticipantEmail = createGetSelector(getParticipantEntity, 'email')
