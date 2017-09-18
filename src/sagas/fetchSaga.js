@@ -13,7 +13,7 @@ import { normalizeRooms, normalizeMeetings } from '../schema'
 // implicitly rely on sequenced uses of `call`, which always blocks
 import { authorize, validateToken } from './authSaga'
 
-import Api from '../api2'
+import Api from '../api'
 
 export function* getRooms() {
   try {

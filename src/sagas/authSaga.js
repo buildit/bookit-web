@@ -10,7 +10,7 @@ import * as selectors from '../selectors'
 
 import { decodeJWT } from '../utils/jwt-decode'
 
-import Api from '../api2'
+import Api from '../api'
 
 export function* extractIdentityFromLocationHash(query) {
   const { access_token: accessToken } = queryString.parse(query)

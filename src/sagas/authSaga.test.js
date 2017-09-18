@@ -9,7 +9,7 @@ import * as selectors from '../selectors'
 
 import { decodeJWT } from '../utils/jwt-decode'
 
-import Api from '../api2'
+import Api from '../api'
 
 import {
   extractIdentityFromLocationHash,

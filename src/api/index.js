@@ -1,17 +1,11 @@
-import { login } from './auth'
-import { fetchMeetings, createMeeting, editMeeting, cancelMeeting } from './meetings'
-import { addUser, listUsers } from './users'
-import { getOpenIdUrl } from './auth'
+import { authorize, fetchRooms, fetchMeetings } from './api'
+import { storeAuthentication, getAuthentication, clearAuthentication } from './storage'
 
-const Api = {
-  login,
+export default {
+  authorize,
+  fetchRooms,
   fetchMeetings,
-  createMeeting,
-  editMeeting,
-  cancelMeeting,
-  addUser,
-  listUsers,
-  getOpenIdUrl,
+  storeAuthentication,
+  getAuthentication,
+  clearAuthentication,
 }
-
-export default Api

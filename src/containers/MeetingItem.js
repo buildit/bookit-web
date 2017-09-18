@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import moment from 'moment'
+import Moment from 'moment'
 
-const formatTime = dateString => moment(dateString).format('h:mma')
-const formatDate = dateString => moment(dateString).format('MM/DD/YYYY')
-const toDuration = (start, end) => moment.duration(moment(end).diff(start, 'seconds'), 'seconds').humanize()
+const formatTime = dateString => Moment(dateString).format('h:mma')
+const formatDate = dateString => Moment(dateString).format('MM/DD/YYYY')
+const toDuration = (start, end) => Moment.duration(Moment(end).diff(start, 'seconds'), 'seconds').humanize()
 
 const baseStyle = {
   backgroundColor: 'plum',

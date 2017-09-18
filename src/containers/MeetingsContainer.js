@@ -7,7 +7,7 @@ import Moment from 'moment'
 
 import {
   hasMeetingsForSelectedDate,
-  getMeetingIdsForSelectedDate,
+  getMeetingsForSelectedDate,
   getRoomIds,
   getSelectedDate,
 } from '../selectors'
@@ -74,7 +74,7 @@ class MeetingsContainer extends Component {
 const mapStateToProps = state => ({
   selectedDate: getSelectedDate(state),
   hasMeetingsForSelectedDate: hasMeetingsForSelectedDate(state),
-  meetingIds: getMeetingIdsForSelectedDate(state),
+  meetingIds: getMeetingsForSelectedDate(state),
   roomIds: getRoomIds(state),
 })
 

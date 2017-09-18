@@ -9,7 +9,7 @@ import { normalizeRooms, normalizeMeetings } from '../schema'
 
 import { authorize, validateToken } from './authSaga'
 
-import Api from '../api2'
+import Api from '../api'
 
 import {
   getRooms,
