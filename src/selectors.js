@@ -179,5 +179,5 @@ export const isMeetingInTheFuture = createSelector(
 // - Logged in user IS the meeting owner
 export const isMeetingEditable = createSelector(
   [ isUserAdmin, isUserMeetingOwner, isMeetingInThePast ],
-  (isUserAdmin, isUserMeetingOwner, isMeetingInThePast) => !isMeetingInThePast &&  (isUserAdmin || isUserMeetingOwner)
+  (isUserAdmin, isUserMeetingOwner, isMeetingInThePast) => !isMeetingInThePast && (isUserAdmin || isUserMeetingOwner)
 )
