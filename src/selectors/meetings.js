@@ -32,6 +32,12 @@ export const getMeetingsForSelectedDate = createSelector(
   }
 )
 
+// Returns meetingIds owned by the current user for the currently selected date
+export const getMeetingsForUserForSelectedDate = createSelector(
+  [ getUserEmail, getMeetingsForSelectedDate, getMeetingEntities ],
+  (userEmail, meetingIds, meetings) => meetingIds.filter(id => meetings.getIn([id, 'owner']) === userEmail)
+)
+
 // Returns true if there are meetings in the store for the selected date
 export const hasMeetingsForSelectedDate = createSelector(
   [ getMeetingsForSelectedDate ],
