@@ -4,7 +4,6 @@ import authenticateAndAuthorize from './authSaga'
 import watchForFetches from './fetchSaga'
 
 export function* rootSaga() {
-  console.log('rootSaga')
   yield fork(authenticateAndAuthorize)
   yield fork(watchForFetches)
 }

@@ -1,7 +1,5 @@
 import Moment from 'moment'
 
-import { fromJS } from 'immutable'
-
 import { createReducer } from './reducer-utilities'
 
 import * as constants from '../constants'
@@ -17,14 +15,6 @@ const selectedDate = createReducer(dateFactory(), {
   [constants.DECREMENT_DATE]: selectDateFactory(-1),
 })
 
-const setLoggedInFactory = loggedIn => state => state.set('loggedIn', loggedIn)
-
-const flags = createReducer(fromJS({ loggedIn: false }), {
-  [constants.LOGIN_SUCCESS]: setLoggedInFactory(true),
-  [constants.LOGOUT_SUCCESS]: setLoggedInFactory(false),
-})
-
 export default {
   selectedDate,
-  ui: flags,
 }

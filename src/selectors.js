@@ -4,8 +4,8 @@ import { createGetSelector, createHasSelector } from 'reselect-immutable-helpers
 
 import Moment from 'moment'
 
-// User state selectors
-// export const getUser = () => ({ id: 3, email: 'bobby@builditcontoso.onmicrosoft.com', name: 'Bruce Springsteen', token: '12345' })
+// State Slice selectors
+
 export const getUser = state => state.user
 export const getTokens = state => state.tokens
 export const getUi = state => state.ui
@@ -15,31 +15,29 @@ export const getParticipants = state => state.participants
 export const getSelectedDate = state => state.selectedDate
 export const getRouter = state => state.router
 
+// User State Slice selectors
+
 export const getUserName = createGetSelector(getUser, 'name', null)
 export const getUserEmail = createGetSelector(getUser, 'email', null)
 export const getUserId = createGetSelector(getUser, 'id', null)
 export const isUserAdmin = createGetSelector(getUser, 'isAdmin', false)
 
-export const hasAuthenticationToken = createHasSelector(getTokens, 'authn')
-export const hasAuthorizationToken = createHasSelector(getTokens, 'authz')
+// Tokens State Slice selectors
 
 export const getAuthenticationToken = createGetSelector(getTokens, 'authn', null)
 export const getAuthorizationToken = createGetSelector(getTokens, 'authz', null)
 
-// export const hasAuthenticationToken = createSelector(
-//   [ getAuthenticationToken ],
-//   authn => Boolean(authn)
-// )
+export const hasAuthenticationToken = createHasSelector(getTokens, 'authn')
+export const hasAuthorizationToken = createHasSelector(getTokens, 'authz')
 
-// export const hasAuthorizationToken = createSelector(
-//   [ getAuthorizationToken ],
-//   authz => Boolean(authz)
-// )
+// Derived State selectors from Token State Slice
 
 export const isLoggedIn = createSelector(
   [ hasAuthorizationToken, hasAuthenticationToken ],
   (hasAuthorization, hasAuthentication) => hasAuthorization && hasAuthentication
 )
+
+// Get the redux-router state as a selector
 
 export const getRouterLocation = createSelector(
   [ getRouter ],
@@ -145,6 +143,41 @@ export const isUserMeetingOwner = createSelector(
   (email, meetingOwner) => meetingOwner === email
 )
 
-// export const isMeetingInPast = state => 'bollocks'
-// export const isMeetingInFuture = state => 'bollocks'
-// export const isHappeningNow = state => 'bollocks'
+export const isMeetingInThePast = createSelector(
+  [ getMeetingStart, getMeetingEnd ],
+  (start, end) => {
+    const nowMoment = Moment()
+    const startMoment = Moment(start)
+    const endMoment = Moment(end)
+
+    const endIsAfterNow = endMoment > nowMoment
+    const startIsBeforeNow = startMoment < nowMoment
+
+    if (endIsAfterNow) return startIsBeforeNow
+    return endMoment < nowMoment
+  }
+)
+
+export const isMeetingHappeningNow = createSelector(
+  [ getMeetingStart, getMeetingEnd ],
+  (start, end) => {
+    const nowMoment = Moment()
+    const startMoment = Moment(start)
+    const endMoment = Moment(end)
+    return startMoment >= nowMoment && endMoment <= nowMoment
+  }
+)
+
+export const isMeetingInTheFuture = createSelector(
+  [ isMeetingInThePast, isMeetingHappeningNow ],
+  (isMeetingInThePast, isMeetingHappeningNow) => !isMeetingInThePast && !isMeetingHappeningNow
+)
+
+// A meeting is considered editable in the following situations:
+// - Meeting is NOT in the past, AND...
+// - Logged in user IS an admin OR
+// - Logged in user IS the meeting owner
+export const isMeetingEditable = createSelector(
+  [ isUserAdmin, isUserMeetingOwner, isMeetingInThePast ],
+  (isUserAdmin, isUserMeetingOwner, isMeetingInThePast) => !isMeetingInThePast &&  (isUserAdmin || isUserMeetingOwner)
+)

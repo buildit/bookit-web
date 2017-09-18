@@ -10,6 +10,10 @@ import {
   getMeetingEnd,
   getMeetingRoomName,
   isUserMeetingOwner,
+  isMeetingEditable,
+  isMeetingInThePast,
+  isMeetingHappeningNow,
+  isMeetingInTheFuture,
 } from '../selectors'
 
 export default (WrappedComponent) => {
@@ -19,6 +23,10 @@ export default (WrappedComponent) => {
     end: getMeetingEnd,
     roomName: getMeetingRoomName,
     isUserMeetingOwner: isUserMeetingOwner,
+    isMeetingEditable: isMeetingEditable,
+    isMeetingInThePast: isMeetingInThePast,
+    isMeetingHappeningNow: isMeetingHappeningNow,
+    isMeetingInTheFuture: isMeetingInTheFuture,
   })
 
   // Object.assign({}, ownProps, stateProps, dispatchProps)
