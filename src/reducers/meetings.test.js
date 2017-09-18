@@ -46,9 +46,6 @@ describe('meetings reducers', () => {
         result: [ 'qpr' ],
       }
 
-      // So yeah, mergeDeep and lists don't "play well", but for our
-      // situation the result is actually linked to the meeting ID's
-      // for the selected date. Probably. Needs moar tests.
       const expected = fromJS({
         entities: {
           'xyz': { id: 'xyz', title: 'first meeting' },
@@ -60,7 +57,6 @@ describe('meetings reducers', () => {
 
       const action = actions.receiveMeetings({ meetings: updatePayload })
       const state = reducers.meetings(fromJS(payload), action)
-      console.dir(state.toJS(), { depth: null })
       expect(is(state, expected)).toBeTruthy()
     })
     // const meetings = (state = fromJS({ entities: {}, result: [] }), action) => {

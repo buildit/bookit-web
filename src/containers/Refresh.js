@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 
 import Iframe from '../components/Iframe'
 
-import { refreshRequestUrl } from '../api/azure'
+import Api from '../api'
 
 // import { authorizeRequest } from '../actionCreators'
 
@@ -21,7 +21,7 @@ export class Refresh extends Component {
   render() {
     return (
       <Iframe
-        url={refreshRequestUrl('bruce@builditcontoso.onmicrosoft.com', 'organizations')}
+        url={Api.refreshRequestUrl('bruce@builditcontoso.onmicrosoft.com', 'organizations')}
         iframeRef={el => this.iframeRef = el}
         width="0"
         height="0"

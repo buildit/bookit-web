@@ -1,2 +1,2 @@
 export * from './actions'
-export * from './route-paths'
+export * from './router-location-paths'

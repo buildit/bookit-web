@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import WindowOpener from '../components/WindowOpener'
 
-import { authenticationRedirectUrl, signinRequestUrl } from '../api/azure'
+import Api from '../api'
 
 import { loginRequest } from '../actionCreators'
 
@@ -49,7 +49,7 @@ export class Login extends Component {
     if (!loginWindow || loginWindow.closed || loginWindow.closed === undefined) this.handleWindowUnloaded()
 
     try {
-      if (loginWindow.location.href.indexOf(authenticationRedirectUrl()) != -1) {
+      if (loginWindow.location.href.indexOf(Api.authenticationRedirectUrl()) != -1) {
         loginRequest(loginWindow.location.hash)
         this.handleWindowUnloaded()
       }
@@ -75,7 +75,7 @@ export class Login extends Component {
         )}
         { loginInProgress &&
           <WindowOpener
-            url={signinRequestUrl()}
+            url={Api.signinRequestUrl()}
             options={{ width: 483, height: 600 }}
             onLoaded={this.handleWindowLoaded}
             onUnloaded={this.handleWindowUnloaded}
