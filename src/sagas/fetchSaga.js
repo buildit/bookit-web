@@ -11,7 +11,7 @@ import { normalizeRooms, normalizeMeetings } from '../schema'
 // that something needs to happen, then things just fall apart due to
 // the fact that `put` is non-blocking, and in all our sagas we kinda
 // implicitly rely on sequenced uses of `call`, which always blocks
-import { authorize, validateToken } from './authSaga'
+import { getAuthorizationToken } from './authSaga'
 
 import Api from '../api'
 
@@ -32,24 +32,17 @@ export function* getRoomsIfNeeded() {
   }
 }
 
-export function* getAuthorization() {
-  let authzToken = yield select(selectors.getAuthorizationToken)
-
-  const isValidAuthorizationToken = yield call(validateToken, authzToken)
-
-  if (!isValidAuthorizationToken) {
-    yield call(authorize)
-    authzToken = yield select(selectors.getAuthorizationToken)
-  }
-
-  return authzToken
-}
-
+// TODO: If authz token is invalid, we know that attempts to refresh
+// it failed, or the authn token was also unable to be refreshed and
+// subsequently meant we could not obtain a refreshed authz token.
+// So basically, even though getMeetings _will_ succeed, it will
+// contain nothing in the response - so fuck it, we should just bomb
+// out somehow.
 export function* getMeetings(date) {
   try {
     yield call(getRoomsIfNeeded)
 
-    const token = yield call(getAuthorization)
+    const token = yield call(getAuthorizationToken)
     const json = yield call(Api.fetchMeetings, token, date)
     const normalized = yield call(normalizeMeetings, json)
 
@@ -59,12 +52,12 @@ export function* getMeetings(date) {
   }
 }
 
-export function* watchForFetches() {
+export function* awaitFetchMeetings() {
   while (true) {  // eslint-disable-line
     const { payload } = yield take(constants.FETCH_MEETINGS)
     yield call(getMeetings, payload)
   }
 }
 
-export default watchForFetches
+export default awaitFetchMeetings
 

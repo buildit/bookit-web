@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { connect } from 'react-redux'
+
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { Route, Switch } from 'react-router'
@@ -8,6 +10,10 @@ import { Route, Switch } from 'react-router'
 import Loader from './Loader'
 import Login from './Login'
 import Dashboard from './Dashboard'
+
+import Refresh from './Refresh'
+
+import { isAuthRefreshNeeded } from '../selectors'
 
 // Refresh component will be used to attempt silent refresh of user's
 // authentication token - for now we're not going to do it since the
@@ -23,27 +29,33 @@ const Button = ({ toggleLogin, disabled, children }) => (  // eslint-disable-lin
 )
 
 export const App = props => (
-  <TransitionGroup component="div" className="app-main">
-    <CSSTransition key={props.location.pathname} timeout={{ enter: 1000, exit: 200 }} classNames="fade" appear>
-      <Switch location={props.location}>
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/" render={() => (
-            <Loader>
-              <Route path="/" exact component={CirclesSpinner} />
-              <Route path="/login" render={() => (
-                <Login>
-                  <Button>SIGN IN WITH MICROSOFT</Button>
-                </Login>
-              )} />
-            </Loader>
-          )} />
-      </Switch>
-    </CSSTransition>
-  </TransitionGroup>
+  <div>
+    <TransitionGroup component="div" className="app-main">
+      <CSSTransition key={props.location.pathname} timeout={{ enter: 1000, exit: 200 }} classNames="fade" appear>
+        <Switch location={props.location}>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/" render={() => (
+              <Loader>
+                <Route path="/" exact component={CirclesSpinner} />
+                <Route path="/login" render={() => (
+                  <Login>
+                    <Button>SIGN IN WITH MICROSOFT</Button>
+                  </Login>
+                )} />
+              </Loader>
+            )} />
+        </Switch>
+      </CSSTransition>
+    </TransitionGroup>
+    { props.isAuthRefreshNeeded && <Refresh /> }
+  </div>
 )
 
 App.propTypes = {
   location: PropTypes.any,
+  isAuthRefreshNeeded: PropTypes.bool,
 }
 
-export default App
+export default connect(state => ({
+  isAuthRefreshNeeded: isAuthRefreshNeeded(state),
+}))(App)

@@ -4,7 +4,7 @@ import { createGetSelector } from 'reselect-immutable-helpers'
 import Moment from 'moment'
 
 import { getSelectedDateMoment } from './selectedDate'
-import { getRoomEntities, getRoomEntity } from './rooms'
+import { getRoomEntities, getRoomEmail } from './rooms'
 import { getParticipantEntities } from './participants'
 import { getUserEmail, isUserAdmin } from './user'
 
@@ -46,8 +46,8 @@ export const hasMeetingsForSelectedDate = createSelector(
 
 // Returns a List of meeting ids for the given room
 export const getMeetingsForRoom = createSelector(
-  [ getMeetingIds, getMeetingEntities, getRoomEntity ],
-  (meetingIds, meetings, room) => meetingIds.filter(id => meetings.getIn([id, 'room']) === room.get('email'))
+  [ getMeetingIds, getMeetingEntities, getRoomEmail ],
+  (meetingIds, meetings, roomEmail) => meetingIds.filter(id => meetings.getIn([id, 'room']) === roomEmail)
 )
 
 // Returns a list of meeting ids that the current user is the owner of

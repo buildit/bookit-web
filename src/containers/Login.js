@@ -3,11 +3,15 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
+import { createPropsSelector } from 'reselect-immutable-helpers'
+
 import WindowOpener from '../components/WindowOpener'
 
 import Api from '../api'
 
 import { loginRequest } from '../actionCreators'
+import { getUserEmail } from '../selectors'
+
 
 export class Login extends Component {
   constructor(props) {
@@ -29,6 +33,7 @@ export class Login extends Component {
 
   static propTypes = {
     children: PropTypes.node,
+    userEmail: PropTypes.string,
     loginRequest: PropTypes.func,
   }
 
@@ -75,7 +80,7 @@ export class Login extends Component {
         )}
         { loginInProgress &&
           <WindowOpener
-            url={Api.signinRequestUrl()}
+            url={Api.signinRequestUrl('login', this.props.userEmail)}
             options={{ width: 483, height: 600 }}
             onLoaded={this.handleWindowLoaded}
             onUnloaded={this.handleWindowUnloaded}
@@ -86,4 +91,8 @@ export class Login extends Component {
   }
 }
 
-export default connect(null, { loginRequest })(Login)
+const mapStateToProps = createPropsSelector({
+  userEmail: getUserEmail,
+})
+
+export default connect(mapStateToProps, { loginRequest })(Login)

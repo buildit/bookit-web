@@ -4,7 +4,10 @@ import { createReducer } from './reducer-utilities'
 
 import * as constants from '../constants'
 
-const setAuthFactory = authType => (state, action) => state.set(authType, action.payload)
+const setAuthFactory = authType => (state, action) => {
+  if (!action.payload) return state.delete(authType)
+  return state.set(authType, action.payload)
+}
 
 const clearAuth = state => state.clear()
 

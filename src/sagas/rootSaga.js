@@ -1,11 +1,11 @@
 import { fork } from 'redux-saga/effects'
 
-import authenticateAndAuthorize from './authSaga'
-import watchForFetches from './fetchSaga'
+import startAuthentication from './authSaga'
+import awaitFetchMeetings from './fetchSaga'
 
 export function* rootSaga() {
-  yield fork(authenticateAndAuthorize)
-  yield fork(watchForFetches)
+  yield fork(startAuthentication)
+  yield fork(awaitFetchMeetings)
 }
 
 export default rootSaga

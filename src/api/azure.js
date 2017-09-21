@@ -1,12 +1,26 @@
 import url from 'url'
 import { v4 as uuid } from 'uuid'
 
+import { getAuthentication } from './storage'
+import { decodeJWT } from '../utils/jwt-decode'
+
 let W = global.window
 if (!W) W = { location: { origin: 'http://localhost:3001' } }
 
 const currentHostname = () => W.location.origin
 
 export const authenticationRedirectUrl = () => `${currentHostname()}/openid-complete`
+
+// See: https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-implicit#0785200b459126a8b1cd955f49236273:0
+const CONSUMERS_TID_CLAIM = '9188040d-6c67-4c5b-b112-36a304b66dad'
+
+export const getDomainHint = (jwt) => {
+  const payload = decodeJWT(jwt)
+  if (payload && payload.tid && payload.tid === CONSUMERS_TID_CLAIM) {
+    return 'consumers'
+  }
+  return 'organizations'
+}
 
 // Required Parameters (Static)
 
@@ -59,6 +73,7 @@ export const signinRequestUrl = (prompt = 'login', login_hint, domain_hint) => {
 }
 
 export const refreshRequestUrl = (login_hint, domain_hint) => {
+  domain_hint = domain_hint || getDomainHint(getAuthentication())
   return signinRequestUrl('none', login_hint, domain_hint)
 }
 

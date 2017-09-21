@@ -1,6 +1,6 @@
 @import '../shared-styles/fonts';
 
-html, body, :global(#root), :global([data-reactroot]) {
+html, body, :global(#root), :global([data-reactroot]), :global(.app-main) {
   height: 100%;
   width: 100%;
 }

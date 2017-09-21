@@ -7,16 +7,15 @@ import * as selectors from '../selectors'
 
 import { normalizeRooms, normalizeMeetings } from '../schema'
 
-import { authorize, validateToken } from './authSaga'
+import { getAuthorizationToken } from './authSaga'
 
 import Api from '../api'
 
 import {
   getRooms,
   getRoomsIfNeeded,
-  getAuthorization,
   getMeetings,
-  watchForFetches,
+  awaitFetchMeetings,
 } from './fetchSaga'
 
 import * as jwtMock from '../../__mocks__/jwtMock'
@@ -65,24 +64,6 @@ describe('fetchSaga', () => {
     })
   })
 
-  describe('#getAuthorization()', () => {
-    it('returns an authz token from the redux store if it was still valid otherwise silently fetches a new authz token and returns that', () => {
-      const authzToken = jwtMock.makeValidToken()
-
-      const generator = cloneableGenerator(getAuthorization)()
-
-      expect(generator.next().value).toEqual(select(selectors.getAuthorizationToken))
-      expect(generator.next(authzToken).value).toEqual(call(validateToken, authzToken))
-
-      const generatorNotIsValidAuthorizationToken = generator.clone()
-
-      expect(generator.next(true).value).toEqual(authzToken)
-
-      expect(generatorNotIsValidAuthorizationToken.next(false).value).toEqual(call(authorize))
-      expect(generatorNotIsValidAuthorizationToken.next().value).toEqual(select(selectors.getAuthorizationToken))
-    })
-  })
-
   describe('#getMeetings(date)', () => {
     const date = '2017-09-14'
     const token = jwtMock.makeValidToken()
@@ -101,7 +82,7 @@ describe('fetchSaga', () => {
       const generator = getMeetings(date)
 
       expect(generator.next().value).toEqual(call(getRoomsIfNeeded))
-      expect(generator.next().value).toEqual(call(getAuthorization))
+      expect(generator.next().value).toEqual(call(getAuthorizationToken))
       expect(generator.next(token).value).toEqual(call(Api.fetchMeetings, token, date))
       expect(generator.next(json).value).toEqual(call(normalizeMeetings, json))
       expect(generator.next(normalized).value).toEqual(put(actions.receiveMeetings(normalized)))
@@ -121,11 +102,11 @@ describe('fetchSaga', () => {
     })
   })
 
-  describe('#watchForFetches()', () => {
+  describe('#awaitFetchMeetings()', () => {
     it('does a thing', () => {
       const payload = '2017-09-14'
 
-      const generator = watchForFetches()
+      const generator = awaitFetchMeetings()
 
       expect(generator.next().value).toEqual(take(constants.FETCH_MEETINGS))
       expect(generator.next({ payload }).value).toEqual(call(getMeetings, payload))

@@ -15,6 +15,16 @@ const selectedDate = createReducer(dateFactory(), {
   [constants.DECREMENT_DATE]: selectDateFactory(-1),
 })
 
+// TODO: Make this piece of state temporary - or roll it into the
+// "generic" app/ui state which will include things like
+// `requestStarted`, `requestPending`, `requestEnded`, `requestFailed`
+// etc.
+const needsAuthRefresh = createReducer(false, {
+  [constants.REFRESH_AUTH_REQUEST]: () => true,
+  [constants.REFRESH_AUTH_SUCCESS]: () => false,
+})
+
 export default {
   selectedDate,
+  needsAuthRefresh,
 }

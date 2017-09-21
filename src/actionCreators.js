@@ -6,6 +6,10 @@ export const setAuthentication = createAction(constants.SET_AUTHENTICATION)
 export const setAuthorization = createAction(constants.SET_AUTHORIZATION)
 export const clearAuth = createAction(constants.CLEAR_AUTH)
 
+export const refreshAuthRequest = createAction(constants.REFRESH_AUTH_REQUEST)
+export const refreshAuthSuccess = createAction(constants.REFRESH_AUTH_SUCCESS)
+export const refreshAuthFailure = createAction(constants.REFRESH_AUTH_FAILURE)
+
 export const setUser = createAction(constants.SET_USER)
 export const clearUser = createAction(constants.CLEAR_USER)
 
